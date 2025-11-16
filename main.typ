@@ -1,0 +1,6 @@
+#include "capitulos/introduccion/introduccion.typ"
+#include "capitulos/marco-teorico/marco-teorico.typ"
+#include "capitulos/metodologia/metodologia.typ"
+#include "capitulos/resultados/resultados.typ"
+#include "capitulos/conclusiones/conclusiones.typ"
+#include "bibliografia.typ"
