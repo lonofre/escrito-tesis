@@ -1,1 +1,1 @@
-= Biblografía
+#bibliography("bibliografia.bib")
