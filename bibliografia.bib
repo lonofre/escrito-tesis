@@ -88,3 +88,76 @@
   year      = {2013},
   doi       = {10.5281/zenodo.13950591}
 }
+
+// Trabajo de Ximena - BPE 2023
+@article{ximena-bpe-2023,
+  title     = "Languages Through the Looking Glass of {BPE} Compression",
+  author    = "Gutierrez-Vasques, Ximena  and
+              Bentz, Christian  and
+              Samard{\v{z}}i{\'c}, Tanja",
+  journal   = "Computational Linguistics",
+  volume    = "49",
+  number    = "4",
+  month     = dec,
+  year      = "2023",
+  address   = "Cambridge, MA",
+  publisher = "MIT Press",
+  url       = "https://aclanthology.org/2023.cl-4.5/",
+  doi       = "10.1162/coli_a_00489",
+  pages     = "943--1001",
+  abstract  = "Byte-pair encoding (BPE) is widely used in NLP for performing subword tokenization. It uncovers redundant patterns for compressing the data, and hence alleviates the sparsity problem in downstream applications. Subwords discovered during the first merge operations tend to have the most substantial impact on the compression of texts. However, the structural underpinnings of this effect have not been analyzed cross-linguistically. We conduct in-depth analyses across 47 typologically diverse languages and three parallel corpora, and thereby show that the types of recurrent patterns that have the strongest impact on compression are an indicator of morphological typology. For languages with richer inflectional morphology there is a preference for highly productive subwords on the early merges, while for languages with less inflectional morphology, idiosyncratic subwords are more prominent. Both types of patterns contribute to efficient compression. Counter to the common perception that BPE subwords are not linguistically relevant, we find patterns across languages that resemble those described in traditional typology. We thus propose a novel way to characterize languages according to their BPE subword properties, inspired by the notion of morphological productivity in linguistics. This allows us to have language vectors that encode typological knowledge induced from raw text. Our approach is easily applicable to a wider range of languages and texts, as it does not require annotated data or any external linguistic knowledge. We discuss its potential contributions to quantitative typology and multilingual NLP."
+}
+
+// Libro de NPL - 3rd Draft
+@Book{jm3,
+  author    = "Daniel Jurafsky and James H. Martin",
+  title     = "Speech and Language Processing: An Introduction to Natural Language Processing, 
+  		        Computational Linguistics, and Speech Recognition,
+		          with Language Models",
+  year      = "2025",
+  url       = {https://web.stanford.edu/~jurafsky/slp3/},
+  note      = "Online manuscript released August 24, 2025",
+  edition   = "3rd",
+}
+
+// Artículo de "Attention is all you need"
+@article{attention-is-all,
+  author       = {Ashish Vaswani and
+                  Noam Shazeer and
+                  Niki Parmar and
+                  Jakob Uszkoreit and
+                  Llion Jones and
+                  Aidan N. Gomez and
+                  Lukasz Kaiser and
+                  Illia Polosukhin},
+  title        = {Attention Is All You Need},
+  journal      = {CoRR},
+  volume       = {abs/1706.03762},
+  year         = {2017},
+  url          = {http://arxiv.org/abs/1706.03762},
+  eprinttype    = {arXiv},
+  eprint       = {1706.03762},
+  timestamp    = {Sat, 23 Jan 2021 01:20:40 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/VaswaniSPUJGKP17.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{what-is-typological,
+  title        = "What is ``Typological Diversity'' in {NLP}?",
+  author       = "Ploeger, Esther  and
+                  Poelman, Wessel  and
+                  de Lhoneux, Miryam  and
+                  Bjerva, Johannes",
+  editor       = "Al-Onaizan, Yaser  and
+                  Bansal, Mohit  and
+                  Chen, Yun-Nung",
+  booktitle    = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
+  month        = nov,
+  year         = "2024",
+  address      = "Miami, Florida, USA",
+  publisher    = "Association for Computational Linguistics",
+  url          = "https://aclanthology.org/2024.emnlp-main.326/",
+  doi          = "10.18653/v1/2024.emnlp-main.326",
+  pages        = "5681--5700",
+  abstract     = "The NLP research community has devoted increased attention to languages beyond English, resulting in considerable improvements for multilingual NLP. However, these improvements only apply to a small subset of the world{'}s languages. An increasing number of papers aspires to enhance generalizable multilingual performance across languages. To this end, linguistic typology is commonly used to motivate language selection, on the basis that a broad typological sample ought to imply generalization across a broad range of languages. These selections are often described as being typologically diverse. In this meta-analysis, we systematically investigate NLP research that includes claims regarding typological diversity. We find there are no set definitions or criteria for such claims. We introduce metrics to approximate the diversity of resulting language samples along several axes and find that the results vary considerably across papers. Crucially, we show that skewed language selection can lead to overestimated multilingual performance. We recommend future work to include an operationalization of typological diversity that empirically justifies the diversity of language samples. To help facilitate this, we release the code for our diversity measures."
+}
