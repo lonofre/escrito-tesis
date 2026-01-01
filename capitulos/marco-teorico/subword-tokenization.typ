@@ -61,16 +61,4 @@ El resultado sería el siguiente:
 
 Cuando tenemos un modelo de BPE entrenado, podemos observar subpalabras que son frecuentes en las palabras, como "ción" en terminación, disminución, adjunción; y subpalabras que no son frecuentes en las palabras pero si por sí solas, como "un", "los", entre otros.
 
-// El experimento de BPE, citas el artículo de 2023 de Ximena
-Esto anterior fue observado por Ximena y compañía. Ellos definieron definieron medidas en base a los resultados obtenidos por un modelo entrenado de BPE, con el objetivo de comprar si de alguna manera, las subpalabras codifican información lingüística relevantes para los modelos de lenguaje. Estas medidas son la _productividad_ de una subpalabra, la _idiosincrasia_ y la _frecuencia acumulada_.
-
-La productividad de una subpalabra $s$ es el número de palabras ortográficas que contienen a una subpalabra: // TODO Checar aquí la cita que tienen en el paper, página 18, cita 22
-$ "productividad"(s) = |W_s| $
-
-La frecuencia acumulativa de una subpalabra $s$ es la suma de las frecuencias de las palabras ortográficas que contienen a la subpalabra.
-$ "c.freq(s)"(s) = sum_(w in W_s) "freq"(w) $
-
-Mientras que la idiosincrasia, se define así:
-$ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
-
 === Métodos estadísticos de tokenización
