@@ -1,40 +1,33 @@
 == Tokenización a nivel subpalabra
 
-// Agregar fuentes de los modelos de lenguaje (Libro de NLP)
-La tokenización es la primera fase en el procesamiento del lenguaje natural. Consiste en segmentar el texto sobre el cual estamos trabajando en _tokens_. Los tokens, que pueden ser tanto palabras, morfemas, caracteres, entre otros, cuya elección puede afectar el rendimiento de nuestro programa de PLN.
+Los algoritmos de PLN no operan directamente sobre texto en su forma original. La tokenización constituye este primer paso fundamental: la segmentación del texto en unidades discretas denominadas tokens. Estos tokens pueden corresponder a palabras, subpalabras, morfemas, caracteres o cualquier otra unidad según el enfoque adoptado.
 
-La tokenización nos ayuda a crear un conjunto discreto en el que diversos algoritmos puedan basarse, permitiendo reproducibilidad. También nos ayuda con lidiar con palabras desconocidas.
+Considérese el siguiente fragmento de texto:
 
-Es tal su ayuda en Podemos encontrarlo en modelos de n-gramas, Tf-idf, HMMs, bayes naive, LLMs, etc.
-
-Del siguiente texto:
 #align(center)[En un lugar muy muy lejano]
 
-Podemos obtener los tokens [En,un,lugar, muy,muy,lejano] si tomamos los tokens como palabras, mientras si usamos caracteres sería [E,n,u,n,l,u,g,a,r,m,u,y,m,u,y,m,u,y,l,e,j,a,n,o].
+La tokenización resultante, en caso de elegir palabras como tokens, es:
 
-Sin embargo, como anteriormente mencionado, la elección de los tokens va a ayudar en el desempeño de nuestro programa de PLN. A su vez, la tarea de PLN que estemos haciendo influye en la decisión de los tokens a usar.
+#align(center)[`[En, un, lugar, muy, muy, lejano]`]
 
-// Citar otra vez al libro de NLP
-Usar palabras como tokens tienen sus problemas. En primer lugar, muchas lenguas no tienen palabras ortográficas. Segundo, el número de palabras crece constantemente, por la evolución de las lenguas a lo largo del tiempo.
+Mientras que al usar caracteres, sin contar al espacio como uno, es:
 
-// Citar otra vez al libro de NLP
-Usar morfemas también tienen sus desafíos. Son difíciles de definir y muchas lenguas tienen morfemas complejos que son difíciles de segmentar para usarlo en nuestras aplicaciones de PLN. Mientras los caracteres son muy pequeños para usar.
+#align(center)[`[E, n, u, n, l, u, g, a, r, m, u, y, m, u, y, l, e, j, a, n, o]`]
 
-Debido a esto, han surgido diferentes métodos para tokenizar texto.
+Esta representación discreta del texto garantiza la reproducibilidad @jm3 en los algoritmos de NPL. Asimismo, la tokenización puede abordar el problema de palabras desconocidas o neologismos, aunque esta capacidad depende fundamentalmente de cómo se defina el vocabulario de tokens subyacente.
 
+La tokenización por palabras tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que complica tokenizar cuando se asume que cada palabra está separada por espacios. Por otro, no hay forma de procesar términos desconocidos, como los neologismos, sin expandir constantemente el vocabulario, que crece de manera exponencial. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y desconocidas, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar palabras.
+
+Para lidiar con palabras desconocidas, otro enfoque para el conjunto de tokens es usar subpalabras. Las subpalabras son unidades que pueden ser más pequeñas que una palabra. Pueden ser la misma palabra, una cadena arbitraria o incluso morfemas. 
+
+La ventaja es evidente cuando un modelo de lenguaje trata con palabras raras. Si un modelo trata de aprender el significado de una palabra rara, va encontrar pocas instancias de esta. Mientras usando unidades más pequeñas como las subpalabras, los modelos pueden obtener mejores resultados @sennrich-etal-2016-neural para palabras raras y desconocidas.
 
 === Codificación de Pares de Bytes
 
-// Citar aquí A New Algorithm for Data Compression
-La Codificación de Pares de Bytes (Byte-Pair Encoding, BPE) es un algoritmo de compresión de datos. Uno de los usos de este algoritmo es el de generar subpalabras a partir de una cadena de texto, para que los modelos de lenguaje puedan procesarlos.
-// Quizá mencionar GPT aquí?
-// También mencionar que es un token
-
-//Citar al libro de NLP
-Las subpalabras son unidades más pequeñas que una palabra. Pueden ser cadenas arbitrarias o incluso morfemas.
+La codificación de pares de bytes (Byte-Pair Encoding, BPE) @Gage1994ANA fue uno de los primeros algoritmos en demostrar que las subpalabras funcionan mejor que las palabras completas @sennrich-etal-2016-neural en modelos de lenguaje. Originalmente BPE fue ideado como un algoritmo de compresión de datos. Pero posteriormente se le dió el uso para generar subpalabras a partir de una cadena de texto.
 
 // Basado en el algoritmo original, pero sería buena idea encontrar algo similar
-El algoritmo BPE identifica y remplaza iterativamente los pares de caracteres más frecuentes por un nuevo símbolo, generando así unidades denominadas subpalabras:
+El algoritmo BPE identifica y remplaza iterativamente los pares de caracteres más frecuentes por un nuevo símbolo, generando así subpalabras. La descripción del algoritmo es la siguiente:
 
 1. Se obtienen los pares de símbolos $[a_i, j_i]$ y sus frecuencias $f([a_i, b_j])$
 2. Se obtiene:
