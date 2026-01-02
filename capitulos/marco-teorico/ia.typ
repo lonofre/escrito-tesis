@@ -1,36 +1,16 @@
 == IA y procesamiento de lenguaje natural
 
-=== Inteligencia artificial
-// Definición placeholder (usar una de un libro)
-// Citar sus orígenes
-La inteligencia artificial (IA), cuyo origen se remonta en los años 50s, es un área de las ciencias de la computación dedicada al diseño y desarrollo de sistemas computacionales capaces de realizar tareas que tradicionalmente requieren inteligencia humana, como el razonamiento, el aprendizaje, la percepción, la toma de decisiones y la comprensión del lenguaje natural.
+La inteligencia artificial (IA), originada en los años 50, busca crear sistemas computacionales capaces de realizar tareas que requieren inteligencia humana: razonamiento, aprendizaje, percepción, decisión y procesamiento del lenguaje natural (PLN).
 
-=== Procesamiento del lenguaje natural
+El PLN es el área que estudia cómo las computadoras procesan lenguaje humano. Es parte de la computación y está fuertemente ligada a la IA. Entre sus aplicaciones están el reconocimiento de voz, la traducción automática y la generación de texto. Lo usamos en el autocorrector, en filtros de spam y en asistentes de voz. Las aplicaciones más modernas incluyen chatbots que crean texto, imágenes y videos a partir de mensajes en lenguaje natural.
 
-// También agarrar la definición de un libro
-El procesamiento natural se define como el procesamiento de la información del lenguaje natural por una computadora, por lo que también es un área de las ciencias de la computación. Surgió también en los 50s y es un área muy próxima a la inteligencia artificial.
+El PLN ha adoptado distintos enfoques para abordar los problemas del lenguaje humano. Estos enfoques reflejan cambios en la forma de modelar el lenguaje y en la disponibilidad de datos y recursos computacionales. Los principales son los siguientes:
 
-=== Relación 
+- Enfoque simbólico: Se basa en reglas explícitas y representaciones formales del lenguaje, como gramáticas y sistemas lógicos. Requiere conocimiento lingüístico previo y ofrece interpretabilidad, pero maneja mal la ambigüedad y la variación del lenguaje natural.
 
-// Quizá valdría la pena explicar cómo lo hacían
-Podemos ver su relación temprana en sistemas como en el experimento Georgetown-IBM en 1954, cuyo objetivo era traducir frases del ruso al inglés. Otro sistema es ELIZA, creado en 1966,cuyo objetivo era simular una conversación básica.
+- Enfoque estadístico: Utiliza modelos probabilísticos entrenados a partir de corpus de texto. Aprende patrones del lenguaje mediante el análisis de frecuencias y probabilidades. Es más flexible que el enfoque simbólico, aunque depende fuertemente de la calidad y cantidad de los datos.
 
- 
-=== Modelos de lenguaje
-// Escribir todas las definiciones posibles que ayuden a la tesis
+- Enfoque basado en redes neuronales: Emplea modelos neuronales para aprender representaciones distribuidas del lenguaje. Permite capturar relaciones semánticas y contextuales complejas. Su principal limitación es el alto costo computacional y la necesidad de grandes volúmenes de datos.
 
-
-
-// Citar los orígenes
-La IA tiene sus orígenes en el verano de 1956
-
-La inteligencia artificial (IA) es un campo de las ciencias de la computación. Surgió en tal fecha, cuando hicieron ... // Agregar contexto
-
-En el año ..., los autores X plantearon una solución para un problema de lenguaje natural....
-Así fue cómo surgió el procesamiento del lenguaje natural
-
-// Podemos ver cómo evolucionaban cada campo
-// Qué enfoques usaban: Estadísticos, otros, etc.
-// Quizá mostrar el punto en qué surgió el aprendizaje profundo
-
-Mientras la IA en general se estancó, el procesamiento del lenguaje natural surgió progresando con los modelos ... // Me acuerdo de google translate y otros, pero este es el principal. DeepLN podría ser otro pero eso ya sería hablar de lo nuevo (?)
+// Quizá podemos introducir esto? https://aclanthology.org/J96-1002.pdf
+Desde finales de los años 80s  y durante los 90s, comenzó este cambio de un enfoque simbólico a un cambio estadístico. Esto lo podemos observar en enfoques estadísticos en la traducción @brown-etal-1990-statistical en remplazo de miles de gramaticales.
