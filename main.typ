@@ -8,8 +8,9 @@
     // Configuración general para el contenido
     // de la tesis
     set page(
-        numbering: "1"
+        numbering: "1",
     )
+    set text(size: 12pt)
     set heading(numbering: "1.1")
     {
         show heading.where(level: 1) : it => block[
