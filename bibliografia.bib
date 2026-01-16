@@ -89,6 +89,26 @@
   doi       = {10.5281/zenodo.13950591}
 }
 
+@inproceedings{ximena-bpe-2021,
+  title = "From characters to words: the turning point of {BPE} merges",
+  author = "Gutierrez-Vasques, Ximena  and
+    Bentz, Christian  and
+    Sozinova, Olga  and
+    Samardzic, Tanja",
+  editor = "Merlo, Paola  and
+    Tiedemann, Jorg  and
+    Tsarfaty, Reut",
+  booktitle = "Proceedings of the 16th Conference of the European Chapter of the Association for Computational Linguistics: Main Volume",
+  month = apr,
+  year = "2021",
+  address = "Online",
+  publisher = "Association for Computational Linguistics",
+  url = "https://aclanthology.org/2021.eacl-main.302/",
+  doi = "10.18653/v1/2021.eacl-main.302",
+  pages = "3454--3468",
+  abstract = "The distributions of orthographic word types are very different across languages due to typological characteristics, different writing traditions and potentially other factors. The wide range of cross-linguistic diversity is still a major challenge for NLP and the study of language. We use BPE and information-theoretic measures to investigate if distributions become similar under specific levels of subword tokenization. We perform a cross-linguistic comparison, following incremental merges of BPE (we go from characters to words) for 47 diverse languages. We show that text entropy values (a feature of probability distributions) tend to converge at specific subword levels: relatively few BPE merges (around 350) lead to the most similar distributions across languages. Additionally, we analyze the interaction between subword and word-level distributions and show that our findings can be interpreted in light of the ongoing discussion regarding different types of morphological complexity."
+}
+
 // Trabajo de Ximena - BPE 2023
 @article{ximena-bpe-2023,
   title     = "Languages Through the Looking Glass of {BPE} Compression",
@@ -305,4 +325,56 @@
       archivePrefix={arXiv},
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2303.18223}, 
+}
+
+// Bengio
+@article{bengio2003,
+  author = {Bengio, Yoshua and Ducharme, R\'{e}jean and Vincent, Pascal and Janvin, Christian},
+  title = {A neural probabilistic language model},
+  year = {2003},
+  issue_date = {3/1/2003},
+  publisher = {JMLR.org},
+  volume = {3},
+  number = {null},
+  issn = {1532-4435},
+  abstract = {A goal of statistical language modeling is to learn the joint probability function of sequences of words in a language. This is intrinsically difficult because of the curse of dimensionality: a word sequence on which the model will be tested is likely to be different from all the word sequences seen during training. Traditional but very successful approaches based on n-grams obtain generalization by concatenating very short overlapping sequences seen in the training set. We propose to fight the curse of dimensionality by learning a distributed representation for words which allows each training sentence to inform the model about an exponential number of semantically neighboring sentences. The model learns simultaneously (1) a distributed representation for each word along with (2) the probability function for word sequences, expressed in terms of these representations. Generalization is obtained because a sequence of words that has never been seen before gets high probability if it is made of words that are similar (in the sense of having a nearby representation) to words forming an already seen sentence. Training such large models (with millions of parameters) within a reasonable time is itself a significant challenge. We report on experiments using neural networks for the probability function, showing on two text corpora that the proposed approach significantly improves on state-of-the-art n-gram models, and that the proposed approach allows to take advantage of longer contexts.},
+  journal = {J. Mach. Learn. Res.},
+  month = mar,
+  pages = {1137–1155},
+  numpages = {19}
+}
+
+// Word2Vec
+@misc{mikolov2013efficientestimationwordrepresentations,
+  title={Efficient Estimation of Word Representations in Vector Space}, 
+  author={Tomas Mikolov and Kai Chen and Greg Corrado and Jeffrey Dean},
+  year={2013},
+  eprint={1301.3781},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/1301.3781}, 
+}
+
+// Corpus de la biblia
+@inproceedings{mayer-cysouw-2014-creating,
+  title = "Creating a massively parallel {B}ible corpus",
+  author = "Mayer, Thomas  and
+    Cysouw, Michael",
+  editor = "Calzolari, Nicoletta  and
+    Choukri, Khalid  and
+    Declerck, Thierry  and
+    Loftsson, Hrafn  and
+    Maegaard, Bente  and
+    Mariani, Joseph  and
+    Moreno, Asuncion  and
+    Odijk, Jan  and
+    Piperidis, Stelios",
+  booktitle = "Proceedings of the Ninth International Conference on Language Resources and Evaluation ({LREC}'14)",
+  month = may,
+  year = "2014",
+  address = "Reykjavik, Iceland",
+  publisher = "European Language Resources Association (ELRA)",
+  url = "https://aclanthology.org/L14-1215/",
+  pages = "3158--3163",
+  abstract = "We present our ongoing effort to create a massively parallel Bible corpus. While an ever-increasing number of Bible translations is available in electronic form on the internet, there is no large-scale parallel Bible corpus that allows language researchers to easily get access to the texts and their parallel structure for a large variety of different languages. We report on the current status of the corpus, with over 900 translations in more than 830 language varieties. All translations are tokenized (e.g., separating punctuation marks) and Unicode normalized. Mainly due to copyright restrictions only portions of the texts are made publicly available. However, we provide co-occurrence information for each translation in a (sparse) matrix format. All word forms in the translation are given together with their frequency and the verses in which they occur."
 }
