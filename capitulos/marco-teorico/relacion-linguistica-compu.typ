@@ -1,27 +1,36 @@
 == La liga entre la lingüística y los métodos computacionales actuales
 
-// Citar al libro de NPL?
-En la actualidad, la inteligencia artificial tiene su enfoque en los grandes modelos de lenguaje (Large Language Models, LLMs). Estos modelos son redes neuronales que toman como entrada un contexto y su salida es una distribución de las posibles siguientes palabras. Eventualmente, se puede modificar estos modelos para ser autoregresivos, que es el fundamento para la inteligencia artificial generativa.
-
-Las arquitecturas más comunes para los LLMs son el _codificador_, _decodificador_ y _codificador-decodificador_.
-
-// Citar al libro de NPL. Posiblemente expandir un poco y entender bien cómo funciona esta parte. Por lo mientras, voy poniendo la idea general.
-La arquitectura de decodificador recibe una serie de tokens e iterativamente genera un token a la vez. Esto podemos observalo en modelos como GPT, Llama, Gemini, etc.
-
-Mientras que la arquitectura de codificador, toma tokens como entrada y produce una representación vectorial de cada token como salida.
-
 // Será buena idea hablar del transformer, que es un encoder-decoder?
 
-Notemos que lo común entre estas arquitecturas es el uso de tokens como entrada, y en algunos casos como salida. También observemos que los algoritmos de tokenización no participan en alguna de estas arquitecturas, pues se da por hecho los tokens que se reciben en los modelos.
+Como se observó en @llms, un rasgo compartido por las arquitecturas de los LLMs es que operan sobre tokens como unidades de entrada y, en ciertos casos, de salida. Cabe destacar que los procesos de tokenización no están integrados en dichas arquitecturas, puesto que se presupone que los tokens han sido previamente generados antes de ser suministrados al modelo.
+
+// Citar
+Se ha evidenciado que el algoritmo utilizado para generar estos tokens tiene influencia en el rendimiento de un LLM sobre tareas de NLP. Sin embargo, existe un debate sobre si parte de esta influencia es debido a información lingüística codificada en estos tokens. Algunas investigaciones sugieren que algoritmos como BPE no codifican información lingüística. 
+
+// Aquí empezar a citar más cosas
+Sin embargo, hay trabajos como... que sugieren que esto si es real
 
 // El experimento de BPE, citas el artículo de 2023 de Ximena
-Esto anterior fue observado por Ximena y compañía. Ellos definieron definieron medidas en base a los resultados obtenidos por un modelo entrenado de BPE, con el objetivo de comprar si de alguna manera, las subpalabras codifican información lingüística relevantes para los modelos de lenguaje. Estas medidas son la _productividad_ de una subpalabra, la _idiosincrasia_ y la _frecuencia acumulada_.
+Esto anterior fue observado por #cite(<ximena-bpe-2023>, form: "prose"). Ellos definieron definieron medidas en base a  un modelo entrenado de BPE, con el objetivo de ver si de alguna manera, las subpalabras codifican información lingüística relevantes para los modelos de lenguaje. Estas medidas son la _productividad_ de una subpalabra, la _idiosincrasia_ y la _frecuencia acumulada_. Tales medidas son calculadas a partir de las subpalabras que generó un modelo BPE, así como del corpus usado para obtener este modelo.
 
-La productividad de una subpalabra $s$ es el número de palabras ortográficas que contienen a una subpalabra: // TODO Checar aquí la cita que tienen en el paper, página 18, cita 22
+// Quizá cambiar las fórmulas   
+La productividad, que está basada en la productividad lingüística. En sí la productividad lingüística se refiere a cuán activamente se usa una regla gramatical para crear nuevas palabras o estructuras. Por ejemplo:
+
+- El sufijo "-ble" en español es muy productivo: puedes crear palabras como "comible", "bebible", "hackeable", "googlear" → "googleable"
+- El sufijo "-idad" también es productivo: "amable" → "amabilidad", "nacional" → "nacionalidad"
+
+Definimos la productividad de una subpalabra $s$ es el número de palabras ortográficas que contienen a dicha subpalabra $s$ en el corpus $W$ : // TODO Checar aquí la cita que tienen en el paper, página 18, cita 22
 $ "productividad"(s) = |W_s| $
 
 La frecuencia acumulativa de una subpalabra $s$ es la suma de las frecuencias de las palabras ortográficas que contienen a la subpalabra.
 $ "c.freq(s)"(s) = sum_(w in W_s) "freq"(w) $
 
-Mientras que la idiosincrasia, se define así:
+Mientras que la idiosincrasia, que está basada en la idiosincrasia lingüística. Esta se refiere a e refiere a las características particulares, irregulares o impredecibles de una lengua que no siguen patrones sistemáticos y deben aprenderse de manera individual. Por ejemplo:
+
+- Plurales irregulares: "pie" → "pies" (regular), pero "menú" → "menús/menúes" (variación idiosincrásica)
+- Verbos irregulares: "ir" (voy, fui, iré) no sigue el patrón regular
+
+La medida de idiosincrasia se define así:
 $ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
+
+Estas medidas ayudaron a crear una representación vectorial para cada idioma.

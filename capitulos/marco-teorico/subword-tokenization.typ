@@ -27,7 +27,7 @@ La ventaja de las subpalabras se vuelve evidente cuando un modelo se enfrenta a 
 La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA fue uno de los primeros algoritmos en demostrar que las subpalabras funcionan mejor que palabras completas @sennrich-etal-2016-neural en modelos de lenguaje. Originalmente BPE fue ideado como un algoritmo de compresión de datos. Pero posteriormente se le dió el uso para generar subpalabras a partir de una cadena de texto.
 
 // Basado en el algoritmo original, pero sería buena idea encontrar algo similar
-El algoritmo BPE identifica y remplaza iterativamente los pares de caracteres más frecuentes por un nuevo símbolo, generando así subpalabras. La descripción del algoritmo para obtener las subpalabras es la siguiente:
+El algoritmo BPE identifica y remplaza iterativamente los pares de caracteres más frecuentes por un nuevo símbolo, generando así subpalabras. Por su naturaleza, BPE es un algoritmo voraz. La descripción del algoritmo para obtener las subpalabras es la siguiente:
 
 1. Se obtienen los pares de símbolos $[a_i, j_i]$ y sus frecuencias $f([a_i, b_j])$
 2. Se obtiene:
@@ -60,3 +60,13 @@ El resultado sería el siguiente:
 Cuando tenemos un modelo de BPE entrenado, podemos observar subpalabras que son frecuentes en las palabras, como "ción" en terminación, disminución, adjunción; y subpalabras que no son frecuentes en las palabras pero si por sí solas, como "un", "los", entre otros.
 
 === Métodos estadísticos de tokenización
+
+// Obtenido de chatGPT, hay que hacer una investigación sobre esto
+// sobretodo porque no hay muchas fuentes que mencionen cómo funciona wordpiece
+// https://aclanthology.org/2021.emnlp-main.160.pdf?utm_source=chatgpt.com
+// También el paper de BERT
+WordPiece es un algoritmo de tokenización por subpalabras utilizado en muchos modelos de lenguaje basados en transformadores, especialmente en BERT (Bidirectional Encoder Representations from Transformers). En lugar de tratar cada palabra como un solo token, WordPiece segmenta el texto en unidades más pequeñas llamadas subpalabras, extraídas de un vocabulario fijo aprendido a partir de datos. Esto permite representar palabras raras o no vistas previamente como combinaciones de subpalabras, reduciendo el problema de palabras fuera de vocabulario y manteniendo un tamaño de vocabulario manejable. WordPiece utiliza una estrategia voraz de "coincidencia más larga primero" (greedy longest-match) para dividir las palabras en los tokens de subpalabra más largos del vocabulario que coinciden con el texto de entrada.
+
+En el modelo BERT original, la tokenización con WordPiece produce un vocabulario de aproximadamente 30 000 subpalabras, y los tokens que no están en el vocabulario se dividen en piezas más pequeñas o se asignan a un token especial [UNK].
+
+Para entrenar su vocabulario, WordPiece comienza con caracteres individuales y construye iterativamente unidades más grandes basándose en criterios estadísticos para maximizar la verosimilitud en el corpus de entrenamiento. Una vez que el vocabulario está fijado, el tokenizador procesa nuevo texto dividiendo las palabras en estas subpalabras aprendidas.

@@ -10,6 +10,11 @@
     set page(
         numbering: "1",
     )
+    
+    set par(
+        justify: true
+    )
+
     set text(size: 12pt)
     set heading(numbering: "1.1")
     {

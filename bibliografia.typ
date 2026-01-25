@@ -1,1 +1,1 @@
-#bibliography("bibliografia.bib")
+#bibliography("bibliografia.bib", style: "apa")
