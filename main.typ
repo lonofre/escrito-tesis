@@ -29,6 +29,6 @@
         include "capitulos/conclusiones/conclusiones.typ"
     }
     include "bibliografia.typ"       
-
+    include "apendice/apendice.typ"
 
 }
