@@ -1,7 +1,5 @@
 == Conjunto de lenguas utilizadas
 
-#set text(size: 11pt)
-
 #let language_table(contents) = {
 
   let language_data = ()
@@ -12,15 +10,21 @@
 
   table(
     columns: 3,
+    stroke: 0pt,
+    row-gutter: 0pt,
     table.header(
-      [*Lengua (Código ISO)*], [*ID en Grambank*], [*ID en WALS*]
+      [*Lengua (Código ISO)*], [*Grambank ID*], [* WALS ID*],
+      table.hline(stroke: 1pt + black)
     ),
     ..language_data
   )
 }
 
-#language_table(
-  yaml("languages-complete.yaml")
-)
+#align(left)[
+ #language_table(
+    yaml("languages-complete.yaml")
+  ) 
+]
+
 
 

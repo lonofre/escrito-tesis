@@ -64,8 +64,8 @@ Debido a su carácter estadístico, las nociones lingüísticas de estos SML res
       )[#it.body]
     ]
     $ dots $
-    $ P("azul" | "el cielo es") = 0.3 $
-    #highlight[$ P("oscuro" | "el cielo es") = 0.15 $]
+    $ P("oscuro" | "el cielo es") = 0.3 $
+    #highlight(fill: rgb("#b7ffab"))[$ P("azul" | "el cielo es") = 0.15 $]
     $ P("rojo" | "el cielo es") = 0.05 $
     $ dots $
   ],

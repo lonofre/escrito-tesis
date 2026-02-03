@@ -14,8 +14,8 @@ Nuestro enfoque con WALS fue usar las mismas características que #cite(<ximena-
 #figure(
   placement: auto,
     table(
-    columns: (auto, 1fr),
-    align: (col, row) => (if col == 0 { center } else { left }),
+    columns: (auto, auto),
+    align: left,
     stroke: none,
     table.header(
       [*Rasgo*], [*Nombre*],
@@ -37,9 +37,8 @@ Nuestro enfoque con WALS fue usar las mismas características que #cite(<ximena-
     [102A], [Marcación de persona verbal],
     [112A], [Morfemas negativos],
     
-    table.hline(stroke: 1pt + black)
   ),
-  caption: [Tabla de rasgos usados por para describir tipología morfológica @ximena-bpe-2023]
+  caption: [Tabla de rasgos de WALS usados por para describir tipología morfológica @ximena-bpe-2023]
 )<wals-features>
 
 Cada rasgo puede tomar diferentes rangos de valores, por lo que dos rasgos no necesariamente tengan el mismo rango ni tampoco tienen el mismo significado. Por ejemplo, el rasgo 20A puede tomar 7 valores, 28A puede tomar hasta 4 y 49A hasta 9 valores diferentes.
@@ -120,15 +119,22 @@ Las tablas relevantes que usamos fueron las que siguen CLDF:
 // TODO: Hacer un diagrama para ver cómo se relacionan las lenguas
 Estas tablas  están relacionadas entre sí, siendo `ValueTable` la que está relacionada con `LanguageTable` y `ParameterTable`. A continuación, un fragmento de la tabla `ValueTable` en Grambank:
 
-#table(
-  stroke: none,
-  columns: (auto, auto, auto, auto),
-  table.header([*cldf_id*], [*cldf_languageReference*], [*cldf_parameterReference*], [*cldf_value*]),
-  [GB025-abad1241], [abad1241], [GB025], [1],
-  [GB026-abad1241], [abad1241], [GB026], [0],
-  [GB027-abad1241], [abad1241], [GB027], [0], 
-  [GB028-abad1241], [abad1241], [GB028], [1],
-  [GB030-abad1241], [abad1241], [GB030], [0],
+#figure(
+  table(
+    stroke: none,
+    align: left, 
+    columns: (auto, auto, auto),
+    table.header(
+      [*cldf_languageReference*], [*cldf_parameterReference*], [*cldf_value*],
+      table.hline(stroke: 1pt + black)
+    ),
+    [abad1241], [GB025], [1],
+    [abad1241], [GB026], [0],
+    [abad1241], [GB027], [0], 
+    [abad1241], [GB028], [1],
+    [abad1241], [GB030], [0],
+  ),
+  caption: [Fragmento de `ValueTable`]
 )
 
 El procesamiento de `ValueTable` nos dio las representaciones vectoriales de las lenguas. Cada lengua se convierte en un vector usando los valores de sus características. Por ejemplo, el inglés con las características GB020, GB021, GB022 y GB023 de Grambank produce el vector $v = (1, 1, 1, 0)$.

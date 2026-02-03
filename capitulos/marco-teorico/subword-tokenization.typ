@@ -56,11 +56,11 @@ El resultado sería el siguiente, usando el tokenizador que usa GPT-5.x:
 #align(center, box[
   #set align(left)
 
-  #highlight(fill: rgb("#9a8ce7"))[Las]
-  #highlight(fill: rgb("#8bd4b2"))[ super]#highlight(fill: rgb("#4aa3c7"))[nov]#highlight(fill: rgb("#9a8ce7"))[as ]
+  #highlight(fill: rgb("#cdc4ff"))[Las]
+  #highlight(fill: rgb("#8bd4b2"))[ super]#highlight(fill: rgb("#4aa3c7"))[nov]#highlight(fill: rgb("#cdc4ff"))[as ]
   #highlight(fill: rgb("#4aa3c7"))[ est]#highlight(fill: rgb("#8bd4b2"))[allan ]
   #highlight(fill: rgb("#4aa3c7"))[ en ]
-  #highlight(fill: rgb("#c9a24d"))[ galax]#highlight(fill: rgb("#9a8ce7"))[ias ]
+  #highlight(fill: rgb("#c9a24d"))[ galax]#highlight(fill: rgb("#cdc4ff"))[ias ]
   #highlight(fill: rgb("#c9a24d"))[ lej]#highlight(fill: rgb("#8bd4b2"))[anas]#highlight(fill: rgb("#c9a24d"))[. ]
 ])
 

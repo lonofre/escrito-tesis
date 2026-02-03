@@ -9,10 +9,11 @@
     // de la tesis
     set page(
         numbering: "1",
+        margin: 1in,
     )
     
     set par(
-        justify: true
+        justify: true,
     )
 
     set text(size: 12pt)
