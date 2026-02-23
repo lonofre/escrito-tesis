@@ -1,8 +1,15 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 
+// Lo cambiaría a generación del espacio de BPE????
 == Datos/Corpus de entrenamiento multilingües
 
-El método que usamos para obtener los vectores de BPE que codifican la productividad, idiosincrasia y frecuencia acumulada se basó en su mayoría en la metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"). Sin embargo, fue necesario realizar modificaciones debido al uso de versiones distintas de bibliotecas y a un sistema operativo diferente al del experimento original. El código para generar los vectores lo encontramos disponible públicamente en GitHub. Además, utilizamos el Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC), el cual contiene textos en aproximadamente 100 lenguas diferentes @mayer-cysouw-2014-creating.
+// Como nota a futuro: Con Ximena, estamos viendo si el StandardScaler que le hacemos al espacio a BPE hace algun efecto en los resultados de los algoritmos. Entonces, como esta sección es para generar el espacio de BPE, debemos incluir eso también si se logra a aplicar.
+
+// TODO: Aquí queremos transmitir cómo se generó el espacio de BPE. Comunica eso de acorde
+
+Para obtener los vectores del espacio de BPE que codifican la productividad, idiosincrasia y frecuencia acumulada, nos basamos en metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"). Entrenamos modelos de BPE .
+
+Sin embargo, fue necesario realizar modificaciones debido al uso de versiones distintas de bibliotecas y a un sistema operativo diferente al del experimento original. El código para generar los vectores lo encontramos disponible públicamente en GitHub. Además, utilizamos el Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC), el cual contiene textos en aproximadamente 100 lenguas diferentes @mayer-cysouw-2014-creating.
 
 Este proceso tomó el PBC y creó una representación vectorial para cada lengua. Para llevar a cabo esta transformación, utilizamos Python y herramientas de consola disponibles en sistemas UNIX/POSIX. El procedimiento se organizó en las siguientes etapas:
 

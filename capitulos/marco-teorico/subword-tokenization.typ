@@ -1,23 +1,41 @@
 == Tokenización a nivel subpalabra
 
-Muchos algoritmos de procesamiento del lenguaje natural no operan directamente sobre el texto en su forma original, sino que requieren una etapa previa de preprocesamiento sobre el texto a trabajar. El primer paso fundamental en este proceso es la tokenización, que consiste en segmentar el texto en unidades discretas denominadas tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas, caracteres u otros tipos de segmentos, según el enfoque adoptado. Para ejemplificar, considérese el siguiente fragmento de texto:
+Muchos algoritmos de PLN no operan directamente sobre la cadena de caracteres de un texto entero, sino que requieren una etapa previa de preprocesamiento. Este primer proceso es la tokenización, la cual consiste en segmentar el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los algoritmos de PLN. Sin embargo, cada algoritmo se beneficia diferentemente en cómo se representan los tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
 
-#align(center, block[
-  #set align(left)
-  Texto original: "En un lugar lejano" \
-  Tokenización a nivel palabra: `[En, un, lugar, lejano]` \
-  Tokenización a nivel carácter: `[E, n, u, n, l, u, g, a, r, l, e, j, a, n, o]`
-  ])
+#figure(
+  align(center, block[
+    #set align(left)
+    Texto original: "En un lugar lejano" \
+    Tokenización a nivel palabra: `[En, un, lugar, lejano]` \
+    Tokenización a nivel carácter: `[E, n, u, n, l, u, g, a, r, l, e, j, a, n, o]`
+    ]),
+  caption: [Algunas formas de tokenización.]
+)
 
-El uso de la tokenización tiene sus ventajas. Esta representación discreta del texto garantiza la reproducibilidad @jm3 en los algoritmos de NPL, porque los algoritmos trabajan sobre un alfabeto o conjunto de datos en común. Asimismo, la tokenización puede abordar el problema de las palabras desconocidas o los neologismos; sin embargo, esta capacidad depende fundamentalmente de la definición del vocabulario subyacente de tokens. A estas palabras desconocidas se le suelen llamar fuera del vocabulario (_Out of Vocabulary_, OOV).
+Un primer enfoque de cómo se pueden representar los tokens es la tokenización por palabras, aunque tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar palabras desconocidas (_Out of Vocabulary_, OVV), sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y desconocidas, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar nuevas palabras con el paso del tiempo, lo cual es una fuerte limitante.
 
-Un primer enfoque de cómo se pueden generar los tokens es la tokenización por palabras, aunque tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar términos OOV, como los neologismos, sin expandir constantemente el vocabulario, que crece con el paso del tiempo. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y desconocidas, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar palabras.
+Para abordar estas limitaciones, una alternativa al uso de palabras como tokens es emplear subpalabras. Las subpalabras corresponden a palabras completas, cadenas arbitrarias o incluso morfemas, lo cual da entender que son unidades que tienen una longitud igual o más pequeña que una palabra.
 
-Para abordar estas limitaciones, una alternativa al uso de palabras es emplear subpalabras como conjunto de tokens. Las subpalabras son unidades que pueden ser más pequeñas que una palabra y pueden corresponder a palabras completas, cadenas arbitrarias o incluso morfemas.
+Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece en muy pocas instancias, un modelo presenta dificultades en aprender el significado de esta, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, pues es más probable que aparezcan estas unidades. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
 
-La ventaja de las subpalabras se vuelve evidente cuando un modelo se enfrenta a palabras desconocidas. Si un modelo intenta aprender el significado de una palabra que aparece en muy pocas instancias, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza unidades más pequeñas, como las subpalabras, dispone de más evidencia distribuida a lo largo del corpus. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras desconocidas @sennrich-etal-2016-neural.
+// TODO: Aquí podemos explorar el uso de subpalabras en LLMs? Quizá para añadir algo más. Podemos empezar a explorar más cosas aquí, como una pequeña introducción al siguiente párrafo de BytePair Encoding
+Debido a estas ventajas, el uso de subpalabras como tokens ha sido predominante en los modelos de lenguaje actuales.
+
+Las subpalabras son los tokens que los LLMs usan para las tareas de NLP. La principal ventaja de estos es que lidian con las palabras OOV.
+
+// The end :)
+/*
+La tokenización ayuda a . Esta representación discreta del texto garantiza la reproducibilidad @jm3 en los algoritmos de NPL, porque los algoritmos trabajan sobre un alfabeto o conjunto de datos en común. 
+
+Asimismo, la tokenización puede abordar el problema de las palabras desconocidas o los neologismos; sin embargo, esta capacidad depende fundamentalmente de la definición del vocabulario subyacente de tokens. A estas palabras desconocidas se le suelen llamar fuera del vocabulario (_Out of Vocabulary_, OOV).
+*/
 
 === Codificación de Pares de Bytes
+
+// Aquí queremos explorar:
+// Introducción qué es BPE
+// y qué problemas resuelve con la tokenización a nivel subpalabra
+// Quizá mostrar porqué es muy utilizado para esto.
 
 La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA fue uno de los primeros algoritmos en demostrar que las subpalabras funcionan mejor que palabras completas @sennrich-etal-2016-neural en los modelos de lenguaje. Originalmente BPE fue ideado como un algoritmo de compresión de datos, pero posteriormente se le dió el uso para generar subpalabras a partir de una cadena de texto.
 

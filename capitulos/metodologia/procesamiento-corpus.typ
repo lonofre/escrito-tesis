@@ -1,5 +1,7 @@
 == Procesamiento computacional de las bases de datos lingüísticas
 
+// TODO: Esta es la introducción, debemos definir qué hicimos con las bases de datos lingüísticas. Más o menos como un TLDR para dar una idea.
+// Entonces, no estoy seguro si seguir con el planteamiento de las subsecciones. Sin embargo, este es sólo el preprocesamiento de los datos: generar los puntos, el scaler, imputer, etc. El cómo usamos los datos para generar otras cosas es diferente.
 Para hacer el análisis, necesitamos representaciones vectoriales de cada lengua que codificara información lingüística. Para esto, usamos bases de datos lingüísticas. En particular nos enfocamos en bases de datos que contienen rasgos tipológicos de las lenguas, que pueden incluir rasgos morfológicos que son apropiados para corroborar la hipótesis.
 
 === WALS
