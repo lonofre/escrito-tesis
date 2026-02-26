@@ -2,17 +2,17 @@
 
 // TODO: Esta es la introducción, debemos definir qué hicimos con las bases de datos lingüísticas. Más o menos como un TLDR para dar una idea.
 // Entonces, no estoy seguro si seguir con el planteamiento de las subsecciones. Sin embargo, este es sólo el preprocesamiento de los datos: generar los puntos, el scaler, imputer, etc. El cómo usamos los datos para generar otras cosas es diferente.
-Para hacer el análisis, necesitamos representaciones vectoriales de cada lengua que codificara información lingüística. Para esto, usamos bases de datos lingüísticas. En particular nos enfocamos en bases de datos que contienen rasgos tipológicos de las lenguas, que pueden incluir rasgos morfológicos que son apropiados para corroborar la hipótesis.
+
+Con el objetivo de poder encontrar una similitud o correlación con el espacio de BPE, usamos y procesamos bases de datos lingüísticas. Estas bases de datos fueron _World Atlas of Language Structures_ (WALS) y Grambank. Estas contienen  características tipológicas (morfológicas, sintácticas y fonológicas) de las lenguas sobre la que estamos trabajando, las cuales pueden ayudar a corroborar una similitud con las características morfológicas que tenemos en el espacio BPE. No obstante, estas bases de datos no tienen una relación uno a uno entre las lenguas que contienen, así como no todas las características tienen un valor asignado. Por lo cual, tuvimos que realizar series de procesamientos antes de trabajarlas junto con el espacio de BPE.
 
 === WALS
 
-La base de datos _World Atlas of Language Structures_ (WALS) @wals fue una de las bases de datos que usamos para realizar la validación. Esta base de datos contiene información de las propiedades fonológicas, gramaticales y léxicas de hasta 2,662 lenguas y dialectos. Además, WALS registra hasta 192 características por lengua.
+WALS @wals es una base de datos que contiene información de las propiedades fonológicas, gramaticales y léxicas de hasta 2,662 lenguas y dialectos. Además, WALS registra hasta 192 características por lengua.
 
-WALS maneja las características...
-// Podemos dar un pequeño contexto de WAL
+// Quizá expandir un poco más en esto
+Usamos un subconjunto de las características de WALS que codificaran información de tipología morfológica @ximena-bpe-2023 de las lenguas (véase @wals-features). A su vez, este subconjunto contiene un valor reducido de valores vacíos para algunas lenguas.
 
-Nuestro enfoque con WALS fue usar las mismas características que #cite(<ximena-bpe-2023>, form: "prose"). @wals-features muestra las características codifican la tipología morfológica de las lenguas.
-
+// TODO: Quizá reducir el tamaño del texto de esto
 #figure(
   placement: auto,
     table(
@@ -43,23 +43,22 @@ Nuestro enfoque con WALS fue usar las mismas características que #cite(<ximena-
   caption: [Tabla de rasgos de WALS usados por para describir tipología morfológica @ximena-bpe-2023]
 )<wals-features>
 
-Cada rasgo puede tomar diferentes rangos de valores, por lo que dos rasgos no necesariamente tengan el mismo rango ni tampoco tienen el mismo significado. Por ejemplo, el rasgo 20A puede tomar 7 valores, 28A puede tomar hasta 4 y 49A hasta 9 valores diferentes.
+Las características de WALS toman un valor entero positivo y no tienen la misma distribución entre todas estas características. Esto implica que cada valor contiene un significado diferente que varia de acuerdo a cada característica. Por ejemplo, la característica 20A puede tomar 7 valores, 28A puede tomar hasta 4 y 49A hasta 9 valores diferentes.
 
-// Quizá hacer una pequeña exploración aquí
-Sin embargo, no todas las features tienen un valor para cada lengua. Por ejemplo, la lengua Thai no tiene ningún valor para el rasgo 20A.
-
-Por último, WALS tiene asignado un identificador propio para cada lengua (_WALS code_), pero también hace el uso del ISO 639-3 que permite identificar a las lenguas mediante tres letras.
+// TODO: Algunas lenguas pueden tener el mismo ISO Code en WALS. Por ende, quizá debemos explicar aquí esto.
+Por último, WALS tiene asignado un identificador propio para cada lengua (_WALS code_), pero también hace el uso del ISO 639-3. Estos nos permitió hacer una identificación con un estándar sobre las lenguas.
 
 === Grambank
 
-La principal base de datos que usamos es Grambank @grambank. Esta base de datos contiene información de 2,467 lenguas y dialectos en el mundo, y registra un máximo de 195 características por lengua.
+// TODO: Aquí extender más y quizá hablar del cuestionario de Grambank
+Grambank @grambank es otra base de datos con información de 2,467 lenguas y dialectos en el mundo, y registra un máximo de 195 características por lengua.  
 
+// TODO: Quizá citar Grambank de nuevo (al menos para dar el ejemplo)
+Las características de Grambank en su mayoría son binarias. Así, toman los valores de 0 y 1 (0/no, 1/sí), algo que contrasta al rango de valores que toman las características de WALS. De acuerdo a #cite(<haynie-etal-2023-grambanks>, form: "prose"), el uso características binarias permitió evitar ambigüedades en la categorización las características y permitió registrar los rasgos en términos de presencia o ausencia, en vez de categorizar sólo la más dominante. Sin embargo, no todas las características tienen asignado un valor en algunas lenguas, por el cual toman un valor de desconocido (?/desconocido). Por ejemplo, considérese la característica GB020:
 
-Las características de Grambank tienen algo en particular respecto a las de WALS. La mayoría usa valores binarios (0/no, 1/sí). De acuerdo a #cite(<haynie-etal-2023-grambanks>, form: "prose"), usar características binarias permiten evitar ambigüedades en la categorización las características y permite registrar los rasgos en términos de presencia o ausencia, en vez de categorizar sólo la más dominante.
-
-Por ejemplo, la característica GB020:
-
-#align(center)[
+#align(center, box(width: 80%)[
+  #set text(size: 11pt)
+  #set align(left)
   1. Codifique con 1 si existe un morfema que pueda marcar definitud o especificidad sin transmitir también un significado deíctico espacial.
 
   2. Codifique con 0 si la fuente no menciona un artículo definido y no es posible encontrar uno en los ejemplos o textos de una gramática que, por lo demás, es exhaustiva.
@@ -67,59 +66,43 @@ Por ejemplo, la característica GB020:
   3. Codifique con ? si la gramática no contiene suficiente análisis para determinar si existe o no un artículo definido.
 
   4. Si ha codificado 1 para GB020 y 0 para GB021 y GB022, por favor escriba un comentario explicando la posición del artículo definido o específico.
-]
+])
 
-Nos percatamos que algunas características tienen una codificación de que no se tiene o no hay suficiente información para hacer una clasificación (?/desconocido).
+// TODO: Quizá expandir la similitud de Grambank y WALS. Aquí, Grambank esta basada un poco en WALS
 
-Otra aspecto a destacar es que Grambank no hace uso del ISO 639-3 para identificar las lenguas. Sólo hace uso del identificador que ellos generan para cada lengua.
+// TODO: Mejorar este párrafo borrador
+A pesar de las similitudes entre Grambank y WALS, consideramos que entre las lenguas presentes en las dos bases de datos no existe una relación uno a uno. Aunque hay lenguas que pueden ser relacionadas mediante el nombre como el inglés, hay lenguas donde esta relación es más compleja. En Grambank podemos encontrar múltiples lenguas para una misma lengua en WALS, y viceversa. Aunado a eso, Grambank usa su propios identificadores y no hace uso del ISO 639-3. Esto complica aún más la relación entre estas dos bases de datos. 
 
-// Podemos abordar más a fondo Grambank aquí, diferencias, etc
+Entonces, tuvimos que hacer unas consideraciones sobre las lenguas en Grambank para relacionaras con las de WALS. Aunque, priorizamos elegir las lenguas que tuvieran más características en Grambank:
 
-// Citar con Grambank Wiki?
-Sin embargo, de acuerdo a los autores de Grambank, esta base de datos está más enfocado al análisis computacional que WALS.
+- Respecto al nombre de la lengua. Por ejemplo, en ambas bases de datos encontramos la lengua _Modern Greek_ para el griego.
+- Respecto a lenguas con el nombre similar. Si encontramos una sola lengua con un nombre similar, consideramos este caso. Por ejemplo, para el lango, en Grambank teníamos _Lango (Uganda)_, mientras que en WALS era solo _Lango_.
+- Respecto a las características disponibles. Si encontramos más lenguas con un nombre similar, elegimos la lengua que tuviera más características disponibles. Por ejemplo, para el hausa nos decidimos a usar _Hausa States Fulfulde_ por tener más características en Grambank que solo _Hausa_.
 
-=== Diferencias entre Grambank y WALS
-
-// // Citar con Grambank Wiki?
-Hay que considerar que si bien Grambank y WALS pueden ser similares, no hay una relación uno a uno entre ellas, ni para los rasgos ni para las lenguas. En primer lugar Grambank, la base de datos más reciente, está basada en diversos cuestionarios, entre ellos incluido WALS. Además pudimos corroboramos que lenguas, como el español, están presentes en WALS pero no en Grambank. En segundo lugar, como podemos contrastar, Grambank hace uso de rasgos binarios en su mayoría, mientras que WALS pueden tomar hasta más de 2 de valores.
-
-// Poner cita de por qué no tienen esas lenguas
-Otra diferencia es que Grambank no tiene lenguas como el español y el alemán. Según ellos...
-
-A pesar de que Grambank y WALS comparten varias lenguas en común, no todas esas lenguas tienen una relación uno a uno. Esto es más evidente a que cada base de datos usa su propio identificador para cada lengua y Grambank no hace uso del ISO 639-3. Entonces, para hacer una relación uno a uno lo más cercano posible, tuvimos que realizar la elección de lenguas en Grambank de acorde a lo siguiente:
-// Aquí elaborar más sobre cada cosa
-- Respecto al nombre. 
-- Respecto a las características disponibles.
-- Respecto a lenguas con el nombre similar.
-
-// Quizá poner un diagrama
-
+// TODO: Poner cita de por qué no tienen esas lenguas
+Por último, al usar Grambank tuvimos que reducir lenguas porque Grambank no tiene información de lenguas como el español y el alemán.
 
 === Procesamiento
 
-Grambank y WALS siguen los Cross-Linguistic Data Formats (CLDF) @cldf, que son un conjunto de estándares para estructurar, compartir y reutilizar datos lingüísticos. Parte de la información que el modelo de datos que CLDF ofrece es:
+// Ajustar bien los indices de los espacios: X_grambank y X_wals
+Procesamos de manera similar a Grambank y WALS. Estas bases de datos siguen los Cross-Linguistic Data Formats (CLDF) @cldf, que son un conjunto de estándares para estructurar, compartir y reutilizar datos lingüísticos. Así logramos obtener las características lingüísticas de las lenguas con el fin de tener una matriz $X_("Grambank") in RR^(n times m)$ y una matriz $X_("WALS") in RR^(n times m)$, a los cuales llamamos espacio de Grambank y espacio de WALS.
+
+Así, la información de WALS y Grambank que nos interesó fue el nombre de las lenguas y el valor de cada una de sus características. CLDF presenta esta información como:
 
 - _Lenguas_, que son los objetos de investigación.
 - _Parámetros_, que son los conceptos comparativos medidos y comparados entre lenguas. Para nuestro estudio, nos referiremos a estos como las características.
 - _Valores_, que son las mediciones concretas de un parámetro sobre una lengua.
-- _Fuentes_, ya que cada valor puede venir de diferentes fuentes.
 
-Gracias a que Grambank y WALS siguen CLDF, el procesamiento de ambas bases de datos es similar. Obtuvimos los datos de Grambank y WALS de repositorios públicos de GitHub. Cada repositorio ofrece varias formas de acceder a los datos debido a la especificación de CLDF como las herramientas desarrolladas por #cite(<cldf>, form: "prose"): 
-- mediante archivos CSV, 
-- por una biblioteca de Python en código, 
-- acceso mediante R , o 
-- pycldf, un programa en Python para crear una base de datos SQLite. 
+Obtuvimos esta información de repositorios de Grambank y WALS para convertirlas en bases de datos SQLite. Logramos crear estas bases de datos relacionales usando `pycldf` @cldf sobre los datos de los repositorios. Si bien los mismos repositorios permitieron otras modalidades de acceder a los datos, mediante archivos `.csv` o llamadas a bibliotecas, usar bases de datos relacionales nos proporcionó la flexibilidad de hacer consultas mediante SQL. 
 
-Usamos el enfoque de SQLite por construir una base de datos relacional. Esto nos da la flexibilidad para hacer consultas con filtros, relaciones entre las tablas y poder ordenar los datos.
+Así, las tablas relevantes que usamos fueron las que siguen el formato de CLDF:
 
-Las tablas relevantes que usamos fueron las que siguen CLDF:
-
-- _LanguageTable_, que contiene información general de las lenguas, como el nombre de la lengua y su identificador único.
-- _ParameterTable_, que contiene información de las características de las lenguas, pero no el valor específico correspondiente a cada lengua.
-- _ValueTable_, que contiene información de los valores de las características para una lengua en específica. En Grambank y WALS, estos valores son numéricos. 
+- _LanguageTable_, que contiene información general de las lenguas, como el nombre de la lengua y su identificador único. Aquí, Grambank usa sus propios identificadores, mientras que WALS usa su identificador único también como un identificador ISO 639-3.
+- _ParameterTable_, que contiene información de las características de las lenguas, como el nombre y el identificador, pero no el valor.
+- _ValueTable_, que contiene información de los valores de las características para cada lengua. En Grambank y WALS, estos valores son numéricos. 
 
 // TODO: Hacer un diagrama para ver cómo se relacionan las lenguas
-Estas tablas  están relacionadas entre sí, siendo `ValueTable` la que está relacionada con `LanguageTable` y `ParameterTable`. A continuación, un fragmento de la tabla `ValueTable` en Grambank:
+Estas tablas  están relacionadas entre sí. `ValueTable` es la tabla que está relacionada con `LanguageTable` y `ParameterTable`. A continuación, un fragmento de la tabla `ValueTable` en Grambank.
 
 #figure(
   table(
@@ -139,11 +122,19 @@ Estas tablas  están relacionadas entre sí, siendo `ValueTable` la que está re
   caption: [Fragmento de `ValueTable`]
 )
 
-El procesamiento de `ValueTable` nos dio las representaciones vectoriales de las lenguas. Cada lengua se convierte en un vector usando los valores de sus características. Por ejemplo, el inglés con las características GB020, GB021, GB022 y GB023 de Grambank produce el vector $v = (1, 1, 1, 0)$.
+// Quizá representar el vector en un espacio? Quizá también es ruido
+Al procesar `ValueTable`, esta nos dio las representaciones vectoriales de las lenguas. Convertimos cada lengua en un vector usando los valores de sus características. Por ejemplo, el inglés con las características GB020, GB021, GB022 y GB023 de Grambank produce el vector $v = (1, 1, 1, 0)$.
 
-Para procesar todas las lenguas, usamos una matriz de dimensión $n times m$ donde $n$ es el número de lenguas y $m$ el número de características. Al procesar estos datos, encontramos que algunas lenguas no tienen valores para ciertas características. A veces la base de datos explica por qué, otras veces la entrada simplemente no existe en `ValueTable`. En estos casos, dejamos esos valores como nulos en la matriz.
+En Grambank, juntamos los vectores de las lenguas para crear una matriz $X_("Grambank")$. Esta matriz es de dimensión $n times m$, donde $n$ es el número de lenguas y $m$ el número de características. Al procesar estos datos, encontramos que algunas lenguas no tienen valores para ciertas características. A veces la base de datos explica por qué, otras veces la entrada simplemente no existe en `ValueTable`. En estos casos, dejamos esos valores como nulos en la matriz.
 
-Sin embargo, los algoritmos que utilizamos necesitaban que los datos de la matriz no sean nulos. Para tratar estos casos de valores inexistentes, usamos la imputación de estos valores. Tuvimos considerar que hay varias formas de hacer este relleno de valores nulos.
+// Checar lo del número de columnas
+De manera similar, en WALS usamos las características proporcionadas en @wals-features. Por lo cual, la matriz $X_("WALS")$ tiene una dimensión de $n times n$, donde $n$ es el número de lenguas. Estas lenguas aún tenían algunos valores vacíos para sus características.
+
+// TODO: !Importante
+// A partir de este texto, hay un rango de mejora sobre como presentamos la información, 
+// tanto como imputeamos los datos o cosas así. Esto es para otro borrador.
+// Además, tenemos que hablar de cómo elegimos el conjunto de características de Grambank también, y forma parte de la metodología. Quizá aquí o en otra sección.
+Sin embargo, los algoritmos que utilizamos necesitaban que los datos de la matriz no sean nulos. Para tratar estos casos de valores inexistentes, usamos la imputación de estos valores. Tuvimos considerar que hay varias formas de hacer este relleno de valores nulos:
 
 // Podemos citar también?
 - Usar valores en 0. Usando este, asumimos que el valor nulo se puede asumir como ausencia de.
