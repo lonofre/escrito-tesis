@@ -37,10 +37,16 @@ Asimismo, la tokenización puede abordar el problema de las palabras desconocida
 // y qué problemas resuelve con la tokenización a nivel subpalabra
 // Quizá mostrar porqué es muy utilizado para esto.
 
+/*
 La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA fue uno de los primeros algoritmos en demostrar que las subpalabras funcionan mejor que palabras completas @sennrich-etal-2016-neural en los modelos de lenguaje. Originalmente BPE fue ideado como un algoritmo de compresión de datos, pero posteriormente se le dió el uso para generar subpalabras a partir de una cadena de texto.
+*/
 
-// Basado en el algoritmo original, pero sería buena idea encontrar algo similar
-El algoritmo BPE identifica y remplaza iterativamente los pares de caracteres más frecuentes por un nuevo símbolo, generando así subpalabras. Por su naturaleza, BPE es un algoritmo voraz. La descripción del algoritmo para obtener las subpalabras es la siguiente:
+// TODO: Hacer una más fuerte introducción
+La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA es un algoritmo usado para generar subpalabras @sennrich-etal-2016-neural. Estas subpalabras son el resultado de la compresión que realiza BPE sobre los caracteres de textos de entrenamiento.
+
+El algoritmo BPE identifica y fusiona iterativamente los pares de caracteres más frecuentes para generar nuevos símbolos. Cada nuevo símbolo es generado en cada iteración, a la cual llamamos fusión. El resultado de la última fusión nos da el conjunto subpalabras resultantes.  
+
+La descripción de BPE es la siguiente:
 
 // Mejorar la descripción del algoritmo
 1. Se obtienen los pares de símbolos $[a_i, j_i]$ y sus frecuencias $f([a_i, b_j])$
@@ -56,11 +62,15 @@ $ [a,b] -> a b $
 //  _El perro camina por el parque cada mañana y sigue el mismo camino. Huele el pasto, mira a la gente pasar y se sienta un momento bajo el árbol. El parque cambia con el día, pero el perro disfruta siempre del mismo paseo._
 //]
 
+// TODO: Definir otro algoritmo aquí también
+Una vez obtenidas las subpalabras mediante BPE, la tokenización sobre un texto sigue un procedimiento similar al algoritmo anterior.
 
-// TODO: Poner otro algoritmo aquí también
-Con un modelo BPE ya entrenado, la tokenización a nivel de subpalabra de un texto nuevo se obtiene a partir de un procedimiento bien definido. En primer lugar, el modelo segmenta el texto nuevo a nivel de caracteres. A continuación, el modelo aplica de forma iterativa las reglas de reemplazo que BPE aprendió durante el entrenamiento. Este proceso combina secuencias de caracteres según las reglas aprendidas y produce finalmente la representación del texto en subpalabras. 
+1. En primer lugar, el modelo segmenta el texto a nivel de caracteres. 
+2. A continuación, el modelo aplica de forma iterativa las reglas de reemplazo que BPE aprendió durante el entrenamiento.
+3. Este proceso combina secuencias de caracteres según las reglas aprendidas y produce finalmente la representación del texto en subpalabras.
 
-Por ejemplo, al procesar la oración:
+// Aquí podemos empezar a explicar el tokenizador de ChatGPT
+Por ejemplo, al tokenizar la oración:
 
 // Esto es sacado de chatgpt, pero podría ser bueno hacerlo por cuenta propria con un corpus en español y usando alguna biblioteca de BPE.
 // Otro TODO es mejorar la presentación de esto
@@ -90,6 +100,7 @@ E incluso obtenemos los identificadores de los tokens:
   `[23040, 2539, 13802, 288, 893, 180529, 469, 100558, 2682, 105104, 14457, 13]`
 ])
 
+// TODO: Podemos explicar algunas propiedades de como la forma de que BPE es greedy y cosas así.
 // También expandir esto cuando tengamos mejores resultados
 Cuando tenemos un modelo de BPE entrenado, podemos observar subpalabras que son frecuentes en las palabras, como "ción" en terminación, disminución, adjunción; y subpalabras que no son frecuentes en las palabras pero si por sí solas, como "un", "los", entre otros.
 
