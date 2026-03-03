@@ -1,7 +1,6 @@
 == Conjunto de lenguas utilizadas
 
 #let language_table(contents) = {
-
   let language_data = ()
   for (iso639_3, grambank_id, wals_id) in contents {
     language_data += ((iso639_3, grambank_id, wals_id))
@@ -19,12 +18,14 @@
     ..language_data
   )
 }
+#{
+  set text(size: 11pt)
 
-#align(left)[
- #language_table(
-    yaml("languages-complete.yaml")
-  ) 
-]
-
+  align(left)[
+  #language_table(
+      yaml("languages-complete.yaml")
+    ) 
+  ]
+}
 
 

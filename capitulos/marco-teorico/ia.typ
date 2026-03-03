@@ -98,6 +98,9 @@ Mientras que los modelos estadísticos clásicos suelen operar con ventanas de c
 // Citar al libro de NPL. Posiblemente expandir un poco y entender bien cómo funciona esta parte. Por lo mientras, voy poniendo la idea general.
 Muchos LLMs adoptan un esquema autoregresivo, en el cual el modelo genera iterativamente un token a la vez a partir del contexto previamente generado, lo que constituye la base de los sistemas de generación automática de texto. Las arquitecturas más comunes incluyen modelos de tipo codificador, decodificador y codificador–decodificador. En particular, las arquitecturas de decodificador, como las empleadas en modelos de la familia GPT, LLaMA o Gemini, reciben una secuencia de tokens y producen secuencialmente nuevos tokens, mientras que las arquitecturas de codificador generan representaciones vectoriales contextualizadas de cada token, utilizadas principalmente en tareas de análisis, clasificación o etiquetado lingüístico.
 
+// TODO: Hacer que haga sentido este párrafo. Quiero hablar y hacer énfasis en los tokens y por qué son importantes en el procesamiento de los LLMs
+Para que esa arquitectura pueda operar, cada token debe traducirse a un formato que el modelo sea capaz de procesar. Esa traducción se realiza mediante los embeddings: representaciones numéricas que asignan a cada token un vector de números. Es sobre esos vectores, y no sobre el texto directamente, que la arquitectura realiza sus cálculos.
+
 // Expandir esto también
 // También citar quizá el modelo ¿?
 Se puede observar que los tokens son las unidades que las arquitecturas de los LLMs utilizan para operar. Algunos modelos como chatGPT usan un vocabulario de un tamaño de hasta 100 mil tokens.

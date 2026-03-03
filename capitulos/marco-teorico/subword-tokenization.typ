@@ -42,9 +42,7 @@ La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA fue 
 */
 
 // TODO: Hacer una más fuerte introducción
-La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA es un algoritmo usado para generar subpalabras @sennrich-etal-2016-neural. Estas subpalabras son el resultado de la compresión que realiza BPE sobre los caracteres de textos de entrenamiento.
-
-El algoritmo BPE identifica y fusiona iterativamente los pares de caracteres más frecuentes para generar nuevos símbolos. Cada nuevo símbolo es generado en cada iteración, a la cual llamamos fusión. El resultado de la última fusión nos da el conjunto subpalabras resultantes.  
+La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA es un algoritmo usado para generar subpalabras @sennrich-etal-2016-neural. Estas subpalabras son el resultado de la compresión que realiza BPE sobre los caracteres de textos de entrenamiento. BPE identifica y fusiona iterativamente los pares de caracteres más frecuentes para generar nuevos símbolos. Cada nuevo símbolo es generado en cada iteración, a la cual llamamos fusión. El resultado de la última fusión nos da el conjunto subpalabras resultantes.
 
 La descripción de BPE es la siguiente:
 
@@ -56,21 +54,17 @@ $ [a, b] = op("argmáx", limits: #true)_(a_i b_i) {f[a_i, b_j] : a_i, b_j in Sig
 $ [a,b] -> a b $ 
 4. Se agrega e símbolo $a b$ al alfabeto $Sigma$ y se repite el proceso hasta alcanzar un número predeterminado de operaciones.
 
-//Ejemplificando, podemos tomar el siguiente ejemplo:
-
-//#align(center)[
-//  _El perro camina por el parque cada mañana y sigue el mismo camino. Huele el pasto, mira a la gente pasar y se sienta un momento bajo el árbol. El parque cambia con el día, pero el perro disfruta siempre del mismo paseo._
-//]
+El algoritmo revela un punto importante sobre BPE, que es que funciona de manera no supervisada. Una de las ventajas de este enfoque es que es posible aplicar este algoritmo sobre diferentes textos así como diferentes lenguas. Por lo tanto, cada lengua puede dar un conjunto diferente de subpalabras.
 
 // TODO: Definir otro algoritmo aquí también
-Una vez obtenidas las subpalabras mediante BPE, la tokenización sobre un texto sigue un procedimiento similar al algoritmo anterior.
+De este modo, una vez que BPE generó el conjunto de subpalabras, la tokenización sobre un texto sigue un procedimiento similar al algoritmo anterior. Este algoritmo convierte un texto en una secuencia de tokens.
 
 1. En primer lugar, el modelo segmenta el texto a nivel de caracteres. 
 2. A continuación, el modelo aplica de forma iterativa las reglas de reemplazo que BPE aprendió durante el entrenamiento.
 3. Este proceso combina secuencias de caracteres según las reglas aprendidas y produce finalmente la representación del texto en subpalabras.
 
 // Aquí podemos empezar a explicar el tokenizador de ChatGPT
-Por ejemplo, al tokenizar la oración:
+Como ejemplo del proceso de tokenización, considérese este texto:
 
 // Esto es sacado de chatgpt, pero podría ser bueno hacerlo por cuenta propria con un corpus en español y usando alguna biblioteca de BPE.
 // Otro TODO es mejorar la presentación de esto
@@ -80,7 +74,8 @@ Por ejemplo, al tokenizar la oración:
   Las supernovas estallan en galaxias lejanas.
 ])
 
-El resultado sería el siguiente, usando el tokenizador que usa GPT-5.x:
+// Citar tiktoken porque es de OpenAI
+Al aplicar un tokenizador ya entrenado, en este caso `tiktoken`, el texto se convierte en una serie de tokens:
 #align(center, box[
   #set align(left)
 
@@ -91,7 +86,7 @@ El resultado sería el siguiente, usando el tokenizador que usa GPT-5.x:
   #highlight(fill: rgb("#c9a24d"))[ galax]#highlight(fill: rgb("#cdc4ff"))[ias ]
   #highlight(fill: rgb("#c9a24d"))[ lej]#highlight(fill: rgb("#8bd4b2"))[anas]#highlight(fill: rgb("#c9a24d"))[. ]
 ])
-
+/*
 E incluso obtenemos los identificadores de los tokens:
 
 #align(center, box[
@@ -99,19 +94,24 @@ E incluso obtenemos los identificadores de los tokens:
 
   `[23040, 2539, 13802, 288, 893, 180529, 469, 100558, 2682, 105104, 14457, 13]`
 ])
+*/
 
 // TODO: Podemos explicar algunas propiedades de como la forma de que BPE es greedy y cosas así.
 // También expandir esto cuando tengamos mejores resultados
 Cuando tenemos un modelo de BPE entrenado, podemos observar subpalabras que son frecuentes en las palabras, como "ción" en terminación, disminución, adjunción; y subpalabras que no son frecuentes en las palabras pero si por sí solas, como "un", "los", entre otros.
 
-=== Métodos estadísticos de tokenización
+Retomando el ejemplo anterior, la tokenización dio subpalabras como _Las_, _en_, que son palabras muy comunes en español. A su vez, otras subpalabras que forman parte como _as_, se pueden encontrar en otras palabras como _bananas_, _sábanas_, _personas_. 
 
-// Obtenido de chatGPT, hay que hacer una investigación sobre esto
-// sobretodo porque no hay muchas fuentes que mencionen cómo funciona wordpiece
-// https://aclanthology.org/2021.emnlp-main.160.pdf?utm_source=chatgpt.com
-// También el paper de BERT
-WordPiece es un algoritmo de tokenización por subpalabras utilizado en muchos modelos de lenguaje basados en transformadores, especialmente en BERT (Bidirectional Encoder Representations from Transformers). En lugar de tratar cada palabra como un solo token, WordPiece segmenta el texto en unidades más pequeñas llamadas subpalabras, extraídas de un vocabulario fijo aprendido a partir de datos. Esto permite representar palabras raras o no vistas previamente como combinaciones de subpalabras, reduciendo el problema de palabras fuera de vocabulario y manteniendo un tamaño de vocabulario manejable. WordPiece utiliza una estrategia voraz de "coincidencia más larga primero" (greedy longest-match) para dividir las palabras en los tokens de subpalabra más largos del vocabulario que coinciden con el texto de entrada.
+=== Otros métodos estadísticos de tokenización
 
-En el modelo BERT original, la tokenización con WordPiece produce un vocabulario de aproximadamente 30 000 subpalabras, y los tokens que no están en el vocabulario se dividen en piezas más pequeñas o se asignan a un token especial [UNK].
+// TODO: Agregar después
+// WordPiece fue originalmente formulado por Google en un paper sobre el japonés y demás
+Existen otros métodos estadísticos para generar subpalabras con enfoques similares a BPE. Uno de ellos es WordPiece, caracterizado por crear las fusiones entre símbolos mediante una función de verosimilitud.
 
-Para entrenar su vocabulario, WordPiece comienza con caracteres individuales y construye iterativamente unidades más grandes basándose en criterios estadísticos para maximizar la verosimilitud en el corpus de entrenamiento. Una vez que el vocabulario está fijado, el tokenizador procesa nuevo texto dividiendo las palabras en estas subpalabras aprendidas.
+// TODO: Sustentar esto
+WordPiece busca maximizar la verosimilitud entre los símbolos de entrenamiento. Sean $s_1, s_2$ símbolos usados en el entrenamiento de un modelo de WordPiece, entonces se fusionan los símbolos de si:
+
+$ op("arg max", limits: #true)_(s_1, s_2)  P(s_1, s_2) / (P(s_1)P(s_2)) $
+
+// TODO: Tengo que sustentar esto
+Este enfoque es diferente a BPE que sólo busca la máxima frecuencia. Sin embargo, WordPiece es considerado también un algoritmo voraz y no supervisado. Aunque esta similitud entre WordPiece y BPE no implica que sus subpalabras resultantes sean las mismas. 
