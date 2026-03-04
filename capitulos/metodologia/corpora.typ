@@ -1,5 +1,8 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 
+/*
+   Esta sección es sobre cómo vamos a generar el espacio de BPE.
+*/
 // Lo cambiaría a generación del espacio de BPE????
 == Datos/Corpus de entrenamiento multilingües
 

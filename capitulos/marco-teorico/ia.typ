@@ -1,5 +1,8 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 
+/*
+  Al menos el primer enfoque que quiero darle a esta sección es relación IA-NLP, con un enfoque en los modelos de lenguaje (esta sería la relación y posiblemente uno de los personajes principales). Quiero hacer énfasis en los tokens y cómo son usados en estos modelos de lenguajes.
+*/
 == IA y procesamiento de lenguaje natural
 
 La inteligencia artificial (IA) tiene entre sus objetivos crear sistemas computacionales capaces de realizar tareas que requieren inteligencia humana. Entre estas tareas se encuentran el razonamiento, el aprendizaje, la percepción, la toma de decisiones y el procesamiento del lenguaje natural (PLN).

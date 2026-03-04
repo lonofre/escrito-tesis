@@ -1,7 +1,9 @@
+/*
+  Esta es la introducción, debemos definir qué hicimos con las bases de datos lingüísticas. Más o menos como un TLDR para dar una idea.
+*/
 == Procesamiento computacional de las bases de datos lingüísticas
 
-// TODO: Esta es la introducción, debemos definir qué hicimos con las bases de datos lingüísticas. Más o menos como un TLDR para dar una idea.
-// Entonces, no estoy seguro si seguir con el planteamiento de las subsecciones. Sin embargo, este es sólo el preprocesamiento de los datos: generar los puntos, el scaler, imputer, etc. El cómo usamos los datos para generar otras cosas es diferente.
+// TODO: no estoy seguro si seguir con el planteamiento de las subsecciones. Sin embargo, este es sólo el preprocesamiento de los datos: generar los puntos, el scaler, imputer, etc. El cómo usamos los datos para generar otras cosas es diferente.
 
 Con el objetivo de poder encontrar una similitud o correlación con el espacio de BPE, usamos y procesamos bases de datos lingüísticas. Estas bases de datos fueron _World Atlas of Language Structures_ (WALS) y Grambank. Estas contienen  características tipológicas (morfológicas, sintácticas y fonológicas) de las lenguas sobre la que estamos trabajando, las cuales pueden ayudar a corroborar una similitud con las características morfológicas que tenemos en el espacio BPE. No obstante, estas bases de datos no tienen una relación uno a uno entre las lenguas que contienen, así como no todas las características tienen un valor asignado. Por lo cual, tuvimos que realizar series de procesamientos antes de trabajarlas junto con el espacio de BPE.
 

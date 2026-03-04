@@ -1,5 +1,7 @@
+/*
+  En general, queremos hacer una relación entre los LLMs y la lingüística. Esto lo vamos a lograr mediante la caracterización de las lenguas mediante BPE (u otro tokenizador).
+*/
 == La liga entre la lingüística y los métodos computacionales actuales
-// En general, queremos hacer una relación entre los tokenizadores y la lingüística. Queremos ver qué algo de la relación entre la comprensión, lingüística.
 
 // TODO: Aquí citar a los que no están de acuerdo
 La tokenización parecería que es un proceso que no tiene relevancia lingüística e históricamente se ha tenido este estigma sobre estos algoritmos. Sin embargo, estos algoritmos son los encargados de generar los tokens, por lo que pueden tener una fuerte influencia en el desempeño de los LLMs.

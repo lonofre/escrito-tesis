@@ -1,3 +1,7 @@
+/*
+  Esta sección trata sobre la tokenización y su importancia en los sistemas de NLP. En particular, por qué es utilizado en los LLMs.
+  También queremos introducir algunos algoritmos de tokenización.
+*/
 == Tokenización a nivel subpalabra
 
 Muchos algoritmos de PLN no operan directamente sobre la cadena de caracteres de un texto entero, sino que requieren una etapa previa de preprocesamiento. Este primer proceso es la tokenización, la cual consiste en segmentar el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los algoritmos de PLN. Sin embargo, cada algoritmo se beneficia diferentemente en cómo se representan los tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
