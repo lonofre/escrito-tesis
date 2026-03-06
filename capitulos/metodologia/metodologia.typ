@@ -4,5 +4,7 @@
 
 #include "corpora.typ"
 #include "procesamiento-corpus.typ"
+#include "lang2vec.typ"
+#include "comparacion.typ"
 
 #pagebreak()
