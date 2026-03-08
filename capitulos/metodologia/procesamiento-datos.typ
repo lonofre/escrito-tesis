@@ -156,36 +156,31 @@ Otra cosa importante fue seleccionar cuáles son las características que querem
 1. Ordenamos las características de acuerdo a qué tantas lenguas cubren.
 2. Después, seleccionamos de acuerdo a ese ordenamiento para obtener $n$ características.
 
-// Aquí vamos a definir cómo seleccionamos el conjunto de características de Grambank.
-// TODO: Por lo tanto, checa como integrarlo después
+// Datos obtenidos del notebook seleccion_por_disponibilidad.ipynb
+#figure(
+  {
+    let features_availability = csv("datos/availability.csv", row-type: array).map(x => x.at(2)).slice(1).map(x => int(x))
+    let languages = 38
+    
+    let accumulated = ()
+    accumulated.push(languages  - features_availability.at(0))
+    for n in range(1, features_availability.len()) {
+      let sum = accumulated.at(n - 1) + languages - features_availability.at(n)
+      accumulated.push(sum)
+    }
+    
+    lq.diagram(
+      ylabel: text(size: 11pt)[Valores faltantes],
+      xlabel: text(size: 11pt)[Número de características],
+      lq.plot(
+        range(features_availability.len()),
+        x => accumulated.at(x)
+      ),
+    
+      width: 80%
+    )
+  },
+  caption: [Número de valores faltantes al ir agregando más características.]
+)<grambank-valores-vacios>
 
-Decidimos tomar un conjunto de características que representara una gran parte de características sin perder la menor cantidad de información debido a los datos faltantes.
-
-// Esta variable es para contar cuántas características tenemos disponibles por lengua. Se asume que los datos vienen ordenados y con un máximo de datos disponibles. En caso de que queramos cambiarlo otra vez, tienes que generar los datos en seleccion_por_disponibilidad.ipynb
-
-
-#{
-  let features_availability = csv("datos/availability.csv", row-type: array).map(x => x.at(2)).slice(1).map(x => int(x))
-  let languages = 38
-  
-  let accumulated = ()
-  accumulated.push(languages  - features_availability.at(0))
-  for n in range(1, features_availability.len()) {
-    let sum = accumulated.at(n - 1) + languages - features_availability.at(n)
-    accumulated.push(sum)
-  }
-  
-  lq.diagram(
-    ylabel: [Valores faltantes],
-    xlabel: [Número de características],
-    lq.plot(
-      range(features_availability.len()),
-      x => accumulated.at(x)
-    ),
-  
-    width: 80%
-  )
-}
-
-// Esto es un borrador momentáneo mientras tengamos los datos suficientes
-Por un lado, podemos observar que entre el rango de 30 a 40 características, obtenemos una gran cobertura. No obstante, hay que considerar que por cada nueva característica que agreguemos al conjunto al analizar estamos añadiendo valores vacíos. Esto lo podemos visualizar mejor en la gráfica. No decidimos usar menos características porque quisimos a la vez tener una gran cobertura.
+Para el espacio $X_("Grambank")$, seleccionamos las primeras 30 a 40 características. En este rango, las características no tienen demasiados valores faltantes como observamos en @grambank-valores-vacios. Si bien en rangos menos tenemos aún menos valores vacíos, procuramos trabajar con una mayor cobertura de características. A su vez, agregando al espacio más características incrementa exponencialmente el número de valores faltantes, lo cual puede tener un impacto negativo al realizar una imputación.
