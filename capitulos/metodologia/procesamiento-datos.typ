@@ -14,7 +14,7 @@ WALS @wals es una base de datos que contiene información de las propiedades fon
 // Quizá expandir un poco más en esto
 Usamos un subconjunto de las características de WALS que codificaran información de tipología morfológica @ximena-bpe-2023 de las lenguas (véase @wals-features). A su vez, este subconjunto contiene un valor reducido de valores vacíos para algunas lenguas.
 
-// TODO: Quizá reducir el tamaño del texto de esto
+// TODO: Quizá reducir el tamaño del texto de esto. O moverlo al apéndice
 #figure(
   placement: auto,
     table(
@@ -153,3 +153,11 @@ Otra cosa importante fue seleccionar cuáles son las características que querem
 
 1. Ordenamos las características de acuerdo a qué tantas lenguas cubren.
 2. Después, seleccionamos de acuerdo a ese ordenamiento para obtener $n$ características.
+
+// Aquí vamos a definir cómo seleccionamos el conjunto de características de Grambank.
+// TODO: Por lo tanto, checa como integrarlo después
+
+Decidimos tomar un conjunto de características que representara una gran parte de características sin perder la menor cantidad de información debido a los datos faltantes.
+
+// Esto es un borrador momentáneo mientras tengamos los datos suficientes
+Por un lado, podemos observar que entre el rango de 30 a 40 características, obtenemos una gran cobertura. No obstante, hay que considerar que por cada nueva característica que agreguemos al conjunto al analizar estamos añadiendo valores vacíos. Esto lo podemos visualizar mejor en la gráfica. No decidimos usar menos características porque quisimos a la vez tener una gran cobertura.

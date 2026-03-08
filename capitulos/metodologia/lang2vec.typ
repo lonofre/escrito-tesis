@@ -3,13 +3,10 @@
 */
 == lang2vec
 
-// TODO: Citar las demás base de datos
-Utilizamos además la base de datos lingüística URIEL @littell2017uriel en su biblioteca `lang2vec` para obtener de otras fuentes características de las lenguas. Esta base de datos es una recopilación de otras bases de datos como WALS, Glottolog, etc.
+// TODO: Hay que definir en algún lado lo de la sintaxis.
+Otra conjunto de datos que utilizamos fue URIEL @littell2017uriel en su forma de `lang2vec` para obtener características sintácticas de las lenguas. Estos valores son una recopilación de otras bases lingüísticas, entre ellas WALS. Sin embargo, `lang2vec` tiene su propia representación para codificar a estas características.
 
-// TODO: Citar también a las bases (si es necesario)
-// Voy a incluir por lo mientras a las demás bases si queremos hacer un análisis a futuro. El cómo lo utilizaron está en el paper de URIEL
-Las características que usamos sintácticas. Esto lo obtuvimos del conjunto `syntax wals.` Estos valores son adaptados de WALS, de SSWL y de Ethnologue.
+Las características sintácticas que usamos provienen del conjunto `syntax wals` y de `syntax_knn`. El primer conjunto está basado en WALS, mientras que el segundo conjunto aplica una técnica de los $k$ vecinos más cercanos sobre la combinación de los datos de WALS, de _Syntactic Structures of the World's Languages_ (SSWL) y Ethnologue. 
+Estos dos conjuntos cubren las lenguas de nuestro estudio, sin embargo, `syntax_wals` puede contener valores vacíos para algunas características mientras que `syntax_knn` no tiene ninguno.
 
-Las características que proporciona `lang2vec` son binarias, debido a que siguieron la filosofía de one hot encoding, como Grambank. Sin embargo, para no todos las lenguas existía un valor.
-
-Por ello, llenamos los valores faltantes con 0. Así, los representamos que no tienen ningún valor. Estos valores en `lang2vec` aparecen como `--`.
+Hay que recalcar que las características de `lang2vec` son binarias. Usualmente sus valores oscilan entre 0.0, que indica que un fenómeno está ausente o que no pertenece a una clase determinada, y 1.0, que indica que dicho fenómeno está presente o que sí pertenece a dicha clase @littell2017uriel. No obstante, `lang2vec` representa a los valores faltantes como `--`. A estos valores decidimos convertirlos en 0.0 para considerarlos como la ausencia, como en Grambank.

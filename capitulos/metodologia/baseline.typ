@@ -1,5 +1,7 @@
 == Base de referencia
 
-Por último, creamos una linea de referencia en base a los vectores de BPE. Esta base de referencia nos sirvió como principal comparación sobre BPE con respecto a las características de WALS y Grambank.
+En adición a los anteriores conjuntos de vectores, creamos un espacio aleatorio basado en el espacio BPE que sirvió como una base de referencia. Con esta base, podemos establecer si hay una mayor relación entre el espacio de BPE y Grambank o WALS más allá del carácter aleatorio.
 
-Así, para crear esta línea de referencia obtuvimos los vectores de BPE y obtuvimos rangos en donde varían las features. Ya con los rangos, usamos una distribución uniforme para crear los vectores de cada lengua pero con valores aleatorios. A este espacio lo llamamos $X_"BPE Random"$
+Por tal motivo, para crear la base de referencia, obtuvimos los rangos donde varías las características de BPE. Con esta información, generamos una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio lo denominamos $X_"BPE Random"$.
+
+// TODO: Analiza si valga la pena expandirse aquí
