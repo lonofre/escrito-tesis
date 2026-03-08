@@ -1,3 +1,5 @@
+#import "@preview/lilaq:0.5.0" as lq
+
 /*
   Esta es la introducción, debemos definir qué hicimos con las bases de datos lingüísticas. Más o menos como un TLDR para dar una idea.
 */
@@ -158,6 +160,32 @@ Otra cosa importante fue seleccionar cuáles son las características que querem
 // TODO: Por lo tanto, checa como integrarlo después
 
 Decidimos tomar un conjunto de características que representara una gran parte de características sin perder la menor cantidad de información debido a los datos faltantes.
+
+// Esta variable es para contar cuántas características tenemos disponibles por lengua. Se asume que los datos vienen ordenados y con un máximo de datos disponibles. En caso de que queramos cambiarlo otra vez, tienes que generar los datos en seleccion_por_disponibilidad.ipynb
+
+
+#{
+  let features_availability = csv("datos/availability.csv", row-type: array).map(x => x.at(2)).slice(1).map(x => int(x))
+  let languages = 38
+  
+  let accumulated = ()
+  accumulated.push(languages  - features_availability.at(0))
+  for n in range(1, features_availability.len()) {
+    let sum = accumulated.at(n - 1) + languages - features_availability.at(n)
+    accumulated.push(sum)
+  }
+  
+  lq.diagram(
+    ylabel: [Valores faltantes],
+    xlabel: [Número de características],
+    lq.plot(
+      range(features_availability.len()),
+      x => accumulated.at(x)
+    ),
+  
+    width: 80%
+  )
+}
 
 // Esto es un borrador momentáneo mientras tengamos los datos suficientes
 Por un lado, podemos observar que entre el rango de 30 a 40 características, obtenemos una gran cobertura. No obstante, hay que considerar que por cada nueva característica que agreguemos al conjunto al analizar estamos añadiendo valores vacíos. Esto lo podemos visualizar mejor en la gráfica. No decidimos usar menos características porque quisimos a la vez tener una gran cobertura.
