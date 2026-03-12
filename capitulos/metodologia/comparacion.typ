@@ -1,23 +1,31 @@
+/*
+  El objetivo fue buscar una relación entre los diferentes espacios.
+*/
 == Comparación
-// El objetivo fue buscar una relación entre los diferentes espacios.
 
-Uno de los enfoque que utilizamos para comparar ambos espacios fue Rand Index (RI) @rand. Este índice mide la similitud entre dos grupos de datos. La idea de utilizar este método es crear una relación entre los clusters formados entre un espacio y los clusters formados en otro.
+Uno de los enfoque que utilizamos para comparar ambos espacios fue el índice Rand ajustado (_Adjusted Rand Index_, ARI) @Hubert1985. Este índice mide la similitud entre dos agrupamientos. Así, nuestro objetivo fue crear agrupamientos entre dos distintos espacios para ver qué tan similares son estos grupos. 
 
-El RI se define de la siguiente manera:
+ARI encuentra esta similitud mediante la siguiente fórmula:
 
-$ "RI" = ("TP" + "TN")/("TP" + "TN" + "FP" + "FN") $
+// Mejorar esta fórmula y verificar si viene así del paper
+$
+"ARI" = 
+frac(
+  sum_(i j) binom(n_(i j), 2) - frac(lr([ sum_i binom(a_i, 2) sum_j binom(b_j, 2) ]), binom(n, 2), style: "horizontal"),
+  frac(1, 2) lr([ sum_i binom(a_i, 2) + sum_j binom(b_j, 2) ]) - frac(lr([ sum_i binom(a_i, 2) sum_j binom(b_j, 2) ]), binom(n, 2), style: "horizontal")
+)
+$
 
-- a: número de pares de elementos que están en el mismo cluster en ambas particiones.
-- b: número de pares de elementos que están en clusters diferentes en ambas particiones.
-- c: número de pares que están en el mismo cluster en la primera partición pero en diferentes clusters en la segunda.
-- d: número de pares que están en diferentes clusters en la primera partición pero en el mismo cluster en la segunda.
+donde:
+- $n_(i j)$: elementos comunes entre cluster $i$ y cluster $j$
+- $a_i = sum_j n_(i j)$: tamaño del cluster $i$ en la partición $U$
+- $b_j = sum_i n_(i j)$: tamaño del cluster $j$ en la partición $V$
+- $n$: número total de elementos
 
-Pero no utilizamos sólo RI, sino utilizamos el _Adjusted Rand Index_ (ARI) @Hubert1985.
-
-// Aquí Wikipedia da referencia a una tabla. Sería mejor revisar el paper original
+ARI toma valores entre -1 y 1. El 1 sugiere un acuerdo perfecto, el 0 uno equivalente al azar y menor a 0 pero que el azar. Una de sus ventajas es que una medida simétrica.
 
 // Buscar quién público k-means
-Para generar los clusters usamos K-medias (K-means). Este es un algoritmo de agrupamiento que agrupa datos en k grupos, asignando cada punto al centroide más cercano e iterando hasta que los grupos se estabilicen.
+Para generar los agrupamientos usamos K-medias (K-means). Este es un algoritmo de agrupamiento que agrupa datos en k grupos, asignando cada punto al centroide más cercano e iterando hasta que los grupos se estabilicen.
 
 // Aquí quizá abordar más el setup de scikit learn
 Usamos una configuración especial en K-means.
