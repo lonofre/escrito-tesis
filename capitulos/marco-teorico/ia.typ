@@ -5,48 +5,20 @@
 */
 == IA y procesamiento de lenguaje natural
 
-La inteligencia artificial (IA) tiene entre sus objetivos crear sistemas computacionales capaces de realizar tareas que requieren inteligencia humana. Entre estas tareas se encuentran el razonamiento, el aprendizaje, la percepción, la toma de decisiones y el procesamiento del lenguaje natural (PLN).
-
-El procesamiento del lenguaje natural estudia cómo las computadoras procesan el lenguaje humano. Dentro de este marco, el PLN forma parte de las ciencias de la computación y mantiene una relación estrecha con la IA.
-
-Está relación entre el PLN y la IA ha dado lugar a soluciones para problemas de reconocimiento de voz, la traducción automática y la generación de texto. En la vida cotidiana, estas aplicaciones aparecen en herramientas como el autocorrector, los filtros de spam y los asistentes de voz. Más recientemente, el avance del PLN ha permitido el desarrollo de sistemas más complejos, como la IA generativa, que es capaz de generar texto, imágenes y videos a partir de mensajes expresados mediante el lenguaje natural.
-
-=== Modelos de lenguaje
+Los modelos de lenguaje han sido uno de los puntos de interacción entre la inteligencia artificial (IA) y el procesamiento del lenguaje natural (PLN). Esta intersección impulsó décadas de investigación y la confluencia de varias disciplinas. En el centro de todo ello, las palabras han sido el elemento fundamental sobre el que se construyó toda representación y generación del lenguaje. Para comprender el alcance de esta evolución, es necesario partir desde la propia naturaleza de los modelos de lenguaje.
 
 // Quizá citar algo aquí? para darle más fuerza.
-Así, uno de los objetivos del PLN es modelar el lenguaje humano. La manera en cómo se ha modelado ha ido cambiando a lo largo del tiempo, a su vez que cada enfoque tiene influencia en los resultados que puede dar una tarea o sistema de PLN.
+Por tanto, los modelos de lenguaje son el resultado del PLN para representar y comprender el lenguaje humano. Así mismo, las formas de modelar el lenguaje natural han ido cambiando a lo largo del tiempo, teniendo influencia en los resultados de las tareas y sistemas de PLN.
 
-// Citar a Chomsky??? Al menos para dar una idea de las gramáticas libres de contexto
-En los primeros sistemas de PLN, el modelado del lenguaje natural se abordó mediante el uso de reglas gramaticales explícitas. Estas reglas se pueden denotar con gramáticas libres de contexto. Se puede observar esta aplicación en una de las primeras demostraciones de traducción automática, que fue el experimento Georgetown-IBM @hutchins-2004-georgetown, el cual hizo uso de 6 reglas gramáticales.
-
-Estos enfoques basados en reglas presentaron una fuerte influencia lingüística. Podemos ver esto en la arquitectura de sistemas como EUROTRA#footnote[EUROTRA fue un proyecto de traducción automática establecido y financiado por la Comisión Europea desde 1978 hasta 1992.]. Su arquitectura se basaba en un modelo de transferencia @johnson-etal-1985-eurotra @varile-lau-1988-eurotra, que realizaba un análisis sintáctico y semántico de la lengua de origen para posteriormente transferir dicha representación a la lengua de destino y generar la traducción final. Por lo cual, requería un fuerte trabajo lingüístico para generar las reglas y conseguir un buen modelo de lenguaje.
+En los primeros sistemas de PLN, el modelado del lenguaje natural se abordó mediante reglas gramaticales explícitas (denotables con gramáticas libres de contexto) con una fuerte influencia lingüística. Esto puede observarse desde una de las primeras demostraciones de traducción automática, el experimento Georgetown-IBM @hutchins-2004-georgetown, que empleó apenas 6 reglas gramaticales, hasta arquitecturas más elaboradas como EUROTRA#footnote[EUROTRA fue un proyecto de traducción automática establecido y financiado por la Comisión Europea desde 1978 hasta 1992.], cuyo modelo de transferencia @johnson-etal-1985-eurotra @varile-lau-1988-eurotra realizaba un análisis sintáctico y semántico de la lengua de origen para luego transferir dicha representación a la lengua destino. En ambos casos, estos enfoques requerían un intenso trabajo lingüístico para definir las reglas y construir un modelo de lenguaje funcional.
 
 // Quizá podemos introducir esto? https://aclanthology.org/J96-1002.pdf
 // También podemos introducir el enfoque de probabilida
-No obstante, los modelos de lenguaje estadísticos (_Statistical Language Model_, SLM) remplazaron los modelos basados en reglas, pues los SLM demostraron tener mejores resultados en tareas de NLP @brown-etal-1990-statistical. Para tareas de traducción automática, los SLM no tienen la limitante de el reducido número de reglas de cada idioma, sino se contruyen en cuál es la traducción más probable, esto gracias a partir del entrenamiento sobre grandes corpus bilingües.
+No obstante, los modelos de lenguaje estadísticos (Statistical Language Model, SLM) reemplazaron a los modelos basados en reglas al demostrar mejores resultados en tareas de NLP @brown-etal-1990-statistical. En lugar de partir de un conjunto predefinido de reglas lingüísticas, los SLM infieren los patrones más probables del lenguaje mediante el entrenamiento sobre grandes corpus de texto. Esto representó un cambio de paradigma en el desarrollo de los sistemas de PLN: el objetivo dejó de centrarse en el análisis explícito de características lingüísticas y pasó a formularse como un problema probabilístico, donde dado una ventana contexto, el modelo estima el resultado más probable a partir de lo observado durante el entrenamiento.
 
-Esto representó un cambio de paradigma en el desarrollo de los sistemas de PLN. El objetivo de los modelos de lenguaje dejó de centrarse en el análisis explícito de características lingüísticas del texto y pasó a formularse como un problema probabilístico y de aprendizaje automático: dado un contexto, estimar el resultado más probable a partir de lo observado en los corpus de entrenamiento. Por lo tanto, un modelo de lenguaje empezó a definir una distribución conjunta sobre una secuencia palabras $w_(1:T) = (w_1, w_2, dots, w_t)$, donde cada $w_t$ pertenece a un vocabulario $V$:
+Por lo tanto, un modelo de lenguaje empezó a definir una distribución conjunta sobre una secuencia palabras $w_(1:T) = (w_1, w_2, dots, w_t)$, donde cada $w_t$ pertenece a un vocabulario $V$:
 
 $ P(w_(1:T)) = product_(t=1)^(T) P(w_t | w_(1:t-1))) $
-
-/*
-Esto puede observarse en tareas de como el autocompletado o generación de texto. En @autocompletado podemos observar de acuerdo a un contexto, podemos predecir la siguiente palabra de acuerdo a cuál es lo más probable.
-
-#figure( 
-  diagram(
-    node((-0.5, 0.5), [El cielo es ?], radius: 3em),
-    node((1.5, 0), [$P("azul" | "El cielo es")$], radius: 2em),
-    node((1.5, 0.5), [$P("rojo" | "El cielo es")$], radius: 2em),
-    node((1.5, 1), [...], radius: 2em),
-
-    edge((-0.5, 0.5), (0.6, 0), bend: 10deg),
-    edge((-0.5, 0.5), (0.6, 0.5)),
-    edge((-0.5, 0.5), (0.6, 1), bend: -10deg),
-  ),
-  caption: [Posibles probabilidades para completar la frase _el cielo es._]
-) <autocompletado>
-
-*/
 
 // Quizá podemos expandir un poco más a los n-gramas
 // Definiciones cortas al menos, para contextualizar un poco y dar enfásis al siguiente punto
@@ -89,6 +61,8 @@ Más adelante, este enfoque se consolidó con el modelo Word2Vec @mikolov2013eff
 
 // Concluir al menos algo aquí
 
+// TODO: Siento que me falta indagar aquí. Este es un tema central en la tesis y debo relacionar los grandes modelos de lenguaje con: o los tokens o la tokenización en sí.
+// Entonces, aquí requiero más investigación sobre esto
 === Grandes modelos de lenguaje <llms>
 
 // Citar al libro de NPL?
