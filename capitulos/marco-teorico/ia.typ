@@ -3,57 +3,28 @@
 /*
   Al menos el primer enfoque que quiero darle a esta sección es relación IA-NLP, con un enfoque en los modelos de lenguaje (esta sería la relación y posiblemente uno de los personajes principales). Quiero hacer énfasis en los tokens y cómo son usados en estos modelos de lenguajes.
 */
-== IA y procesamiento de lenguaje natural
+== La inteligencia artificial y el procesamiento de lenguaje natural
 
 Los modelos de lenguaje han sido uno de los puntos de interacción entre la inteligencia artificial (IA) y el procesamiento del lenguaje natural (PLN). Esta intersección impulsó décadas de investigación y la confluencia de varias disciplinas. En el centro de todo ello, las palabras han sido el elemento fundamental sobre el que se construyó toda representación y generación del lenguaje. Para comprender el alcance de esta evolución, es necesario partir desde la propia naturaleza de los modelos de lenguaje.
 
-// Quizá citar algo aquí? para darle más fuerza.
 Por tanto, los modelos de lenguaje son el resultado del PLN para representar y comprender el lenguaje humano. Así mismo, las formas de modelar el lenguaje natural han ido cambiando a lo largo del tiempo, teniendo influencia en los resultados de las tareas y sistemas de PLN.
 
-En los primeros sistemas de PLN, el modelado del lenguaje natural se abordó mediante reglas gramaticales explícitas (denotables con gramáticas libres de contexto) con una fuerte influencia lingüística. Esto puede observarse desde una de las primeras demostraciones de traducción automática, el experimento Georgetown-IBM @hutchins-2004-georgetown, que empleó apenas 6 reglas gramaticales, hasta arquitecturas más elaboradas como EUROTRA#footnote[EUROTRA fue un proyecto de traducción automática establecido y financiado por la Comisión Europea desde 1978 hasta 1992.], cuyo modelo de transferencia @johnson-etal-1985-eurotra @varile-lau-1988-eurotra realizaba un análisis sintáctico y semántico de la lengua de origen para luego transferir dicha representación a la lengua destino. En ambos casos, estos enfoques requerían un intenso trabajo lingüístico para definir las reglas y construir un modelo de lenguaje funcional.
+En los primeros sistemas de PLN, el modelado del lenguaje natural se abordó mediante reglas gramaticales explícitas —denotables con gramáticas libres de contexto— con una fuerte influencia lingüística. Esto puede observarse desde una de las primeras demostraciones de traducción automática, el experimento Georgetown-IBM @hutchins-2004-georgetown, que empleó apenas 6 reglas gramaticales, hasta arquitecturas más elaboradas como EUROTRA#footnote[EUROTRA fue un proyecto de traducción automática establecido y financiado por la Comisión Europea desde 1978 hasta 1992.], cuyo modelo de transferencia @johnson-etal-1985-eurotra @varile-lau-1988-eurotra realizaba un análisis sintáctico y semántico de la lengua de origen para luego transferir dicha representación a la lengua destino. En ambos casos, estos enfoques requerían un intenso trabajo lingüístico para definir las reglas y construir un modelo de lenguaje funcional.
 
-// Quizá podemos introducir esto? https://aclanthology.org/J96-1002.pdf
-// También podemos introducir el enfoque de probabilida
-No obstante, los modelos de lenguaje estadísticos (Statistical Language Model, SLM) reemplazaron a los modelos basados en reglas al demostrar mejores resultados en tareas de NLP @brown-etal-1990-statistical. En lugar de partir de un conjunto predefinido de reglas lingüísticas, los SLM infieren los patrones más probables del lenguaje mediante el entrenamiento sobre grandes corpus de texto. Esto representó un cambio de paradigma en el desarrollo de los sistemas de PLN: el objetivo dejó de centrarse en el análisis explícito de características lingüísticas y pasó a formularse como un problema probabilístico, donde dado una ventana contexto, el modelo estima el resultado más probable a partir de lo observado durante el entrenamiento.
+No obstante, los modelos de lenguaje estadísticos (_Statistical Language Model_, SLM) reemplazaron a los modelos basados en reglas al demostrar mejores resultados en tareas de NLP @brown-etal-1990-statistical. En lugar de partir de un conjunto predefinido de reglas lingüísticas, los SLM infieren los patrones más probables del lenguaje mediante el entrenamiento sobre grandes corpus de texto. Esto representó un cambio de paradigma en el desarrollo de los sistemas de PLN: el objetivo dejó de centrarse en el análisis explícito de características lingüísticas y pasó a formularse como un problema probabilístico. Así, dada una ventana de contexto, el modelo estima el resultado más probable a partir de lo observado durante el entrenamiento.
 
-Por lo tanto, un modelo de lenguaje empezó a definir una distribución conjunta sobre una secuencia palabras $w_(1:T) = (w_1, w_2, dots, w_t)$, donde cada $w_t$ pertenece a un vocabulario $V$:
+De esta manera, un modelo de lenguaje define una distribución conjunta sobre sobre una secuencia de palabras $w_(1:T) = (w_1, w_2, dots, w_t)$ @bengio2003
 
 $ P(w_(1:T)) = product_(t=1)^(T) P(w_t | w_(1:t-1))) $
 
-// Quizá podemos expandir un poco más a los n-gramas
-// Definiciones cortas al menos, para contextualizar un poco y dar enfásis al siguiente punto
-Ahora, el desafío se convirtió en obtener esa distribución de probabilidad para un modelo de lenguaje. Es por esto en los SML predominó el uso de n-gramas, que son subsecuencias de $N$ elementos o palabras. Los n-gramas usan la suposición de Markov @Markov_2006, donde la suposición que cada probabilidad condicional sólo depende de los previos $N$ términos. Esto fue llevado para crear un modelo de n-gramas:
+donde cada $w_i$ pertenece a un vocabulario $V$.
 
-$ P(w_(1:T)) = product_(t=1)^(T) P(w_t | w_(1:t-1))) approx product_(t=1)^(T) P(w_t | w_(t-N+1:t-1)) $
+En consecuencia, el desafío se convirtió en obtener esa distribución de probabilidad para un modelo de lenguaje. Es por esto en los SML predominó el uso de n-gramas, que son subsecuencias de $N$ elementos o palabras. Los n-gramas usan la suposición de Markov @Markov_2006, donde la suposición que cada probabilidad condicional sólo depende de los previos $N$ términos. A partir de esta suposición se construye el modelo de n-gramas.
 
-Debido a su carácter estadístico, las nociones lingüísticas de estos SML resultan difusas, ya que las palabras se relacionan principalmente por su coaparición en contextos similares.
+Sin embargo, estos modelos enfrentan un problema fundamental: la maldición de la dimensionalidad @zhao2025surveylargelanguagemodels. Estimar con precisión modelos de lenguaje de alto orden resulta difícil, porque utilizan contextos largos y, en consecuencia, requieren calcular un número exponencial de probabilidades de transición, lo cual aumenta su costo computacional.
 
-#figure(
-  block[
-    // Workaround: https://forum.typst.app/t/how-can-i-highlight-math-including-numbers/5031/8
-    #show highlight: it => [
-      #box(
-        fill: it.fill,
-        stroke: it.stroke,
-        radius: it.radius,
-        outset: 2pt,
-        inset: 0.2em,
-      )[#it.body]
-    ]
-    $ dots $
-    $ P("oscuro" | "el cielo es") = 0.3 $
-    #highlight(fill: rgb("#b7ffab"))[$ P("azul" | "el cielo es") = 0.15 $]
-    $ P("rojo" | "el cielo es") = 0.05 $
-    $ dots $
-  ],
-  caption: [Un SLM va a elegir la opción con mayor probabilidad.]
-)
+// TODO: Desde aquí seguiría mejorar y empezar a introducir a los modelos de lenguaje neuronales y los LLMs. Tengo que explicar la relación con las palabras, la vectorización y otras relaciones para comprender de una manera en cómo funcionan. Tal vez no sería en detalle, pero si haciendo énfasis en palabras o tokens para introducir la siguiente sección de tokenización.
 
-// Agregar lo que criticaba Chomsky también aquí
-// Quizá agregar a Bengio sobre la maldidición dela dimensionalidad ¿?
-No obstante, los SML no suelen ser la mejor opción, pues suelen sufrir la maldición de la dimensionalidad @zhao2025surveylargelanguagemodels. En este escenario, estimar con precisión modelos de lenguaje de alto orden resulta difícil, porque estos modelos utilizan contextos largos y, en consecuencia, requieren calcular un número exponencial de probabilidades de transición, lo cual aumenta su costo computacional.
-
-// Algo que quiero agregar aquí es mostrar una relación entre datos obtenidos como Zipf, etc, que han ayudado a describir linguisticamente a las cosas.
 Para mitigar esta problemática, la investigación comenzó a orientarse hacia los modelos de lenguaje neuronales (_Neural Language Models_, NLM). El trabajo de #cite(<bengio2003>, form: "prose") propuso reemplazar el conteo discreto por representaciones distribuidas, donde las palabras se representan como vectores en un espacio continuo. Esto permite que el modelo pueda generalizar mejor, ya que es capaz de identificar similitudes entre palabras con significados relacionados, incluso cuando no aparecen juntas con frecuencia en el corpus de entrenamiento.
 
 // Quizá agregar nociones de semántica aquí?
