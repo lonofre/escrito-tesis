@@ -16,6 +16,8 @@
         justify: true,
     )
 
+    set math.equation(numbering: "(1)")
+
     set text(size: 12pt)
     set heading(numbering: "1.1")
     {
