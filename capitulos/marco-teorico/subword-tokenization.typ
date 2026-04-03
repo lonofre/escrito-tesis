@@ -4,7 +4,7 @@
 */
 == Tokenización a nivel subpalabra
 
-Muchos algoritmos de PLN no operan directamente sobre la cadena de caracteres de un texto entero, sino que requieren una etapa previa de preprocesamiento. Este primer proceso es la tokenización, la cual consiste en segmentar el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los algoritmos de PLN. Sin embargo, cada algoritmo se beneficia diferentemente en cómo se representan los tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
+Estos grandes modelos de lenguaje no operan directamente sobre la cadena de caracteres de un texto entero, sino que requieren una etapa previa de preprocesamiento. Este primer proceso es la tokenización, la cual consiste en segmentar el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los los modelos de lenguaje y algoritmos de PLN. Sin embargo, cada algoritmo se beneficia diferentemente en cómo se representan los tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
 
 #figure(
   align(center, block[
@@ -16,7 +16,7 @@ Muchos algoritmos de PLN no operan directamente sobre la cadena de caracteres de
   caption: [Algunas formas de tokenización.]
 )
 
-Un primer enfoque de cómo se pueden representar los tokens es la tokenización por palabras, aunque tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar palabras desconocidas (_Out of Vocabulary_, OVV), sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y desconocidas, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar nuevas palabras con el paso del tiempo, lo cual es una fuerte limitante.
+Un primer enfoque de cómo se pueden representar los tokens es la tokenización por palabras, aunque tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar palabras desconocidas (_Out of Vocabulary_, OVV), sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y OOV, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar nuevas palabras con el paso del tiempo, lo cual es una fuerte limitante.
 
 Para abordar estas limitaciones, una alternativa al uso de palabras como tokens es emplear subpalabras. Las subpalabras corresponden a palabras completas, cadenas arbitrarias o incluso morfemas, lo cual da entender que son unidades que tienen una longitud igual o más pequeña que una palabra.
 
@@ -26,13 +26,6 @@ Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un model
 Debido a estas ventajas, el uso de subpalabras como tokens ha sido predominante en los modelos de lenguaje actuales.
 
 Las subpalabras son los tokens que los LLMs usan para las tareas de NLP. La principal ventaja de estos es que lidian con las palabras OOV.
-
-// The end :)
-/*
-La tokenización ayuda a . Esta representación discreta del texto garantiza la reproducibilidad @jm3 en los algoritmos de NPL, porque los algoritmos trabajan sobre un alfabeto o conjunto de datos en común. 
-
-Asimismo, la tokenización puede abordar el problema de las palabras desconocidas o los neologismos; sin embargo, esta capacidad depende fundamentalmente de la definición del vocabulario subyacente de tokens. A estas palabras desconocidas se le suelen llamar fuera del vocabulario (_Out of Vocabulary_, OOV).
-*/
 
 === Codificación de Pares de Bytes
 
