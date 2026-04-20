@@ -5,7 +5,9 @@
 */
 == Procesamiento computacional de las bases de datos lingüísticas
 
-Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron dos bases de datos lingüísticas: _World Atlas of Language Structures_ (WALS) y Grambank. Estas bases de datos contienen características tipológicas —morfológicas, sintácticas y fonológicas— de las lenguas analizadas, las cuales permiten corroborar posibles similitudes con las características morfológicas presentes en el espacio BPE. Sin embargo, ninguna de las dos bases de datos presenta una correspondencia uno a uno entre las lenguas que contienen, y no todas las características cuentan con un valor asignado. Por ello, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
+Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron dos bases de datos lingüísticas: _World Atlas of Language Structures_ (WALS) y Grambank. Estas bases de datos contienen características tipológicas ---morfológicas, sintácticas y fonológicas--- de las lenguas analizadas, las cuales permiten corroborar posibles similitudes con las características morfológicas presentes en el espacio BPE. Sin embargo, ninguna de las dos bases de datos presenta una correspondencia uno a uno entre las lenguas que contienen, y no todas las características cuentan con un valor asignado. Por ello, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
+
+Dicho procesamiento fue posible dado que tanto Grambank como WALS siguen los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para estructurar, compartir y reutilizar datos lingüísticos. A partir de estas, se extrajeron las características lingüísticas de cada lengua, obteniendo una matriz $X_("Grambank") in RR^(n times m)$ y una matriz $X_("WALS") in RR^(n times m)$, denominadas espacio de Grambank y espacio de WALS, respectivamente.
 
 === WALS
 
@@ -47,6 +49,18 @@ Se utilizó un subconjunto de 15 características de WALS que codifican informac
 
 Para identificar las lenguas en WALS se utilizó el _WALS code_, ya que el ISO 639-3 puede ser compartido por varias lenguas, lo que dificultaría su distinción. No obstante, el ISO 639-3 se empleó como apoyo para mejorar la identificación de las lenguas.
 
+#let database_footnote = [Se obtuvo los datos de WALS de su repositorio público #link("https://github.com/cldf-datasets/wals").]
+#let processing_footnote = [A partir del repositorio de WALS, se construyó una base de datos relacional mediante `pycldf` @cldf. El uso de bases de datos relacionales, frente a otras modalidades disponibles como archivos `.csv` o llamadas a bibliotecas, proporcionó la flexibilidad necesaria para realizar consultas mediante SQL.]
+
+De WALS, la información de interés fue el nombre de las lenguas y el valor de cada una de sus características#footnote(database_footnote). CLDF organiza esta información en tres componentes: las _lenguas_, que son los objetos de investigación; los _parámetros_, que representan los conceptos comparativos medidos entre lenguas y que en este estudio se denominarán características; y los _valores_, que corresponden a la medición concreta de una característica para una lengua específica.
+
+A partir de la base de datos de WALS#footnote(processing_footnote), se procesó `ValueTable`, que contiene los valores de las características para cada lengua, para construir las representaciones vectoriales de las lenguas, convirtiendo cada una en un vector a partir de dichos valores. Por ejemplo, el inglés con las características de @wals-features produce el vector $v = (1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$.
+
+// Además, podemos agregar que en el experimento original el imputer fue 0
+Los vectores de las lenguas se agruparon en una matriz $X_("WALS") in RR^(n times m)$, donde $n$ es el número de lenguas y $m$ el número de características. Durante este procesamiento, se identificó que algunas lenguas carecen de valores para ciertas características, ya sea porque la base de datos lo indica explícitamente o porque la entrada simplemente no existe en `ValueTable`. En ambos casos, dichos valores se dejaron como $0$ en la matriz. 
+
+// TODO: Representar el espacio WALS usando PCA o algo parecido
+
 === Grambank
 
 Grambank @grambank es otra base de datos lingüística que registra hasta 195 características de 2,467 lenguas y dialectos en el mundo.
@@ -62,26 +76,7 @@ Por último, cabe señalar que Grambank no cuenta con información de todas las 
 
 === Procesamiento
 
-// Ajustar bien los indices de los espacios: X_grambank y X_wals
-Procesamos de manera similar a Grambank y WALS. Estas bases de datos siguen los Cross-Linguistic Data Formats (CLDF) @cldf, que son un conjunto de estándares para estructurar, compartir y reutilizar datos lingüísticos. Así logramos obtener las características lingüísticas de las lenguas con el fin de tener una matriz $X_("Grambank") in RR^(n times m)$ y una matriz $X_("WALS") in RR^(n times m)$, a los cuales llamamos espacio de Grambank y espacio de WALS.
-
-Así, la información de WALS y Grambank que nos interesó fue el nombre de las lenguas y el valor de cada una de sus características. CLDF presenta esta información como:
-
-- _Lenguas_, que son los objetos de investigación.
-- _Parámetros_, que son los conceptos comparativos medidos y comparados entre lenguas. Para nuestro estudio, nos referiremos a estos como las características.
-- _Valores_, que son las mediciones concretas de un parámetro sobre una lengua.
-
-Obtuvimos esta información de repositorios de Grambank y WALS para convertirlas en bases de datos SQLite. Logramos crear estas bases de datos relacionales usando `pycldf` @cldf sobre los datos de los repositorios. Si bien los mismos repositorios permitieron otras modalidades de acceder a los datos, mediante archivos `.csv` o llamadas a bibliotecas, usar bases de datos relacionales nos proporcionó la flexibilidad de hacer consultas mediante SQL. 
-
-Así, las tablas relevantes que usamos fueron las que siguen el formato de CLDF:
-
-- _LanguageTable_, que contiene información general de las lenguas, como el nombre de la lengua y su identificador único. Aquí, Grambank usa sus propios identificadores, mientras que WALS usa su identificador único también como un identificador ISO 639-3.
-- _ParameterTable_, que contiene información de las características de las lenguas, como el nombre y el identificador, pero no el valor.
-- _ValueTable_, que contiene información de los valores de las características para cada lengua. En Grambank y WALS, estos valores son numéricos. 
-
-// TODO: Hacer un diagrama para ver cómo se relacionan las lenguas
-Estas tablas  están relacionadas entre sí. `ValueTable` es la tabla que está relacionada con `LanguageTable` y `ParameterTable`. A continuación, un fragmento de la tabla `ValueTable` en Grambank.
-
+/*
 #figure(
   table(
     stroke: none,
@@ -99,14 +94,8 @@ Estas tablas  están relacionadas entre sí. `ValueTable` es la tabla que está 
   ),
   caption: [Fragmento de `ValueTable`]
 )
+*/
 
-// Quizá representar el vector en un espacio? Quizá también es ruido
-Al procesar `ValueTable`, esta nos dio las representaciones vectoriales de las lenguas. Convertimos cada lengua en un vector usando los valores de sus características. Por ejemplo, el inglés con las características GB020, GB021, GB022 y GB023 de Grambank produce el vector $v = (1, 1, 1, 0)$.
-
-En Grambank, juntamos los vectores de las lenguas para crear una matriz $X_("Grambank")$. Esta matriz es de dimensión $n times m$, donde $n$ es el número de lenguas y $m$ el número de características. Al procesar estos datos, encontramos que algunas lenguas no tienen valores para ciertas características. A veces la base de datos explica por qué, otras veces la entrada simplemente no existe en `ValueTable`. En estos casos, dejamos esos valores como nulos en la matriz.
-
-// Checar lo del número de columnas
-De manera similar, en WALS usamos las características proporcionadas en @wals-features. Por lo cual, la matriz $X_("WALS")$ tiene una dimensión de $n times n$, donde $n$ es el número de lenguas. Estas lenguas aún tenían algunos valores vacíos para sus características.
 
 // TODO: !Importante
 // A partir de este texto, hay un rango de mejora sobre como presentamos la información, 
