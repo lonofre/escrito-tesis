@@ -5,7 +5,6 @@ Queremos hacer una relación entre los espacios dados por los vectores generados
 
 #include "corpora.typ"
 #include "procesamiento-datos.typ"
-#include "lang2vec.typ"
 #include "baseline.typ"
 #include "comparacion.typ"
 

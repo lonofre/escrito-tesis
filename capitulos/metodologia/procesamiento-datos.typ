@@ -125,3 +125,19 @@ La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para intep
 
 // Pon que también se uso StandarScaler
 Otra paso del procesamiento fue estandarizar y centrar los puntos que obtuvimos después de construir la matriz. Esto se logra con:
+
+=== lang2vec
+
+// TODO: Hay que ser específicos que se usó URIEL + los vectores aprendidos en el otro (también se cita)
+// Por lo que correcto es decir que lang2vec es la herramienta adecuada en vez de sólo URIEL
+// TODO: Otra cosa, agrega el por qué se usó las características sintácticas
+Otro conjunto de datos utilizado fue URIEL @littell2017uriel, accedido mediante `lang2vec`, el cual recopila características sintácticas de las lenguas a partir de diversas bases lingüísticas, entre ellas WALS, aunque con una representación propia para codificarlas.
+
+Las características sintácticas empleadas provienen de dos conjuntos: `syntax_wals`, basado directamente en WALS, y `syntax_knn`, que aplica una técnica de $k$ vecinos más cercanos sobre la combinación de WALS, _Syntactic Structures of the World's Languages_ (SSWL) y Ethnologue. Ambos conjuntos cubren las lenguas del estudio; sin embargo, `syntax_wals` puede contener valores vacíos para algunas características, mientras que `syntax_knn` no presenta ninguno.
+
+// TODO: Considera acortar esto si lo ves necesario, porque en las otros tampoco entramos en detalle en cómo se ven las características. Sin embargo, mantén la decisión de por qué se imputó de una manera.
+Las características de `lang2vec` son binarias: el valor 0.0 indica la ausencia de un fenómeno o que no pertenece a una clase determinada, mientras que 1.0 indica su presencia o pertenencia @littell2017uriel. Los valores faltantes, representados como `--`, se convirtieron en 0.0 para tratarlos como ausencia, de manera consistente con el criterio adoptado para Grambank.
+
+// TODO: Agrega que se encontraron las lenguas usando el ISO code y que se encontró la mayoría de las lenguas con el ISO-CODE
+
+// TODO: Agrega lo del StandarScaler también
