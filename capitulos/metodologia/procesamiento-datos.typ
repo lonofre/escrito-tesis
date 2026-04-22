@@ -57,9 +57,11 @@ De WALS, la información de interés fue el nombre de las lenguas y el valor de 
 A partir de la base de datos de WALS#footnote(processing_footnote), se procesó `ValueTable`, que contiene los valores de las características para cada lengua, para construir las representaciones vectoriales de las lenguas, convirtiendo cada una en un vector a partir de dichos valores. Por ejemplo, el inglés con las características de @wals-features produce el vector $v = (1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$.
 
 // Además, podemos agregar que en el experimento original el imputer fue 0
-Los vectores de las lenguas se agruparon en una matriz $X_("WALS") in RR^(n times m)$, donde $n$ es el número de lenguas y $m$ el número de características. Durante este procesamiento, se identificó que algunas lenguas carecen de valores para ciertas características, ya sea porque la base de datos lo indica explícitamente o porque la entrada simplemente no existe en `ValueTable`. En ambos casos, dichos valores se dejaron como $0$ en la matriz. 
+Los vectores de las lenguas se agruparon en una matriz $X_("WALS") in RR^(n times m)$, donde $n$ es el número de lenguas y $m$ el número de características. Durante este procesamiento, se identificó que algunas lenguas carecen de valores para ciertas características. Dichos valores se dejaron como $0$ en la matriz. 
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
+
+// TODO: Agregar lo del StandarScaler también aquí.
 
 === Grambank
 
@@ -72,52 +74,13 @@ Por consiguiente, para relacionar las lenguas de Grambank con las de WALS, se es
 El primer criterio fue la coincidencia exacta de nombre, relacionando directamente las lenguas que compartían el mismo nombre en ambas bases de datos, como _Modern Greek_ para el griego. El segundo criterio aplicó cuando solo existía una lengua con nombre similar, considerándola como equivalente; por ejemplo, _Lango (Uganda)_ en Grambank correspondió a _Lango_ en WALS. Finalmente, si existían múltiples lenguas con nombre similar, se eligió la que contara con más características disponibles; por ejemplo, _Hausa States Fulfulde_ se seleccionó sobre _Hausa_ por contar con más características en Grambank.
 
 // TODO: Agregar que la información se puede ver en el apéndice
-Por último, cabe señalar que Grambank no cuenta con información de todas las lenguas de interés , como el español y el alemán, por lo que el conjunto de lenguas analizado se redujo en consecuencia.
+Cabe señalar que Grambank no cuenta con información de todas las lenguas de interés, como el español y el alemán, por lo que el conjunto de lenguas analizado se redujo en consecuencia.
 
-=== Procesamiento
+#let grambank_footnote = [Se obtuvo los datos de Grambank de su repositorio público #link("https://github.com/grambank/grambank").]
 
-/*
-#figure(
-  table(
-    stroke: none,
-    align: left, 
-    columns: (auto, auto, auto),
-    table.header(
-      [*cldf_languageReference*], [*cldf_parameterReference*], [*cldf_value*],
-      table.hline(stroke: 1pt + black)
-    ),
-    [abad1241], [GB025], [1],
-    [abad1241], [GB026], [0],
-    [abad1241], [GB027], [0], 
-    [abad1241], [GB028], [1],
-    [abad1241], [GB030], [0],
-  ),
-  caption: [Fragmento de `ValueTable`]
-)
-*/
+La matriz $X_"Grambank"$ se construyó mediante el mismo método que $X_"WALS"$, leyendo los datos a través de CLDF#footnote(grambank_footnote). Cabe resaltar que, a diferencia de WALS, se utilizó el identificador propio de Grambank para identificar las lenguas.
 
-
-// TODO: !Importante
-// A partir de este texto, hay un rango de mejora sobre como presentamos la información, 
-// tanto como imputeamos los datos o cosas así. Esto es para otro borrador.
-// Además, tenemos que hablar de cómo elegimos el conjunto de características de Grambank también, y forma parte de la metodología. Quizá aquí o en otra sección.
-Sin embargo, los algoritmos que utilizamos necesitaban que los datos de la matriz no sean nulos. Para tratar estos casos de valores inexistentes, usamos la imputación de estos valores. Tuvimos considerar que hay varias formas de hacer este relleno de valores nulos:
-
-// Podemos citar también?
-- Usar valores en 0. Usando este, asumimos que el valor nulo se puede asumir como ausencia de.
-- Usar valores en -1. De igual manera, asumimos que la ausencia se puede modelar como algo desconocido.
-- Usar valores de la media del conjunto. Esto es, base en los valores de otras lenguas que están en la matriz.
-- Usar valores de lenguas cercanas a esa lengua. Con esto, tenemos un aproximado del valor de la otra lengua. Sin embargo, como no tenemos conocimientos lingüísticos, dudamos en implementar esta opción.
-
-// Pon que también se uso StandarScaler
-Otra paso del procesamiento fue estandarizar y centrar los puntos que obtuvimos después de construir la matriz. Esto se logra con:
-
-// Poner ambas formulas matemáticas de Standar Scaler
-
-Otra cosa importante fue seleccionar cuáles son las características que queremos usar para cada lengua. Para WALS, usamos las lenguas descritas en el trabajo de #cite(<ximena-bpe-2023>, form: "prose"). Mientras que para Grambank, esperamos obtener el menor número de valores nulos.
-
-1. Ordenamos las características de acuerdo a qué tantas lenguas cubren.
-2. Después, seleccionamos de acuerdo a ese ordenamiento para obtener $n$ características.
+Sin embargo, la selección de características de Grambank requirió una exploración previa, ya que no todas las lenguas cuentan con el mismo conjunto de características disponibles. Por ello, se priorizó la combinación de características que minimizara los valores vacíos, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, GB107 cubre todas las lenguas y tendría alta prioridad, mientras que GB401 cubre pocas lenguas y se seleccionaría en los últimos lugares.
 
 // Datos obtenidos del notebook seleccion_por_disponibilidad.ipynb
 #figure(
@@ -139,11 +102,26 @@ Otra cosa importante fue seleccionar cuáles son las características que querem
         range(features_availability.len()),
         x => accumulated.at(x)
       ),
-    
       width: 80%
     )
   },
   caption: [Número de valores faltantes al ir agregando más características.]
 )<grambank-valores-vacios>
 
-Para el espacio $X_("Grambank")$, seleccionamos las primeras 30 a 40 características. En este rango, las características no tienen demasiados valores faltantes como observamos en @grambank-valores-vacios. Si bien en rangos menos tenemos aún menos valores vacíos, procuramos trabajar con una mayor cobertura de características. A su vez, agregando al espacio más características incrementa exponencialmente el número de valores faltantes, lo cual puede tener un impacto negativo al realizar una imputación.
+// Aquí continua explicando por qué se eligió cierto número de features
+// También agrega qué lenguas tienen valores muy vacíos como limitaciones
+//  Toma el top 5 (porque tampoco tenemos tantas lenguas) y haz el plot, también toma un promedio y haz el plot para graficar
+Como se observa en @grambank-valores-vacios, a partir de las 80 características la tendencia de valores vacíos incrementa. Un análisis más detallado por lengua revela que algunas, como el barasano y el oromo, presentan una gran cantidad de valores vacíos, lo cual contribuye a este incremento.
+
+// TODO: Agregar quizá una tabla de acuerdo al top 10 final.
+
+No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptable de valores vacíos, no se descartó ninguna, con el fin de abarcar la mayor cantidad de lenguas posible.
+
+// [TODO : Diagrama de media de valores perdidos y haciendo una comparación con los top 5 al menos]
+
+Al igual que con WALS, los algoritmos requieren que la matriz de Grambank no contenga valores nulos, por lo que fue necesario imputar los valores faltantes. Para ello, se consideraron cuatro estrategias de imputación: reemplazar los valores nulos con $0$, asumiendo su ausencia; reemplazarlos con $-1$, modelando la ausencia como un valor desconocido; imputar la media del conjunto, basándose en los valores de las demás lenguas de la matriz; o imputar valores de lenguas cercanas, lo que proporcionaría una aproximación más informada, aunque esta opción se descartó por requerir conocimiento lingüístico especializado.
+
+La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para intepretarlo como la ausencia de esta feature. Esta interpretación concuerda en la mayoría de las features de Grambank, que son binarias. 
+
+// Pon que también se uso StandarScaler
+Otra paso del procesamiento fue estandarizar y centrar los puntos que obtuvimos después de construir la matriz. Esto se logra con:
