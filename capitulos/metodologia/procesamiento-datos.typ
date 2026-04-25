@@ -128,16 +128,21 @@ Otra paso del procesamiento fue estandarizar y centrar los puntos que obtuvimos 
 
 === lang2vec
 
-// TODO: Hay que ser específicos que se usó URIEL + los vectores aprendidos en el otro (también se cita)
-// Por lo que correcto es decir que lang2vec es la herramienta adecuada en vez de sólo URIEL
-// TODO: Otra cosa, agrega el por qué se usó las características sintácticas
-Otro conjunto de datos utilizado fue URIEL @littell2017uriel, accedido mediante `lang2vec`, el cual recopila características sintácticas de las lenguas a partir de diversas bases lingüísticas, entre ellas WALS, aunque con una representación propia para codificarlas.
+#let lang2vec_footnote = [El repositorio público se encuentra en #link("https://github.com/antonisa/lang2vec").]
 
-Las características sintácticas empleadas provienen de dos conjuntos: `syntax_wals`, basado directamente en WALS, y `syntax_knn`, que aplica una técnica de $k$ vecinos más cercanos sobre la combinación de WALS, _Syntactic Structures of the World's Languages_ (SSWL) y Ethnologue. Ambos conjuntos cubren las lenguas del estudio; sin embargo, `syntax_wals` puede contener valores vacíos para algunas características, mientras que `syntax_knn` no presenta ninguno.
+// Según el repositorio, cita:
+// lang2vec -> URIEL papers
+// + los vectores aprendidos -> Malayiva
+Otro conjunto de datos utilizados es `lang2vec`#footnote(lang2vec_footnote), que entre sus datos recopila características sintácticas de las lenguas. Estas características vienen de URIEL @littell2017uriel y de características aprendidas @malaviya17emnlp que llenan los valores faltantes. Por lo cual, `lang2vec` proporciona otro punto de comparación en contraste a las características morfológicas.
 
-// TODO: Considera acortar esto si lo ves necesario, porque en las otros tampoco entramos en detalle en cómo se ven las características. Sin embargo, mantén la decisión de por qué se imputó de una manera.
-Las características de `lang2vec` son binarias: el valor 0.0 indica la ausencia de un fenómeno o que no pertenece a una clase determinada, mientras que 1.0 indica su presencia o pertenencia @littell2017uriel. Los valores faltantes, representados como `--`, se convirtieron en 0.0 para tratarlos como ausencia, de manera consistente con el criterio adoptado para Grambank.
+// Los knn se aplican sobre: WALS, _Syntactic Structures of the World's Languages_ (SSWL) y Ethnologue
+// Sería bueno mencionar a todos? Sería buscar de nuevo la cita de SSWL y Ethnologue (aunque este es privado, de pago creo)
+Las características sintácticas empleadas provienen de dos conjuntos: `syntax_wals`, basado directamente en WALS, y `syntax_knn`, que aplica una técnica de $k$ vecinos más cercanos sobre la combinación de WALS y otras bases de datos. Ambos conjuntos cubren las lenguas del estudio; sin embargo, `syntax_wals` puede contener valores vacíos para algunas características, mientras que `syntax_knn` no presenta ninguno valor vacío por las características aprendidas.
 
-// TODO: Agrega que se encontraron las lenguas usando el ISO code y que se encontró la mayoría de las lenguas con el ISO-CODE
+Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron con `0` para denotar la ausencia de un valor, de manera consistente con el criterio adoptado para Grambank. Esta decisión resulta apropiada dado que las características de `lang2vec` son binarias @littell2017uriel.
+
+// TODO: Agregar referencia a tabla o al apéndice después
+// TODO: Posiblemente expandir un poco más
+En cuanto a la cobertura de lenguas, `lang2vec` incluye todas las descritas en (placeholder), identificándolas mediante sus códigos ISO.
 
 // TODO: Agrega lo del StandarScaler también
