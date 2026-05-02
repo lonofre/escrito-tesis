@@ -4,18 +4,33 @@
 == Comparación entre los espacios
 
 // El código de esto es: seed1, seed2 in permutations(range(0, 100), 2):
-Para mitigar la dependencia de una configuración particular, se evaluaron todas las permutaciones ordenadas de dos semillas tomadas del conjunto $\{0, 1, dots, 99\}$
+Para calcular la similitud entre un espacio $X$ y un espacio $Y$, se utilizó el ARI sobre los agrupamientos de cada espacio, obtenidos mediante k-medias++. Este algoritmo depende de una semilla de inicialización, por lo que los resultados pueden variar entre ejecuciones. Para dar cuenta de esta variabilidad, se evaluaron todas las permutaciones ordenadas de pares de semillas $s_1, s_2 in {0, 1, dots, 99}$. Estas permutaciones generaron un total de $10,000$ valores de ARI para cada par de espacios $X, Y$.
+
+// TODO: Cambiar BPE-r por otra cosa para decir que es random
+En todos los experimentos que involucran $X_"BPE"$, se calculó también el ARI con $X_"BPE-r"$ como marco de referencia.
 
 === Experimentos
-// TODO: Ser más precisos con el número de features en Grambank
 
-_BPE vs WALS+Grambank._ Se juntó el espacio de WALS $X_"WALS"$ con cada configuración de características de Grambank $X_"Grambank"$. Esto resultó en un espacio $X_("Grambank"+"WALS")$.
+#let lenguas_grambank = 38
+#let lower_features = 30
+#let upper_features = 75
 
-Con estas configuraciones, se obtuvo el ARI respecto a $X_"BPE"$. En total se corrieron $n$ experimentos por cada configuración de características
+=== BPE vs WALS+Grambank 
+El objetivo de este experimento fue comprobar si Grambank, como una extensión de WALS, ayuda a mejorar los valores de relación con BPE.
 
-_BPE vs WALS._ Se realizó el cálculo de ARI sobre los espacios de $X_"BPE"$ y de $X_"WALS"$.
+// TODO: Posteriormente, mencionar que en un apéndice se encuentra la tabla de las lenguas
+Para realizar esto, se construyó $X_("WALS+Grambank")$ mediante la concatenación horizontal de $X_"WALS"$ y $X_"Grambank"$, es decir, $X_("WALS"+"Grambank") = [X_"WALS" | X_"Grambank"]$. Como Grambank ofrece un menor soporte de lenguas, se tuvo que reducir el número de lenguas en WALS para que coincidieran con las de Grambank
 
-_BPE vs Grambank._ Se realizó el cálculo de ARI sobre los espacios de $X_"BPE"$ y de $X_"Grambank"$.
+Esto resultó en un espacio $X_("Grambank"+"WALS")$ de dimensión $#lenguas_grambank times (m + n)$, donde donde $m$ es el número de características fijas definidas en @wals-features y $n$ es el número de características variable según la selección descrita en la sección anterior. Dado que el experimento se corrió por cada valor de $n$, se obtuvieron en total $10, 000 times n$ valores ARI.
 
-_Grambank vs Lang2Vec._ Se realizó el cálculo de ARI sobre los espacios de $X_"Grambank"$ y de $X_"Lang2vec"$. 
+=== BPE vs WALS
+
+Para evaluar la similitud entre $X_"BPE"$ y $X_"WALS"$, se siguió la configuración de lenguas y características de WALS establecida por #cite(<ximena-bpe-2023>, form: "prose"). A diferencia del experimento anterior, aquí se conservó el conjunto completo de lenguas, sin la reducción impuesta por Grambank.
+
+=== BPE vs Grambank
+El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank"$ de dimensión $#lenguas_grambank times n$, donde $n$ es el número de características según la selección descrita en la sección anterior. Dado que el experimento se corrió por cada valor de $n$, se obtuvieron en total $10, 000 times n$ valores de ARI. 
+
+=== Grambank vs lang2Vec
+
+Se calculó el ARI entre $X_"Grambank"$ y de $X_"lang2vec"$ para evaluar qué tan similares son los agrupamientos cuando uno de los espacios se basa en características sintácticas. De lang2vec, se utilizaron los conjuntos syntax_wals y syntax_knn, con un número fijo de características $m$. Para Grambank, el número de características $n$ se mantuvo variable como en los experimentos anteriores, resultando en $10,000 times n$ valores de ARI.
 
