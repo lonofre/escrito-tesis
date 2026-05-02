@@ -53,11 +53,8 @@ Para mitigar la dependencia de una configuración particular, se evaluaron todas
 
 // Voy a poner los experimentos a alto nivel
 // Mencionar la combinación de semillas que se usó
-BPE v WALS y Grambank
-
-BPE v Grambank
-
-BPE v WALS
-
-Grambank v lang2vec
+==== BPE vs WALS+Grambank
+==== BPE vs WALS
+==== BPE vs Grambank
+==== Grambank vs Lang2Vec c
 

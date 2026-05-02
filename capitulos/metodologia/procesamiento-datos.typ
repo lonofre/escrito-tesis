@@ -11,8 +11,6 @@ Dicho procesamiento fue posible dado que tanto Grambank como WALS siguen los _Cr
 
 === WALS
 
-WALS @wals es una base de datos que contiene información sobre las propiedades fonológicas, gramaticales y léxicas de hasta 2,662 lenguas y dialectos. Dichas propiedades se encuentran organizadas en hasta 192 características por lengua.
-
 Se utilizó un subconjunto de 15 características de WALS que codifican información de tipología morfológica @ximena-bpe-2023 (véase @wals-features). Dicho subconjunto presenta una cantidad reducida de valores vacíos para las lenguas analizadas.
 
 
@@ -65,7 +63,6 @@ Los vectores de las lenguas se agruparon en una matriz $X_("WALS") in RR^(n time
 
 === Grambank
 
-Grambank @grambank es otra base de datos lingüística que registra hasta 195 características de 2,467 lenguas y dialectos en el mundo.
 
 A pesar de las similitudes entre Grambank y WALS, las lenguas presentes en ambas bases de datos no presentan una correspondencia uno a uno. Si bien algunas lenguas pueden relacionarse por nombre, como el inglés, en otros casos la relación es más compleja: una lengua en WALS puede corresponder a múltiples entradas en Grambank, y viceversa. Esta complejidad se acentúa debido a que Grambank utiliza identificadores propios y no el ISO 639-3, lo que dificulta aún más establecer una correspondencia entre ambas bases de datos.
 
@@ -129,11 +126,6 @@ Otra paso del procesamiento fue estandarizar y centrar los puntos que obtuvimos 
 === lang2vec
 
 #let lang2vec_footnote = [El repositorio público se encuentra en #link("https://github.com/antonisa/lang2vec").]
-
-// Según el repositorio, cita:
-// lang2vec -> URIEL papers
-// + los vectores aprendidos -> Malayiva
-Otro conjunto de datos utilizados es `lang2vec`#footnote(lang2vec_footnote), que entre sus datos recopila características sintácticas de las lenguas. Estas características vienen de URIEL @littell2017uriel y de características aprendidas @malaviya17emnlp que llenan los valores faltantes. Por lo cual, `lang2vec` proporciona otro punto de comparación en contraste a las características morfológicas.
 
 // Los knn se aplican sobre: WALS, _Syntactic Structures of the World's Languages_ (SSWL) y Ethnologue
 // Sería bueno mencionar a todos? Sería buscar de nuevo la cita de SSWL y Ethnologue (aunque este es privado, de pago creo)

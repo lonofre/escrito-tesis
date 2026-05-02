@@ -3,5 +3,7 @@
 #include "ia.typ"
 #include "subword-tokenization.typ"
 #include "relacion-linguistica-compu.typ"
+#include "bd-linguisticas.typ"
+#include "relacion-espacios.typ"
 
 #pagebreak()
