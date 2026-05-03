@@ -1,8 +1,11 @@
 #import "@preview/lilaq:0.6.0" as lq
 
 
-// Este método 
-#let bands-diagram(dir, xs) = {
+// Este método crea un band plot dado el directorio
+#let bands-diagram(dir) = {
+
+  // Este es el inicio de donde obtener los datos.
+  // Como los datos no empiezan desde n = 0, por el momento el inicio está en n = 5
   let start = 25 + 5
   let end = (80 + 1) + 5 
   let p5  = lq.load-txt(read(dir + "/p5.csv")).at(0).slice(start, end)
@@ -13,9 +16,12 @@
   let mx  = lq.load-txt(read(dir + "/max.csv")).at(0).slice(start, end)
   let mn  = lq.load-txt(read(dir + "/min.csv")).at(0).slice(start, end)
 
+
+  let xs = range(start, end)
+
   lq.diagram(
-    width: 15cm,
-    height: 8cm,
+    width: 14cm,
+    height: 5cm,
     lq.fill-between(xs, p95, y2: p5,  label: [P5-95]),
     lq.fill-between(xs, p75, y2: p25, label: [Q1-Q3]),
     lq.plot(xs, p50, label: [Mediana]),
@@ -25,7 +31,6 @@
 }
 
 
-#let xs = range(30, 81)
 
 
 = Resultados
@@ -63,11 +68,31 @@ La @wals-bpe-plot muestra el box plot.
 
 
 == BPE vs Grambank
+#figure(
+  bands-diagram("datos/grambank-bpe-bands"),
+  caption: [Resultados de los valores de ARI de BPE vs Grambank.]
+)
+#figure(
+  bands-diagram("datos/grambank-bpe-random-bands"),
+  caption: [Resultados de los valores de ARI de BPE Aleatorio vs Grambank.]
+)
 
-#bands-diagram("datos/grambank-bpe-bands", xs)
-#bands-diagram("datos/grambank-bpe-random-bands", xs)
+== Grambank vs WALS
+
+#figure(
+  bands-diagram("datos/grambank-wals-bands"),
+  caption: [Resultados de los valores de ARI.]
+)
+
 
 == Grambank vs Lang2Vec 
-
+#figure(
+  bands-diagram("datos/grambank-lang2vec-syntax-wals-bands"),
+  caption: [Resultados de los valores de ARI usando `syntax_wals`.]
+)
+#figure(
+  bands-diagram("datos/grambank-lang2vec-syntax-knn-bands"),
+  caption: [Resultados de los valores de ARI usando `syntax_knn`.]
+)
 
 #pagebreak()
