@@ -28,6 +28,9 @@ Esto resultó en un espacio $X_("Grambank"+"WALS")$ de dimensión $#lenguas_gram
 Para evaluar la similitud entre $X_"BPE"$ y $X_"WALS"$, se siguió la configuración de lenguas y características de WALS establecida por #cite(<ximena-bpe-2023>, form: "prose"). A diferencia del experimento anterior, aquí se conservó el conjunto completo de lenguas, sin la reducción impuesta por Grambank.
 
 === BPE vs Grambank
+El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank"$ de dimensión $#lenguas_grambank times n$, donde $n$ es el número de características según la selección descrita en la sección anterior. Dado que el experimento se corrió por cada valor de $n$, se obtuvieron en total $10, 000 times n$ valores de ARI.
+
+=== Grambank vs WALS
 El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank"$ de dimensión $#lenguas_grambank times n$, donde $n$ es el número de características según la selección descrita en la sección anterior. Dado que el experimento se corrió por cada valor de $n$, se obtuvieron en total $10, 000 times n$ valores de ARI. 
 
 === Grambank vs lang2Vec
