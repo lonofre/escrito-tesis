@@ -1,59 +1,8 @@
 #import "@preview/lilaq:0.6.0" as lq
+#import "resultados-lib.typ" : boxplot-from-csv, paired-boxplot
 
 #let min_features = 0
 #let max_features = 195
-
-
-// Este método crea un band plot dado el directorio.
-// Esta es la opción A para representar los datos.
-#let bands-diagram(dir) = {
-
-  // Este es el inicio de donde obtener los datos.
-  // Como los datos no empiezan desde n = 0, por el momento el inicio está en n = 5
-  let start = 25 + 5
-  let end = (80 + 1) + 5 
-  let p5  = lq.load-txt(read(dir + "/p5.csv")).at(0).slice(start, end)
-  let p25 = lq.load-txt(read(dir + "/p25.csv")).at(0).slice(start, end)
-  let p50 = lq.load-txt(read(dir + "/p50.csv")).at(0).slice(start, end)
-  let p75 = lq.load-txt(read(dir + "/p75.csv")).at(0).slice(start, end)
-  let p95 = lq.load-txt(read(dir + "/p95.csv")).at(0).slice(start, end)
-  let mx  = lq.load-txt(read(dir + "/max.csv")).at(0).slice(start, end)
-  let mn  = lq.load-txt(read(dir + "/min.csv")).at(0).slice(start, end)
-
-
-  let xs = range(start, end)
-
-  lq.diagram(
-    width: 14cm,
-    height: 5cm,
-    lq.fill-between(xs, p95, y2: p5,  label: [P5-95], fill: rgb("#c2e0f2")),
-    lq.fill-between(xs, p75, y2: p25, label: [Q1-Q3], fill: rgb("#a6c5d8")),
-    lq.plot(xs, p50, label: [Mediana], color: rgb(0, 0, 0)),
-    lq.plot(xs, mn,  label: [Mín]),
-    lq.plot(xs, mx,  label: [Max]),
-  )
-}
-
-// Este método genera un plot con múltiples box plots
-#let boxplot-from-csv(file) = {
-  // Este es el inicio de donde obtener los datos.
-  // Como los datos no empiezan desde n = 0, por el momento el inicio está en n = 5
-  let start = 25 + 5
-  let end = (80 + 1) + 5 
-
-  let rows = json(file).slice(start, end + 1)
-
-  lq.diagram(
-    width: 14cm,
-    height: 6cm,
-    lq.boxplot(
-      outliers: "x",
-      x: range(start, end + 1),
-      outlier-size: 3pt,
-      ..rows
-    )
-  )
-}
 
 = Resultados
 
@@ -77,30 +26,15 @@ En contraste, @bpe-random-grambankwals-ari-plot, se observa que a partir de $n =
 
 == BPE vs WALS
 
-#let x = lq.load-txt(read("datos/wals-bpe-ari.csv"))
-#let x2 = lq.load-txt(read("datos/wals-bpe-random-ari.csv"))
-
 // TODO: Hacer más detallado esto
 La @wals-bpe-plot representa cómo están distribuidos los valores de ARI calculados para $X_"BPE"$ y $X_"WALS"$ (izquierda), como para $X_"BPE-r"$ y $X_"WALS"$ (derecha) que representa la base de referencia.
 
 #figure(
-  lq.diagram(
-    width: 8cm,
-    height: 8cm,
-    margin: (x: 50%),
-    lq.boxplot(
-      x: 1,
-      x.at(0),
-      label: [$X_"BPE"$ vs $X_"WALS"$],
-      outliers: ","
-    ),
-    lq.boxplot(
-      x: 2,
-      x2.at(0),
-      stroke: rgb("#284987"),
-      label: [$X_"BPE-r"$ vs $X_"WALS"$],
-      outliers: ","
-    )
+  paired-boxplot(
+    "datos/wals-bpe-ari.csv",
+    "datos/wals-bpe-random-ari.csv",
+    label1: [$X_"BPE"$ vs $X_"WALS"$],
+    label2: [$X_"BPE-r"$ vs $X_"WALS"$],
   ),
   caption: [Resultados de los valores de ARI.]
 )<wals-bpe-plot>
