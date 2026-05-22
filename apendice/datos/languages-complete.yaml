@@ -2,19 +2,19 @@
   iso639_3: cha
   grambank_id: cham1312
   wals_id: cha
-- name: Paraguayan Guaraní
+- name: Guaraní paraguayo
   iso639_3: gug
   grambank_id: mbya1239
   wals_id: gua
-- name: French
+- name: Francés
   iso639_3: fra
   grambank_id: stan1290
   wals_id: fre
-- name: German
+- name: Alemán
   iso639_3: deu
   grambank_id: ''
   wals_id: ger
-- name: Spanish
+- name: Español
   iso639_3: spa
   grambank_id: ''
   wals_id: spa
@@ -26,11 +26,11 @@
   iso639_3: hau
   grambank_id: nige1253
   wals_id: hau
-- name: Western Farsi
+- name: Persa occidental
   iso639_3: pes
   grambank_id: west2369
   wals_id: prs
-- name: Fijian
+- name: Fiyiano
   iso639_3: fij
   grambank_id: fiji1243
   wals_id: fij
@@ -38,11 +38,11 @@
   iso639_3: laj
   grambank_id: lang1324
   wals_id: lan
-- name: Korean
+- name: Coreano
   iso639_3: kor
   grambank_id: kore1280
   wals_id: kor
-- name: English
+- name: Inglés
   iso639_3: eng
   grambank_id: stan1293
   wals_id: eng
@@ -54,23 +54,23 @@
   iso639_3: yor
   grambank_id: ''
   wals_id: yor
-- name: Vietnamese
+- name: Vietnamita
   iso639_3: vie
   grambank_id: viet1252
   wals_id: vie
-- name: Thai
+- name: Tailandés
   iso639_3: tha
   grambank_id: thai1261
   wals_id: tha
-- name: San Miguel El Grande Mixtec
+- name: Mixteco de San Miguel el Grande
   iso639_3: mig
   grambank_id: sanm1295
   wals_id: mxg
-- name: Tagalog
+- name: Tagalo
   iso639_3: tgl
   grambank_id: taga1270
   wals_id: tag
-- name: Popti’
+- name: Popti'
   iso639_3: jac
   grambank_id: popt1235
   wals_id: jak
@@ -78,11 +78,11 @@
   iso639_3: aey
   grambank_id: ''
   wals_id: ame
-- name: West Kewa
+- name: Kewa occidental
   iso639_3: kew
   grambank_id: east2516
   wals_id: kew
-- name: Indonesian
+- name: Indonesio
   iso639_3: ind
   grambank_id: indo1316
   wals_id: ind
@@ -102,7 +102,7 @@
   iso639_3: sag
   grambank_id: ''
   wals_id: san
-- name: Burmese
+- name: Birmano
   iso639_3: mya
   grambank_id: nucl1310
   wals_id: brm
@@ -138,11 +138,11 @@
   iso639_3: amp
   grambank_id: alam1246
   wals_id: ala
-- name: Eastern Oromo
+- name: Oromo oriental
   iso639_3: hae
   grambank_id: bora1271
   wals_id: orh
-- name: Plateau Malagasy
+- name: Malgache de la meseta
   iso639_3: plt
   grambank_id: plat1254
   wals_id: mal
@@ -150,39 +150,39 @@
   iso639_3: kal
   grambank_id: kala1399
   wals_id: gre
-- name: Egyptian Arabic
+- name: Árabe egipcio
   iso639_3: arz
   grambank_id: egyp1253
   wals_id: aeg
-- name: Turkish
+- name: Turco
   iso639_3: tur
   grambank_id: nucl1301
   wals_id: tur
-- name: Finnish
+- name: Finés
   iso639_3: fin
   grambank_id: finn1318
   wals_id: fin
-- name: Swahili
+- name: Suajili
   iso639_3: swh
   grambank_id: swah1253
   wals_id: swa
-- name: Georgian
+- name: Georgiano
   iso639_3: kat
   grambank_id: nucl1302
   wals_id: geo
-- name: Basque
+- name: Euskera
   iso639_3: eus
   grambank_id: basq1248
   wals_id: bsq
-- name: Halh Mongolian
+- name: Mongol halh
   iso639_3: khk
   grambank_id: halh1238
   wals_id: kha
-- name: Russian
+- name: Ruso
   iso639_3: rus
   grambank_id: russ1263
   wals_id: rus
-- name: Modern Greek
+- name: Griego moderno
   iso639_3: ell
   grambank_id: mode1248
   wals_id: grk
