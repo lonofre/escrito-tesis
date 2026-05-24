@@ -9,6 +9,8 @@ Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE
 
 Dicho procesamiento fue posible dado que tanto Grambank como WALS siguen los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para estructurar, compartir y reutilizar datos lingüísticos. A partir de estas, se extrajeron las características lingüísticas de cada lengua, obteniendo una matriz $X_("Grambank") in RR^(n times m)$ y una matriz $X_("WALS") in RR^(n times m)$, denominadas espacio de Grambank y espacio de WALS, respectivamente.
 
+=== BPE
+
 === WALS
 
 Se utilizó un subconjunto de 15 características de WALS que codifican información de tipología morfológica @ximena-bpe-2023 (véase @wals-features). Dicho subconjunto presenta una cantidad reducida de valores vacíos para las lenguas analizadas.
@@ -138,3 +140,8 @@ Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron co
 En cuanto a la cobertura de lenguas, `lang2vec` incluye todas las descritas en (placeholder), identificándolas mediante sus códigos ISO.
 
 // TODO: Agrega lo del StandarScaler también
+
+=== Base de referencia
+En adición a los anteriores conjuntos de vectores, creamos un espacio aleatorio basado en el espacio BPE que sirvió como una base de referencia. Con esta base, podemos establecer si hay una mayor relación entre el espacio de BPE y Grambank o WALS más allá del carácter aleatorio.
+
+Por tal motivo, para crear la base de referencia, obtuvimos los rangos donde varías las características de BPE. Con esta información, generamos una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio lo denominamos $X_"BPE Random"$.

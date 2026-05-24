@@ -6,6 +6,17 @@
 // Lo cambiaría a generación del espacio de BPE????
 == Datos/Corpus de entrenamiento multilingües
 
+=== Lenguas
+
+#figure(
+   image("img/lenguas-mapa.pdf", width: 80%),
+   caption: [Distribución de las lenguas en el mundo ]
+)
+
+// TODO: Mencionar que la tabla de lenguas está en el apéndice
+
+=== Corpus
+
 // TODO: Aquí queremos transmitir cómo se generó el espacio de BPE. Comunica eso de acorde
 // También (a futuro) especifica si usaste todas las lenguas o no, esto es importante.
 Para obtener los vectores del espacio de BPE, usamos la metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"), la cual toma un texto en una lengua y lo transforma en un vector que caracteriza la productividad, idiosincrasia y frecuencia acumulada de dicha lengua mediante las subpalabras generadas por un modelo de BPE. Así, obtuvimos un vector por cada una de las $x$ lenguas definidas en _placeholder_.
@@ -33,3 +44,6 @@ Finalmente, se llevó a cabo la _obtención de las métricas por lengua_, promed
 El resultado final fue una matriz $X in RR^(n times 3)$, el cual llamamos espacio BPE. Normalizamos este espacio para la aplicación de los otros métodos:
 
 $ Z_(i j) = (X_(i j) - mu_j) / sigma_j $
+
+
+=== Bases de datos lingüísticas
