@@ -5,9 +5,9 @@
 */
 == Procesamiento computacional de las bases de datos lingüísticas
 
-Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron dos bases de datos lingüísticas: _World Atlas of Language Structures_ (WALS) y Grambank. Estas bases de datos contienen características tipológicas ---morfológicas, sintácticas y fonológicas--- de las lenguas analizadas, las cuales permiten corroborar posibles similitudes con las características morfológicas presentes en el espacio BPE. Sin embargo, ninguna de las dos bases de datos presenta una correspondencia uno a uno entre las lenguas que contienen, y no todas las características cuentan con un valor asignado. Por ello, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
+Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron las bases de datos lingüísticas descritas en la @bases-datos-linguisticas. Dado que ninguna presenta una correspondencia uno a uno entre las lenguas que contienen y que no todas las características cuentan con un valor asignado, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
 
-Dicho procesamiento fue posible dado que tanto Grambank como WALS siguen los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para estructurar, compartir y reutilizar datos lingüísticos. A partir de estas, se extrajeron las características lingüísticas de cada lengua, obteniendo una matriz $X_("Grambank") in RR^(n times m)$ y una matriz $X_("WALS") in RR^(n times m)$, denominadas espacio de Grambank y espacio de WALS, respectivamente.
+Dicho procesamiento fue posible dado que tanto Grambank como WALS siguen los _Cross-Linguistic Data Formats_ (CLDF) @cldf. A partir de estas, se extrajeron las características lingüísticas de cada lengua, obteniendo una matriz $X_("Grambank") in RR^(n times m)$ y una matriz $X_("WALS") in RR^(n times m)$, denominadas espacio de Grambank y espacio de WALS, respectivamente.
 
 === Espacio BPE
 
@@ -39,46 +39,7 @@ $ Z_(i j) = (X_(i j) - mu_j) / sigma_j $
 
 === WALS
 
-Se utilizó un subconjunto de 15 características de WALS que codifican información de tipología morfológica @ximena-bpe-2023 (véase @wals-features). Dicho subconjunto presenta una cantidad reducida de valores vacíos para las lenguas analizadas.
-
-
-// TODO: Quizá reducir el tamaño del texto de esto. O moverlo al apéndice
-#figure(
-  placement: auto,
-    table(
-    columns: (auto, auto),
-    align: left,
-    stroke: none,
-    table.header(
-      [*Rasgo*], [*Nombre*],
-      table.hline(stroke: 1pt + black)
-    ),
-    [20A], [Fusión de formativos flexivos seleccionados],
-    [22A], [Síntesis flexiva],
-    [26A], [Prefijación vs. sufijación en la morfología flexiva],
-    [28A], [Sincretismo de caso],
-    [29A], [Sincretismo en la marcación de persona/número verbal],
-    [49A], [Número de casos],
-    [59A], [Clasificación posesiva],
-    [65A], [Aspecto perfectivo/imperfectivo],
-    [66A], [El tiempo pasado],
-    [67A], [El tiempo futuro],
-    [69A], [Posición de los afijos de tiempo/aspecto],
-    [70A], [El imperativo morfológico],
-    [78A], [Codificación de la evidencialidad],
-    [102A], [Marcación de persona verbal],
-    [112A], [Morfemas negativos],
-    
-  ),
-  caption: [Tabla de rasgos de WALS usados por para describir tipología morfológica @ximena-bpe-2023]
-)<wals-features>
-
-Para identificar las lenguas en WALS se utilizó el _WALS code_, ya que el ISO 639-3 puede ser compartido por varias lenguas, lo que dificultaría su distinción. No obstante, el ISO 639-3 se empleó como apoyo para mejorar la identificación de las lenguas.
-
-#let database_footnote = [Se obtuvo los datos de WALS de su repositorio público #link("https://github.com/cldf-datasets/wals").]
 #let processing_footnote = [A partir del repositorio de WALS, se construyó una base de datos relacional mediante `pycldf` @cldf. El uso de bases de datos relacionales, frente a otras modalidades disponibles como archivos `.csv` o llamadas a bibliotecas, proporcionó la flexibilidad necesaria para realizar consultas mediante SQL.]
-
-De WALS, la información de interés fue el nombre de las lenguas y el valor de cada una de sus características#footnote(database_footnote). CLDF organiza esta información en tres componentes: las _lenguas_, que son los objetos de investigación; los _parámetros_, que representan los conceptos comparativos medidos entre lenguas y que en este estudio se denominarán características; y los _valores_, que corresponden a la medición concreta de una característica para una lengua específica.
 
 A partir de la base de datos de WALS#footnote(processing_footnote), se procesó `ValueTable`, que contiene los valores de las características para cada lengua, para construir las representaciones vectoriales de las lenguas, convirtiendo cada una en un vector a partir de dichos valores. Por ejemplo, el inglés con las características de @wals-features produce el vector $v = (1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$.
 
@@ -92,18 +53,11 @@ Los vectores de las lenguas se agruparon en una matriz $X_("WALS") in RR^(n time
 === Grambank
 
 
-A pesar de las similitudes entre Grambank y WALS, las lenguas presentes en ambas bases de datos no presentan una correspondencia uno a uno. Si bien algunas lenguas pueden relacionarse por nombre, como el inglés, en otros casos la relación es más compleja: una lengua en WALS puede corresponder a múltiples entradas en Grambank, y viceversa. Esta complejidad se acentúa debido a que Grambank utiliza identificadores propios y no el ISO 639-3, lo que dificulta aún más establecer una correspondencia entre ambas bases de datos.
-
-Por consiguiente, para relacionar las lenguas de Grambank con las de WALS, se establecieron tres criterios de selección, priorizando siempre las lenguas con más características disponibles en Grambank.
+Como se describió en la @bases-datos-linguisticas, las lenguas de Grambank y WALS no presentan una correspondencia uno a uno. Por consiguiente, para relacionarlas, se establecieron tres criterios de selección, priorizando siempre las lenguas con más características disponibles en Grambank.
 
 El primer criterio fue la coincidencia exacta de nombre, relacionando directamente las lenguas que compartían el mismo nombre en ambas bases de datos, como _Modern Greek_ para el griego. El segundo criterio aplicó cuando solo existía una lengua con nombre similar, considerándola como equivalente; por ejemplo, _Lango (Uganda)_ en Grambank correspondió a _Lango_ en WALS. Finalmente, si existían múltiples lenguas con nombre similar, se eligió la que contara con más características disponibles; por ejemplo, _Hausa States Fulfulde_ se seleccionó sobre _Hausa_ por contar con más características en Grambank.
 
-// TODO: Agregar que la información se puede ver en el apéndice
-Cabe señalar que Grambank no cuenta con información de todas las lenguas de interés, como el español y el alemán, por lo que el conjunto de lenguas analizado se redujo en consecuencia.
-
-#let grambank_footnote = [Se obtuvo los datos de Grambank de su repositorio público #link("https://github.com/grambank/grambank").]
-
-La matriz $X_"Grambank"$ se construyó mediante el mismo método que $X_"WALS"$, leyendo los datos a través de CLDF#footnote(grambank_footnote). Cabe resaltar que, a diferencia de WALS, se utilizó el identificador propio de Grambank para identificar las lenguas.
+La matriz $X_"Grambank"$ se construyó mediante el mismo método que $X_"WALS"$, leyendo los datos a través de CLDF. Cabe resaltar que, a diferencia de WALS, se utilizó el identificador propio de Grambank para identificar las lenguas.
 
 Sin embargo, la selección de características de Grambank requirió una exploración previa, ya que no todas las lenguas cuentan con el mismo conjunto de características disponibles. Por ello, se priorizó la combinación de características que minimizara los valores vacíos, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, GB107 cubre todas las lenguas y tendría alta prioridad, mientras que GB401 cubre pocas lenguas y se seleccionaría en los últimos lugares.
 
@@ -153,17 +107,7 @@ Otra paso del procesamiento fue estandarizar y centrar los puntos que obtuvimos 
 
 === lang2vec
 
-#let lang2vec_footnote = [El repositorio público se encuentra en #link("https://github.com/antonisa/lang2vec").]
-
-// Los knn se aplican sobre: WALS, _Syntactic Structures of the World's Languages_ (SSWL) y Ethnologue
-// Sería bueno mencionar a todos? Sería buscar de nuevo la cita de SSWL y Ethnologue (aunque este es privado, de pago creo)
-Las características sintácticas empleadas provienen de dos conjuntos: `syntax_wals`, basado directamente en WALS, y `syntax_knn`, que aplica una técnica de $k$ vecinos más cercanos sobre la combinación de WALS y otras bases de datos. Ambos conjuntos cubren las lenguas del estudio; sin embargo, `syntax_wals` puede contener valores vacíos para algunas características, mientras que `syntax_knn` no presenta ninguno valor vacío por las características aprendidas.
-
 Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron con `0` para denotar la ausencia de un valor, de manera consistente con el criterio adoptado para Grambank. Esta decisión resulta apropiada dado que las características de `lang2vec` son binarias @littell2017uriel.
-
-// TODO: Agregar referencia a tabla o al apéndice después
-// TODO: Posiblemente expandir un poco más
-En cuanto a la cobertura de lenguas, `lang2vec` incluye todas las descritas en (placeholder), identificándolas mediante sus códigos ISO.
 
 // TODO: Agrega lo del StandarScaler también
 
