@@ -13,7 +13,7 @@
 )<mapa-lenguas>
 
 // TODO: Mencionar que la tabla de lenguas está en el apéndice
-Para la experimentación se utilizó un máximo de 47 lenguas, seleccionadas no por disponibilidad de datos en línea @ximena-bpe-2023, sino para representar diversidad tipológica y geográfica. Esta diversidad geográfica abarca América, Europa, Asia, África y Oceanía (véase @mapa-lenguas). Las lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), WALS, lang2vec y parcialmente en Grambank; sus nombres completos se listan en [placeholder del apéndice].
+Para la experimentación se utilizó un máximo de 47 lenguas, seleccionadas no por disponibilidad de datos en línea @ximena-bpe-2023, sino para representar diversidad tipológica y geográfica. Esta diversidad geográfica abarca América, Europa, Asia, África e Oceanía (véase @mapa-lenguas). Las lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), WALS, lang2vec y parcialmente en Grambank; sus nombres completos se listan en [placeholder del apéndice].
 
 === Corpus
 
@@ -75,7 +75,7 @@ De WALS, la información de interés fue el nombre de las lenguas y el valor de 
     [112A], [Morfemas negativos],
 
   ),
-  caption: [Tabla de rasgos de WALS usados por para describir tipología morfológica @ximena-bpe-2023]
+  caption: [Tabla de rasgos de WALS usados para describir tipología morfológica @ximena-bpe-2023]
 )<wals-features>
 
 Para identificar las lenguas en WALS se utilizó el _WALS code_, ya que el ISO 639-3 puede ser compartido por varias lenguas, lo que dificultaría su distinción. No obstante, el ISO 639-3 se empleó como apoyo para mejorar la identificación de las lenguas.

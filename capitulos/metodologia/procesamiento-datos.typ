@@ -7,7 +7,7 @@
 
 Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron las bases de datos lingüísticas descritas en la @bases-datos-linguisticas. Dado que ninguna presenta una correspondencia uno a uno entre las lenguas que contienen y que no todas las características cuentan con un valor asignado, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
 
-Dicho procesamiento fue posible dado que tanto Grambank como WALS siguen los _Cross-Linguistic Data Formats_ (CLDF) @cldf. A partir de estas, se extrajeron las características lingüísticas de cada lengua, obteniendo una matriz $X_("Grambank") in RR^(n times m)$ y una matriz $X_("WALS") in RR^(n times m)$, denominadas espacio de Grambank y espacio de WALS, respectivamente.
+Dicho procesamiento fue posible dado que tanto Grambank como WALS siguen los _Cross-Linguistic Data Formats_ (CLDF) @cldf. A partir de estas, se extrajeron las características lingüísticas de cada lengua, obteniendo el espacio de WALS $X_"WALS" in RR^(L times d_"WALS")$ y el espacio de Grambank $X_"Grambank" in RR^(L_G times d_"Grambank")$. En todos los espacios, las filas corresponden a lenguas y las columnas a características, siguiendo la convención `(n_samples, n_features)`: $L$ denota el número de lenguas ($L = 47$ en el conjunto completo y $L_G = 38$ en el subconjunto cubierto por Grambank) y $d_e$ la dimensión ---número de características--- del espacio $e$.
 
 === Espacio BPE
 
@@ -33,7 +33,7 @@ La cuarta etapa correspondió a la _obtención de las métricas por subpalabra_.
 Finalmente, se llevó a cabo la _obtención de las métricas por lengua_, promediando las métricas obtenidas de cada subpalabra para obtener la representación vectorial de cada lengua.
 
 // Como nota a futuro: Con Ximena, estamos viendo si el StandardScaler que le hacemos al espacio a BPE hace algun efecto en los resultados de los algoritmos. Entonces, como esta sección es para generar el espacio de BPE, debemos incluir eso también si se logra a aplicar.
-El resultado final fue una matriz $X in RR^(n times 3)$, el cual llamamos espacio BPE. Normalizamos este espacio para la aplicación de los otros métodos:
+El resultado final fue el espacio BPE $X_"BPE" in RR^(L times d_"BPE")$, con $d_"BPE" = 3$ (productividad, idiosincrasia y frecuencia acumulada). Normalizamos este espacio para la aplicación de los otros métodos:
 
 $ Z_(i j) = (X_(i j) - mu_j) / sigma_j $
 
@@ -44,7 +44,7 @@ $ Z_(i j) = (X_(i j) - mu_j) / sigma_j $
 A partir de la base de datos de WALS#footnote(processing_footnote), se procesó `ValueTable`, que contiene los valores de las características para cada lengua, para construir las representaciones vectoriales de las lenguas, convirtiendo cada una en un vector a partir de dichos valores. Por ejemplo, el inglés con las características de @wals-features produce el vector $v = (1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$.
 
 // Además, podemos agregar que en el experimento original el imputer fue 0
-Los vectores de las lenguas se agruparon en una matriz $X_("WALS") in RR^(n times m)$, donde $n$ es el número de lenguas y $m$ el número de características. Durante este procesamiento, se identificó que algunas lenguas carecen de valores para ciertas características. Dichos valores se dejaron como $0$ en la matriz. 
+Los vectores de las lenguas se agruparon en la matriz $X_"WALS" in RR^(L times d_"WALS")$, con $d_"WALS" = 15$ (los rasgos de @wals-features). Durante este procesamiento, se identificó que algunas lenguas carecen de valores para ciertas características. Dichos valores se dejaron como $0$ en la matriz. 
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
 
@@ -100,7 +100,7 @@ No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptab
 
 Al igual que con WALS, los algoritmos requieren que la matriz de Grambank no contenga valores nulos, por lo que fue necesario imputar los valores faltantes. Para ello, se consideraron cuatro estrategias de imputación: reemplazar los valores nulos con $0$, asumiendo su ausencia; reemplazarlos con $-1$, modelando la ausencia como un valor desconocido; imputar la media del conjunto, basándose en los valores de las demás lenguas de la matriz; o imputar valores de lenguas cercanas, lo que proporcionaría una aproximación más informada, aunque esta opción se descartó por requerir conocimiento lingüístico especializado.
 
-La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para intepretarlo como la ausencia de esta feature. Esta interpretación concuerda en la mayoría de las features de Grambank, que son binarias. 
+La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para interpretarlo como la ausencia de esta feature. Esta interpretación concuerda en la mayoría de las features de Grambank, que son binarias. 
 
 // Pon que también se uso StandarScaler
 Otra paso del procesamiento fue estandarizar y centrar los puntos que obtuvimos después de construir la matriz. Esto se logra con:
@@ -114,4 +114,4 @@ Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron co
 === Base de referencia
 En adición a los anteriores conjuntos de vectores, creamos un espacio aleatorio basado en el espacio BPE que sirvió como una base de referencia. Con esta base, podemos establecer si hay una mayor relación entre el espacio de BPE y Grambank o WALS más allá del carácter aleatorio.
 
-Por tal motivo, para crear la base de referencia, obtuvimos los rangos donde varías las características de BPE. Con esta información, generamos una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio lo denominamos $X_"BPE Random"$.
+Por tal motivo, para crear la base de referencia, obtuvimos los rangos donde varías las características de BPE. Con esta información, generamos una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio lo denominamos $X_"BPE-r"$.

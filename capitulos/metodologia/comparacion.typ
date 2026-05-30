@@ -12,26 +12,24 @@ En todos los experimentos que involucran $X_"BPE"$, se calculó también el ARI 
 === Experimentos
 
 #let lenguas_grambank = 38
-#let lower_features = 30
-#let upper_features = 75
 
-=== BPE vs WALS+Grambank 
+==== BPE vs WALS+Grambank 
 El objetivo de este experimento fue comprobar si Grambank, como una extensión de WALS, ayuda a mejorar los valores de relación con BPE.
 
 // TODO: Posteriormente, mencionar que en un apéndice se encuentra la tabla de las lenguas
 Para realizar esto, se construyó $X_("WALS+Grambank")$ mediante la concatenación horizontal de $X_"WALS"$ y $X_"Grambank"$, es decir, $X_("WALS"+"Grambank") = [X_"WALS" | X_"Grambank"]$. Como Grambank ofrece un menor soporte de lenguas, se tuvo que reducir el número de lenguas en WALS para que coincidieran con las de Grambank
 
-Esto resultó en un espacio $X_("Grambank"+"WALS")$ de dimensión $#lenguas_grambank times (m + n)$, donde donde $m$ es el número de características fijas definidas en @wals-features y $n$ es el número de características variable según la selección descrita en la sección anterior. Dado que el experimento se corrió por cada valor de $n$, se obtuvieron en total $10, 000 times n$ valores ARI.
+Esto resultó en el espacio $X_("WALS"+"Grambank") in RR^(L_G times (d_"WALS" + d_"Grambank"))$, donde $L_G = #lenguas_grambank$ es el subconjunto de lenguas cubierto por Grambank, $d_"WALS" = 15$ es fijo (@wals-features) y $d_"Grambank"$ varía según la selección descrita en la sección anterior. Como el experimento se corrió por cada valor de $d_"Grambank"$ en el conjunto $D$ de tamaños evaluados, se obtuvieron en total $10,000 times |D|$ valores de ARI.
 
 === BPE vs WALS
 
 Para evaluar la similitud entre $X_"BPE"$ y $X_"WALS"$, se siguió la configuración de lenguas y características de WALS establecida por #cite(<ximena-bpe-2023>, form: "prose"). A diferencia del experimento anterior, aquí se conservó el conjunto completo de lenguas, sin la reducción impuesta por Grambank.
 
 === BPE vs Grambank
-El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank"$ de dimensión $#lenguas_grambank times n$, donde $n$ es el número de características según la selección descrita en la sección anterior. Dado que el experimento se corrió por cada valor de $n$, se obtuvieron en total $10, 000 times n$ valores de ARI.
+El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank" in RR^(L_G times d_"Grambank")$. Como $d_"Grambank"$ se barre sobre el conjunto $D$ de tamaños evaluados, se obtuvieron en total $10,000 times |D|$ valores de ARI.
 
 === Grambank vs WALS
-El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank"$ de dimensión $#lenguas_grambank times n$, donde $n$ es el número de características según la selección descrita en la sección anterior. Dado que el experimento se corrió por cada valor de $n$, se obtuvieron en total $10, 000 times n$ valores de ARI. 
+El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank" in RR^(L_G times d_"Grambank")$. Como $d_"Grambank"$ se barre sobre el conjunto $D$ de tamaños evaluados, se obtuvieron en total $10,000 times |D|$ valores de ARI. 
 
 === Grambank vs lang2Vec
 
