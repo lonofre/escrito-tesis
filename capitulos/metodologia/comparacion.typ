@@ -31,7 +31,7 @@ Para evaluar la similitud entre $X_"BPE"$ y $X_"WALS"$, se siguió la configurac
 El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank" in RR^(L_G times d_"Grambank")$. Como $d_"Grambank"$ se barre sobre el conjunto $D$ de tamaños evaluados, se obtuvieron en total $10,000 times |D|$ valores de ARI.
 
 ==== Grambank vs WALS
-El objetivo de este experimento fue evaluar la relación entre $X_"BPE"$ y $X_"Grambank"$ de manera aislada. Para esto, se utilizó $X_"Grambank" in RR^(L_G times d_"Grambank")$. Como $d_"Grambank"$ se barre sobre el conjunto $D$ de tamaños evaluados, se obtuvieron en total $10,000 times |D|$ valores de ARI. 
+El propósito de este experimento fue examinar de forma independiente la relación entre $X_"Grambank"$ y $X_"WALS"$. Con este fin, se empleó $X_"Grambank" in RR^(L_G times d_"Grambank")$. Dado que $d_"Grambank"$ varía a lo largo del conjunto $D$ de dimensiones consideradas, se generaron un total de $10,000 times |D|$ valores de ARI.
 
 ==== Grambank vs lang2Vec
 

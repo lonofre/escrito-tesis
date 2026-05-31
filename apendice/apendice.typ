@@ -1,6 +1,14 @@
-// TODO: Checa el numbering del apéndice. Hay que verificar cómo debe de ir, por si necesitamos referenciar algo posteriormente.
-// Con numbering: none, aparece sin todo el texto de "Capítulo X". Sin embargo, los demás subheadings se van a apegar al heading anterior.
-#heading(numbering: none)[Apéndice]
+#pagebreak(weak: true)
+
+#counter(heading).update(0)
+#set heading(numbering: "A.1")
+
+#show heading.where(level: 1): it => block[
+  #if it.numbering != none [
+    #text[Apéndice #counter(heading).display(it.numbering)] \
+  ]
+  #text(size: 18pt)[#it.body]
+]
 
 #include "lenguas-utilizadas.typ"
 #pagebreak()

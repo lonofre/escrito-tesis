@@ -1,4 +1,4 @@
-== Conjunto de características utilizadas en Grambank
+= Conjunto de características utilizadas en Grambank
 
 #{
   set text(size: 10pt)

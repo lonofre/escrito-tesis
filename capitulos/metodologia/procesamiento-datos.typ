@@ -13,7 +13,7 @@ Cada espacio se construye sobre la cobertura máxima de su fuente. Cuando dos es
 
 === Espacio BPE
 
-Para obtener los vectores del espacio de BPE, se usó la metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"), la cual toma un texto en una lengua y lo transforma en un vector que caracteriza la productividad, idiosincrasia y frecuencia acumulada de dicha lengua mediante las subpalabras generadas por un modelo de BPE. Así, se obtuvo un vector por cada una de las $L$ lenguas definidas en [placeholder].
+Para obtener los vectores del espacio de BPE, se usó la metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"), la cual toma un texto en una lengua y lo transforma en un vector que caracteriza la productividad, idiosincrasia y frecuencia acumulada de dicha lengua mediante las subpalabras generadas por un modelo de BPE. Así, se obtuvo un vector por cada una de las $L$ lenguas definidas en @tabla-de-lenguas.
 
 Para el procesamiento, utilizamos la implementación del proceso que estuvo disponible en GitHub. El programa usó Python y utilidades de UNIX. Sin embargo, se utilizó ligeramente algunas partes del código debido a que se usó macOS para obtener los vectores. Este proceso fue realizado para cada lengua y comprendió cinco etapas.
 
