@@ -13,11 +13,11 @@
 )<mapa-lenguas>
 
 // TODO: Mencionar que la tabla de lenguas está en el apéndice
-Para la experimentación se utilizó un máximo de 47 lenguas, seleccionadas no por disponibilidad de datos en línea @ximena-bpe-2023, sino para representar diversidad tipológica y geográfica. Esta diversidad geográfica abarca América, Europa, Asia, África e Oceanía (véase @mapa-lenguas). Las lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), WALS, lang2vec y parcialmente en Grambank; sus nombres completos se listan en [placeholder del apéndice].
+Para la experimentación se seleccionó un conjunto de 47 lenguas, no por disponibilidad de datos en línea sino por su diversidad tipológica y geográfica @ximena-bpe-2023. Esta diversidad abarca América, Europa, Asia, África y Oceanía (véase @mapa-lenguas). Todas las lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), WALS y lang2vec; Grambank cubre un subconjunto de 38 de ellas, por lo que los experimentos que involucran esta base se restringen a dicho subconjunto (véase @bases-datos-linguisticas). Los nombres completos se listan en [placeholder del apéndice].
 
 === Corpus
 
-El Corpus Paralelo de la Biblia (Parallel Bible Corpus, PBC) @mayer-cysouw-2014-creating fue utilizado para generar el espacio BPE, dado que contiene 994 traducciones de la Biblia, incluyendo las 47 lenguas analizadas. Este corpus está normalizado en Unicode y tokenizado a nivel de palabra, características que lo hacen adecuado para el procesamiento computacional (véase @ejemplo-PBC).
+El Corpus Paralelo de la Biblia (Parallel Bible Corpus, PBC) @mayer-cysouw-2014-creating fue utilizado para generar el espacio BPE, dado que reúne 994 traducciones distribuidas en 837 lenguas distintas según el estándar ISO 639-3, cobertura que incluye las 47 lenguas analizadas. Este corpus está normalizado en Unicode y tokenizado a nivel de palabra, propiedades que lo hacen adecuado para el procesamiento computacional (véase @ejemplo-PBC).
 
 #figure(
   table(
@@ -39,7 +39,7 @@ El Corpus Paralelo de la Biblia (Parallel Bible Corpus, PBC) @mayer-cysouw-2014-
 
 Además del PBC, se emplearon bases de datos lingüísticas que contienen características tipológicas ---morfológicas, sintácticas y fonológicas--- de las lenguas analizadas. Estas características permiten corroborar posibles similitudes con la información morfológica presente en el espacio de BPE. Para ello, se utilizaron el _World Atlas of Language Structures_ (WALS), Grambank y lang2vec.
 
-Tanto WALS como Grambank siguen los Cross-Linguistic Data Formats (CLDF) @cldf, un conjunto de estándares para estructurar, compartir y reutilizar datos lingüísticos. Bajo este formato, la información se organiza en tres componentes: las lenguas, que son los objetos de investigación; los parámetros, que representan los conceptos comparativos medidos entre lenguas y que en este estudio se denominarán características; y los valores, que corresponden a la medición concreta de una característica para una lengua específica. Sin embargo, ninguna de estas bases de datos presenta una correspondencia uno a uno entre sí, y no todas las características cuentan con un valor asignado.
+Cabe señalar que ninguna de estas bases de datos presenta una correspondencia uno a uno entre sí, y no todas las características cuentan con un valor asignado.
 
 ==== WALS
 
@@ -55,7 +55,7 @@ De WALS, la información de interés fue el nombre de las lenguas y el valor de 
     align: left,
     stroke: none,
     table.header(
-      [*Rasgo*], [*Nombre*],
+      [*Característica*], [*Nombre*],
       table.hline(stroke: 1pt + black)
     ),
     [20A], [Fusión de formativos flexivos seleccionados],
@@ -75,7 +75,7 @@ De WALS, la información de interés fue el nombre de las lenguas y el valor de 
     [112A], [Morfemas negativos],
 
   ),
-  caption: [Tabla de rasgos de WALS usados para describir tipología morfológica @ximena-bpe-2023]
+  caption: [Características de WALS usadas para describir tipología morfológica. Tomado de @ximena-bpe-2023.]
 )<wals-features>
 
 Para identificar las lenguas en WALS se utilizó el _WALS code_, ya que el ISO 639-3 puede ser compartido por varias lenguas, lo que dificultaría su distinción. No obstante, el ISO 639-3 se empleó como apoyo para mejorar la identificación de las lenguas.
@@ -84,7 +84,7 @@ Para identificar las lenguas en WALS se utilizó el _WALS code_, ya que el ISO 6
 
 #let grambank_footnote = [Se obtuvo los datos de Grambank de su repositorio público #link("https://github.com/grambank/grambank").]
 
-A pesar de las similitudes entre Grambank y WALS, las lenguas presentes en ambas bases de datos no presentan una correspondencia uno a uno#footnote(grambank_footnote). Si bien algunas lenguas pueden relacionarse por nombre, como el inglés, en otros casos la relación es más compleja: una lengua en WALS puede corresponder a múltiples entradas en Grambank, y viceversa. Esta complejidad se acentúa debido a que Grambank utiliza identificadores propios y no el ISO 639-3, lo que dificulta aún más establecer una correspondencia entre ambas bases de datos.
+A pesar de las similitudes entre Grambank y WALS, las lenguas presentes en ambas bases no presentan una correspondencia uno a uno#footnote(grambank_footnote). Grambank utiliza identificadores propios ---los Glottocodes, asignados por Glottolog a cada lengua o variedad lingüística @grambank-paper ---, mientras que WALS opera con _WALS codes_. No obstante, los metadatos de Glottolog incluyen el ISO 639-3 asociado a cada Glottocode, y WALS también registra el ISO de cada lengua; esto permite usar el ISO 639-3 como identificador puente entre ambas bases. El procedimiento operacional se detalla en la sección de procesamiento.
 
 // TODO: Agregar que la información se puede ver en el apéndice
 Cabe señalar, además, que Grambank no cuenta con información de todas las lenguas de interés, como el español y el alemán, por lo que el conjunto de lenguas analizado se redujo en consecuencia.
@@ -93,7 +93,8 @@ Cabe señalar, además, que Grambank no cuenta con información de todas las len
 
 #let lang2vec_footnote = [El repositorio público se encuentra en #link("https://github.com/antonisa/lang2vec").]
 
-// Los knn se aplican sobre: WALS, _Syntactic Structures of the World's Languages_ (SSWL) y Ethnologue
-// TODO: Sería bueno mencionar a todos? Sería buscar de nuevo la cita de SSWL y Ethnologue (aunque este es privado, de pago creo)
-// O mover la explicación y citas al marco teórico
-Las características sintácticas empleadas provienen de lang2vec#footnote(lang2vec_footnote), en concreto de dos conjuntos: `syntax_wals`, basado directamente en WALS, y `syntax_knn`, que aplica una técnica de $k$ vecinos más cercanos sobre la combinación de WALS y otras bases de datos. Ambos conjuntos cubren las lenguas del estudio; sin embargo, `syntax_wals` puede contener valores vacíos para algunas características, mientras que `syntax_knn` no presenta ningún valor vacío por las características aprendidas. Hay que aclarar que `syntax_wals` es diferente al conjunto definido de características usadas en WALS en estos experimentos
+lang2vec @littell2017uriel #footnote(lang2vec_footnote) es una biblioteca que proporciona representaciones vectoriales tipológicas de lenguas, integrando información de varias bases de datos lingüísticas (WALS, PHOIBLE, Ethnologue, Glottolog, entre otras). A partir de los códigos ISO 639-3 de un conjunto de lenguas, devuelve vectores cuyas características toman valores en el intervalo $[0, 1]$ y se agrupan en distintos conjuntos según el tipo de información (sintáctica, fonológica, entre otros).
+
+En este estudio se emplearon los dos conjuntos sintácticos: `syntax_wals`, que extrae las características directamente de WALS, y `syntax_knn`, que aplica una técnica de $k$ vecinos más cercanos sobre la combinación de WALS, SSWL y Ethnologue para imputar valores faltantes. Ambos cubren las 47 lenguas del estudio; sin embargo, `syntax_wals` contiene valores vacíos para algunas características, mientras que `syntax_knn` no presenta valores vacíos gracias a la imputación.
+
+Conviene aclarar que, en este estudio, coexisten dos vistas distintas sobre WALS: la matriz $X_"WALS"$, construida directamente con el subconjunto de 15 características de tipología morfológica descrito en la @wals-features, y la matriz $X_"lang2vec"$, basada en los conjuntos sintácticos `syntax_wals` y `syntax_knn`, ambos anclados en WALS pero centrados en tipología sintáctica. Las dos vistas son complementarias: cubren dimensiones tipológicas distintas ---morfológica frente a sintáctica--- sobre la misma fuente, sin solaparse en características.
