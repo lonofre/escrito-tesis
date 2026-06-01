@@ -24,7 +24,7 @@
   wals_id: kho
 - name: Hausa
   iso639_3: hau
-  grambank_id: nige1253
+  grambank_id: haus1257
   wals_id: hau
 - name: Persa occidental
   iso639_3: pes
@@ -128,7 +128,7 @@
   wals_id: yag
 - name: Quechua (Imbabura)
   iso639_3: qvi
-  grambank_id: hual1241
+  grambank_id: imba1240
   wals_id: qim
 - name: Apurinã
   iso639_3: apu

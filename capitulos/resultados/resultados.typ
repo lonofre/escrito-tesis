@@ -31,8 +31,7 @@ La @wals-bpe-plot representa cómo están distribuidos los valores de ARI calcul
 
 #figure(
   paired-boxplot(
-    "datos/wals-bpe-ari.csv",
-    "datos/wals-bpe-random-ari.csv",
+    "datos/wals-bpe.json",
     label1: [$X_"BPE"$ vs $X_"WALS"$],
     label2: [$X_"BPE-r"$ vs $X_"WALS"$],
   ),

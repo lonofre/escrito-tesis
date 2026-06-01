@@ -17,21 +17,18 @@
   )
 }
 
-
-// Genera un diagrama con dos boxplots comparativos a partir de dos CSVs de una sola fila.
-#let paired-boxplot(file1, file2, label1: [], label2: [], color2: rgb("#284987")) = {
-  let x  = lq.load-txt(read(file1))
-  let x2 = lq.load-txt(read(file2))
+// Genera un diagrama con dos boxplots comparativos
+#let paired-boxplot(file, label1: [], label2: [], color2: rgb("#284987")) = {
+  let data = json(file)
 
   lq.diagram(
     width: 8cm,
     height: 8cm,
     margin: (x: 50%),
-    lq.boxplot(x: 1, x.at(0),  label: label1, outliers: ","),
-    lq.boxplot(x: 2, x2.at(0), label: label2, outliers: ",", stroke: color2),
+    lq.boxplot(x:1, label: label1, outliers: "x", data.at(0)),
+    lq.boxplot(x: 2, label: label2, outliers: "x", stroke: color2, data.at(1)),
   )
 }
-
 
 // Este método crea un band plot dado el directorio.
 // Esta es la opción A para representar los datos.
