@@ -15,7 +15,7 @@ Cada espacio se construye sobre la cobertura máxima de su fuente. Cuando dos es
 
 Para obtener los vectores del espacio de BPE, se usó la metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"), la cual toma un texto en una lengua y lo transforma en un vector que caracteriza la productividad, idiosincrasia y frecuencia acumulada de dicha lengua mediante las subpalabras generadas por un modelo de BPE. Así, se obtuvo un vector por cada una de las $L$ lenguas definidas en @tabla-de-lenguas.
 
-Para el procesamiento, utilizamos la implementación del proceso que estuvo disponible en GitHub. El programa usó Python y utilidades de UNIX. Sin embargo, se utilizó ligeramente algunas partes del código debido a que se usó macOS para obtener los vectores. Este proceso fue realizado para cada lengua y comprendió cinco etapas.
+Para el procesamiento, se utilizó la implementación del proceso que estuvo disponible en GitHub. El programa usó Python y utilidades de UNIX. Sin embargo, se modificaron ligeramente algunas partes del código debido a que se usó macOS para obtener los vectores. Este proceso fue realizado para cada lengua y comprendió cinco etapas.
 
 La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual el corpus se dividió en palabras ortográficas para establecer la base del procesamiento posterior. De esta manera, las palabras son diferenciables mediante espacios, distinción que resulta útil para lenguas como el japonés.
 
@@ -49,7 +49,7 @@ Los vectores de las lenguas se agruparon en la matriz $X_"WALS" in RR^(L times d
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
 
-Como paso final, aplicamos `StandardScaler` sobre $X_"WALS"$ siguiendo el mismo esquema descrito para el espacio BPE, de modo que cada característica quedara centrada en su media y escalado a varianza unitaria antes de los análisis posteriores.
+Como paso final, se aplicó `StandardScaler` sobre $X_"WALS"$ siguiendo el mismo esquema descrito para el espacio BPE, de modo que cada característica quedara centrada en su media y escalado a varianza unitaria antes de los análisis posteriores.
 
 === Grambank
 
@@ -103,21 +103,21 @@ Al igual que con WALS, los algoritmos requieren que la matriz de Grambank no con
 
 La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para interpretarlo como la ausencia de esta característica. Esta interpretación concuerda en la mayoría de las características de Grambank, que son binarias.
 
-Como paso final, aplicamos `StandardScaler` sobre $X_"Grambank"$ para centrar y escalar cada característica, manteniendo coherencia con el procedimiento aplicado al espacio BPE y a WALS.
+Como paso final, se aplicó `StandardScaler` sobre $X_"Grambank"$ para centrar y escalar cada característica, manteniendo coherencia con el procedimiento aplicado al espacio BPE y a WALS.
 
 === lang2vec
 
 Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron con `0` para denotar la ausencia de un valor, de manera consistente con el criterio adoptado para Grambank. Esta decisión resulta apropiada dado que las características de `lang2vec` son binarias @littell2017uriel.
 
-Como paso final, aplicamos `StandardScaler` sobre $X_"lang2vec"$ de la misma manera que en los demás espacios.
+Como paso final, se aplicó `StandardScaler` sobre $X_"lang2vec"$ de la misma manera que en los demás espacios.
 
 === Base de referencia
-En adición a los anteriores conjuntos de vectores, creamos un espacio aleatorio basado en el espacio BPE que sirvió como una base de referencia. Con esta base, podemos establecer si hay una mayor relación entre el espacio de BPE y Grambank o WALS más allá del carácter aleatorio.
+En adición a los anteriores conjuntos de vectores, se creó un espacio aleatorio basado en el espacio BPE que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre el espacio de BPE y Grambank o WALS más allá del carácter aleatorio.
 
 // TODO: Analizar mejor esto
-Por tal motivo, para crear la base de referencia, se obtuvieron los rangos donde varían las características de BPE. Con esta información, generamos una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio lo denominamos $X_"BPE-r"$.
+Por tal motivo, para crear la base de referencia, se obtuvieron los rangos donde varían las características de BPE. Con esta información, se generó una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio se le denominó $X_"BPE-r"$.
 
-Como paso final, aplicamos `StandardScaler` sobre $X_"BPE-r"$ de la misma manera que en los demás espacios.
+Como paso final, se aplicó `StandardScaler` sobre $X_"BPE-r"$ de la misma manera que en los demás espacios.
 
 === Resumen de notación
 
