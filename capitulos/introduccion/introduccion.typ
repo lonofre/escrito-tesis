@@ -2,7 +2,7 @@
 
 // Lo siguiente es la justificación y lo vamos a transformar en una introducción
 // Por lo tanto, esto es un TODO
-El procesamiento del lenguaje natural (PLN) ha transformado significativamente el área de la inteligencia artificial (IA), en parte, gracias a la creación de los grandes modelos de lenguaje (_Large Language Models_, LLMs) que dan pié a las aplicaciones generativas de texto. La capacidad de estas tecnologías para procesar y generar texto gramaticalmente correcto, semánticamente contextualizado, han abierto nuevas líneas de investigación sobre cómo las máquinas representan y procesan el lenguaje humano, desde una perspectiva tanto computacional como lingüística.
+El procesamiento del lenguaje natural (PLN) ha transformado significativamente el área de la inteligencia artificial (IA), en parte, gracias a la creación de los grandes modelos de lenguaje (_Large Language Models_, LLMs) que dan pie a las aplicaciones generativas de texto. La capacidad de estas tecnologías para procesar y generar texto gramaticalmente correcto, semánticamente contextualizado, han abierto nuevas líneas de investigación sobre cómo las máquinas representan y procesan el lenguaje humano, desde una perspectiva tanto computacional como lingüística.
 
 /*
 En PLN, un modelo del lenguaje es la herramienta que permite calcular probabilidades sobre secuencias o cadenas de texto. Hoy en día, estas estimaciones se hacen por medio de complejas arquitecturas de redes neuronales. Además del tipo de red neuronal, los mecanismos de atención y otras sofisticaciones, un componente que es esencial para dar vida a estas tecnologías del lenguaje es la segmentación a nivel subpalabra (un proceso conocido en el área como tokenización).

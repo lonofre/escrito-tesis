@@ -5,7 +5,7 @@
 */
 == Procesamiento computacional de las bases de datos lingüísticas
 
-Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron las bases de datos lingüísticas descritas en la @bases-datos-linguisticas. Dado que ninguna presenta una correspondencia uno a uno entre las lenguas que contienen y que no todos las características cuentan con un valor asignado, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
+Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron las bases de datos lingüísticas descritas en la @bases-datos-linguisticas. Dado que ninguna presenta una correspondencia uno a uno entre las lenguas que contienen y que no todas las características cuentan con un valor asignado, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
 
 Dicho procesamiento fue posible dado que tanto Grambank como WALS están estructurados según los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para compartir y reutilizar datos lingüísticos. Bajo este formato, la información se organiza en tres componentes: las *lenguas* (los objetos de investigación), los *parámetros* (los conceptos comparativos medidos entre lenguas, que en este estudio se denominan características) y los *valores* (las mediciones concretas de una característica para una lengua específica). Esta estructura común permitió aplicar un mismo procedimiento de extracción a ambas bases, obteniendo el espacio de WALS $X_"WALS" in RR^(L times d_"WALS")$ y el espacio de Grambank $X_"Grambank" in RR^(L_G times d_"Grambank")$. En todos los espacios, las filas corresponden a lenguas y las columnas a características, siguiendo la convención `(n_samples, n_features)`: $L$ denota el número de lenguas ($L = 47$ en el conjunto completo y $L_G = 38$ en el subconjunto cubierto por Grambank) y $d_e$ la dimensión ---número de características--- del espacio $e$.
 
@@ -20,7 +20,7 @@ Para el procesamiento, se utilizó la implementación del proceso que estuvo dis
 La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual el corpus se dividió en palabras ortográficas para establecer la base del procesamiento posterior. De esta manera, las palabras son diferenciables mediante espacios, distinción que resulta útil para lenguas como el japonés.
 
 // Quizá valga la pena checar este paso con lenguas como el japonés, que no tienen bien definido la palabra ortográfica.
-Posteriormente, se realizó el _preprocesamiento del corpus_ con el objetivo de obtener un mejor modelo de BPE. Este preprocesamiento implicó dos operaciones sobre el texto. En primer lugar, todos los caracteres fueron transformados a minúsculas. Si bien se tuvo consciencia de que en algunas lenguas la relación mayúscula-minúscula no está definida de la misma manera que en la función `lower()` de Python, por razones de reproducibilidad se decidió mantener este criterio. En segundo lugar, se removieron del texto los signos de puntuación `_.,"()?¿?¡!»«""،/\]_`. Un ejemplo del preprocesamiento es el siguiente:
+Posteriormente, se realizó el _preprocesamiento del corpus_ con el objetivo de obtener un mejor modelo de BPE. Este preprocesamiento implicó dos operaciones sobre el texto. En primer lugar, todos los caracteres fueron transformados a minúsculas. Si bien se tuvo consciencia de que en algunas lenguas la relación mayúscula-minúscula no está definida de la misma manera que en la función `lower()` de Python, por razones de reproducibilidad se decidió mantener este criterio. En segundo lugar, se removieron del texto los signos de puntuación `_.,"()?¿?¡!»«"،/\]_`. Un ejemplo del preprocesamiento es el siguiente:
 
 #align(center)[_Hola, ¿cómo estás?_ $->$ _hola como estás_]
 
@@ -49,12 +49,12 @@ Los vectores de las lenguas se agruparon en la matriz $X_"WALS" in RR^(L times d
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
 
-Como paso final, se aplicó `StandardScaler` sobre $X_"WALS"$ siguiendo el mismo esquema descrito para el espacio BPE, de modo que cada característica quedara centrada en su media y escalado a varianza unitaria antes de los análisis posteriores.
+Como paso final, se aplicó `StandardScaler` sobre $X_"WALS"$ siguiendo el mismo esquema descrito para $X_"BPE"$, de modo que cada característica quedara centrada en su media y escalado a varianza unitaria antes de los análisis posteriores.
 
 === Grambank
 
 
-Como se describió en la @bases-datos-linguisticas, las lenguas de Grambank y WALS no presentan una correspondencia directa: WALS opera con _WALS codes_ y Grambank con Glottocodes. Para emparejarlas se utilizó el ISO 639-3 como identificador puente, aprovechando que WALS registra el ISO de cada lengua y que los metadatos de Glottolog mapean cada Glottocode a su ISO correspondiente. De esta manera, cada lengua en WALS se vinculó con la entrada de Grambank cuyo Glottocode comparte el mismo ISO.
+Siguiendo el esquema de la @iso-puente, las lenguas de Grambank y WALS se emparejaron utilizando el ISO 639-3 como identificador puente: WALS registra el ISO de cada lengua y los metadatos de Glottolog mapean cada Glottocode a su ISO correspondiente, lo que permitió vincular cada lengua en WALS con la entrada de Grambank cuyo Glottocode comparte el mismo ISO.
 
 En dos casos, la entrada de Grambank emparejada por ISO contaba con muy pocas características disponibles, por lo que se sustituyó manualmente por una variedad cercana con mejor cobertura: _West Kewa_ se reemplazó por _East Kewa_, y _Paraguayan Guaraní_ por _Mbya Guaraní_.
 
@@ -103,7 +103,7 @@ Al igual que con WALS, los algoritmos requieren que la matriz de Grambank no con
 
 La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para interpretarlo como la ausencia de esta característica. Esta interpretación concuerda en la mayoría de las características de Grambank, que son binarias.
 
-Como paso final, se aplicó `StandardScaler` sobre $X_"Grambank"$ para centrar y escalar cada característica, manteniendo coherencia con el procedimiento aplicado al espacio BPE y a WALS.
+Como paso final, se aplicó `StandardScaler` sobre $X_"Grambank"$ para centrar y escalar cada característica, manteniendo coherencia con el procedimiento aplicado a $X_"BPE"$ y a $X_"WALS"$.
 
 === lang2vec
 
@@ -112,12 +112,12 @@ Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron co
 Como paso final, se aplicó `StandardScaler` sobre $X_"lang2vec"$ de la misma manera que en los demás espacios.
 
 === Base de referencia
-En adición a los anteriores conjuntos de vectores, se creó un espacio aleatorio basado en el espacio BPE que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre el espacio de BPE y Grambank o WALS más allá del carácter aleatorio.
+En adición a los anteriores conjuntos de vectores, se creó un espacio aleatorio basado en $X_"BPE"$ que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre $X_"BPE"$ y $X_"Grambank"$ o $X_"WALS"$ más allá del carácter aleatorio.
 
 // TODO: Analizar mejor esto
-Por tal motivo, para crear la base de referencia, se obtuvieron los rangos donde varían las características de BPE. Con esta información, se generó una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio se le denominó $X_"BPE-r"$.
+Por tal motivo, para crear la base de referencia, se obtuvieron los rangos donde varían las características de BPE. Con esta información, se generó una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio se le denominó $X_0$.
 
-Como paso final, se aplicó `StandardScaler` sobre $X_"BPE-r"$ de la misma manera que en los demás espacios.
+Como paso final, se aplicó `StandardScaler` sobre $X_0$ de la misma manera que en los demás espacios.
 
 === Resumen de notación
 
@@ -136,7 +136,7 @@ La @notacion-espacios consolida los espacios construidos en este capítulo. En t
     [$L$], [Número total de lenguas analizadas.], [$47$],
     [$L_G$], [Subconjunto de lenguas cubiertas por Grambank.], [$38$],
     [$X_"BPE"$], [Espacio derivado de BPE sobre el PBC: productividad, idiosincrasia y frecuencia acumulada.], [$L times 3$],
-    [$X_"BPE-r"$], [Base de referencia aleatoria, generada a partir de los rangos de $X_"BPE"$.], [$L times 3$],
+    [$X_0$], [Base de referencia aleatoria, generada a partir de los rangos de $X_"BPE"$.], [$L times 3$],
     [$X_"WALS"$], [Características morfológicas de WALS (@wals-features).], [$L times 15$],
     [$X_"Grambank"$], [Características seleccionadas de Grambank ($d_"Grambank"$ variable).], [$L_G times d_"Grambank"$],
     [$X_"lang2vec"$], [Características sintácticas de lang2vec (`syntax_wals` o `syntax_knn`).], [$L times d_"lang2vec"$],

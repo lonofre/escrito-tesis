@@ -45,38 +45,7 @@ Cabe señalar que ninguna de estas bases de datos presenta una correspondencia u
 
 #let database_footnote = [Se obtuvo los datos de WALS de #link("https://github.com/cldf-datasets/wals").]
 
-De WALS, la información de interés fue el nombre de las lenguas y el valor de cada una de sus características#footnote(database_footnote). En concreto, se utilizó un subconjunto de 15 características que codifican información de tipología morfológica @ximena-bpe-2023 (véase @wals-features). Dicho subconjunto presenta una cantidad reducida de valores vacíos para las lenguas analizadas.
-
-// TODO: Quizá reducir el tamaño del texto de esto. O moverlo al apéndice
-#figure(
-  placement: auto,
-    table(
-    columns: (auto, auto),
-    align: left,
-    stroke: none,
-    table.header(
-      [*Característica*], [*Nombre*],
-      table.hline(stroke: 1pt + black)
-    ),
-    [20A], [Fusión de formativos flexivos seleccionados],
-    [22A], [Síntesis flexiva],
-    [26A], [Prefijación vs. sufijación en la morfología flexiva],
-    [28A], [Sincretismo de caso],
-    [29A], [Sincretismo en la marcación de persona/número verbal],
-    [49A], [Número de casos],
-    [59A], [Clasificación posesiva],
-    [65A], [Aspecto perfectivo/imperfectivo],
-    [66A], [El tiempo pasado],
-    [67A], [El tiempo futuro],
-    [69A], [Posición de los afijos de tiempo/aspecto],
-    [70A], [El imperativo morfológico],
-    [78A], [Codificación de la evidencialidad],
-    [102A], [Marcación de persona verbal],
-    [112A], [Morfemas negativos],
-
-  ),
-  caption: [Características de WALS usadas para describir tipología morfológica. Tomado de @ximena-bpe-2023.]
-)<wals-features>
+De WALS, la información de interés fue el nombre de las lenguas y el valor de cada una de sus características#footnote(database_footnote). En concreto, se utilizó un subconjunto de 15 características que codifican información de tipología morfológica @ximena-bpe-2023; este subconjunto presenta una cantidad reducida de valores vacíos para las lenguas analizadas y se enumera de forma completa en @wals-features.
 
 Para identificar las lenguas en WALS se utilizó el _WALS code_, ya que el ISO 639-3 puede ser compartido por varias lenguas, lo que dificultaría su distinción. No obstante, el ISO 639-3 se empleó como apoyo para mejorar la identificación de las lenguas.
 
@@ -84,10 +53,28 @@ Para identificar las lenguas en WALS se utilizó el _WALS code_, ya que el ISO 6
 
 #let grambank_footnote = [Se obtuvo los datos de Grambank de su repositorio público #link("https://github.com/grambank/grambank").]
 
-A pesar de las similitudes entre Grambank y WALS, las lenguas presentes en ambas bases no presentan una correspondencia uno a uno#footnote(grambank_footnote). Grambank utiliza identificadores propios ---los Glottocodes, asignados por Glottolog a cada lengua o variedad lingüística @grambank-paper ---, mientras que WALS opera con _WALS codes_. No obstante, los metadatos de Glottolog incluyen el ISO 639-3 asociado a cada Glottocode, y WALS también registra el ISO de cada lengua; esto permite usar el ISO 639-3 como identificador puente entre ambas bases. El procedimiento operacional se detalla en la sección de procesamiento.
+A pesar de las similitudes entre Grambank y WALS, las lenguas presentes en ambas bases no presentan una correspondencia uno a uno#footnote(grambank_footnote). Grambank utiliza identificadores propios ---los Glottocodes, asignados por Glottolog a cada lengua o variedad lingüística @grambank-paper ---, mientras que WALS opera con _WALS codes_. No obstante, los metadatos de Glottolog incluyen el ISO 639-3 asociado a cada Glottocode, y WALS también registra el ISO de cada lengua; esto permite usar el ISO 639-3 como identificador puente entre ambas bases (véase @iso-puente). El procedimiento operacional se detalla en la sección de procesamiento.
 
-// TODO: Agregar que la información se puede ver en el apéndice
-Cabe señalar, además, que Grambank no cuenta con información de todas las lenguas de interés, como el español y el alemán, por lo que el conjunto de lenguas analizado se redujo en consecuencia.
+#figure(
+  diagram(
+    spacing: (20mm, 10mm),
+    node-stroke: 0.5pt,
+    node-corner-radius: 3pt,
+
+    node((0,0), [WALS], name: <wals>),
+    node((1,0), [ISO 639-3], name: <iso>,
+      stroke: 1pt,
+      inset: 8pt,
+    ),
+    node((2,0), [Grambank], name: <gram>),
+
+    edge(<wals>, <iso>, "<->"),
+    edge(<iso>, <gram>, "<->"),
+  ),
+  caption: [ISO 639-3 como identificador puente entre los \ códigos propios de WALS y Grambank.],
+)<iso-puente>
+
+Cabe señalar, además, que Grambank no cuenta con información de todas las lenguas de interés ---incluyendo el español y el alemán---, por lo que el conjunto de lenguas analizado se redujo en consecuencia; la cobertura por lengua se detalla en @tabla-de-lenguas. Las lenguas excluidas abarcan Europa, África, Oceanía y América, y pertenecen a familias lingüísticas distintas, por lo que la reducción no concentra el sesgo en una sola región ni en una sola familia.
 
 ==== lang2vec
 

@@ -12,4 +12,6 @@
 
 #include "lenguas-utilizadas.typ"
 #pagebreak()
+#include "wals-features.typ"
+#pagebreak()
 #include "grambank-features.typ"

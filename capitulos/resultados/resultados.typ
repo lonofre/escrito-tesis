@@ -8,7 +8,7 @@
 
 == BPE vs WALS+Grambank
 
-La @bpe-grambankwals-ari-plot representa cómo están distribuidos los valores de ARI de $X_"BPE"$ y $X_"Grambank"$ en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features. La @bpe-random-grambank-ari-plot representa de manera similar lo que la figura anterior pero sustituyendo $X_"BPE"$ por $X_"BPE-r"$. Por lo que @bpe-random-grambankwals-ari-plot representa la base de referencia.
+La @bpe-grambankwals-ari-plot representa cómo están distribuidos los valores de ARI de $X_"BPE"$ y $X_"Grambank"$ en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features. La @bpe-random-grambank-ari-plot representa de manera similar lo que la figura anterior pero sustituyendo $X_"BPE"$ por $X_0$. Por lo que @bpe-random-grambankwals-ari-plot representa la base de referencia.
 
 #figure(
   boxplot-from-csv("datos/grambankANDwals-bpe.json"),
@@ -27,13 +27,13 @@ En contraste, @bpe-random-grambankwals-ari-plot, se observa que a partir de $n =
 == BPE vs WALS
 
 // TODO: Hacer más detallado esto
-La @wals-bpe-plot representa cómo están distribuidos los valores de ARI calculados para $X_"BPE"$ y $X_"WALS"$ (izquierda), como para $X_"BPE-r"$ y $X_"WALS"$ (derecha) que representa la base de referencia.
+La @wals-bpe-plot representa cómo están distribuidos los valores de ARI calculados para $X_"BPE"$ y $X_"WALS"$ (izquierda), como para $X_0$ y $X_"WALS"$ (derecha) que representa la base de referencia.
 
 #figure(
   paired-boxplot(
     "datos/wals-bpe.json",
     label1: [$X_"BPE"$ vs $X_"WALS"$],
-    label2: [$X_"BPE-r"$ vs $X_"WALS"$],
+    label2: [$X_0$ vs $X_"WALS"$],
   ),
   caption: [Resultados de los valores de ARI.]
 )<wals-bpe-plot>
@@ -42,12 +42,12 @@ La @wals-bpe-plot representa cómo están distribuidos los valores de ARI calcul
 // TODO: Checar traducción de box plot por normativas de ciencias
 Como se observa los datos ARI de $X_"BPE"$ y $X_"WALS"$, el 50% de los valores ARI se encuentran entre los rangos 0.0175 y 0.0837. El rango donde varían estos valores es entre -0.0631 y 0.1826. Hay que notar que @wals-bpe-plot tiene varios outliers, donde varios superan en valor de $0.20$. La media tiene un valor 0.0478. El máximo valor que alcanzó es 0.2939 y el mínimo -0.0631.
 
-Sin embargo, para $X_"BPE-r"$ y $X_"WALS"$, el 50% de los datos se encuentran contenidos en un rango menor al anterior, pues está entre -0.0131 y 0.0175. A la vez, el rango de datos se encuentra entre -0.0591 y 0.0634. Por otro lado, los outliers, pero no superaron 0.15. La media es 0.0007. El máximo valor que alcanzó es 0.1386 y el mínimo -0.0753.
+Sin embargo, para $X_0$ y $X_"WALS"$, el 50% de los datos se encuentran contenidos en un rango menor al anterior, pues está entre -0.0131 y 0.0175. A la vez, el rango de datos se encuentra entre -0.0591 y 0.0634. Por otro lado, los outliers, pero no superaron 0.15. La media es 0.0007. El máximo valor que alcanzó es 0.1386 y el mínimo -0.0753.
 
 == BPE vs Grambank
 
 // Este es el original. Quizá tengamos que repetir esto mismo en todos los que usen Grambank.
-La @bpe-grambank-ari-plot representa cómo están distribuidos los valores de ARI de $X_"BPE"$ y $X_"Grambank"$ en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features. La @bpe-random-grambank-ari-plot representa de manera similar lo que la figura anterior pero sustituyendo $X_"BPE"$ por $X_"BPE-r"$. Por lo que @bpe-random-grambank-ari-plot representa la base de referencia.
+La @bpe-grambank-ari-plot representa cómo están distribuidos los valores de ARI de $X_"BPE"$ y $X_"Grambank"$ en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features. La @bpe-random-grambank-ari-plot representa de manera similar lo que la figura anterior pero sustituyendo $X_"BPE"$ por $X_0$. Por lo que @bpe-random-grambank-ari-plot representa la base de referencia.
 
 #figure(
   boxplot-from-csv("datos/grambank-bpe.json"),
