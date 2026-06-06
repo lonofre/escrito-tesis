@@ -9,7 +9,7 @@
 
 #figure(
    image("img/lenguas-mapa.pdf", width: 80%),
-   caption: [Distribución de las 47 lenguas en el mundo.]
+   caption: [Distribución de las 47 lenguas en el mundo. Cada color representa una familia de lenguas.]
 )<mapa-lenguas>
 
 // TODO: Mencionar que la tabla de lenguas está en el apéndice
@@ -84,4 +84,4 @@ lang2vec @littell2017uriel #footnote(lang2vec_footnote) es una biblioteca que pr
 
 En este estudio se emplearon los dos conjuntos sintácticos: `syntax_wals`, que extrae las características directamente de WALS, y `syntax_knn`, que aplica una técnica de $k$ vecinos más cercanos sobre la combinación de WALS, SSWL y Ethnologue para imputar valores faltantes. Ambos cubren las 47 lenguas del estudio; sin embargo, `syntax_wals` contiene valores vacíos para algunas características, mientras que `syntax_knn` no presenta valores vacíos gracias a la imputación.
 
-Conviene aclarar que, en este estudio, coexisten dos vistas distintas sobre WALS: la matriz $X_"WALS"$, construida directamente con el subconjunto de 15 características de tipología morfológica descrito en la @wals-features, y la matriz $X_"lang2vec"$, basada en los conjuntos sintácticos `syntax_wals` y `syntax_knn`, ambos anclados en WALS pero centrados en tipología sintáctica. Las dos vistas son complementarias: cubren dimensiones tipológicas distintas ---morfológica frente a sintáctica--- sobre la misma fuente, sin solaparse en características.
+Conviene aclarar que, en este estudio, coexisten dos vistas distintas sobre WALS: la matriz $X_"WALS"$, construida directamente con el subconjunto de 15 características de tipología morfológica descrito en la @wals-features, y la matriz $X_"lang2vec"$, basada en los conjuntos sintácticos `syntax_wals` y `syntax_knn`, ambos anclados en WALS pero centrados en tipología sintáctica. Las dos vistas son complementarias: cubren la misma fuente con énfasis en dimensiones tipológicas distintas ---morfológica frente a sintáctica---.

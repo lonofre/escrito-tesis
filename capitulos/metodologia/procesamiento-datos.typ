@@ -49,7 +49,7 @@ Los vectores de las lenguas se agruparon en la matriz $X_"WALS" in RR^(L times d
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
 
-Como paso final, se aplicó `StandardScaler` sobre $X_"WALS"$ siguiendo el mismo esquema descrito para $X_"BPE"$, de modo que cada característica quedara centrada en su media y escalado a varianza unitaria antes de los análisis posteriores.
+Como paso final, se aplicó a $X_"WALS"$ la misma estandarización descrita para $X_"BPE"$.
 
 === Grambank
 
@@ -62,31 +62,49 @@ La matriz $X_"Grambank"$ se construyó mediante el mismo método que $X_"WALS"$,
 
 Sin embargo, la selección de características de Grambank requirió una exploración previa, ya que no todas las lenguas cuentan con el mismo conjunto de características disponibles. Por ello, se priorizó la combinación de características que minimizara los valores vacíos, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, GB107 cubre todas las lenguas y tendría alta prioridad, mientras que GB401 cubre pocas lenguas y se seleccionaría en los últimos lugares.
 
+
 // Datos obtenidos del notebook seleccion_por_disponibilidad.ipynb
 #figure(
   {
-    let features_availability = csv("datos/availability.csv", row-type: array).map(x => x.at(2)).slice(1).map(x => int(x))
-    let languages = 38
-    
-    let accumulated = ()
-    accumulated.push(languages  - features_availability.at(0))
-    for n in range(1, features_availability.len()) {
-      let sum = accumulated.at(n - 1) + languages - features_availability.at(n)
-      accumulated.push(sum)
-    }
+    show lq.selector(lq.tick-label): set text(0.8em)
+    let accumlative_missing_values = csv("datos/cumulative_missing_values.csv").map(x => x.at(0)).map(x => int(x))
     
     lq.diagram(
       ylabel: text(size: 11pt)[Valores faltantes],
       xlabel: text(size: 11pt)[Número de características],
-      lq.plot(
-        range(features_availability.len()),
-        x => accumulated.at(x)
+      yaxis: (
+        exponent: 0,
+        tick-args: (
+          density: 116%,
+        ),
       ),
-      width: 80%
+      lq.plot(
+        range(195),
+        x => accumlative_missing_values.at(x),
+        mark: none,
+        stroke: 1pt
+      ),
+      lq.line(
+        stroke: (paint: blue, dash: "dashed"),
+        (30, 100%), (30, 0pt)
+      ),
+      lq.line(
+        stroke: (paint: blue, dash: "dashed"),
+        (80, 100%), (80, 0pt)
+      ),
+      width: 90%,
     )
   },
   caption: [Número de valores faltantes al ir agregando más características.]
 )<grambank-valores-vacios>
+
+
+
+
+
+
+
+
 
 // Aquí continua explicando por qué se eligió cierto número de features
 // También agrega qué lenguas tienen valores muy vacíos como limitaciones
@@ -103,13 +121,13 @@ Al igual que con WALS, los algoritmos requieren que la matriz de Grambank no con
 
 La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para interpretarlo como la ausencia de esta característica. Esta interpretación concuerda en la mayoría de las características de Grambank, que son binarias.
 
-Como paso final, se aplicó `StandardScaler` sobre $X_"Grambank"$ para centrar y escalar cada característica, manteniendo coherencia con el procedimiento aplicado a $X_"BPE"$ y a $X_"WALS"$.
+Como paso final, se aplicó a $X_"Grambank"$ la misma estandarización descrita para $X_"BPE"$.
 
 === lang2vec
 
 Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron con `0` para denotar la ausencia de un valor, de manera consistente con el criterio adoptado para Grambank. Esta decisión resulta apropiada dado que las características de `lang2vec` son binarias @littell2017uriel.
 
-Como paso final, se aplicó `StandardScaler` sobre $X_"lang2vec"$ de la misma manera que en los demás espacios.
+Como paso final, se aplicó a $X_"lang2vec"$ la misma estandarización descrita para $X_"BPE"$.
 
 === Base de referencia
 En adición a los anteriores conjuntos de vectores, se creó un espacio aleatorio basado en $X_"BPE"$ que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre $X_"BPE"$ y $X_"Grambank"$ o $X_"WALS"$ más allá del carácter aleatorio.
@@ -117,7 +135,7 @@ En adición a los anteriores conjuntos de vectores, se creó un espacio aleatori
 // TODO: Analizar mejor esto
 Por tal motivo, para crear la base de referencia, se obtuvieron los rangos donde varían las características de BPE. Con esta información, se generó una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio se le denominó $X_0$.
 
-Como paso final, se aplicó `StandardScaler` sobre $X_0$ de la misma manera que en los demás espacios.
+Como paso final, se aplicó a $X_0$ la misma estandarización descrita para $X_"BPE"$.
 
 === Resumen de notación
 
