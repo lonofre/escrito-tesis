@@ -1,6 +1,5 @@
 #import "@preview/lilaq:0.6.0" as lq
 
-
 // Este método genera un plot con múltiples box plots.
 #let boxplot-from-csv(file, start: 30, end: 86) = {
   let rows = json(file).slice(start, end + 1)
@@ -8,6 +7,8 @@
   lq.diagram(
     width: 14cm,
     height: 6cm,
+    xlabel: [$d_"Grambank"$],
+    ylabel: [ARI],
     lq.boxplot(
       outliers: "x",
       x: range(start, end + 1),
@@ -25,8 +26,10 @@
     width: 8cm,
     height: 8cm,
     margin: (x: 50%),
+    ylabel: text(size: 11pt)[ARI],
     lq.boxplot(x:1, label: label1, outliers: "x", data.at(0)),
     lq.boxplot(x: 2, label: label2, outliers: "x", stroke: color2, data.at(1)),
+    xaxis: (format-ticks: none)
   )
 }
 

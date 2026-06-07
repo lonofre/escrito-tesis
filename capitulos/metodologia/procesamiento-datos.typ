@@ -70,8 +70,8 @@ Sin embargo, la selección de características de Grambank requirió una explora
     let accumlative_missing_values = csv("datos/cumulative_missing_values.csv").map(x => x.at(0)).map(x => int(x))
     
     lq.diagram(
-      ylabel: text(size: 11pt)[Valores faltantes],
-      xlabel: text(size: 11pt)[Número de características],
+      ylabel: [Valores faltantes],
+      xlabel: [Número de características],
       yaxis: (
         exponent: 0,
         tick-args: (
@@ -97,14 +97,6 @@ Sin embargo, la selección de características de Grambank requirió una explora
   },
   caption: [Número de valores faltantes al ir agregando más características.]
 )<grambank-valores-vacios>
-
-
-
-
-
-
-
-
 
 // Aquí continua explicando por qué se eligió cierto número de features
 // También agrega qué lenguas tienen valores muy vacíos como limitaciones

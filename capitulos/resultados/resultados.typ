@@ -4,30 +4,13 @@
 #let min_features = 0
 #let max_features = 195
 
+
+// TODO: Toda esta sección está en construcción. Esta la estructura pero falta colocar los datos correctamente.
 = Resultados
-
-== BPE vs WALS+Grambank
-
-La @bpe-grambankwals-ari-plot representa cómo están distribuidos los valores de ARI de $X_"BPE"$ y $X_"Grambank"$ en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features. La @bpe-random-grambank-ari-plot representa de manera similar lo que la figura anterior pero sustituyendo $X_"BPE"$ por $X_0$. Por lo que @bpe-random-grambankwals-ari-plot representa la base de referencia.
-
-#figure(
-  boxplot-from-csv("datos/grambankANDwals-bpe.json"),
-  caption: [Resultados de los valores de ARI usando `syntax_wals`.]
-)<bpe-grambankwals-ari-plot>
-
-Como se observa en @bpe-grambankwals-ari-plot, el valor de las medianas de ARI está encima del 0. Se observa además que el rango de la mayoría de las configuraciones es entre -0.1 y 0.2. Además, se tienen valores outliers que superan el umbral de 0.5. Esto se puede observar en $n = 55, n = 56, n = 57, 58, 61, 62, 67$.
-
-#figure(
-  boxplot-from-csv("datos/grambankANDwals-bpe-random.json"),
-  caption: [Resultados de los valores de ARI usando `syntax_knn`.]
-)<bpe-random-grambankwals-ari-plot>
-
-En contraste, @bpe-random-grambankwals-ari-plot, se observa que a partir de $n = 43$, el valor de la medianas se encuentran abajo del 0. En contraste con @bpe-grambankwals-ari-plot, sólo hay un outlier que supera el umbral de 0.3, y es cuando $n = 31$, mientras que en $n$ más grandes, esto no se vuelve a repetir. Si bien hasta $n = 48$ algunos de los valores (o pestaña) superan el umbra del 0.1, a partir de ahí los valores varían entre 0.1 y 0.5.
 
 == BPE vs WALS
 
-// TODO: Hacer más detallado esto
-La @wals-bpe-plot representa cómo están distribuidos los valores de ARI calculados para $X_"BPE"$ y $X_"WALS"$ (izquierda), como para $X_0$ y $X_"WALS"$ (derecha) que representa la base de referencia.
+A diferencia de los demás experimentos, este no barre sobre $d_"Grambank"$: $d_"WALS" = 15$ está fijado por la selección de características de @wals-features. La @wals-bpe-plot compara la distribución de ARI entre $X_"BPE"$ y $X_"WALS"$ con la base de referencia $X_0$ vs $X_"WALS"$.
 
 #figure(
   paired-boxplot(
@@ -35,62 +18,224 @@ La @wals-bpe-plot representa cómo están distribuidos los valores de ARI calcul
     label1: [$X_"BPE"$ vs $X_"WALS"$],
     label2: [$X_0$ vs $X_"WALS"$],
   ),
-  caption: [Resultados de los valores de ARI.]
+  caption: [Distribución de ARI entre $X_"BPE"$ y $X_"WALS"$ frente a la base de referencia $X_0$ vs $X_"WALS"$.]
 )<wals-bpe-plot>
 
-// Los detalles de los resultados se pueden leer mejor en los notebooks, por lo que si es necesario editar, chécalos ahí
-// TODO: Checar traducción de box plot por normativas de ciencias
-Como se observa los datos ARI de $X_"BPE"$ y $X_"WALS"$, el 50% de los valores ARI se encuentran entre los rangos 0.0175 y 0.0837. El rango donde varían estos valores es entre -0.0631 y 0.1826. Hay que notar que @wals-bpe-plot tiene varios outliers, donde varios superan en valor de $0.20$. La media tiene un valor 0.0478. El máximo valor que alcanzó es 0.2939 y el mínimo -0.0631.
+El ARI del experimento $X_"BPE"$ vs $X_"WALS"$ se mantiene por encima del de la base de referencia $X_0$ vs $X_"WALS"$. Su mediana es $0.0478$, frente a $0.0007$ de la referencia: una diferencia de $+0.0471$. El 50% central de los valores de $X_"BPE"$ vs $X_"WALS"$ cae entre $0.0175$ y $0.0837$, mientras que el de la referencia está entre $-0.0131$ y $0.0175$. Ambos rangos no se traslapan: solo se tocan en $0.0175$.
 
-Sin embargo, para $X_0$ y $X_"WALS"$, el 50% de los datos se encuentran contenidos en un rango menor al anterior, pues está entre -0.0131 y 0.0175. A la vez, el rango de datos se encuentra entre -0.0591 y 0.0634. Por otro lado, los outliers, pero no superaron 0.15. La media es 0.0007. El máximo valor que alcanzó es 0.1386 y el mínimo -0.0753.
+$X_"BPE"$ vs $X_"WALS"$ también muestra más dispersión que la referencia. Sus valores llegan hasta $0.2939$, frente a $0.1386$ de $X_0$ vs $X_"WALS"$, y su 50% central es aproximadamente el doble de ancho ($0.0662$ contra $0.0306$). En el extremo inferior, ambos experimentos son comparables: $-0.0631$ para $X_"BPE"$ vs $X_"WALS"$ y $-0.0753$ para la referencia.
+
+// TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    align: (center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [$s_1$], [$s_2$], [*ARI*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [], [], [],
+    [], [], [],
+    [], [], [],
+    [], [], [],
+    [], [], [],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Top 5 configuraciones con mayor ARI en $X_"BPE"$ vs $X_"WALS"$.],
+)<configs-bpe-wals>
 
 == BPE vs Grambank
 
-// Este es el original. Quizá tengamos que repetir esto mismo en todos los que usen Grambank.
-La @bpe-grambank-ari-plot representa cómo están distribuidos los valores de ARI de $X_"BPE"$ y $X_"Grambank"$ en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features. La @bpe-random-grambank-ari-plot representa de manera similar lo que la figura anterior pero sustituyendo $X_"BPE"$ por $X_0$. Por lo que @bpe-random-grambank-ari-plot representa la base de referencia.
+El experimento $X_"BPE"$ vs $X_"Grambank"$ se evalúa para cada $d_"Grambank" in [30, 80]$, lo que produce un barrido de 51 distribuciones de ARI. En paralelo se calcula la base de referencia $X_0$ vs $X_"Grambank"$ sobre los mismos valores de $d_"Grambank"$.
 
 #figure(
   boxplot-from-csv("datos/grambank-bpe.json"),
-  caption: [Resultados de los valores de ARI de BPE vs Grambank.]
+  caption: [Distribución de ARI entre $X_"BPE"$ y $X_"Grambank"$ por número de características de Grambank.]
 )<bpe-grambank-ari-plot>
-
-Se observa en @bpe-grambank-ari-plot que la mayoría de los valores independientemente del número de características se distribuyen entre los rangos de -0.1 y 0.2, con algunas excepciones después de $n =. 65$. Se observa además que la mediana no aumenta drásticamente al incrementar el número de características. Podemos observar varios outliers que superan el umbra de 0.4, como en $n = 56$, así como $n = 73, 74, 75, 76$. El valor de las medias se mantiene positivo. El bigote inferior pueden superar el umbral de -0.1, lo cual indica que hay más variabilidad de datos en esos $n$.
-
 
 #figure(
   boxplot-from-csv("datos/grambank-bpe-random.json"),
-  caption: [Resultados de los valores de ARI de BPE Aleatorio vs Grambank.]
+  caption: [Distribución de ARI entre $X_0$ y $X_"Grambank"$ (base de referencia).]
 )<bpe-random-grambank-ari-plot>
 
-Por otra parte, se observa en @bpe-random-grambank-ari-plot que son pocos los outliers que cruzan el umbral de 0.25, que se encuentran antes de $n = 50$. De la misma manera, la mediana de ARI en muchos casos es negativa. Se observan que el bigote superior de la mayoría de las $n$ no superan el umbral de 0.1.
+$X_"BPE"$ vs $X_"Grambank"$ se mantiene por encima de $X_0$ vs $X_"Grambank"$ a lo largo del barrido, aunque la separación entre ambos depende de $d_"Grambank"$. La mediana del experimento principal es positiva para todos los valores de $d_"Grambank"$, mientras que la de la referencia es negativa para la mayoría de ellos. El 50% central de los valores cae aproximadamente entre $-0.1$ y $0.2$ para $X_"BPE"$ vs $X_"Grambank"$, frente a un rango más estrecho y centrado por debajo de cero para la referencia.
+
+Algunos $d_"Grambank"$ destacan por presentar valores notablemente altos en $X_"BPE"$ vs $X_"Grambank"$: superan $0.4$ en $d_"Grambank" = 56$ y en $d_"Grambank" in {73, 74, 75, 76}$. La referencia no presenta este comportamiento: sus pocos valores que cruzan $0.25$ se concentran antes de $d_"Grambank" = 50$ y ninguno supera $0.3$.
+
+// TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
+#figure(
+  table(
+    columns: (auto, auto, auto, auto),
+    align: (center, center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [$d_"Grambank"$], [$s_1$], [$s_2$], [*ARI*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Top 5 configuraciones con mayor ARI en $X_"BPE"$ vs $X_"Grambank"$.],
+)<configs-bpe-grambank>
+
+== BPE vs WALS+Grambank
+
+El experimento $X_"BPE"$ vs $X_("WALS"+"Grambank")$ se evalúa para cada $d_"Grambank" in [30, 80]$. En paralelo se calcula la base de referencia $X_0$ vs $X_("WALS"+"Grambank")$ sobre los mismos valores de $d_"Grambank"$.
+
+#figure(
+  boxplot-from-csv("datos/grambankANDwals-bpe.json"),
+  caption: [Distribución de ARI entre $X_"BPE"$ y $X_("WALS"+"Grambank")$ por número de características de Grambank.]
+)<bpe-grambankwals-ari-plot>
+
+#figure(
+  boxplot-from-csv("datos/grambankANDwals-bpe-random.json"),
+  caption: [Distribución de ARI entre $X_0$ y $X_("WALS"+"Grambank")$ (base de referencia).]
+)<bpe-random-grambankwals-ari-plot>
+
+$X_"BPE"$ vs $X_("WALS"+"Grambank")$ se mantiene por encima de $X_0$ vs $X_("WALS"+"Grambank")$ a lo largo del barrido. La mediana del experimento principal es positiva para todos los valores de $d_"Grambank"$, mientras que la de la referencia se vuelve negativa a partir de $d_"Grambank" = 43$. El 50% central de los valores cae aproximadamente entre $-0.1$ y $0.2$ para el experimento principal, frente a un rango más estrecho y centrado cerca de cero para la referencia.
+
+// TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
+#figure(
+  table(
+    columns: (auto, auto, auto, auto),
+    align: (center, center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [$d_"Grambank"$], [$s_1$], [$s_2$], [*ARI*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Top 5 configuraciones con mayor ARI en $X_"BPE"$ vs $X_("WALS"+"Grambank")$.],
+)<configs-bpe-grambankwals>
 
 == Grambank vs WALS
 
-La @grambank-wals-ari-plot representa cómo están distribuidos los valores de ARI de $X_"Grambank"$ y $X_"WALS"$ en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features.
+Este experimento auxiliar compara $X_"Grambank"$ con $X_"WALS"$ para cada $d_"Grambank" in [30, 80]$. Al no involucrar $X_"BPE"$, no se calcula base de referencia.
 
 #figure(
   boxplot-from-csv("datos/grambank-wals.json"),
-  caption: [Resultados de los valores de ARI.]
+  caption: [Distribución de ARI entre $X_"Grambank"$ y $X_"WALS"$ por número de características de Grambank.]
 )<grambank-wals-ari-plot>
 
-Se observa en @grambank-wals-ari-plot varios outliers entre 0.4 y 0.5. Se puede observar que las medianas son positivas, variando a un valor cercano a 0.05. Por otro lado, se obsevar que a partir de $n=45$, el bigote superior se encuentra encima del umbral de 0.2. Sin embargo, también hay una constante en los bigotes inferiores que suelen superar el valor de -0.1. 
+La mediana de ARI entre $X_"Grambank"$ y $X_"WALS"$ es positiva para todos los valores de $d_"Grambank"$, manteniéndose cercana a $0.05$. El 50% central de los valores se mantiene aproximadamente entre $-0.1$ y $0.2$ en la mayor parte del barrido.
 
+// TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
+#figure(
+  table(
+    columns: (auto, auto, auto, auto),
+    align: (center, center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [$d_"Grambank"$], [$s_1$], [$s_2$], [*ARI*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Top 5 configuraciones con mayor ARI en $X_"Grambank"$ vs $X_"WALS"$.],
+)<configs-grambank-wals>
 
 == Grambank vs Lang2Vec
-La @grambank-lang2vec-syntaxwals-ari-plot representa cómo están distribuidos los valores de ARI de $X_"Grambank"$ y $X_"lang2vec"$ con `syntax_wals`, en base al criterio de selección de características. El número de características se encuentra entre #min_features y #max_features. Mientras que @grambank-lang2vec-syntaxknn-ari-plot representa lo mismo pero usando el conjunto `syntax_knn`.
+
+Este experimento auxiliar compara $X_"Grambank"$ con $X_"lang2vec"$ en sus dos variantes (`syntax_wals` y `syntax_knn`) para cada $d_"Grambank" in [30, 80]$. Al no involucrar $X_"BPE"$, no se calcula base de referencia.
 
 #figure(
   boxplot-from-csv("datos/grambank-lang2vec-syntax-wals.json"),
-  caption: [Resultados de los valores de ARI usando `syntax_wals`.]
+  caption: [Distribución de ARI entre $X_"Grambank"$ y $X_"lang2vec"$ usando `syntax_wals`.]
 )<grambank-lang2vec-syntaxwals-ari-plot>
 
-Se observa en @grambank-lang2vec-syntaxwals-ari-plot que las medias superan el umbral del 0.1. A su vez, los bigotes inferiores son menores que 0.1. Hay varios bigotes superiores que se encuentran cerca a 0.4. Referente a los outliers, hay varios que superan el umbral de 0.6, como en $n = 54, 55$, $n = 61, 62, 65, 66, 84$.
-
 #figure(
-  boxplot-from-csv("datos/grambank-lang2vec-syntax-knn.json"), 
-  caption: [Resultados de los valores de ARI usando `syntax_knn`.]
+  boxplot-from-csv("datos/grambank-lang2vec-syntax-knn.json"),
+  caption: [Distribución de ARI entre $X_"Grambank"$ y $X_"lang2vec"$ usando `syntax_knn`.]
 )<grambank-lang2vec-syntaxknn-ari-plot>
 
-Se observa en @grambank-lang2vec-syntaxknn-ari-plot, hay outliers que toman el valor de 0.7 o más. Se puede observar esto en $n = 55, 56, 57,57, 58, 61, 62$. También hay mucha variabilidad de los datos, como siendo los bigotes inferiores cercanos a -0.1, mientras que los superiores están por encima de 0.4 a partir de $n = 50$. Las medianas están por encima de 0.1.
+Ambas variantes muestran medianas de ARI por encima de $0.1$ para todos los valores de $d_"Grambank"$, las más altas de los cinco experimentos. `syntax_knn` presenta más dispersión que `syntax_wals`: el 50% central de sus valores se extiende por encima de $0.4$ a partir de $d_"Grambank" = 50$, mientras que en `syntax_wals` la dispersión es comparable a la de los experimentos con WALS y Grambank.
+
+// TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
+#figure(
+  table(
+    columns: (auto, auto, auto, auto),
+    align: (center, center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [$d_"Grambank"$], [$s_1$], [$s_2$], [*ARI*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Top 5 configuraciones con mayor ARI en $X_"Grambank"$ vs $X_"lang2vec"$ usando `syntax_wals`.],
+)<configs-grambank-lang2vec-wals>
+
+// TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
+#figure(
+  table(
+    columns: (auto, auto, auto, auto),
+    align: (center, center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [$d_"Grambank"$], [$s_1$], [$s_2$], [*ARI*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    [], [], [], [],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Top 5 configuraciones con mayor ARI en $X_"Grambank"$ vs $X_"lang2vec"$ usando `syntax_knn`.],
+)<configs-grambank-lang2vec-knn>
+
+== Resumen
+
+#figure(
+  table(
+    columns: (auto, auto, auto, auto, auto),
+    align: (left, center, center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [*Experimento*], [$d_"Grambank"^*$], [*Mediana*], [*IQR*], [*[mín, máx]*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [BPE vs WALS],                                  [—],  [], [], [],
+    [#h(1em) ref. $X_0$ vs WALS],                   [—],  [], [], [],
+    [BPE vs Grambank],                              [],   [], [], [],
+    [#h(1em) ref. $X_0$ vs Grambank],               [],   [], [], [],
+    [BPE vs WALS+Grambank],                         [],   [], [], [],
+    [#h(1em) ref. $X_0$ vs WALS+Grambank],          [],   [], [], [],
+    [Grambank vs WALS],                             [],   [], [], [],
+    [Grambank vs lang2vec (`syntax_wals`)],         [],   [], [], [],
+    [Grambank vs lang2vec (`syntax_knn`)],          [],   [], [], [],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Resumen comparativo de los cinco experimentos. $d_"Grambank"^*$ es el valor de $d_"Grambank"$ donde se alcanza la mediana máxima de ARI; para BPE vs WALS no aplica porque $d_"WALS" = 15$ es fijo. Las filas con sangría reportan la base de referencia $X_0$ evaluada en el mismo $d_"Grambank"^*$ que la fila inmediatamente anterior.],
+)<resumen-experimentos>
 
 #pagebreak()
