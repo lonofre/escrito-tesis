@@ -1,55 +1,69 @@
 /*
   En general, queremos hacer una relación entre los LLMs y la lingüística. Esto lo vamos a lograr mediante la caracterización de las lenguas mediante BPE (u otro tokenizador).
 */
-== La liga entre la lingüística y los métodos computacionales actuales
+== ¿Comprimir es codificar? La tokenización como objeto lingüístico
 
 // TODO: Aquí citar a los que no están de acuerdo
-// TODO: Podemos poner que no sólo juega en papel de comprimir información nomás
-Históricamente, la tokenización ha sido considerada un proceso sin relevancia lingüística. Sin embargo, al ser la etapa encargada de segmentar el texto en unidades que el modelo procesa directamente, puede tener una influencia considerable en el desempeño de los LLMs.
+Esa pregunta no es nueva. Durante años, la tokenización fue considerada un paso de ingeniería sin contenido lingüístico: una decisión de preprocesamiento previa al "verdadero" modelado del lenguaje. Bajo esa lectura, el algoritmo que decide qué cuenta como token no codifica conocimiento sobre la lengua, sólo prepara el texto para que el modelo neuronal lo consuma.
 
-// TODO: Recuerdo que hay más papers que hacen una conclusión sobre el impacto de la tokenización en las lenguas. Por lo que valdría la pena agregarlos aquí si aplican para apoyar esta información
-En particular, el rendimiento del algoritmo BPE puede variar según las características lingüísticas de la lengua que se procesa @parra2024morphologicaltypologybpesubword. Entre estas, dos rasgos de la tipología lingüística resultan especialmente relevantes: la tipología sintáctica, que organiza las palabras dentro de una oración, y la tipología morfológica, que determina cómo se construyen las palabras internamente.
+Esa posición tenía fundamentos. BPE fue concebido originalmente como un algoritmo de compresión de datos @Gage1994ANA y, en su uso como tokenizador, opera sin recibir información lingüística explícita: no consulta gramáticas, no parte de un lexicón, no contiene reglas morfológicas. Su único criterio de decisión es la frecuencia con la que dos símbolos aparecen juntos en el corpus de entrenamiento, una propiedad de la forma superficial del texto y no de su estructura subyacente. Por construcción, entonces, BPE es ciego a la lengua que procesa.
 
-=== Clasificación de las lenguas
+Esa ceguera, sin embargo, ha empezado a cuestionarse. Varios trabajos recientes muestran que la elección del tokenizador afecta el desempeño de los modelos de lenguaje, y que ese efecto cambia según la lengua que se procesa.
 
-// Esta sección de definiciones no sé donde las saqué, así que asumiré Claude + Wikipedia
-En un extremo de esa clasificación morfológica están las lenguas aislantes, donde las palabras no cambian de forma. Esa invariabilidad no significa que la lengua sea simple: el trabajo que en otras lenguas hacen las terminaciones o los prefijos, aquí lo hacen el orden de las palabras y el contexto. El chino mandarín es el ejemplo más conocido de este principio.
+// TODO: La siguiente revisión de literatura es preliminar; conviene ampliarla con más trabajos que muestren la dependencia de BPE (o de la tokenización en general) con la lengua. Mantener el patrón "una oración por trabajo + síntesis al final".
+Distintos estudios apuntan en la misma dirección. #cite(<domingo2019doestokenizationaffectneural>, form: "prose") mostraron que el tokenizador cambia el rendimiento de la traducción automática, y que ese cambio depende de las lenguas involucradas. #cite(<parra2024morphologicaltypologybpesubword>, form: "prose") encontraron que el comportamiento de BPE varía según los rasgos morfológicos de la lengua. #cite(<bayram2025tokenizationstandardslinguisticintegrity>, form: "prose") observaron que los tokenizadores cuyas subpalabras se parecen a las unidades lingüísticas de una lengua producen mejores modelos. La observación común es que la lengua sí importa para BPE: si el algoritmo fuera ciego a su estructura, estos efectos no se repetirían entre lenguas distintas.
 
-Un principio opuesto rige a las lenguas aglutinantes. En estas, las palabras crecen al incorporar fragmentos uno tras otro, cada uno con un significado propio y reconocible. Esos fragmentos se apilan de forma ordenada, casi como bloques ensamblados, lo que permite comprimir en una sola palabra lo que el español expresaría en varias. El turco funciona así.
+Si la lengua importa para BPE, la siguiente pregunta es cuál parte de la lengua importa más. Entre los rasgos tipológicos, el más natural a primera vista es la tipología morfológica, que describe cómo se construyen las palabras por dentro: trabaja sobre el mismo material que BPE, las secuencias de caracteres que componen las palabras.
 
-Algo similar ocurre en las lenguas flexivas, aunque con una diferencia importante. Las palabras también se modifican, pero los fragmentos que se añaden no son tan fáciles de separar: una sola terminación puede expresar varias cosas al mismo tiempo. La -amos de "cantamos", por ejemplo, indica a la vez quién habla, cuántos son, en qué momento ocurre y con qué intención. El español, junto con el latín y el ruso, pertenecen a este grupo.
-// Fin de la sección de definiciones
+=== Tipología morfológica
 
-=== Relación entre tokenizadores y las lenguas
+Esta tipología distingue tres grupos principales —aislantes, aglutinantes y flexivas—, cada uno con una estrategia diferente para construir palabras.
 
-// TODO: Conectar mejor esto con el párrafo anterior. Quiero mencionar cómo los tokenizadores influyen en cada tipo de lengua y qué medidas también se pueden obtener. Así, podemos llegar a las métricas de productividad, idiosincrasia, etc
-De manera similar, el tokenizador utilizado puede influir en el rendimiento de ciertas tareas de traducción dependiendo de las lenguas involucradas @domingo2019doestokenizationaffectneural. Asimismo, los tokenizadores cuyas subpalabras se alinean mejor con las unidades lingüísticas de una lengua tienden a mejorar el rendimiento de los modelos @bayram2025tokenizationstandardslinguisticintegrity. Esto sugiere que existe una relación entre los métodos de tokenización y las características de la lengua que se procesan.
+// TODO: Conseguir citas para esta clasificación tipológica.
+En un extremo de esa tipología están las lenguas aislantes, donde las palabras no cambian de forma. Esa invariabilidad no significa que la lengua sea simple: el trabajo que en otras lenguas hacen las terminaciones o los prefijos, aquí lo hacen el orden de las palabras y el contexto. El chino mandarín es el ejemplo más conocido de este principio.
 
-Una de estas relaciones fue observada por #cite(<ximena-bpe-2023>, form: "prose"). Ellos definieron medidas para caracterizar a las lenguas de acuerdo a las propiedades de sus subpalabras generadas por BPE.  Estas medidas se definen en base a un modelo entrenado de BPE, con el objetivo de ver si de alguna manera, las subpalabras codifican información lingüística relevantes para los modelos de lenguaje. Estas medidas, influenciadas por la tipología morfológica, son la _productividad_ de una subpalabra, la _idiosincrasia_ y la _frecuencia acumulada_. Tales medidas son calculadas a partir de las subpalabras que generó un modelo BPE, así como del corpus usado para obtener este modelo.
+Un principio opuesto rige a las lenguas aglutinantes. En estas, las palabras crecen al incorporar fragmentos —llamados morfemas— uno tras otro, cada uno con un significado propio y reconocible. Esos morfemas se apilan de forma ordenada, casi como bloques ensamblados, lo que permite comprimir en una sola palabra lo que el español expresaría en varias. El turco funciona así.
 
-// Quizá cambiar las fórmulas   
-La medida de productividad está basada en la productividad lingüística. La productividad lingüística se refiere a cuán activamente se usa una regla gramatical para crear nuevas palabras o estructuras. Por ejemplo:
+Algo similar ocurre en las lenguas flexivas, aunque con una diferencia importante. Las palabras también se modifican, pero los morfemas que se añaden no son tan fáciles de separar: una sola terminación puede expresar varias cosas al mismo tiempo. La -amos de "cantamos", por ejemplo, indica a la vez quién habla, cuántos son, en qué momento ocurre y con qué intención. El español, junto con el latín y el ruso, pertenecen a este grupo.
+
+Estas diferencias tipológicas tienen consecuencias para BPE. En una lengua aislante, donde las palabras no cambian, BPE encuentra pocos patrones internos que capturar. En una aglutinante, las subpalabras más frecuentes podrían corresponder a los morfemas que componen las palabras. En una flexiva, una misma terminación carga varios significados a la vez, lo que hace difícil que una subpalabra capture sólo uno de ellos. Estas diferencias deberían dejar huella en las subpalabras que BPE produce, y por tanto en las propiedades que se puedan medir sobre ellas.
+
+=== Caracterización de las lenguas mediante BPE
+
+Esa medición la propusieron #cite(<ximena-bpe-2023>, form: "prose"). Sobre un modelo BPE entrenado en un corpus, definieron tres medidas para cada subpalabra: la productividad, la frecuencia acumulada y la idiosincrasia. Las tres se inspiran en nociones de la tipología morfológica y buscan responder si las subpalabras codifican información lingüística relevante.
+
+// TODO: Quizá cambiar las fórmulas.
+La primera medida, la *productividad*, está basada en la productividad lingüística: cuán activamente se usa una regla gramatical para crear nuevas palabras o estructuras. Por ejemplo:
 
 - El sufijo "-ble" en español es muy productivo: puede crear palabras como "comible", "bebible", "hackeable", "googleable".
 - El sufijo "-idad" también es productivo: "amabilidad", "nacionalidad".
 
-Se define la productividad de una subpalabra $s$ como el número de palabras ortográficas que contienen a dicha subpalabra $s$ en el corpus $W$: // TODO Checar aquí la cita que tienen en el paper, página 18, cita 22
+// TODO: Checar la cita que tienen en el paper, página 18, cita 22.
+Se define entonces la productividad de una subpalabra $s$ como el número de palabras ortográficas —las palabras tal como aparecen separadas por espacios en el corpus— que contienen a $s$ en el corpus $W$:
+
 $ "productividad"(s) = |W_s| $
 
-La frecuencia acumulada de una subpalabra $s$ es la suma de las frecuencias de las palabras ortográficas que contienen a la subpalabra.
+La segunda medida, la *frecuencia acumulada*, no parte de una noción lingüística previa sino de una intuición de medición: no todas las palabras pesan lo mismo. Una subpalabra que aparece en pocas palabras pero muy frecuentes contribuye más al uso real de la lengua que una que aparece en muchas palabras raras. Se define la frecuencia acumulada de una subpalabra $s$ como la suma de las frecuencias de las palabras ortográficas que la contienen:
+
 $ "c.freq(s)" = sum_(w in W_s) "freq"(w) $
 
-Mientras que la idiosincrasia está basada en la idiosincrasia lingüística. Esta última se refiere a las características particulares, irregulares o impredecibles de una lengua que no siguen patrones sistemáticos y deben aprenderse de manera individual. Por ejemplo:
+La tercera medida, la *idiosincrasia*, está basada en la idiosincrasia lingüística: las características particulares, irregulares o impredecibles de una lengua que no siguen patrones sistemáticos y deben aprenderse de manera individual. Por ejemplo:
 
 - Plurales irregulares: "pie" → "pies" (regular), pero "menú" → "menús/menúes".
 - Verbos irregulares: "ir" (voy, fui, iré) no sigue el patrón regular de los verbos.
 
-La medida de idiosincrasia para una subpalabra $s$ se define de la siguiente manera:
+La medida de idiosincrasia para una subpalabra $s$ se define como un cociente entre las dos medidas anteriores: la frecuencia acumulada dividida entre la productividad.
+
 $ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
 
-#cite(<ximena-bpe-2023>, form: "prose") usaron estas medidas para caracterizar a 47 lenguas, con el cual crearon una representación vectorial para cada idioma. Podemos observar esto en @og-bpe-space.
+Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes —comportamiento típico de las formas idiosincráticas—; un valor bajo indica que se distribuye entre muchas palabras —comportamiento típico de las formas productivas—.
+
+Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (@og-bpe-space).
 
 #figure(
   image("img/bpe-space.png", width: 80%),
   caption: [Espacio de BPE definido por #cite(<ximena-bpe-2023>, form: "prose").],
 ) <og-bpe-space>
+
+// TODO: revisar este PERO — es el aporte de la tesis y conviene afinar el alcance exacto.
+Que ese espacio agrupe a lenguas tipológicamente afines sugiere que las subpalabras de BPE podrían estar capturando algo más que frecuencia. Pero la metodología de ese experimento original es acotada: la comparación se realizó únicamente contra una base de datos lingüística —WALS— y bajo una sola configuración de agrupamiento. Extender ese contraste a otras bases tipológicas, y a distintas configuraciones de agrupamiento, es precisamente el aporte de esta tesis. Para hacerlo, sin embargo, hacen falta dos piezas que las secciones siguientes introducen: las bases lingüísticas contra las cuales contrastar el espacio de BPE, y el instrumento formal para comparar los agrupamientos que cada espacio induce.

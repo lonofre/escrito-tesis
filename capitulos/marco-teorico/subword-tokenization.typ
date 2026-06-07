@@ -4,7 +4,7 @@
 */
 == Tokenización a nivel subpalabra
 
-Estos grandes modelos de lenguaje no operan directamente sobre la cadena de caracteres de un texto entero, sino que requieren una etapa previa de preprocesamiento. Este primer proceso es la tokenización, la cual consiste en segmentar el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los los modelos de lenguaje y algoritmos de PLN. Sin embargo, cada algoritmo se beneficia diferentemente en cómo se representan los tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
+Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Sin embargo, cada algoritmo se beneficia diferentemente en cómo se representan los tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
 
 #figure(
   align(center, block[
@@ -99,16 +99,6 @@ Cuando tenemos un modelo de BPE entrenado, podemos observar subpalabras que son 
 
 Retomando el ejemplo anterior, la tokenización dio subpalabras como _Las_, _en_, que son palabras muy comunes en español. A su vez, otras subpalabras que forman parte como _as_, se pueden encontrar en otras palabras como _bananas_, _sábanas_, _personas_. 
 
-=== Otros métodos estadísticos de tokenización
+BPE no es el único algoritmo estadístico de tokenización a subpalabra. Otros métodos como WordPiece siguen esquemas iterativos similares —voraces y no supervisados— pero eligen las fusiones por verosimilitud en lugar de por frecuencia.
 
-// TODO: Agregar después
-// WordPiece fue originalmente formulado por Google en un paper sobre el japonés y demás
-Existen otros métodos estadísticos para generar subpalabras con enfoques similares a BPE. Uno de ellos es WordPiece, caracterizado por crear las fusiones entre símbolos mediante una función de verosimilitud.
-
-// TODO: Sustentar esto
-WordPiece busca maximizar la verosimilitud entre los símbolos de entrenamiento. Sean $s_1, s_2$ símbolos usados en el entrenamiento de un modelo de WordPiece, entonces se fusionan los símbolos de si:
-
-$ op("arg max", limits: #true)_(s_1, s_2)  P(s_1, s_2) / (P(s_1)P(s_2)) $
-
-// TODO: Tengo que sustentar esto
-Este enfoque es diferente a BPE que sólo busca la máxima frecuencia. Sin embargo, WordPiece es considerado también un algoritmo voraz y no supervisado. Aunque esta similitud entre WordPiece y BPE no implica que sus subpalabras resultantes sean las mismas. 
+Pese a esas diferencias, todos estos algoritmos comparten un rasgo decisivo para esta tesis: son no supervisados y de naturaleza puramente estadística. BPE, además, fue originalmente concebido como un método de compresión de datos. Esa indiferencia formal hacia la lingüística plantea una pregunta inmediata: si el algoritmo nunca recibe reglas gramaticales, morfemas ni anotaciones de ningún tipo, ¿qué información sobre una lengua puede llegar a capturar a partir de la sola frecuencia de sus caracteres?

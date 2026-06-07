@@ -32,4 +32,4 @@ Esta representación vectorial es fundamental en la arquitectura _Transformer_ @
 
 Los Transformers generan estas representaciones vectoriales en el codificador (_encoder_). Aquí, cada token de la entrada se transforma en un vector a partir de lo aprendido durante el entrenamiento. Este vector se refina mediante el mecanismo de autoatención (_self-attention_) @attention-is-all, que permite al modelo relacionar cada token con los demás tokens de la secuencia.
 
-// TODO: Por último, hacer aquí la conexión con la tokenización
+En el centro de toda esta arquitectura está el token: la unidad mínima sobre la que el modelo construye sus representaciones. El token, sin embargo, no es algo que el modelo descubra por sí mismo, sino el producto de un proceso previo de segmentación del texto. De cómo se realice esa segmentación —y, en particular, de qué unidades produzca— depende la representación inicial del texto que el modelo recibe como entrada, y con ella, la materia prima sobre la que se construye todo lo demás.
