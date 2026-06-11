@@ -21,9 +21,9 @@ A diferencia de los demás experimentos, este no barre sobre $d_"Grambank"$: $d_
   caption: [Distribución de ARI entre $X_"BPE"$ y $X_"WALS"$ frente a la base de referencia $X_0$ vs $X_"WALS"$.]
 )<wals-bpe-plot>
 
-El ARI del experimento $X_"BPE"$ vs $X_"WALS"$ se mantiene por encima del de la base de referencia $X_0$ vs $X_"WALS"$. Su mediana es $0.0478$, frente a $0.0007$ de la referencia: una diferencia de $+0.0471$. El 50% central de los valores de $X_"BPE"$ vs $X_"WALS"$ cae entre $0.0175$ y $0.0837$, mientras que el de la referencia está entre $-0.0131$ y $0.0175$. Ambos rangos no se traslapan: solo se tocan en $0.0175$.
+El ARI del experimento $X_"BPE"$ vs $X_"WALS"$ se mantiene por encima del de la línea de referencia $X_0$ vs $X_"WALS"$. Su mediana es $0.0479$, frente a $0.0011$ de la referencia: una diferencia de $0.0468$. El 50% central de los valores de $X_"BPE"$ vs $X_"WALS"$ cae entre $0.0175$ y $0.0837$, mientras que el de la referencia está entre $-0.0135$ y $0.0156$. Ambos rangos no se traslapan.
 
-$X_"BPE"$ vs $X_"WALS"$ también muestra más dispersión que la referencia. Sus valores llegan hasta $0.2939$, frente a $0.1386$ de $X_0$ vs $X_"WALS"$, y su 50% central es aproximadamente el doble de ancho ($0.0662$ contra $0.0306$). En el extremo inferior, ambos experimentos son comparables: $-0.0631$ para $X_"BPE"$ vs $X_"WALS"$ y $-0.0753$ para la referencia.
+$X_"BPE"$ vs $X_"WALS"$ también muestra más dispersión que la línea referencia. Sus valores llegan hasta $0.1827$, frente a $0.0591$ de $X_0$ vs $X_"WALS"$. En el extremo inferior, ambos experimentos son comparables: $-0.0632$ para $X_"BPE"$ vs $X_"WALS"$ y $-0.0569$ para la línea referencia.
 
 // TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
 #figure(
@@ -60,9 +60,9 @@ El experimento $X_"BPE"$ vs $X_"Grambank"$ se evalúa para cada $d_"Grambank" in
   caption: [Distribución de ARI entre $X_0$ y $X_"Grambank"$ (base de referencia).]
 )<bpe-random-grambank-ari-plot>
 
-$X_"BPE"$ vs $X_"Grambank"$ se mantiene por encima de $X_0$ vs $X_"Grambank"$ a lo largo del barrido, aunque la separación entre ambos depende de $d_"Grambank"$. La mediana del experimento principal es positiva para todos los valores de $d_"Grambank"$, mientras que la de la referencia es negativa para la mayoría de ellos. El 50% central de los valores cae aproximadamente entre $-0.1$ y $0.2$ para $X_"BPE"$ vs $X_"Grambank"$, frente a un rango más estrecho y centrado por debajo de cero para la referencia.
+Promediando sobre el barrido, el ARI de $X_"BPE"$ vs $X_"Grambank"$ se mantiene por encima del de la línea de referencia $X_0$ vs $X_"Grambank"$. Su mediana promedio es $0.0159$, frente a $-0.0073$ de la referencia: una diferencia de $0.0232$. El 50% central promedio de los valores de $X_"BPE"$ vs $X_"Grambank"$ cae entre $-0.0136$ y $0.0524$, mientras que el de la referencia está entre $-0.0260$ y $0.0160$. Ambos rangos se traslapan parcialmente.
 
-Algunos $d_"Grambank"$ destacan por presentar valores notablemente altos en $X_"BPE"$ vs $X_"Grambank"$: superan $0.4$ en $d_"Grambank" = 56$ y en $d_"Grambank" in {73, 74, 75, 76}$. La referencia no presenta este comportamiento: sus pocos valores que cruzan $0.25$ se concentran antes de $d_"Grambank" = 50$ y ninguno supera $0.3$.
+$X_"BPE"$ vs $X_"Grambank"$ también muestra más dispersión en el extremo superior que la línea de referencia. Sus valores llegan en promedio hasta $0.1510$, frente a $0.0787$ de $X_0$ vs $X_"Grambank"$. En el extremo inferior, ambos son comparables: $-0.0960$ para $X_"BPE"$ vs $X_"Grambank"$ y $-0.0750$ para la referencia.
 
 // TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
 #figure(
@@ -99,7 +99,9 @@ El experimento $X_"BPE"$ vs $X_("WALS"+"Grambank")$ se evalúa para cada $d_"Gra
   caption: [Distribución de ARI entre $X_0$ y $X_("WALS"+"Grambank")$ (base de referencia).]
 )<bpe-random-grambankwals-ari-plot>
 
-$X_"BPE"$ vs $X_("WALS"+"Grambank")$ se mantiene por encima de $X_0$ vs $X_("WALS"+"Grambank")$ a lo largo del barrido. La mediana del experimento principal es positiva para todos los valores de $d_"Grambank"$, mientras que la de la referencia se vuelve negativa a partir de $d_"Grambank" = 43$. El 50% central de los valores cae aproximadamente entre $-0.1$ y $0.2$ para el experimento principal, frente a un rango más estrecho y centrado cerca de cero para la referencia.
+Promediando sobre el barrido, el ARI de $X_"BPE"$ vs $X_("WALS"+"Grambank")$ se mantiene por encima del de la línea de referencia $X_0$ vs $X_("WALS"+"Grambank")$. Su mediana promedio es $0.0173$, frente a $-0.0084$ de la referencia: una diferencia de $0.0257$. El 50% central promedio de los valores de $X_"BPE"$ vs $X_("WALS"+"Grambank")$ cae entre $-0.0136$ y $0.0569$, mientras que el de la referencia está entre $-0.0270$ y $0.0156$. Ambos rangos se traslapan parcialmente.
+
+$X_"BPE"$ vs $X_("WALS"+"Grambank")$ también muestra más dispersión en el extremo superior que la línea de referencia. Sus valores llegan en promedio hasta $0.1622$, frente a $0.0790$ de $X_0$ vs $X_("WALS"+"Grambank")$. En el extremo inferior, ambos son comparables: $-0.0884$ para $X_"BPE"$ vs $X_("WALS"+"Grambank")$ y $-0.0774$ para la referencia.
 
 // TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
 #figure(
@@ -131,7 +133,7 @@ Este experimento auxiliar compara $X_"Grambank"$ con $X_"WALS"$ para cada $d_"Gr
   caption: [Distribución de ARI entre $X_"Grambank"$ y $X_"WALS"$ por número de características de Grambank.]
 )<grambank-wals-ari-plot>
 
-La mediana de ARI entre $X_"Grambank"$ y $X_"WALS"$ es positiva para todos los valores de $d_"Grambank"$, manteniéndose cercana a $0.05$. El 50% central de los valores se mantiene aproximadamente entre $-0.1$ y $0.2$ en la mayor parte del barrido.
+Promediando sobre el barrido, la mediana de ARI entre $X_"Grambank"$ y $X_"WALS"$ es $0.0528$. El 50% central promedio de los valores cae entre $0.0117$ y $0.1026$. Los valores alcanzan en promedio hasta $0.2387$ en el bigote superior y $-0.1071$ en el bigote inferior.
 
 // TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
 #figure(
@@ -168,7 +170,9 @@ Este experimento auxiliar compara $X_"Grambank"$ con $X_"lang2vec"$ en sus dos v
   caption: [Distribución de ARI entre $X_"Grambank"$ y $X_"lang2vec"$ usando `syntax_knn`.]
 )<grambank-lang2vec-syntaxknn-ari-plot>
 
-Ambas variantes muestran medianas de ARI por encima de $0.1$ para todos los valores de $d_"Grambank"$, las más altas de los cinco experimentos. `syntax_knn` presenta más dispersión que `syntax_wals`: el 50% central de sus valores se extiende por encima de $0.4$ a partir de $d_"Grambank" = 50$, mientras que en `syntax_wals` la dispersión es comparable a la de los experimentos con WALS y Grambank.
+Promediando sobre el barrido, ambas variantes muestran las medianas de ARI más altas de los cinco experimentos. La variante `syntax_knn` alcanza una mediana promedio de $0.1630$, frente a $0.1448$ de `syntax_wals`: una diferencia de $0.0182$. El 50% central promedio de `syntax_knn` cae entre $0.1017$ y $0.2287$, mientras que el de `syntax_wals` está entre $0.0862$ y $0.2112$.
+
+`syntax_knn` también muestra mayor dispersión en el extremo superior. Sus valores llegan en promedio hasta $0.4186$, frente a $0.3982$ de `syntax_wals`. En el extremo inferior, ambas variantes son comparables: $-0.0755$ para `syntax_knn` y $-0.0843$ para `syntax_wals`.
 
 // TODO: Revisar criterio de selección — actualmente top 5 por ARI máximo. Considerar top por mediana o filtrar primero a configuraciones con mediana alta, para mayor robustez al seed.
 #figure(
@@ -224,15 +228,15 @@ Ambas variantes muestran medianas de ARI por encima de $0.1$ para todos los valo
       [*Experimento*], [$d_"Grambank"^*$], [*Mediana*], [*IQR*], [*[mín, máx]*],
     ),
     table.hline(stroke: 0.3pt),
-    [BPE vs WALS],                                  [—],  [], [], [],
-    [#h(1em) ref. $X_0$ vs WALS],                   [—],  [], [], [],
-    [BPE vs Grambank],                              [],   [], [], [],
-    [#h(1em) ref. $X_0$ vs Grambank],               [],   [], [], [],
-    [BPE vs WALS+Grambank],                         [],   [], [], [],
-    [#h(1em) ref. $X_0$ vs WALS+Grambank],          [],   [], [], [],
-    [Grambank vs WALS],                             [],   [], [], [],
-    [Grambank vs lang2vec (`syntax_wals`)],         [],   [], [], [],
-    [Grambank vs lang2vec (`syntax_knn`)],          [],   [], [], [],
+    [BPE vs WALS],                                  [—],  [$0.0479$], [$0.0662$], [$[-0.0632, 0.1827]$],
+    [#h(1em) ref. $X_0$ vs WALS],                   [—],  [$0.0010$], [$0.0291$], [$[-0.0569, 0.0591]$],
+    [BPE vs Grambank],                              [],   [$0.0159$], [$0.0660$], [$[-0.0960, 0.1510]$],
+    [#h(1em) ref. $X_0$ vs Grambank],               [],   [$-0.0073$], [$0.0420$], [$[-0.0750, 0.0787]$],
+    [BPE vs WALS+Grambank],                         [],   [$0.0173$], [$0.0705$], [$[-0.0884, 0.1622]$],
+    [#h(1em) ref. $X_0$ vs WALS+Grambank],          [],   [$-0.0084$], [$0.0425$], [$[-0.0774, 0.0790]$],
+    [Grambank vs WALS],                             [],   [$0.0528$], [$0.0910$], [$[-0.1071, 0.2387]$],
+    [Grambank vs lang2vec (`syntax_wals`)],         [],   [$0.1448$], [$0.1250$], [$[-0.0843, 0.3982]$],
+    [Grambank vs lang2vec (`syntax_knn`)],          [],   [$0.1630$], [$0.1270$], [$[-0.0755, 0.4186]$],
     table.hline(stroke: 0.5pt),
   ),
   caption: [Resumen comparativo de los cinco experimentos. $d_"Grambank"^*$ es el valor de $d_"Grambank"$ donde se alcanza la mediana máxima de ARI; para BPE vs WALS no aplica porque $d_"WALS" = 15$ es fijo. Las filas con sangría reportan la base de referencia $X_0$ evaluada en el mismo $d_"Grambank"^*$ que la fila inmediatamente anterior.],
