@@ -17,7 +17,9 @@ Para la experimentación se seleccionó un conjunto de 47 lenguas, no por dispon
 
 === Corpus
 
-El Corpus Paralelo de la Biblia (Parallel Bible Corpus, PBC) @mayer-cysouw-2014-creating fue utilizado para generar el espacio BPE, dado que reúne 994 traducciones distribuidas en 837 lenguas distintas según el estándar ISO 639-3, cobertura que incluye las 47 lenguas analizadas. Este corpus está normalizado en Unicode y tokenizado a nivel de palabra, propiedades que lo hacen adecuado para el procesamiento computacional (véase @ejemplo-PBC).
+El Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC) @mayer-cysouw-2014-creating reúne 994 traducciones de la Biblia distribuidas en 837 lenguas distintas según el estándar ISO 639-3, cobertura que incluye las 47 lenguas analizadas. Cada traducción está alineada a nivel de versículo mediante identificadores estandarizados, normalizada en Unicode y tokenizada a nivel de palabra, propiedades que lo hacen adecuado para el procesamiento computacional (véase @ejemplo-PBC). Al tratarse de un corpus paralelo, todas las lenguas comparten esencialmente el mismo contenido textual; esto hace comparables los modelos BPE entre lenguas, pues las diferencias que el algoritmo capture son atribuibles a la estructura de cada lengua y no a diferencias de dominio o tema.
+
+De este corpus se utilizaron las mismas traducciones —una por lengua— empleadas en el experimento original de #cite(<ximena-bpe-2023>, form: "prose"), lo que hace los resultados directamente comparables con los de aquel estudio.
 
 #figure(
   table(

@@ -16,49 +16,30 @@ Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso
   caption: [Algunas formas de tokenización.]
 )
 
-Un primer enfoque de cómo se pueden representar los tokens es la tokenización por palabras, aunque tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar palabras desconocidas (_Out of Vocabulary_, OVV), sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y OOV, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar nuevas palabras con el paso del tiempo, lo cual es una fuerte limitante.
+Un primer enfoque de cómo se pueden representar los tokens es la tokenización por palabras, aunque tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar palabras desconocidas (_Out of Vocabulary_, OOV), sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y OOV, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar nuevas palabras con el paso del tiempo, lo cual es una fuerte limitante.
 
 Para abordar estas limitaciones, una alternativa al uso de palabras como tokens es emplear subpalabras. Las subpalabras corresponden a palabras completas, cadenas arbitrarias o incluso morfemas, lo cual da entender que son unidades que tienen una longitud igual o más pequeña que una palabra.
 
 Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece en muy pocas instancias, un modelo presenta dificultades en aprender el significado de esta, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, pues es más probable que aparezcan estas unidades. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
 
-// TODO: Aquí podemos explorar el uso de subpalabras en LLMs? Quizá para añadir algo más. Podemos empezar a explorar más cosas aquí, como una pequeña introducción al siguiente párrafo de BytePair Encoding
-Debido a estas ventajas, el uso de subpalabras como tokens ha sido predominante en los modelos de lenguaje actuales.
-
-Las subpalabras son los tokens que los LLMs usan para las tareas de NLP. La principal ventaja de estos es que lidian con las palabras OOV.
+Debido a estas ventajas, las subpalabras son las unidades predominantes en los modelos de lenguaje actuales.
 
 === Codificación de Pares de Bytes
 
-// Aquí queremos explorar:
-// Introducción qué es BPE
-// y qué problemas resuelve con la tokenización a nivel subpalabra
-// Quizá mostrar porqué es muy utilizado para esto.
+La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) fue propuesta por #cite(<Gage1994ANA>, form: "prose") como un algoritmo de compresión de datos: su única operación consiste en sustituir, repetidamente, el par de bytes contiguos más frecuente de un archivo por un nuevo byte que no aparece en él. #cite(<sennrich-etal-2016-neural>, form: "prose") adaptaron esta idea para generar subpalabras: en lugar de comprimir bytes, el algoritmo fusiona caracteres dentro de las palabras de un corpus, y los símbolos que resultan de esas fusiones forman el vocabulario de subpalabras.
 
-/*
-La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA fue uno de los primeros algoritmos en demostrar que las subpalabras funcionan mejor que palabras completas @sennrich-etal-2016-neural en los modelos de lenguaje. Originalmente BPE fue ideado como un algoritmo de compresión de datos, pero posteriormente se le dió el uso para generar subpalabras a partir de una cadena de texto.
-*/
+El entrenamiento de un modelo BPE parte de un alfabeto inicial $Sigma$, compuesto por los caracteres del corpus, y de las palabras representadas como secuencias de esos caracteres. Sobre esa base se repite el siguiente proceso:
 
-// TODO: Hacer una más fuerte introducción
-La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) @Gage1994ANA es un algoritmo usado para generar subpalabras @sennrich-etal-2016-neural. Estas subpalabras son el resultado de la compresión que realiza BPE sobre los caracteres de textos de entrenamiento. BPE identifica y fusiona iterativamente los pares de caracteres más frecuentes para generar nuevos símbolos. Cada nuevo símbolo es generado en cada iteración, a la cual llamamos fusión. El resultado de la última fusión nos da el conjunto subpalabras resultantes.
+1. Se cuenta la frecuencia $f(a, b)$ de cada par de símbolos contiguos $(a, b)$ que aparece dentro de las palabras del corpus.
+2. Se selecciona el par más frecuente:
+$ (a^*, b^*) = op("argmáx", limits: #true)_((a, b)) f(a, b) $
+3. Se fusionan ambos símbolos en uno nuevo, $a^* b^*$, que reemplaza todas las ocurrencias del par y se agrega a $Sigma$.
 
-La descripción de BPE es la siguiente:
+Cada repetición de estos pasos se denomina fusión (_merge_). El proceso termina al alcanzar un número predeterminado de fusiones —el hiperparámetro principal del algoritmo—, y el alfabeto final $Sigma$, formado por los caracteres iniciales más los símbolos creados, es el conjunto de subpalabras del modelo.
 
-// Mejorar la descripción del algoritmo
-1. Se obtienen los pares de símbolos $[a_i, j_i]$ y sus frecuencias $f([a_i, b_j])$
-2. Se obtiene:
-$ [a, b] = op("argmáx", limits: #true)_(a_i b_i) {f[a_i, b_j] : a_i, b_j in Sigma} $
-3. Se hace el remplazo por el símbolo $a b$en cada palabra del vocabulario:
-$ [a,b] -> a b $ 
-4. Se agrega e símbolo $a b$ al alfabeto $Sigma$ y se repite el proceso hasta alcanzar un número predeterminado de operaciones.
+Este procedimiento es no supervisado: se aplica a cualquier texto, en cualquier lengua, sin anotaciones ni reglas externas. En consecuencia, cada lengua produce un conjunto diferente de subpalabras, propiedad sobre la que descansa el resto de esta tesis.
 
-El algoritmo revela un punto importante sobre BPE, que es que funciona de manera no supervisada. Una de las ventajas de este enfoque es que es posible aplicar este algoritmo sobre diferentes textos así como diferentes lenguas. Por lo tanto, cada lengua puede dar un conjunto diferente de subpalabras.
-
-// TODO: Definir otro algoritmo aquí también
-De este modo, una vez que BPE generó el conjunto de subpalabras, la tokenización sobre un texto sigue un procedimiento similar al algoritmo anterior. Este algoritmo convierte un texto en una secuencia de tokens.
-
-1. En primer lugar, el modelo segmenta el texto a nivel de caracteres. 
-2. A continuación, el modelo aplica de forma iterativa las reglas de reemplazo que BPE aprendió durante el entrenamiento.
-3. Este proceso combina secuencias de caracteres según las reglas aprendidas y produce finalmente la representación del texto en subpalabras.
+Una vez entrenado el modelo, tokenizar un texto nuevo consiste en reproducir lo aprendido: el texto se segmenta a nivel de caracteres y las fusiones se aplican de forma iterativa, en el mismo orden en que fueron aprendidas, hasta que ninguna pueda aplicarse más. La secuencia de símbolos resultante es la representación del texto en subpalabras.
 
 // Aquí podemos empezar a explicar el tokenizador de ChatGPT
 Como ejemplo del proceso de tokenización, considérese este texto:
