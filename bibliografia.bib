@@ -582,3 +582,62 @@ numpages = {9},
 location = {New Orleans, Louisiana},
 series = {SODA '07}
 }
+
+// Papers que demuestra que los modelos codifican información lingüística
+@inproceedings{hewitt-manning-2019-structural,
+    title = "{A} Structural Probe for Finding Syntax in Word Representations",
+    author = "Hewitt, John  and
+      Manning, Christopher D.",
+    editor = "Burstein, Jill  and
+      Doran, Christy  and
+      Solorio, Thamar",
+    booktitle = "Proceedings of the 2019 Conference of the North {A}merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)",
+    month = jun,
+    year = "2019",
+    address = "Minneapolis, Minnesota",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/N19-1419/",
+    doi = "10.18653/v1/N19-1419",
+    pages = "4129--4138",
+    abstract = "Recent work has improved our ability to detect linguistic knowledge in word representations. However, current methods for detecting syntactic knowledge do not test whether syntax trees are represented in their entirety. In this work, we propose a structural probe, which evaluates whether syntax trees are embedded in a linear transformation of a neural network{'}s word representation space. The probe identifies a linear transformation under which squared L2 distance encodes the distance between words in the parse tree, and one in which squared L2 norm encodes depth in the parse tree. Using our probe, we show that such transformations exist for both ELMo and BERT but not in baselines, providing evidence that entire syntax trees are embedded implicitly in deep models' vector geometry."
+}
+
+// Papers que demuestra que los modelos codifican información lingüística
+@inproceedings{tenney-etal-2019-bert,
+    title = "{BERT} Rediscovers the Classical {NLP} Pipeline",
+    author = "Tenney, Ian  and
+      Das, Dipanjan  and
+      Pavlick, Ellie",
+    editor = "Korhonen, Anna  and
+      Traum, David  and
+      M{\`a}rquez, Llu{\'i}s",
+    booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
+    month = jul,
+    year = "2019",
+    address = "Florence, Italy",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/P19-1452/",
+    doi = "10.18653/v1/P19-1452",
+    pages = "4593--4601",
+    abstract = "Pre-trained text encoders have rapidly advanced the state of the art on many NLP tasks. We focus on one such model, BERT, and aim to quantify where linguistic information is captured within the network. We find that the model represents the steps of the traditional NLP pipeline in an interpretable and localizable way, and that the regions responsible for each step appear in the expected sequence: POS tagging, parsing, NER, semantic roles, then coreference. Qualitative analysis reveals that the model can and often does adjust this pipeline dynamically, revising lower-level decisions on the basis of disambiguating information from higher-level representations."
+}
+
+// Papers que demuestra que los modelos codifican información lingüística
+@article{rogers-etal-2020-primer,
+    title = "A Primer in {BERT}ology: What We Know About How {BERT} Works",
+    author = "Rogers, Anna  and
+      Kovaleva, Olga  and
+      Rumshisky, Anna",
+    editor = "Johnson, Mark  and
+      Roark, Brian  and
+      Nenkova, Ani",
+    journal = "Transactions of the Association for Computational Linguistics",
+    volume = "8",
+    year = "2020",
+    address = "Cambridge, MA",
+    publisher = "MIT Press",
+    url = "https://aclanthology.org/2020.tacl-1.54/",
+    doi = "10.1162/tacl_a_00349",
+    pages = "842--866",
+    abstract = "Transformer-based models have pushed state of the art in many areas of NLP, but our understanding of what is behind their success is still limited. This paper is the first survey of over 150 studies of the popular BERT model. We review the current state of knowledge about how BERT works, what kind of information it learns and how it is represented, common modifications to its training objectives and architecture, the overparameterization issue, and approaches to compression. We then outline directions for future research."
+}
