@@ -4,7 +4,7 @@
 */
 == Tokenización a nivel subpalabra
 
-Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Sin embargo, cada algoritmo se beneficia diferentemente en cómo se representan los tokens. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
+Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
 
 #figure(
   align(center, block[
@@ -76,7 +76,7 @@ E incluso obtenemos los identificadores de los tokens:
 
 // TODO: Podemos explicar algunas propiedades de como la forma de que BPE es greedy y cosas así.
 // También expandir esto cuando tengamos mejores resultados
-Cuando tenemos un modelo de BPE entrenado, podemos observar subpalabras que son frecuentes en las palabras, como "ción" en terminación, disminución, adjunción; y subpalabras que no son frecuentes en las palabras pero si por sí solas, como "un", "los", entre otros.
+En un modelo de BPE entrenado se observan subpalabras frecuentes dentro de las palabras, como "ción" en terminación, disminución, adjunción; y subpalabras que no son frecuentes dentro de otras palabras pero sí por sí solas, como "un", "los", entre otras.
 
 Retomando el ejemplo anterior, la tokenización dio subpalabras como _Las_, _en_, que son palabras muy comunes en español. A su vez, otras subpalabras que forman parte como _as_, se pueden encontrar en otras palabras como _bananas_, _sábanas_, _personas_. 
 
