@@ -4,7 +4,7 @@
 */
 == Tokenización a nivel subpalabra
 
-Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos.
+Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos, como ilustra la @fig-tokenizacion.
 
 #figure(
   align(center, block[
@@ -14,46 +14,43 @@ Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso
     Tokenización a nivel carácter: `[E, n, u, n, l, u, g, a, r, l, e, j, a, n, o]`
     ]),
   caption: [Algunas formas de tokenización.]
-)
+)<fig-tokenizacion>
 
-Un primer enfoque de cómo se pueden representar los tokens es la tokenización por palabras, aunque tiene limitaciones @jm3 importantes. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar palabras desconocidas (_Out of Vocabulary_, OOV), sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción @sennrich-etal-2016-neural de palabras raras y OOV, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar nuevas palabras con el paso del tiempo, lo cual es una fuerte limitante.
+La más intuitiva de esas formas es la tokenización por palabras, pero tiene limitaciones importantes @jm3. Por un lado, lenguas como el chino y el japonés no tienen espacios entre palabras, lo que dificulta la tokenización cuando se asume que cada palabra está separada por espacios. Por otro lado, no hay forma de procesar palabras desconocidas (_Out of Vocabulary_, OOV), sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción de palabras raras y OOV @sennrich-etal-2016-neural, donde los mecanismos al nivel de palabra no son suficientes para lenguas que tienen procesos productivos para formar nuevas palabras.
 
-Para abordar estas limitaciones, una alternativa al uso de palabras como tokens es emplear subpalabras. Las subpalabras corresponden a palabras completas, cadenas arbitrarias o incluso morfemas, lo cual da entender que son unidades que tienen una longitud igual o más pequeña que una palabra.
+Para abordar estas limitaciones, una alternativa al uso de palabras como tokens es emplear subpalabras. Las subpalabras corresponden a palabras completas, cadenas arbitrarias o incluso morfemas; por tanto, son unidades de longitud igual o menor que una palabra.
 
-Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece en muy pocas instancias, un modelo presenta dificultades en aprender el significado de esta, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, pues es más probable que aparezcan estas unidades. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
+Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece en muy pocas instancias, un modelo tiene dificultades para aprender su significado, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, pues es más probable que aparezcan estas unidades. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
 
-Debido a estas ventajas, las subpalabras son las unidades predominantes en los modelos de lenguaje actuales.
+Debido a estas ventajas, las subpalabras son las unidades predominantes en los modelos de lenguaje actuales. El algoritmo más extendido para producirlas es la codificación de pares de bytes.
 
 === Codificación de Pares de Bytes
 
-La codificación de pares de bytes (_Byte-Pair Encoding_, BPE) fue propuesta por #cite(<Gage1994ANA>, form: "prose") como un algoritmo de compresión de datos: su única operación consiste en sustituir, repetidamente, el par de bytes contiguos más frecuente de un archivo por un nuevo byte que no aparece en él. #cite(<sennrich-etal-2016-neural>, form: "prose") adaptaron esta idea para generar subpalabras: en lugar de comprimir bytes, el algoritmo fusiona caracteres dentro de las palabras de un corpus, y los símbolos que resultan de esas fusiones forman el vocabulario de subpalabras.
+La codificación de pares de bytes (_Byte Pair Encoding_, BPE) fue propuesta por #cite(<Gage1994ANA>, form: "prose") como un algoritmo de compresión de datos: su única operación consiste en sustituir, repetidamente, el par de bytes contiguos más frecuente de un archivo por un nuevo byte que no aparece en él. #cite(<sennrich-etal-2016-neural>, form: "prose") adaptaron esta idea para generar subpalabras: en lugar de comprimir bytes, el algoritmo fusiona caracteres dentro de las palabras de un corpus, y los símbolos que resultan de esas fusiones forman el vocabulario de subpalabras.
 
-El entrenamiento de un modelo BPE parte de un alfabeto inicial $Sigma$, compuesto por los caracteres del corpus, y de las palabras representadas como secuencias de esos caracteres. Sobre esa base se repite el siguiente proceso:
+El entrenamiento de un modelo BPE parte de un vocabulario inicial $V$, formado por los caracteres del corpus (su alfabeto $Sigma$), y de las palabras representadas como secuencias de esos caracteres. Sobre esa base se repite el siguiente proceso @jm3:
 
 1. Se cuenta la frecuencia $f(a, b)$ de cada par de símbolos contiguos $(a, b)$ que aparece dentro de las palabras del corpus.
 2. Se selecciona el par más frecuente:
 $ (a^*, b^*) = op("argmáx", limits: #true)_((a, b)) f(a, b) $
-3. Se fusionan ambos símbolos en uno nuevo, $a^* b^*$, que reemplaza todas las ocurrencias del par y se agrega a $Sigma$.
+3. Se fusionan ambos símbolos en uno nuevo, $a^* b^*$, que reemplaza todas las ocurrencias del par y se agrega a $V$.
 
-Cada repetición de estos pasos se denomina fusión (_merge_). El proceso termina al alcanzar un número predeterminado de fusiones —el hiperparámetro principal del algoritmo—, y el alfabeto final $Sigma$, formado por los caracteres iniciales más los símbolos creados, es el conjunto de subpalabras del modelo.
+Cada repetición de estos pasos se denomina fusión (_merge_). El proceso termina al alcanzar un número predeterminado de fusiones —el hiperparámetro principal del algoritmo—, y el vocabulario final $V$, formado por los caracteres iniciales más los símbolos creados, es el conjunto de subpalabras del modelo.
 
-Este procedimiento es no supervisado: se aplica a cualquier texto, en cualquier lengua, sin anotaciones ni reglas externas. En consecuencia, cada lengua produce un conjunto diferente de subpalabras, propiedad sobre la que descansa el resto de esta tesis.
+Este procedimiento tiene tres rasgos que conviene tener presentes. Es voraz: en cada paso fusiona el par más frecuente del momento, sin reconsiderar las fusiones ya hechas, por lo que su vocabulario no es un óptimo global sino el resultado de decisiones locales. Es determinista: sobre el mismo corpus y con el mismo número de fusiones, produce siempre el mismo vocabulario. Y es no supervisado: se aplica a cualquier texto y en cualquier lengua, sin anotaciones, gramáticas ni reglas externas, y con la frecuencia de los pares como único criterio. En consecuencia, cada lengua produce un conjunto diferente de subpalabras.
 
-Una vez entrenado el modelo, tokenizar un texto nuevo consiste en reproducir lo aprendido: el texto se segmenta a nivel de caracteres y las fusiones se aplican de forma iterativa, en el mismo orden en que fueron aprendidas, hasta que ninguna pueda aplicarse más. La secuencia de símbolos resultante es la representación del texto en subpalabras.
+Con ese vocabulario ya construido, tokenizar un texto nuevo consiste en reproducir lo aprendido: el texto se segmenta a nivel de caracteres y las fusiones se aplican de forma iterativa, en el mismo orden en que fueron aprendidas, hasta que ninguna pueda aplicarse más. La secuencia de símbolos resultante es la representación del texto en subpalabras.
 
-// Aquí podemos empezar a explicar el tokenizador de ChatGPT
 Como ejemplo del proceso de tokenización, considérese este texto:
 
 // Esto es sacado de chatgpt, pero podría ser bueno hacerlo por cuenta propria con un corpus en español y usando alguna biblioteca de BPE.
 // Otro TODO es mejorar la presentación de esto
-
 #align(center, box[
   #set align(left)
   Las supernovas estallan en galaxias lejanas.
 ])
 
-// Citar tiktoken porque es de OpenAI
-Al aplicar un tokenizador ya entrenado, en este caso `tiktoken`, el texto se convierte en una serie de tokens:
+Al aplicar un tokenizador ya entrenado, en este caso `tiktoken`#footnote[Biblioteca de tokenización de OpenAI: #link("https://github.com/openai/tiktoken").], el texto se convierte en una serie de tokens; los colores solo sirven para distinguir un token del siguiente:
 #align(center, box[
   #set align(left)
 
@@ -64,22 +61,11 @@ Al aplicar un tokenizador ya entrenado, en este caso `tiktoken`, el texto se con
   #highlight(fill: rgb("#c9a24d"))[ galax]#highlight(fill: rgb("#cdc4ff"))[ias ]
   #highlight(fill: rgb("#c9a24d"))[ lej]#highlight(fill: rgb("#8bd4b2"))[anas]#highlight(fill: rgb("#c9a24d"))[. ]
 ])
-/*
-E incluso obtenemos los identificadores de los tokens:
-
-#align(center, box[
-  #set align(left)
-
-  `[23040, 2539, 13802, 288, 893, 180529, 469, 100558, 2682, 105104, 14457, 13]`
-])
-*/
 
 // TODO: Podemos explicar algunas propiedades de como la forma de que BPE es greedy y cosas así.
 // También expandir esto cuando tengamos mejores resultados
-En un modelo de BPE entrenado se observan subpalabras frecuentes dentro de las palabras, como "ción" en terminación, disminución, adjunción; y subpalabras que no son frecuentes dentro de otras palabras pero sí por sí solas, como "un", "los", entre otras.
-
-Retomando el ejemplo anterior, la tokenización dio subpalabras como _Las_, _en_, que son palabras muy comunes en español. A su vez, otras subpalabras que forman parte como _as_, se pueden encontrar en otras palabras como _bananas_, _sábanas_, _personas_. 
+En el ejemplo conviven los dos tipos de subpalabras que produce un modelo de BPE entrenado. Unas son palabras completas y muy frecuentes, como _Las_ o _en_, que el modelo conserva enteras. Otras son fragmentos que reaparecen dentro de muchas palabras, como _as_ en _bananas_, _sábanas_ o _personas_, o _ción_ en _terminación_ y _disminución_. 
 
 BPE no es el único algoritmo estadístico de tokenización a subpalabra. Otros métodos como WordPiece siguen esquemas iterativos similares —voraces y no supervisados— pero eligen las fusiones por verosimilitud en lugar de por frecuencia.
 
-Pese a esas diferencias, todos estos algoritmos comparten un rasgo decisivo para esta tesis: son no supervisados y de naturaleza puramente estadística. BPE, además, fue originalmente concebido como un método de compresión de datos. Esa indiferencia formal hacia la lingüística plantea una pregunta inmediata: si el algoritmo nunca recibe reglas gramaticales, morfemas ni anotaciones de ningún tipo, ¿qué información sobre una lengua puede llegar a capturar a partir de la sola frecuencia de sus caracteres?
+Pese a esas diferencias, todos estos algoritmos comparten un rasgo decisivo: son no supervisados y de naturaleza puramente estadística. BPE, además, fue originalmente concebido como un método de compresión de datos. Esa indiferencia formal hacia la lingüística plantea una pregunta inmediata: si el algoritmo nunca recibe reglas gramaticales, morfemas ni anotaciones de ningún tipo, ¿qué información sobre una lengua puede llegar a capturar a partir de la sola frecuencia de sus caracteres?
