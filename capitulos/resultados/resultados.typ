@@ -4,7 +4,6 @@
 #let min_features = 0
 #let max_features = 195
 
-
 // TODO: Toda esta sección está en construcción. Esta la estructura pero falta colocar los datos correctamente.
 = Resultados
 

@@ -1,4 +1,5 @@
 = Metodología
+*_Ximena: Hasta ahora este capítulo tiene más la forma de un reporte técnico que una narrativa que vaya hilando las razones por las que decidimos usar ciertos settings, ventajas, desventajas, cómo eso comprueba la hipótesis, por qué es importante hacerlo así etc. Por lo tanto, falta desarrollar más el contenido de este capítulo _*
 
 Para que la pregunta planteada en la introducción tenga respuesta empírica, hace falta una forma común de comparar lenguas desde distintas perspectivas: la de BPE y la de cada base tipológica. La estrategia que sigue este capítulo es construir un espacio vectorial por cada fuente sobre el mismo conjunto de lenguas y comparar los agrupamientos que esos espacios inducen.
 

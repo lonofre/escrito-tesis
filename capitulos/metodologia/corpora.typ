@@ -9,13 +9,15 @@
 
 #figure(
    image("img/lenguas-mapa.pdf", width: 80%),
-   caption: [Distribución de las 47 lenguas en el mundo. Cada color representa una familia de lenguas.]
+   caption: [Distribución de las 47 lenguas en el mundo. Cada color representa una familia de lenguas distinta.]
 )<mapa-lenguas>
 
 // TODO: Mencionar que la tabla de lenguas está en el apéndice
-Para la experimentación se seleccionó un conjunto de 47 lenguas por su diversidad tipológica y geográfica @ximena-bpe-2023. Esta diversidad abarca América, Europa, Asia, África y Oceanía (véase @mapa-lenguas). Todas las lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), WALS y lang2vec; Grambank cubre un subconjunto de 38 de ellas, por lo que los experimentos que involucran esta base se restringen a dicho subconjunto (véase @bases-datos-linguisticas). Los nombres completos se listan en @tabla-de-lenguas.
+Para la experimentación se seleccionó un conjunto de 47 lenguas por su diversidad tipológica, genealógica y geográfica @ximena-bpe-2023. Esta diversidad abarca América, Europa, Asia, África y Oceanía (véase @mapa-lenguas). Todas las lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), WALS y lang2vec; Grambank cubre un subconjunto de 38 de ellas, por lo que los experimentos que involucran esta base se restringen a dicho subconjunto (véase @bases-datos-linguisticas). Los nombres completos se listan en @tabla-de-lenguas.
 
 === Corpus
+
+*Ximena: Sugiero no hacer sobre uso de guiones largos, pues suele ser un indicador de uso de ChatGPT, también puedes ocupar recursos como los paréntesis y las comas. Y recuerda hacer una declaración de uso si estás usando una IA generativa para apoyarte en la redacción *
 
 El Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC) @mayer-cysouw-2014-creating reúne 994 traducciones de la Biblia distribuidas en 837 lenguas distintas según el estándar ISO 639-3, cobertura que incluye las 47 lenguas analizadas. Cada traducción está alineada a nivel de versículo mediante identificadores estandarizados, normalizada en Unicode y tokenizada a nivel de palabra, propiedades que lo hacen adecuado para el procesamiento computacional (véase @ejemplo-PBC). Al tratarse de un corpus paralelo, todas las lenguas comparten esencialmente el mismo contenido textual; esto hace comparables los modelos BPE entre lenguas, pues las diferencias que el algoritmo capture son atribuibles a la estructura de cada lengua y no a diferencias de dominio o tema.
 
@@ -41,9 +43,11 @@ De este corpus se utilizaron las mismas traducciones —una por lengua— emplea
 
 Además del PBC, se emplearon bases de datos lingüísticas que contienen características tipológicas ---morfológicas, sintácticas y fonológicas--- de las lenguas analizadas. Estas características permiten corroborar posibles similitudes con la información morfológica presente en el espacio de BPE. Para ello, se utilizaron el _World Atlas of Language Structures_ (WALS), Grambank y lang2vec.
 
-Cabe señalar que ninguna de estas bases de datos presenta una correspondencia uno a uno entre sí, y no todas las características cuentan con un valor asignado.
+Cabe señalar que ninguna de estas bases de datos presenta una correspondencia uno a uno entre sí, y no todas las características cuentan con un valor asignado. _#underline[Ximena: Correspondencia uno a uno en términos de qué? lenguas, características codificadas, etc?]_
 
 ==== WALS
+
+_#underline[Ximena: Aumentar y mejorar la descripción de WALS. Tienes más contenido en Lang2Vec que no es tan relevante para la tesis como WALS]_
 
 #let database_footnote = [Se obtuvo los datos de WALS de #link("https://github.com/cldf-datasets/wals").]
 
