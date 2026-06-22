@@ -7,7 +7,7 @@
   lq.diagram(
     width: 14cm,
     height: 6cm,
-    xlabel: [$d_"Grambank"$],
+    xlabel: [$d_G$],
     ylabel: [ARI],
     lq.boxplot(
       outliers: "x",

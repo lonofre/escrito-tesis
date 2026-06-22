@@ -8,9 +8,9 @@
 
 Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron las bases de datos lingüísticas descritas en la @bases-datos-linguisticas. Dado que algunas no presentan una correspondencia uno a uno entre los identificadores de las lenguas que contienen y que no todas las características cuentan con un valor asignado, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
 
-Dicho procesamiento fue posible dado que tanto Grambank como WALS están estructurados según los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para compartir y reutilizar datos lingüísticos. Bajo este formato, la información se organiza en tres componentes: las _lenguas_ (los objetos de investigación), los _parámetros_ (los conceptos comparativos medidos entre lenguas, que en este estudio se denominan características) y los _valores_ (las mediciones concretas de una característica para una lengua específica). Esta estructura común permitió aplicar un mismo procedimiento de extracción a ambas bases, obteniendo el espacio de WALS $X_"WALS" in RR^(L times d_"WALS")$ y el espacio de Grambank $X_"Grambank" in RR^(L_G times d_"Grambank")$. En todos los espacios, las filas corresponden a lenguas y las columnas a características, siguiendo la convención `(n_samples, n_features)`: $L$ denota el número de lenguas ($L = 47$ en el conjunto completo y $L_G = 38$ en el subconjunto cubierto por Grambank) y $d_e$ la dimensión (número de características) del espacio $e$.
+Dicho procesamiento fue posible dado que tanto Grambank como WALS están estructurados según los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para compartir y reutilizar datos lingüísticos. Bajo este formato, la información se organiza en tres componentes: las _lenguas_ (los objetos de investigación), los _parámetros_ (los conceptos comparativos medidos entre lenguas, que en este estudio se denominan características) y los _valores_ (las mediciones concretas de una característica para una lengua específica). Esta estructura común permitió aplicar un mismo procedimiento de extracción a ambas bases, obteniendo el espacio de WALS $X_W in RR^(|L| times d_W)$ y el espacio de Grambank $X_G in RR^(|L_G| times d_G)$. En todos los espacios, las filas corresponden a lenguas y las columnas a características, siguiendo la convención `(n_samples, n_features)`: $L$ denota el conjunto de lenguas ($|L| = 47$ en el conjunto completo y $|L_G| = 38$ en el subconjunto cubierto por Grambank) y $d_e$ la dimensión (número de características) del espacio $e$.
 
-Cada espacio se construye sobre la cobertura máxima de su fuente. Cuando dos espacios se comparan, la comparación se realiza sobre la intersección de las lenguas que ambos cubren; en particular, todo experimento que involucre Grambank opera sobre el subconjunto $L_G = 38$, incluso cuando los demás espacios se hayan construido sobre las $L = 47$ lenguas.
+Cada espacio se construye sobre la cobertura máxima de su fuente. Cuando dos espacios se comparan, la comparación se realiza sobre la intersección de las lenguas que ambos cubren; en particular, todo experimento que involucre Grambank opera sobre el subconjunto $L_G$ ($|L_G| = 38$), incluso cuando los demás espacios se hayan construido sobre las $|L| = 47$ lenguas.
 
 === Espacio BPE
 
@@ -67,7 +67,7 @@ La cuarta etapa correspondió a la _obtención de las métricas por subpalabra_.
 
 Finalmente, la última etapa consistió en la  _obtención de las métricas por lengua_, promediando las métricas obtenidas de cada subpalabra para obtener la representación vectorial de cada lengua.
 
-El resultado final fue el espacio BPE $X_"BPE" in RR^(L times d_"BPE")$, con $d_"BPE" = 3$ (productividad, idiosincrasia y frecuencia acumulada). Como paso final, se normalizó este espacio mediante `StandardScaler`#footnote[Se usó `StandardScaler` de #link("https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html")[scikit-learn.]], que centra cada columna en su media y la escala a varianza unitaria:
+El resultado final fue el espacio BPE $X_"BPE" in RR^(|L| times d_"BPE")$, con $d_"BPE" = 3$ (productividad, idiosincrasia y frecuencia acumulada). Como paso final, se normalizó este espacio mediante `StandardScaler`#footnote[Se usó `StandardScaler` de #link("https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html")[scikit-learn.]], que centra cada columna en su media y la escala a varianza unitaria:
 
 $ Z_(i j) = (X_(i j) - mu_j) / sigma_j $
 
@@ -80,11 +80,11 @@ donde $mu_j$ y $sigma_j$ son la media y la desviación estándar de la columna $
 A partir de la base de datos de WALS#footnote(processing_footnote), se procesó `ValueTable`, que contiene los valores de las características para cada lengua, para construir las representaciones vectoriales de las lenguas, convirtiendo cada una en un vector a partir de dichos valores. Por ejemplo, el inglés con las características de @wals-features produce el vector $v = (1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$.
 
 // Además, podemos agregar que en el experimento original el imputer fue 0
-Los vectores de las lenguas se agruparon en la matriz $X_"WALS" in RR^(L times d_"WALS")$, con $d_"WALS" = 15$ (las características de @wals-features). Durante este procesamiento, se identificó que algunas lenguas carecen de valores para ciertas características. Siguiendo el procedimiento del experimento original @ximena-bpe-2023, dichos valores se imputaron con $0$ en la matriz. Esta elección no introduce ambigüedad, ya que ninguna característica de WALS utiliza $0$ como categoría, por lo que el $0$ no colisiona con ningún valor real y se interpreta inequívocamente como ausencia.
+Los vectores de las lenguas se agruparon en la matriz $X_W in RR^(|L| times d_W)$, con $d_W = 15$ (las características de @wals-features). Durante este procesamiento, se identificó que algunas lenguas carecen de valores para ciertas características. Siguiendo el procedimiento del experimento original @ximena-bpe-2023, dichos valores se imputaron con $0$ en la matriz. Esta elección no introduce ambigüedad, ya que ninguna característica de WALS utiliza $0$ como categoría, por lo que el $0$ no colisiona con ningún valor real y se interpreta inequívocamente como ausencia.
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
 
-Como paso final, se aplicó a $X_"WALS"$ la misma estandarización descrita para $X_"BPE"$.
+Como paso final, se aplicó a $X_W$ la misma estandarización descrita para $X_"BPE"$.
 
 === Grambank
 
@@ -93,7 +93,7 @@ Siguiendo el esquema de la @iso-puente, las lenguas de Grambank y WALS se empare
 
 En dos casos, la entrada de Grambank emparejada por ISO contaba con muy pocas características disponibles, por lo que se sustituyó manualmente por una variedad cercana con mejor cobertura: _West Kewa_ se reemplazó por _East Kewa_, y _Paraguayan Guaraní_ por _Mbya Guaraní_.
 
-La matriz $X_"Grambank"$ se construyó mediante el mismo método que $X_"WALS"$, leyendo los datos a través de CLDF. Cabe resaltar que, a diferencia de WALS, se utilizó el Glottocode como identificador interno de Grambank. Las características, por su parte, se identifican con códigos del tipo `GB` seguido de tres dígitos, como `GB107` o `GB401`.
+La matriz $X_G$ se construyó mediante el mismo método que $X_W$, leyendo los datos a través de CLDF. Cabe resaltar que, a diferencia de WALS, se utilizó el Glottocode como identificador interno de Grambank. Las características, por su parte, se identifican con códigos del tipo `GB` seguido de tres dígitos, como `GB107` o `GB401`.
 
 Sin embargo, la selección de características de Grambank requirió una exploración previa, ya que no todas las lenguas cuentan con el mismo conjunto de características disponibles. Por ello, se priorizó la combinación de características que minimizara los valores vacíos, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, GB107 cubre todas las lenguas y tendría alta prioridad, mientras que GB401 cubre pocas lenguas y se seleccionaría en los últimos lugares.
 
@@ -146,18 +146,18 @@ No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptab
 
 Al igual que con WALS, los algoritmos requieren que la matriz de Grambank no contenga valores nulos, por lo que fue necesario imputar los valores faltantes. Para ello, se consideraron cuatro estrategias de imputación: reemplazar los valores nulos con $0$, asumiendo su ausencia; reemplazarlos con $-1$, modelando la ausencia como un valor desconocido; imputar la media del conjunto, basándose en los valores de las demás lenguas de la matriz; o imputar valores de lenguas cercanas, lo que proporcionaría una aproximación más informada, aunque esta opción se descartó por requerir conocimiento lingüístico especializado.
 
-La decisión fue imputar con 0 los valores vacíos en $X_"Grambank"$, para interpretarlo como la ausencia de esta característica. Esta interpretación concuerda en la mayoría de las características de Grambank, que son binarias.
+La decisión fue imputar con 0 los valores vacíos en $X_G$, para interpretarlo como la ausencia de esta característica. Esta interpretación concuerda en la mayoría de las características de Grambank, que son binarias.
 
-Como paso final, se aplicó a $X_"Grambank"$ la misma estandarización descrita para $X_"BPE"$.
+Como paso final, se aplicó a $X_G$ la misma estandarización descrita para $X_"BPE"$.
 
 === lang2vec
 
 Los valores faltantes en `syntax_wals`, representados como `--`, se imputaron con `0` para denotar la ausencia de un valor, de manera consistente con el criterio adoptado para Grambank. Esta decisión resulta apropiada dado que las características de `lang2vec` son binarias @littell2017uriel.
 
-Como paso final, se aplicó a $X_"lang2vec"$ la misma estandarización descrita para $X_"BPE"$.
+Como paso final, se aplicó a $X_"l2v"$ la misma estandarización descrita para $X_"BPE"$.
 
 === Base de referencia
-En adición a los anteriores conjuntos de vectores, se creó un espacio aleatorio basado en $X_"BPE"$ que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre $X_"BPE"$ y $X_"Grambank"$ o $X_"WALS"$ más allá del carácter aleatorio.
+En adición a los anteriores conjuntos de vectores, se creó un espacio aleatorio basado en $X_"BPE"$ que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre $X_"BPE"$ y $X_G$ o $X_W$ más allá del carácter aleatorio.
 
 // TODO: Analizar mejor esto
 Por tal motivo, para crear la base de referencia, se obtuvieron los rangos donde varían las características de BPE. Con esta información, se generó una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio se le denominó $X_0$.
@@ -178,13 +178,13 @@ La @notacion-espacios consolida los espacios construidos en este capítulo. En t
       [*Símbolo*], [*Descripción*], [*Dimensión*],
     ),
     table.hline(stroke: 0.3pt),
-    [$L$], [Número total de lenguas analizadas.], [$47$],
-    [$L_G$], [Subconjunto de lenguas cubiertas por Grambank.], [$38$],
-    [$X_"BPE"$], [Espacio derivado de BPE sobre el PBC: productividad, idiosincrasia y frecuencia acumulada.], [$L times 3$],
-    [$X_0$], [Base de referencia aleatoria, generada a partir de los rangos de $X_"BPE"$.], [$L times 3$],
-    [$X_"WALS"$], [Características morfológicas de WALS (@wals-features).], [$L times 15$],
-    [$X_"Grambank"$], [Características seleccionadas de Grambank ($d_"Grambank"$ variable).], [$L_G times d_"Grambank"$],
-    [$X_"lang2vec"$], [Características sintácticas de lang2vec (`syntax_wals` o `syntax_knn`).], [$L times d_"lang2vec"$],
+    [$L$], [Conjunto de lenguas analizadas.], [$|L| = 47$],
+    [$L_G$], [Subconjunto de lenguas cubiertas por Grambank, donde $L_G subset L$.], [$|L_G| = 38$],
+    [$X_"BPE"$], [Espacio derivado de BPE sobre el PBC: productividad, idiosincrasia y frecuencia acumulada.], [$|L| times 3$],
+    [$X_0$], [Base de referencia aleatoria, generada a partir de los rangos de $X_"BPE"$.], [$|L| times 3$],
+    [$X_W$], [Características morfológicas de WALS (@wals-features).], [$|L| times 15$],
+    [$X_G$], [Características seleccionadas de Grambank ($d_G$ variable).], [$|L_G| times d_G$],
+    [$X_"l2v"$], [Características sintácticas de lang2vec (`syntax_wals` o `syntax_knn`).], [$|L| times d_"l2v"$],
     table.hline(stroke: 0.5pt),
   ),
   caption: [Resumen de notación de los espacios construidos en el capítulo.],
