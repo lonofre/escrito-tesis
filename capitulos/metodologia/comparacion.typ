@@ -18,19 +18,29 @@ Se realizaron cinco experimentos. El primero retoma la comparación entre $X_"BP
 
 ==== BPE vs WALS
 
-Este experimento retoma la pregunta original (si $X_"BPE"$ codifica información de morfología tipológica) comparando $X_"BPE"$ con $X_"WALS"$. Se utilizó la configuración de lenguas y características establecida por #cite(<ximena-bpe-2023>, form: "prose"): el conjunto completo de $L = 47$ lenguas y las 15 características morfológicas de @wals-features. Esto produce una distribución de $9,900$ valores de ARI.
+Este experimento retoma la pregunta original (si $X_"BPE"$ codifica información de morfología tipológica) comparando $X_"BPE"$ con $X_"WALS"$. 
+
+Se utilizó la configuración de lenguas y características establecida por #cite(<ximena-bpe-2023>, form: "prose"): el conjunto completo de $L = 47$ lenguas y las 15 características morfológicas de @wals-features. Esto produce una distribución de $9,900$ valores de ARI.
 
 ==== BPE vs Grambank
-Este experimento evalúa la misma pregunta usando Grambank como base alternativa a WALS. Se compararon $X_"BPE"$ y $X_"Grambank" in RR^(L_G times d_"Grambank")$, corriendo el experimento para cada valor de $d_"Grambank"$ en el conjunto $D$. Esto produce una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado.
+Este experimento evalúa la misma pregunta usando Grambank como base alternativa a WALS. 
+
+Se compararon $X_"BPE"$ y $X_"Grambank" in RR^(L_G times d_"Grambank")$, corriendo el experimento para cada valor de $d_"Grambank"$ en el conjunto $D$. Esto produce una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado.
 
 ==== BPE vs WALS+Grambank
 // TODO: Posteriormente, mencionar que en un apéndice se encuentra la tabla de las lenguas
-Este experimento evalúa si combinar Grambank con WALS mejora la relación con $X_"BPE"$ frente a usarlas por separado. Se construyó el espacio combinado $X_("WALS"+"Grambank") = [X_"WALS" | X_"Grambank"] in RR^(L_G times (d_"WALS" + d_"Grambank"))$ por concatenación horizontal, con $L_G = #lenguas_grambank$ lenguas cubiertas por Grambank, $d_"WALS" = 15$ fijo (@wals-features) y $d_"Grambank"$ variable sobre $D$. Se comparó $X_"BPE"$ con $X_("WALS"+"Grambank")$ para cada valor de $d_"Grambank"$, produciendo una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado.
+Este experimento evalúa si combinar Grambank con WALS mejora la relación con $X_"BPE"$ frente a usarlas por separado. 
+
+Se construyó el espacio combinado $X_("WALS"+"Grambank") = [X_"WALS" | X_"Grambank"] in RR^(L_G times (d_"WALS" + d_"Grambank"))$ por concatenación horizontal, con $L_G = #lenguas_grambank$ lenguas cubiertas por Grambank, $d_"WALS" = 15$ fijo (@wals-features) y $d_"Grambank"$ variable sobre $D$. Se comparó $X_"BPE"$ con $X_("WALS"+"Grambank")$ para cada valor de $d_"Grambank"$, produciendo una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado.
 
 ==== Grambank vs WALS
-Este experimento auxiliar verifica qué tan parecidos son entre sí $X_"Grambank"$ y $X_"WALS"$, para situar los resultados de los tres experimentos anteriores. Se compararon $X_"Grambank" in RR^(L_G times d_"Grambank")$ y $X_"WALS"$ restringido al mismo conjunto $L_G$ de lenguas, corriendo el experimento para cada valor de $d_"Grambank"$ en $D$. Esto produce una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado.
+Este experimento auxiliar verifica qué tan parecidos son entre sí $X_"Grambank"$ y $X_"WALS"$, para situar los resultados de los tres experimentos anteriores. 
+
+Se compararon $X_"Grambank" in RR^(L_G times d_"Grambank")$ y $X_"WALS"$ restringido al mismo conjunto $L_G$ de lenguas, corriendo el experimento para cada valor de $d_"Grambank"$ en $D$. Esto produce una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado.
 
 ==== Grambank vs lang2vec
 
-Este último experimento auxiliar extiende la comparación a otros recursos tipológicos, evaluando $X_"Grambank"$ contra $X_"lang2vec"$, cuyas características son sintácticas. Se compararon $X_"Grambank" in RR^(L_G times d_"Grambank")$ con $X_"lang2vec"$ en sus dos variantes, `syntax_wals` y `syntax_knn`, corriendo el experimento para cada valor de $d_"Grambank"$ en $D$. Esto produce una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado y por cada variante de lang2vec.
+Este último experimento auxiliar extiende la comparación a otros recursos tipológicos, evaluando $X_"Grambank"$ contra $X_"lang2vec"$, cuyas características son sintácticas. 
+
+Se compararon $X_"Grambank" in RR^(L_G times d_"Grambank")$ con $X_"lang2vec"$ en sus dos variantes, `syntax_wals` y `syntax_knn`, corriendo el experimento para cada valor de $d_"Grambank"$ en $D$. Esto produce una distribución de $9,900$ valores de ARI por cada $d_"Grambank"$ evaluado y por cada variante de lang2vec.
 

@@ -1,11 +1,12 @@
 #import "@preview/lilaq:0.5.0" as lq
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 
 /*
   Esta es la introducción, debemos definir qué hicimos con las bases de datos lingüísticas. Más o menos como un TLDR para dar una idea.
 */
 == Procesamiento computacional de las bases de datos lingüísticas
 
-Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron las bases de datos lingüísticas descritas en la @bases-datos-linguisticas. Dado que ninguna presenta una correspondencia uno a uno entre las lenguas que contienen y que no todas las características cuentan con un valor asignado, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
+Con el objetivo de identificar similitudes y correlaciones con el espacio de BPE, se procesaron las bases de datos lingüísticas descritas en la @bases-datos-linguisticas. Dado que algunas no presentan una correspondencia uno a uno entre los identificadores de las lenguas que contienen y que no todas las características cuentan con un valor asignado, fue necesario aplicar una serie de procesamientos previos antes de integrarlas al análisis junto con el espacio de BPE.
 
 Dicho procesamiento fue posible dado que tanto Grambank como WALS están estructurados según los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para compartir y reutilizar datos lingüísticos. Bajo este formato, la información se organiza en tres componentes: las _lenguas_ (los objetos de investigación), los _parámetros_ (los conceptos comparativos medidos entre lenguas, que en este estudio se denominan características) y los _valores_ (las mediciones concretas de una característica para una lengua específica). Esta estructura común permitió aplicar un mismo procedimiento de extracción a ambas bases, obteniendo el espacio de WALS $X_"WALS" in RR^(L times d_"WALS")$ y el espacio de Grambank $X_"Grambank" in RR^(L_G times d_"Grambank")$. En todos los espacios, las filas corresponden a lenguas y las columnas a características, siguiendo la convención `(n_samples, n_features)`: $L$ denota el número de lenguas ($L = 47$ en el conjunto completo y $L_G = 38$ en el subconjunto cubierto por Grambank) y $d_e$ la dimensión (número de características) del espacio $e$.
 
@@ -17,7 +18,39 @@ Para obtener los vectores del espacio de BPE, se usó la metodología propuesta 
 
 #let footnote_repo_bpe = [El repositorio se encuentra disponible en #link("https://github.com/ximenina/BPEProductivity")]
 
-Para el procesamiento, se utilizó la implementación del proceso que estuvo disponible en GitHub #footnote(footnote_repo_bpe). Este proceso fue realizado para cada lengua y comprendió cinco etapas.
+Para el procesamiento, se utilizó la implementación del proceso que estuvo disponible en GitHub #footnote(footnote_repo_bpe). Este proceso fue realizado para cada lengua y comprendió cinco etapas (véase @fig-etapas).
+
+
+#let caja = (
+  fill: gray.lighten(100%),
+  stroke: black + 0.6pt,
+  corner-radius: 4pt,
+  inset: 6pt,
+  width: 3.1cm,
+  height: 1.7cm,
+)
+
+#figure(
+  align(center, scale(80%, reflow: true, block[
+    #set text(size: 9pt)
+    #diagram(
+      spacing: (6mm, 0pt),
+      edge-stroke: 0.6pt,
+
+      node((0,0), align(center)[*Tokenización* \ a nivel de palabra], ..caja, name: <e1>),
+      node((1,0), align(center)[*Preprocesamiento* \ del corpus], ..caja, name: <e2>),
+      node((2,0), align(center)[*Modelo BPE*], ..caja, name: <e3>),
+      node((3,0), align(center)[*Métricas* \ por subpalabra], ..caja, name: <e4>),
+      node((4,0), align(center)[*Métricas* \ por lengua y \ *caracterización*], ..caja, name: <e5>),
+
+      edge(<e1>, <e2>, "->"),
+      edge(<e2>, <e3>, "->"),
+      edge(<e3>, <e4>, "->"),
+      edge(<e4>, <e5>, "->"),
+    )
+  ])),
+  caption: [Etapas del procesamiento para obtener el espacio BPE.],
+) <fig-etapas>
 
 La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual el corpus se dividió en palabras ortográficas para establecer la base del procesamiento posterior. De esta manera, las palabras son diferenciables mediante espacios, distinción que resulta útil para lenguas como el japonés.
 
@@ -32,7 +65,7 @@ A continuación, se procedió a la _generación del modelo BPE_ a partir del tex
 // TODO: Si se puede, citar subword-nmt
 La cuarta etapa correspondió a la _obtención de las métricas por subpalabra_. Para ello, se aplicó el modelo BPE entrenado al archivo del corpus preprocesado utilizando `subword-nmt`, tras lo cual se calcularon las medidas de productividad, frecuencia acumulada e idiosincrasia de cada subpalabra.
 
-Finalmente, se llevó a cabo la _obtención de las métricas por lengua_, promediando las métricas obtenidas de cada subpalabra para obtener la representación vectorial de cada lengua.
+Finalmente, la última etapa consistió en la  _obtención de las métricas por lengua_, promediando las métricas obtenidas de cada subpalabra para obtener la representación vectorial de cada lengua.
 
 El resultado final fue el espacio BPE $X_"BPE" in RR^(L times d_"BPE")$, con $d_"BPE" = 3$ (productividad, idiosincrasia y frecuencia acumulada). Como paso final, se normalizó este espacio mediante `StandardScaler`#footnote[Se usó `StandardScaler` de #link("https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html")[scikit-learn.]], que centra cada columna en su media y la escala a varianza unitaria:
 
