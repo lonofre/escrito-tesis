@@ -35,7 +35,7 @@ El entrenamiento de un modelo BPE parte de un vocabulario inicial $V$, formado p
 $ (a^*, b^*) = op("argmáx", limits: #true)_((a, b)) f(a, b) $
 3. Se fusionan ambos símbolos en uno nuevo, $a^* b^*$, que reemplaza todas las ocurrencias del par y se agrega a $V$.
 
-Cada repetición de estos pasos se denomina fusión (_merge_). El proceso termina al alcanzar un número predeterminado de fusiones —el hiperparámetro principal del algoritmo—, y el vocabulario final $V$, formado por los caracteres iniciales más los símbolos creados, es el conjunto de subpalabras del modelo.
+Cada repetición de estos pasos se denomina fusión (_merge_). El proceso termina al alcanzar un número predeterminado de fusiones (el hiperparámetro principal del algoritmo), y el vocabulario final $V$, formado por los caracteres iniciales más los símbolos creados, es el conjunto de subpalabras del modelo.
 
 Este procedimiento tiene tres rasgos que conviene tener presentes. Es voraz: en cada paso fusiona el par más frecuente del momento, sin reconsiderar las fusiones ya hechas, por lo que su vocabulario no es un óptimo global sino el resultado de decisiones locales. Es determinista: sobre el mismo corpus y con el mismo número de fusiones, produce siempre el mismo vocabulario. Y es no supervisado: se aplica a cualquier texto y en cualquier lengua, sin anotaciones, gramáticas ni reglas externas, y con la frecuencia de los pares como único criterio. En consecuencia, cada lengua produce un conjunto diferente de subpalabras.
 
@@ -66,6 +66,6 @@ Al aplicar un tokenizador ya entrenado, en este caso `tiktoken`#footnote[Bibliot
 // También expandir esto cuando tengamos mejores resultados
 En el ejemplo conviven los dos tipos de subpalabras que produce un modelo de BPE entrenado. Unas son palabras completas y muy frecuentes, como _Las_ o _en_, que el modelo conserva enteras. Otras son fragmentos que reaparecen dentro de muchas palabras, como _as_ en _bananas_, _sábanas_ o _personas_, o _ción_ en _terminación_ y _disminución_. 
 
-BPE no es el único algoritmo estadístico de tokenización a subpalabra. Otros métodos como WordPiece siguen esquemas iterativos similares —voraces y no supervisados— pero eligen las fusiones por verosimilitud en lugar de por frecuencia.
+BPE no es el único algoritmo estadístico de tokenización a subpalabra. Otros métodos como WordPiece siguen esquemas iterativos similares, voraces y no supervisados, pero eligen las fusiones por verosimilitud en lugar de por frecuencia.
 
 Pese a esas diferencias, todos estos algoritmos comparten un rasgo decisivo: son no supervisados y de naturaleza puramente estadística. BPE, además, fue originalmente concebido como un método de compresión de datos. Esa indiferencia formal hacia la lingüística plantea una pregunta inmediata: si el algoritmo nunca recibe reglas gramaticales, morfemas ni anotaciones de ningún tipo, ¿qué información sobre una lengua puede llegar a capturar a partir de la sola frecuencia de sus caracteres?

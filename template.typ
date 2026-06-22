@@ -11,6 +11,11 @@
     set text(size: 12pt)
     set heading(numbering: "1.1")
 
+    show cite.where(form: "prose"): it => {
+        show "&": "y"
+        it
+    }
+
     show heading.where(level: 1): it => block[
         #if it.numbering != none [
             #text[Capítulo #counter(heading).display(it.numbering)] \

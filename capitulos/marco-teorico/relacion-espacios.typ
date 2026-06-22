@@ -2,11 +2,11 @@
 */
 == Medidas de similitud
 
-Ese instrumento formal debe responder a una situación particular: dos espacios contienen los mismos objetos —en este caso, las mismas lenguas— pero los disponen de acuerdo a criterios distintos. Una vía para medir qué tan parecidas son esas dos disposiciones consiste en agrupar los objetos dentro de cada espacio y comparar las particiones resultantes: si dos espacios capturan estructura similar, sus agrupamientos deberían coincidir más allá de lo esperado por azar. Esta sección presenta las dos piezas que esa estrategia requiere: un algoritmo de agrupamiento y una medida para comparar las particiones que produce.
+Ese instrumento formal debe responder a una situación particular: dos espacios contienen los mismos objetos (en este caso, las mismas lenguas) pero los disponen de acuerdo a criterios distintos. Una vía para medir qué tan parecidas son esas dos disposiciones consiste en agrupar los objetos dentro de cada espacio y comparar las particiones resultantes: si dos espacios capturan estructura similar, sus agrupamientos deberían coincidir más allá de lo esperado por azar. Esta sección presenta las dos piezas que esa estrategia requiere: un algoritmo de agrupamiento y una medida para comparar las particiones que produce.
 
 === Agrupamiento
 
-El agrupamiento (_clustering_) es la tarea de dividir un conjunto de objetos en grupos —denominados clústeres— de modo que los objetos dentro de cada grupo resulten más parecidos entre sí que con los de otros grupos. Existen distintas familias de algoritmos para resolverla: jerárquicos, basados en densidad, basados en distribuciones, entre otros. Entre los algoritmos basados en centroides, K-medias es uno de los más extendidos.
+El agrupamiento (_clustering_) es la tarea de dividir un conjunto de objetos en grupos, denominados clústeres, de modo que los objetos dentro de cada grupo resulten más parecidos entre sí que con los de otros grupos. Existen distintas familias de algoritmos para resolverla: jerárquicos, basados en densidad, basados en distribuciones, entre otros. Entre los algoritmos basados en centroides, K-medias es uno de los más extendidos.
 
 K-medias (_K-means_) @k-means-lloyd agrupa los datos en $k$ conjuntos asignando cada punto al centroide más cercano e iterando hasta que los grupos se estabilicen. La asignación depende de los centroides iniciales, lo que ha motivado estrategias de inicialización como `k-means++` @kmeans-plusplus, que distribuye las semillas iniciales de forma probabilística para acelerar la convergencia y reducir la sensibilidad a la inicialización.
 

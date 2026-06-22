@@ -1,5 +1,7 @@
 /* Explicación más a fondo de qué son estas bases de datos lingüísticas para que tengan mejor entendimiento en la metodología
 */
+
+/*
 == Bases de datos lingüísticas
 
 La primera de esas piezas son las bases de datos tipológicas: repositorios construidos por lingüistas que registran, para cientos o miles de lenguas, los valores que cada una toma en un conjunto definido de rasgos estructurales. Esos rasgos describen la estructura de cada lengua de forma independiente al algoritmo de tokenización, lo cual los vuelve una referencia adecuada para contrastar con el espacio de BPE. De entre los recursos disponibles, esta tesis utiliza tres: WALS, Grambank y lang2vec.
@@ -38,3 +40,4 @@ Las características de Grambank en su mayoría son binarias. Así, toman los va
 Otro conjunto de datos utilizados es `lang2vec`, que entre sus datos recopila características sintácticas de las lenguas. Estas características vienen de URIEL @littell2017uriel y de características aprendidas @malaviya17emnlp que llenan los valores faltantes. Por lo cual, `lang2vec` proporciona otro punto de comparación en contraste a las características morfológicas.
 
 Con estas tres bases, cada lengua queda representada como un vector en un espacio definido por lingüistas. Si BPE codifica información lingüística, su espacio debería organizar a las lenguas de manera similar a como lo hace alguno de estos espacios tipológicos. Comparar dos organizaciones del mismo conjunto de lenguas, sin embargo, requiere un instrumento formal: el que presenta la siguiente sección.
+*/

@@ -9,7 +9,7 @@
 
 == BPE vs WALS
 
-A diferencia de los demás experimentos, este no barre sobre $d_"Grambank"$: $d_"WALS" = 15$ está fijado por la selección de características de @wals-features. La @wals-bpe-plot compara la distribución de ARI entre $X_"BPE"$ y $X_"WALS"$ con la base de referencia $X_0$ vs $X_"WALS"$.
+El agrupamiento que induce $X_"BPE"$ coincide con el de $X_"WALS"$ por encima del azar (@wals-bpe-plot), replicando, bajo la metodología de este trabajo, el resultado de #cite(<ximena-bpe-2023>, form: "prose"). A diferencia de los demás experimentos, este no barre sobre $d_"Grambank"$: $d_"WALS" = 15$ está fijado por la selección de características de @wals-features.
 
 #figure(
   paired-boxplot(
@@ -47,7 +47,7 @@ $X_"BPE"$ vs $X_"WALS"$ también muestra más dispersión que la línea referenc
 
 == BPE vs Grambank
 
-El experimento $X_"BPE"$ vs $X_"Grambank"$ se evalúa para cada $d_"Grambank" in [30, 80]$, lo que produce un barrido de 51 distribuciones de ARI. En paralelo se calcula la base de referencia $X_0$ vs $X_"Grambank"$ sobre los mismos valores de $d_"Grambank"$.
+El agrupamiento de $X_"BPE"$ también coincide con el de $X_"Grambank"$ por encima del azar (@bpe-grambank-ari-plot, @bpe-random-grambank-ari-plot), aunque por un margen más estrecho que con WALS. El experimento se evalúa para cada $d_"Grambank" in [30, 80]$, lo que produce un barrido de 51 distribuciones de ARI; en paralelo se calcula la base de referencia $X_0$ vs $X_"Grambank"$ sobre los mismos valores de $d_"Grambank"$.
 
 #figure(
   boxplot-from-csv("datos/grambank-bpe.json"),
@@ -86,7 +86,7 @@ $X_"BPE"$ vs $X_"Grambank"$ también muestra más dispersión en el extremo supe
 
 == BPE vs WALS+Grambank
 
-El experimento $X_"BPE"$ vs $X_("WALS"+"Grambank")$ se evalúa para cada $d_"Grambank" in [30, 80]$. En paralelo se calcula la base de referencia $X_0$ vs $X_("WALS"+"Grambank")$ sobre los mismos valores de $d_"Grambank"$.
+Combinar WALS con Grambank en un espacio único no aumenta sensiblemente la coincidencia con $X_"BPE"$ frente a usar Grambank sola (@bpe-grambankwals-ari-plot, @bpe-random-grambankwals-ari-plot). El experimento se evalúa para cada $d_"Grambank" in [30, 80]$; en paralelo se calcula la base de referencia $X_0$ vs $X_("WALS"+"Grambank")$ sobre los mismos valores de $d_"Grambank"$.
 
 #figure(
   boxplot-from-csv("datos/grambankANDwals-bpe.json"),
@@ -125,7 +125,7 @@ $X_"BPE"$ vs $X_("WALS"+"Grambank")$ también muestra más dispersión en el ext
 
 == Grambank vs WALS
 
-Este experimento auxiliar compara $X_"Grambank"$ con $X_"WALS"$ para cada $d_"Grambank" in [30, 80]$. Al no involucrar $X_"BPE"$, no se calcula base de referencia.
+$X_"Grambank"$ y $X_"WALS"$ coinciden entre sí más que cualquiera de ellas con $X_"BPE"$ (@grambank-wals-ari-plot). Este experimento auxiliar sitúa la magnitud de los tres resultados anteriores en una escala interpretable: compara $X_"Grambank"$ con $X_"WALS"$ para cada $d_"Grambank" in [30, 80]$. Al no involucrar $X_"BPE"$, no se calcula base de referencia.
 
 #figure(
   boxplot-from-csv("datos/grambank-wals.json"),
@@ -157,7 +157,7 @@ Promediando sobre el barrido, la mediana de ARI entre $X_"Grambank"$ y $X_"WALS"
 
 == Grambank vs Lang2Vec
 
-Este experimento auxiliar compara $X_"Grambank"$ con $X_"lang2vec"$ en sus dos variantes (`syntax_wals` y `syntax_knn`) para cada $d_"Grambank" in [30, 80]$. Al no involucrar $X_"BPE"$, no se calcula base de referencia.
+Las medianas de ARI más altas de los cinco experimentos aparecen al comparar $X_"Grambank"$ con $X_"lang2vec"$ (@grambank-lang2vec-syntaxwals-ari-plot, @grambank-lang2vec-syntaxknn-ari-plot). Este experimento auxiliar amplía la calibración anterior con un recurso tipológico que sintetiza varias fuentes en un único espacio vectorial. Se evalúan las dos variantes de lang2vec, `syntax_wals` y `syntax_knn`, para cada $d_"Grambank" in [30, 80]$; al no involucrar $X_"BPE"$, no se calcula base de referencia.
 
 #figure(
   boxplot-from-csv("datos/grambank-lang2vec-syntax-wals.json"),
@@ -216,6 +216,8 @@ Promediando sobre el barrido, ambas variantes muestran las medianas de ARI más 
 )<configs-grambank-lang2vec-knn>
 
 == Resumen
+
+Las tres comparaciones con $X_"BPE"$ superan su línea de referencia, pero las comparaciones entre bases lingüísticas alcanzan medianas varias veces mayores, en particular contra lang2vec (@resumen-experimentos).
 
 #figure(
   table(
