@@ -11,6 +11,7 @@
     set text(size: 12pt)
     set heading(numbering: "1.1")
 
+    // TODO: No sirvió y ver por qué
     show cite.where(form: "prose"): it => {
         show "&": "y"
         it
