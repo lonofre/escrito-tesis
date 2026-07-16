@@ -1,20 +1,15 @@
 #import "@preview/lilaq:0.5.0" as lq
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 
-/*
-  Esta es la introducción, debemos definir qué hicimos con las bases de datos lingüísticas. Más o menos como un TLDR para dar una idea.
-*/
 == Procesamiento computacional de las bases de datos lingüísticas
 
 Con el objetivo de identificar similitudes entre la caracterización de las lenguas por BPE y las bases de datos lingüísticas, procesamos los datos del corpus y de las bases de datos para generar representaciones vectoriales que facilitaran la comparación. Para la caracterización mediante BPE, tuvimos que realizar el procesamiento del PBC; mientras que para las bases de datos de Grambank, WALS y lang2vec realizamos la extracción de sus datos y usamos sólo las características que nos fueron útiles. De este procesamiento resultó un espacio por cada fuente (BPE, WALS, Grambank y lang2vec), además de una base de referencia aleatoria.
 
 Todos los espacios comparten la misma estructura, donde las filas corresponden a lenguas y las columnas a características. En adelante, $L$ denota el conjunto de las 47 lenguas del estudio, $L_G subset L$ el subconjunto de las 38 cubiertas por Grambank, y $d_e$ la dimensión (número de características) del espacio $e$. Así, por ejemplo, el espacio de WALS es $X_W in RR^(|L| times d_W)$ y el de Grambank es $X_G in RR^(|L_G| times d_G)$. La @notacion-espacios, al final de esta sección, resume todos los símbolos.
 
-Cada espacio se construye sobre la cobertura máxima de su fuente. Cuando dos espacios se comparan, la comparación se realiza sobre la intersección de las lenguas que ambos cubren; en particular, todo experimento que involucre Grambank opera sobre el subconjunto $L_G$, incluso cuando los demás espacios se hayan construido sobre las 47 lenguas.
-
 === Espacio BPE
 
-Para obtener los vectores de las lenguas del espacio de BPE, usamos la metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"), la cual toma un texto en una lengua (en este caso su correspondiente corpus del PBC) y lo transforma en un vector que caracteriza la productividad, idiosincrasia y frecuencia acumulada de dicha lengua mediante las subpalabras generadas por un modelo de BPE. Así, obtuvimos un vector por cada una de las 47 lenguas definidas en @tabla-de-lenguas.
+Para obtener los vectores de las lenguas del espacio de BPE, usamos la metodología propuesta por #cite(<ximena-bpe-2023>, form: "prose"), la cual toma un texto en una lengua (en este caso su correspondiente corpus en el PBC) y lo transforma en un vector que caracteriza la productividad, idiosincrasia y frecuencia acumulada de dicha lengua. De esta manera, obtuvimos un vector por cada una de las 47 lenguas definidas en @tabla-de-lenguas.
 
 #let footnote_repo_bpe = [El repositorio se encuentra disponible en #link("https://github.com/ximenina/BPEProductivity")]
 
@@ -52,20 +47,20 @@ Para el procesamiento, utilizamos la implementación del proceso que estuvo disp
   caption: [Etapas del procesamiento para obtener el espacio BPE.],
 ) <fig-etapas>
 
-La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual dividimos el corpus en palabras ortográficas para establecer la base del procesamiento posterior. De esta manera, las palabras son diferenciables mediante espacios, distinción que resulta útil para lenguas como el japonés.
+La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual dividimos el corpus en palabras separadas por espacios. Esta separación crea limites entre palabras y por lo tanto ayuda a BPE en la tokenización. Aunque no es de mucha utilidad en lenguas donde las palabras siempre están separadas por espacios, si es útil en lenguas como el birmano donde no existe esta separación. 
 
-// Quizá valga la pena checar este paso con lenguas como el japonés, que no tienen bien definido la palabra ortográfica.
-Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de obtener un mejor modelo de BPE. Este preprocesamiento implicó dos operaciones sobre el texto. En primer lugar, transformamos todos los caracteres a minúsculas. Si bien tuvimos consciencia de que en algunas lenguas la relación mayúscula-minúscula no está definida de la misma manera que en la función `lower()` de Python, por razones de reproducibilidad decidimos mantener este criterio. En segundo lugar, removimos del texto los signos de puntuación `_.,"()?¿?¡!»«"،/\]_`. Un ejemplo del preprocesamiento es el siguiente:
+Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de obtener un mejor modelo de BPE. Este preprocesamiento implicó dos operaciones sobre el texto. En primer lugar, transformamos todos los caracteres a minúsculas para no depender de las varaciones de minúsculas y mayúsculas en el texto (como _Esto_ y _esto_). En segundo lugar, eliminamos del texto los signos de puntuación `_.,"()?¿?¡!»«"،/\]_` para quitarlos de la tokenización. Un ejemplo del preprocesamiento es el siguiente:
 
 #align(center)[_Hola, ¿cómo estás?_ $->$ _hola como estás_]
 
+#let footnote_subwordnmt = [`subword-nmt` es un #link("https://github.com/rsennrich/subword-nmt")[programa] para tokenizar texto, basado en BPE.]
+
 // TODO: Quizá explicar un poco mejor sobre los merges
-A continuación, procedimos a la _generación del modelo BPE_ a partir del texto preprocesado. El programa utilizado fue `subword-nmt`, configurado con 200 merges. Este número es sugerido como un punto de inflexión donde la entropía de las lenguas es menos dispersa @ximena-bpe-2021.
+A continuación, procedimos a la _generación del modelo BPE_ a partir del texto preprocesado con el fin de obtener las subpalabras. Para esto, usamos el programa de `subword-nmt`#footnote(footnote_subwordnmt), configurado a detenerse a las 200 fusiones (_merges_). Este número es sugerido como un punto de inflexión donde la entropía de las lenguas es menos dispersa @ximena-bpe-2021.
 
-// TODO: Si se puede, citar subword-nmt
-La cuarta etapa correspondió a la _obtención de las métricas por subpalabra_. Para ello, aplicamos el modelo BPE entrenado al archivo del corpus preprocesado utilizando `subword-nmt`, tras lo cual calculamos las medidas de productividad, frecuencia acumulada e idiosincrasia de cada subpalabra.
+La cuarta etapa correspondió a la _obtención de las métricas por subpalabra_ basado en el modelo BPE que se generó en el paso anterior. Para ello, aplicamos el modelo al archivo del corpus preprocesado utilizando `subword-nmt`, tras lo cual calculamos las medidas de productividad, frecuencia acumulada e idiosincrasia de cada subpalabra.
 
-Finalmente, la última etapa consistió en la  _obtención de las métricas por lengua_, promediando las métricas obtenidas de cada subpalabra para obtener la representación vectorial de cada lengua.
+Finalmente, realizamos la _obtención de las métricas por lengua_, promediando las métricas obtenidas de cada subpalabra para obtener la representación vectorial de cada lengua.
 
 El resultado final fue el espacio BPE $X_"BPE" in RR^(|L| times d_"BPE")$, con $d_"BPE" = 3$ (productividad, idiosincrasia y frecuencia acumulada). Como paso final, normalizamos este espacio mediante `StandardScaler`#footnote[Usamos `StandardScaler` de #link("https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html")[scikit-learn.]], que centra cada columna en su media y la escala a varianza unitaria:
 
@@ -75,14 +70,15 @@ donde $mu_j$ y $sigma_j$ son la media y la desviación estándar de la columna $
 
 === WALS
 
+Del procesamiento de WALS buscamos obtener una representación de las lenguas según sus características de tipología morfológica, donde cada lengua se representa como un vector cuyas entradas son los valores de las características de @wals-features.
+
+Tanto WALS como Grambank están estructurados según los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para compartir y reutilizar datos lingüísticos. Bajo este formato, la información está organizada en tres principales componentes: las _lenguas_ (los objetos de investigación), los _parámetros_ (los conceptos comparativos medidos entre lenguas, que en este estudio se denominan características) y los _valores_ (las mediciones concretas de una característica para una lengua específica). Esta estructura común permitió aplicar un mismo procedimiento de extracción a ambas bases.
+
 #let processing_footnote = [A partir del repositorio de WALS, construimos una base de datos relacional mediante `pycldf` @cldf. El uso de bases de datos relacionales, frente a otras modalidades disponibles como archivos `.csv` o llamadas a bibliotecas, proporcionó la flexibilidad necesaria para realizar consultas mediante SQL.]
 
-Tanto WALS como Grambank están estructurados según los _Cross-Linguistic Data Formats_ (CLDF) @cldf, un conjunto de estándares para compartir y reutilizar datos lingüísticos. Bajo este formato, la información se organiza en tres componentes: las _lenguas_ (los objetos de investigación), los _parámetros_ (los conceptos comparativos medidos entre lenguas, que en este estudio se denominan características) y los _valores_ (las mediciones concretas de una característica para una lengua específica). Esta estructura común permitió aplicar un mismo procedimiento de extracción a ambas bases.
+Para construir los vectores, procesamos `ValueTable` de la base de datos de WALS#footnote(processing_footnote), la tabla que contiene los valores de las características para cada lengua, y convertimos cada lengua en un vector a partir de dichos valores. Por ejemplo, el inglés produce el vector $(1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$. Finalmente, grupamos los vectores resultantes en la matriz $X_W in RR^(|L| times d_W)$, con $d_W = 15$.
 
-A partir de la base de datos de WALS#footnote(processing_footnote), procesamos `ValueTable`, que contiene los valores de las características para cada lengua, para construir las representaciones vectoriales de las lenguas, convirtiendo cada una en un vector a partir de dichos valores. Por ejemplo, el inglés con las características de @wals-features produce el vector $v = (1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$.
-
-// Además, podemos agregar que en el experimento original el imputer fue 0
-Agrupamos los vectores de las lenguas en la matriz $X_W in RR^(|L| times d_W)$, con $d_W = 15$ (las características de @wals-features). Durante este procesamiento, identificamos que algunas lenguas carecen de valores para ciertas características. Siguiendo el procedimiento del experimento original @ximena-bpe-2023, imputamos dichos valores con $0$ en la matriz. Esta elección no introduce ambigüedad, ya que ninguna característica de WALS utiliza $0$ como categoría, por lo que el $0$ no colisiona con ningún valor real y se interpreta inequívocamente como ausencia.
+Durante este procesamiento, identificamos que algunas lenguas carecen de valores para ciertas características. Siguiendo el procedimiento del experimento original @ximena-bpe-2023, imputamos dichos valores con $0$ en la matriz.
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
 
