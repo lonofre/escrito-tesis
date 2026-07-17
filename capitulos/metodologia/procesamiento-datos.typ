@@ -81,22 +81,17 @@ Para construir los vectores, procesamos `ValueTable` de la base de datos de WALS
 Durante este procesamiento, identificamos que algunas lenguas carecen de valores para ciertas características. Siguiendo el procedimiento del experimento original @ximena-bpe-2023, imputamos dichos valores con $0$ en la matriz.
 
 // TODO: Representar el espacio WALS usando PCA o algo parecido
-
 Como paso final, aplicamos a $X_W$ la misma estandarización descrita para $X_"BPE"$.
 
 === Grambank
 
+Del procesamiento de Grambank buscamos obtener una representación de las lenguas según sus características, donde cada lengua se representa como un vector cuyas entradas son los valores de dichas características. A diferencia de WALS, Grambank no cubre todas las lenguas del estudio ni contamos con un conjunto fijo de características, por lo que el procesamiento requirió obtener las lenguas cubiertas por Grambank y seleccionar sus características.
 
-Siguiendo el esquema de la @iso-puente, emparejamos las lenguas de Grambank y WALS utilizando el ISO 639-3 como identificador puente: WALS registra el ISO de cada lengua y los metadatos de Glottolog mapean cada Glottocode a su ISO correspondiente, lo que permitió vincular cada lengua en WALS con la entrada de Grambank cuyo Glottocode comparte el mismo ISO.
+A partir de la conexión entre Glottocodes e ISO 639-3 descrita en la @iso-puente, obtuvimos las lenguas correspondientes en Grambank. En dos casos, la entrada obtenida contaba con muy pocas características disponibles, por lo que la reemplazamos manualmente por una variedad cercana con mejor cobertura: _West Kewa_ por _East Kewa_, y _Paraguayan Guaraní_ por _Mbya Guaraní_. Así, 38 de las 47 lenguas del estudio quedaron cubiertas por Grambank, conjunto que denominamos $L_G$.
 
-En dos casos, la entrada de Grambank emparejada por ISO contaba con muy pocas características disponibles, por lo que la sustituimos manualmente por una variedad cercana con mejor cobertura: reemplazamos _West Kewa_ por _East Kewa_, y _Paraguayan Guaraní_ por _Mbya Guaraní_.
+No obstante, ante la falta de un conjunto definido de características, tuvimos que seleccionarlas (identificadas con códigos del tipo `GB` seguido de tres dígitos, como `GB107` o `GB401`) según su cobertura, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, `GB107` cubre todas las lenguas, por lo que ocupa uno de los primeros lugares; `GB401`, en cambio, cubre pocas y queda en los últimos. Esta manera de ordenar las características nos permitió la exploración de los valores faltantes y decidir cuántas usamos para el estudio.
 
-Construimos la matriz $X_G$ mediante el mismo método que $X_W$, leyendo los datos a través de CLDF. Cabe resaltar que, a diferencia de WALS, utilizamos el Glottocode como identificador interno de Grambank. Las características, por su parte, se identifican con códigos del tipo `GB` seguido de tres dígitos, como `GB107` o `GB401`.
-
-Sin embargo, la selección de características de Grambank requirió una exploración previa, ya que no todas las lenguas cuentan con el mismo conjunto de características disponibles. Por ello, priorizamos la combinación de características que minimizara los valores vacíos, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, GB107 cubre todas las lenguas y tendría alta prioridad, mientras que GB401 cubre pocas lenguas y se seleccionaría en los últimos lugares.
-
-
-// Datos obtenidos del notebook seleccion_por_disponibilidad.ipynb
+// Nota: Datos obtenidos del notebook seleccion_por_disponibilidad.ipynb
 #figure(
   {
     show lq.selector(lq.tick-label): set text(0.8em)
@@ -131,20 +126,15 @@ Sin embargo, la selección de características de Grambank requirió una explora
   caption: [Número de valores faltantes al ir agregando más características.]
 )<grambank-valores-vacios>
 
-// Aquí continua explicando por qué se eligió cierto número de features
-// También agrega qué lenguas tienen valores muy vacíos como limitaciones
-//  Toma el top 5 (porque tampoco tenemos tantas lenguas) y haz el plot, también toma un promedio y haz el plot para graficar
-Como se observa en @grambank-valores-vacios, a partir de las 80 características la tendencia de valores vacíos incrementa. Un análisis más detallado por lengua revela que algunas, como el barasano y el oromo, presentan una gran cantidad de valores vacíos, lo cual contribuye a este incremento.
+Como se observa en @grambank-valores-vacios, la cantidad de valores vacíos varía notablemente según el número de características consideradas, por lo que, en lugar de fijar un único número, generamos un espacio de Grambank por cada $d_G$ en el rango de 30 a 85. Este rango se definió a partir de dos observaciones: alrededor de las 30 características se tiene una cobertura considerable, con pocos valores vacíos; mientras que a partir de las 80 la tendencia comienza a incrementar notablemente, en parte debido a que algunas lenguas, como el barasano y el oromo, presentan una gran cantidad de valores vacíos en Grambank. En total, esto produjo 56 espacios de Grambank. No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptable de valores vacíos, no descartamos ninguna, con el fin de abarcar la mayor cantidad posible.
 
-// TODO: Agregar quizá una tabla de acuerdo al top 10 final.
+Una vez definidas las lenguas y las características, construimos cada matriz $X_G in RR^(|L_G| times d_G)$ con el mismo método empleado para obtener $X_W$ de WALS, leyendo los datos a través de CLDF.
 
-No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptable de valores vacíos, no descartamos ninguna, con el fin de abarcar la mayor cantidad de lenguas posible.
+No obstante, estos valores vacíos tuvimos que imputarlos, al igual que en WALS, ya que los algoritmos requieren que la matriz no contenga valores nulos. Para ello, consideramos cuatro estrategias de imputación: reemplazar los valores nulos con $0$, asumiendo su ausencia; reemplazarlos con $-1$, modelando la ausencia como un valor desconocido; imputar la media del conjunto, basándose en los valores de las demás lenguas de la matriz; o imputar valores de lenguas cercanas, lo que proporcionaría una aproximación más informada, aunque descartamos esta opción por requerir conocimiento lingüístico especializado para justificar que esos valores calculados son correctos.
 
-// [TODO : Diagrama de media de valores perdidos y haciendo una comparación con los top 5 al menos]
-
-Al igual que con WALS, los algoritmos requieren que la matriz de Grambank no contenga valores nulos, por lo que fue necesario imputar los valores faltantes. Para ello, consideramos cuatro estrategias de imputación: reemplazar los valores nulos con $0$, asumiendo su ausencia; reemplazarlos con $-1$, modelando la ausencia como un valor desconocido; imputar la media del conjunto, basándose en los valores de las demás lenguas de la matriz; o imputar valores de lenguas cercanas, lo que proporcionaría una aproximación más informada, aunque descartamos esta opción por requerir conocimiento lingüístico especializado.
-
-La decisión fue imputar con 0 los valores vacíos en $X_G$, para interpretarlo como la ausencia de esta característica. Esta interpretación concuerda en la mayoría de las características de Grambank, que son binarias.
+// TODO: Justificar por qué se eligió el 0 sobre el $-1$ y la media
+// Follow up TODO: En un notebook que tengo por ahí hace la comparativa de cuántos valores 0 se agregan de más al imputar, con diferentes rangos. No sé si valga la pena agregar la gráfica, pero si ayudaría a mencionar esto para al menos justificar que no se realiza tanto sesgo con eso. En contraste, ya a valores más altos de 0 quizá si se pueda ver ese sesgo.
+Nuestra decisión fue imputar con 0 los valores vacíos en $X_G$, para interpretarlo como la ausencia de esta característica. Esta interpretación nos ayudó a mantener la estructura de características binarias en Grambank.
 
 Como paso final, aplicamos a $X_G$ la misma estandarización descrita para $X_"BPE"$.
 
