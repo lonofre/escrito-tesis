@@ -140,9 +140,7 @@ Como paso final, aplicamos a $X_G$ la misma estandarización descrita para $X_"B
 
 === lang2vec
 
-Los valores faltantes en `syntax_wals`, representados como `--`, los imputamos con `0` para denotar la ausencia de un valor, de manera consistente con el criterio adoptado para Grambank. Esta decisión resulta apropiada dado que las características de `lang2vec` son binarias @littell2017uriel.
-
-Como paso final, aplicamos a $X_"l2v"$ la misma estandarización descrita para $X_"BPE"$.
+Para construir $X_"l2v" in RR^(|L| times d_"l2v")$, obtuvimos de la biblioteca lang2vec las características del conjunto `syntax_knn` correspondientes a cada una de las 47 lenguas. Como `syntax_knn` no tiene valores vacíos, $X_"l2v"$ no requirió imputación, a diferencia de WALS y Grambank. Como paso final, aplicamos la misma estandarización descrita para $X_"BPE"$.
 
 === Base de referencia
 En adición a los anteriores conjuntos de vectores, creamos un espacio aleatorio basado en $X_"BPE"$ que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre $X_"BPE"$ y $X_G$ o $X_W$ más allá del carácter aleatorio.
@@ -172,7 +170,7 @@ La @notacion-espacios consolida los espacios construidos en este capítulo.
     [$X_0$], [Base de referencia aleatoria, generada a partir de los rangos de $X_"BPE"$.], [$|L| times 3$],
     [$X_W$], [Características morfológicas de WALS (@wals-features).], [$|L| times 15$],
     [$X_G$], [Características seleccionadas de Grambank ($d_G$ variable).], [$|L_G| times d_G$],
-    [$X_"l2v"$], [Características sintácticas de lang2vec (`syntax_wals` o `syntax_knn`).], [$|L| times d_"l2v"$],
+    [$X_"l2v"$], [Características sintácticas de lang2vec (`syntax_knn`).], [$|L| times d_"l2v"$],
     table.hline(stroke: 0.5pt),
   ),
   caption: [Resumen de notación de los espacios construidos en el capítulo.],
