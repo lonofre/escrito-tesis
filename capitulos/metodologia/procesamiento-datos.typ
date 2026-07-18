@@ -143,10 +143,10 @@ Como paso final, aplicamos a $X_G$ la misma estandarización descrita para $X_"B
 Para construir $X_"l2v" in RR^(|L| times d_"l2v")$, obtuvimos de la biblioteca lang2vec las características del conjunto `syntax_knn` correspondientes a cada una de las 47 lenguas. Como `syntax_knn` no tiene valores vacíos, $X_"l2v"$ no requirió imputación, a diferencia de WALS y Grambank. Como paso final, aplicamos la misma estandarización descrita para $X_"BPE"$.
 
 === Base de referencia
-En adición a los anteriores conjuntos de vectores, creamos un espacio aleatorio basado en $X_"BPE"$ que sirvió como una base de referencia. Con esta base, se puede establecer si hay una mayor relación entre $X_"BPE"$ y $X_G$ o $X_W$ más allá del carácter aleatorio.
 
-// TODO: Analizar mejor esto
-Por tal motivo, para crear la base de referencia, obtuvimos los rangos donde varían las características de BPE. Con esta información, generamos una distribución uniforme por cada característica para crear los vectores para cada lengua en este nuevo espacio. A este espacio lo denominamos $X_0$.
+Para establecer un punto de referencia de similitud debida al azar, creamos $X_0$, un espacio aleatorio que sustituye a $X_"BPE"$ conservando su forma y sus rangos. Esto es necesario porque, como BPE es la representación que queremos poner a prueba, buscamos evidencia de que los vectores que induce codifican información lingüística, y para sostener que la similitud entre $X_"BPE"$ y una base tipológica es real (y no un efecto del azar), necesitamos ese punto de referencia con el cual contrastarla.
+
+Para construirlo, obtuvimos los rangos en los que varían las características de $X_"BPE"$ y, sobre cada rango, generamos una distribución uniforme, que reparte los valores sin ninguna estructura interna. Con ella asignamos un vector a cada lengua en este nuevo espacio.
 
 Como paso final, aplicamos a $X_0$ la misma estandarización descrita para $X_"BPE"$.
 
