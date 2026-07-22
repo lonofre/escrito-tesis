@@ -31,36 +31,19 @@ En los experimentos que involucran a Grambank, el barrido generó un espacio dis
 
 #let lenguas_grambank = 38
 
-Realizamos cinco experimentos. El primero retoma la comparación entre $X_"BPE"$ y $X_W$ planteada por #cite(<ximena-bpe-2023>, form: "prose") (que evalúa si $X_"BPE"$ codifica información de morfología tipológica) y la aborda con la metodología descrita en este capítulo, estableciendo la línea base del trabajo. Los dos siguientes amplían el análisis incorporando Grambank: primero como base alternativa ($X_"BPE"$ vs $X_G$) y luego como complemento de WALS ($X_"BPE"$ vs $X_(W+G)$). Los dos últimos son experimentos auxiliares: comparan Grambank con WALS y con lang2vec para verificar qué tanto se parecen las bases lingüísticas entre sí, lo que da contexto a las comparaciones con BPE.
+Realizamos cinco experimentos. El primero retoma la comparación entre $X_"BPE"$ y $X_W$ planteada por #cite(<ximena-bpe-2023>, form: "prose"), quienes evalúan si $X_"BPE"$ codifica información de morfología tipológica, pero la aborda con la metodología descrita en este capítulo, estableciendo así la línea base del trabajo. Los dos siguientes ampliaron el análisis incorporando Grambank, primero como base alternativa ($X_"BPE"$ vs $X_G$) y luego como complemento de WALS ($X_"BPE"$ vs $X_(W+G)$). Los dos últimos fueron experimentos auxiliares que compararon Grambank con WALS y con lang2vec, para verificar qué tanto se parecen las bases lingüísticas entre sí y así dar contexto a las comparaciones con BPE.
 
 En los tres experimentos que involucran a $X_"BPE"$, calculamos en paralelo el ARI reemplazando $X_"BPE"$ por el espacio de referencia $X_0$ y manteniendo el resto de la configuración. Esto genera una distribución de referencia que permite distinguir si la similitud observada con $X_"BPE"$ está por encima de lo esperable por azar.
 
-==== BPE vs WALS
+*BPE vs WALS.* Retoma la pregunta original sobre si $X_"BPE"$ codifica información de morfología tipológica. Seguimos la configuración de #cite(<ximena-bpe-2023>, form: "prose"), que usa las 47 lenguas completas y las 15 características morfológicas de @wals-features.
 
-Este experimento retoma la pregunta original (si $X_"BPE"$ codifica información de morfología tipológica) comparando $X_"BPE"$ con $X_W$. 
+*BPE vs Grambank.* Plantea la misma pregunta, ahora con Grambank como base alternativa a WALS. Comparamos $X_"BPE"$ con $X_G$ y, como Grambank define un espacio distinto por cada $d_G$, repetimos la comparación en todo el barrido.
 
-Utilizamos la configuración de lenguas y características establecida por #cite(<ximena-bpe-2023>, form: "prose"): el conjunto completo de $|L| = 47$ lenguas y las 15 características morfológicas de @wals-features. Esto produce una distribución de $10,000$ valores de ARI.
+*BPE vs WALS+Grambank.* Pregunta si combinar WALS y Grambank mejora la relación con $X_"BPE"$ frente a usarlas por separado. Construimos el espacio combinado $X_(W+G) = [X_W | X_G]$ concatenando sus características sobre las #lenguas_grambank lenguas cubiertas por Grambank. Como $X_(W+G)$ hereda la dimensión variable de Grambank, repetimos la comparación en cada punto del barrido.
 
+*Grambank vs WALS.* Verifica qué tan parecidas son las dos bases entre sí, para situar los resultados de los tres experimentos anteriores. Comparamos $X_G$ y $X_W$ sobre el subconjunto $L_G$ de lenguas de Grambank, repitiendo la comparación a lo largo del barrido.
 
-==== BPE vs Grambank
-Este experimento evalúa la misma pregunta usando Grambank como base alternativa a WALS. 
+*Grambank vs lang2vec.* Extiende la comparación a otro recurso tipológico, cuyas características son sintácticas. Comparamos $X_G$ con $X_"l2v"$ para cada valor del barrido.
 
-Comparamos $X_"BPE"$ y $X_G in RR^(|L_G| times d_G)$, corriendo el experimento para cada valor de $d_G$ del barrido. Esto produce una distribución de $10,000$ valores de ARI por cada $d_G$ evaluado.
-
-==== BPE vs WALS+Grambank
-// TODO: Posteriormente, mencionar que en un apéndice se encuentra la tabla de las lenguas
-Este experimento evalúa si combinar Grambank con WALS mejora la relación con $X_"BPE"$ frente a usarlas por separado. 
-
-Construimos el espacio combinado $X_(W+G) = [X_W | X_G] in RR^(|L_G| times (d_W + d_G))$ por concatenación horizontal, con $|L_G| = #lenguas_grambank$ lenguas cubiertas por Grambank, $d_W = 15$ fijo (@wals-features) y $d_G$ variable a lo largo del barrido. Comparamos $X_"BPE"$ con $X_(W+G)$ para cada valor de $d_G$, produciendo una distribución de $10,000$ valores de ARI por cada $d_G$ evaluado.
-
-==== Grambank vs WALS
-Este experimento auxiliar verifica qué tan parecidos son entre sí $X_G$ y $X_W$, para situar los resultados de los tres experimentos anteriores. 
-
-Comparamos $X_G in RR^(|L_G| times d_G)$ y $X_W$ restringido al mismo conjunto $L_G$ de lenguas, corriendo el experimento para cada valor de $d_G$ del barrido. Esto produce una distribución de $10,000$ valores de ARI por cada $d_G$ evaluado.
-
-==== Grambank vs lang2vec
-
-Este último experimento auxiliar extiende la comparación a otros recursos tipológicos, evaluando $X_G$ contra $X_"l2v"$, cuyas características son sintácticas. 
-
-Comparamos $X_G in RR^(|L_G| times d_G)$ con $X_"l2v"$, corriendo el experimento para cada valor de $d_G$ del barrido. Esto produce una distribución de $10,000$ valores de ARI por cada $d_G$ evaluado.
+// TODO: Agregar cierre de la sección (fin de la metodología), ver si es bueno poner esto o no.
 
