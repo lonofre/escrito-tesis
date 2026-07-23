@@ -7,6 +7,7 @@
 #show: tesis
 
 #include "agradecimientos.typ"
+#include "declaracion-ia.typ"
 #include "contenidos.typ"
 #include "capitulos/introduccion/introduccion.typ"
 #include "capitulos/marco-teorico/marco-teorico.typ"
