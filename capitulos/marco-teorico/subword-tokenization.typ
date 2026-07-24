@@ -58,6 +58,6 @@ Como ejemplo del proceso de tokenización, considérese este texto. Al aplicar u
 
 En el ejemplo conviven los dos tipos de subpalabras que produce un modelo de BPE entrenado. Unas son palabras completas y muy frecuentes, como _Las_ o _en_, que el modelo conserva enteras. Otras son fragmentos que reaparecen dentro de muchas palabras, como _as_ en _bananas_, _sábanas_ o _personas_, o _ción_ en _terminación_ y _disminución_.
 
-BPE no es el único algoritmo estadístico de tokenización a subpalabra. WordPiece, por ejemplo, sigue un esquema iterativo similar, voraz y no supervisado, pero elige las fusiones por verosimilitud en lugar de por frecuencia.
+BPE no es el único algoritmo estadístico de tokenización a subpalabra. WordPiece @schuster2012japanese@bert, por ejemplo, sigue un esquema iterativo similar, voraz y no supervisado, pero elige las fusiones por verosimilitud en lugar de por frecuencia.
 
 Pese a esas diferencias, todos estos algoritmos comparten un rasgo decisivo: son no supervisados y de naturaleza puramente estadística. BPE, además, fue originalmente concebido como un método de compresión de datos. Esa indiferencia formal hacia la lingüística plantea una pregunta inmediata: si el algoritmo nunca recibe reglas gramaticales, morfemas ni anotaciones de ningún tipo, ¿qué información sobre una lengua puede llegar a capturar a partir de la sola frecuencia de sus caracteres?
