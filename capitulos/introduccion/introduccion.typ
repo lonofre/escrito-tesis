@@ -12,7 +12,7 @@ Ese trabajo previo, aunque propone una metodología exhaustiva de evaluación cu
 
 La comparación se realizó contra una sola base de datos, bajo una sola configuración de agrupamiento y con una sola semilla aleatoria. Si la coincidencia depende de esas decisiones puntuales, el efecto es más una curiosidad metodológica que un hallazgo sobre BPE. Si, por el contrario, sobrevive al cambio de base, al barrido de hiperparámetros y a la comparación contra una línea base aleatoria, el argumento de que BPE codifica información lingüística gana evidencia cuantitativa.
 
-Esta tesis parte precisamente de estas interrogantes: ¿qué ocurre cuando la comparación incorpora otros criterios y fuentes de información lingüística? ¿Se mantienen los resultados al utilizar distintas bases de datos lingüísticas? ¿Es posible emplear métodos más robustos para comparar agrupamientos y realizar análisis de clustering?
+Esta tesis parte precisamente de estas interrogantes: ¿qué ocurre cuando la comparación incorpora otros criterios y fuentes de información lingüística? ¿Se mantienen los resultados al utilizar distintas bases de datos lingüísticas? ¿Es posible emplear métodos más robustos para comparar agrupamientos y realizar análisis de agrupamiento?
 
 //La pregunta concreta que esta tesis se propone responder es, entonces: ¿el agrupamiento que induce el espacio de BPE coincide con el que induce cada base lingüística por encima de lo que cabría esperar al azar, y se mantiene esa coincidencia al variar la base, la dimensionalidad y la semilla?  <<-- Esto queda bien para hipótesis más abajo
 
@@ -38,20 +38,20 @@ Específicos:
 
 == Preguntas de investigación
 
-+ Dado que trabajos previos han encontrado similitudes entre las caracterizaciones de las lenguas obtenidas mediante BPE y aquellas basadas en información lingüística explícita (base de datos WALS), ¿qué tan robustas son estas observaciones al considerar múltiples configuraciones de clustering e incorporar métricas adicionales para evaluar la similitud entre agrupamientos de lenguas?
++ Dado que trabajos previos han encontrado similitudes entre las caracterizaciones de las lenguas obtenidas mediante BPE y aquellas basadas en información lingüística explícita (base de datos WALS), ¿qué tan robustas son estas observaciones al considerar múltiples configuraciones de agrupamiento e incorporar métricas adicionales para evaluar la similitud entre agrupamientos de lenguas?
 
 + ¿Qué ocurre al incorporar información lingüística adicional mediante una nueva base de datos (Grambank) que cubre un gran número de lenguas y características tipológicas de la morfología y la sintaxis? Con esta información ampliada, ¿se mantiene la consistencia entre las representaciones de las lenguas obtenidas a partir de las características de las subpalabras de BPE y aquellas derivadas de la información lingüística enriquecida?
 
 + ¿Qué características lingüísticas, presentes en las bases de datos, contribuyen en mayor medida a reproducir los agrupamientos de lenguas obtenidos mediante BPE? Asimismo, ¿qué revelan estas características acerca del tipo de información lingüística que capturan las representaciones basadas en subpalabras, ya sea morfológica, sintáctica o de otra naturaleza?
 
 
-Para responder estas preguntas, se extiende el experimento de  #cite(<ximena-bpe-2023>, form: "prose"). Primero, se reproduce el estudio original pero con modificaciones para evaluar si la similitud observada se mantiene bajo distintas combinaciones de inicializaciones del proceso de clustering particional (semillas aleatorias). Además, como criterio para comparar agrupamientos entre diferentes espacios o caracterizaciones, se incorpora una métrica que ajusta/descuenta el acierto por pura casualidad, proporcionando así una evaluación más robusta de la similitud entre las representaciones.
+Para responder estas preguntas, se extiende el experimento de  #cite(<ximena-bpe-2023>, form: "prose"). Primero, se reproduce el estudio original pero con modificaciones para evaluar si la similitud observada se mantiene bajo distintas combinaciones de inicializaciones del proceso de agrupamiento particional (semillas aleatorias). Además, como criterio para comparar agrupamientos entre diferentes espacios o caracterizaciones, se incorpora una métrica que ajusta/descuenta el acierto por pura casualidad, proporcionando así una evaluación más robusta de la similitud entre las representaciones.
 
 Posteriormente, con el fin de distinguir si la coincidencia depende específicamente de WALS o se fortalece frente a otra base tipológica, se incorpora Grambank, con una cobertura de características gramaticales distinta;  para situar esa coincidencia se barre sobre el número de características disponibles en Grambank y sobre miles de pares de semillas aleatorias.  En todos los casos, para distinguir la señal de BPE del ruido, se construye una línea base de referencia mediante agrupamientos aleatorios y se contrasta contra ella.
 
 Asimismo, todo esta metodología se ve complementada con una mirada cualitativa que evalúa qué tipo de características lingüísticas parecen estar jugando un rol en la similitud/disimilitud entre la información que codifica BPE y la codificada por las bases de datos hechas por especialistas.
 
-Nuestra *hipótesis* es que, si el agrupamiento inducido por el espacio de BPE coincide con el inducido por cada base de datos lingüística por encima de lo que cabría esperar por azar, y dicha coincidencia se mantiene al variar tanto la base de datos como la inicialización del clustering, entonces existe evidencia de que la información codificada por un algoritmo de tokenización como BPE captura patrones que coinciden, al menos parcialmente, con las estructuras morfológicas descritas por los lingüistas.
+Nuestra *hipótesis* es que, si el agrupamiento inducido por el espacio de BPE coincide con el inducido por cada base de datos lingüística por encima de lo que cabría esperar por azar, y dicha coincidencia se mantiene al variar tanto la base de datos como la inicialización del agrupamiento, entonces existe evidencia de que la información codificada por un algoritmo de tokenización como BPE captura patrones que coinciden, al menos parcialmente, con las estructuras morfológicas descritas por los lingüistas.
 
 
 
