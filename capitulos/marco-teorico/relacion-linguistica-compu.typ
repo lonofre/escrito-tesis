@@ -18,39 +18,29 @@ La tipología lingüística estudia las semejanzas y diferencias estructurales q
 
 Una de las dimensiones de la morfología de interés para la tokenización es el número de morfemas por palabra @jm3. Cuando en promedio cada palabra corresponde a un morfema en una lengua, como el cantonés, se las denomina lenguas _analíticas_. En cambio, cuando en promedio las palabras tienen varios morfemas, como el groenlandés, las lenguas se ubican en una escala que va de _sintéticas_ a _polisintéticas_, según cuántos morfemas acumulen por palabra. A esto se le denomina el grado de síntesis @sapir1921language.
 
-Además de la síntesis, otra dimensión de interés es la segmentabilidad de los morfemas, es decir, qué tan fácil resulta separarlos unos de otros dentro de la palabra @jm3. Cuando las lenguas tienen morfemas con límites claros, como el turco, se les denomina lenguas _aglutinantes_. Cuando estos límites son difusos y un solo morfema puede combinar varios significados gramaticales a la vez, como en el ruso, se les denomina lenguas _fusionales_. A esta dimensión se le denomina grado de fusión @sapir1921language.
+Además de la síntesis, otra dimensión de interés es la segmentabilidad de los morfemas, es decir, qué tan fácil resulta separarlos unos de otros dentro de la palabra @jm3. En un extremo hay lenguas donde los morfemas suelen ser como palabras sueltas e independientes, lo que se conoce como morfemas _aislantes_ (_isolating_), como el chino mandarín. En el otro extremo hay lenguas donde los morfemas no se pueden separar como un segmento de la palabra, sino que modifican directamente la raíz, lo que se conoce como morfemas _no concatenativos_ , como ocurre en árabe. En un punto intermedio hay lenguas como el turco, donde los morfemas van pegados unos a otros pero aun así se distinguen con claridad, lo que se conoce como morfemas _concatenativos_ (del inglés _concatenative_). Mientras más se acerque una lengua a alguno de los extremos, mayor es su grado de fusión @Bickel-and-Nichols-2007.
 
 Por último, otra dimensión de interés es qué tan estable es la forma de un morfema entre distintos grupos de palabras. En algunas lenguas, un mismo morfema no siempre tiene la misma forma, sino que cambia según el grupo al que pertenece la palabra. Las terminaciones verbales del español son un buen ejemplo de esto, ya que sus verbos se reparten en grupos según terminen en -ar, en -er o en -ir, y la terminación que usamos para "nosotros" es distinta en cada uno, pues decimos amamos, pero tememos y vivimos. El inglés, en cambio, funciona al revés, ya que por lo general la forma del verbo para "we" es la misma sin importar de qué verbo se trate (_we love, we fear, we live_). Cuanto más cambia la forma de estos morfemas según el grupo de la palabra, más flexiva es una lengua, lo que #cite(<Bickel-and-Nichols-2007>, form: "prose") denomina el grado de _flexividad_.
 
+Estas tres dimensiones se definen sobre los morfemas, y los morfemas no se leen directamente del texto, sino que un lingüista debe identificarlos mediante análisis. BPE no dispone de ese análisis, ya que segmenta las palabras guiándose únicamente por la frecuencia. Aun así, trabaja sobre el mismo material que la morfología, es decir, los fragmentos internos de la palabra. Cabe preguntarse entonces si las propiedades de las subpalabras que produce BPE, sin conocimiento morfológico alguno, reflejan algunas de las distinciones tipológicas que acabamos de describir.
+
 === Caracterización de las lenguas mediante BPE
 
-Esa medición la propusieron #cite(<ximena-bpe-2023>, form: "prose"). Sobre un modelo BPE entrenado en un corpus, definieron tres medidas para cada subpalabra: la productividad, la frecuencia acumulada y la idiosincrasia. Las tres se inspiran en nociones de la tipología morfológica y buscan responder si las subpalabras codifican información lingüística relevante.
+Para responder a esta pregunta, #cite(<ximena-bpe-2023>, form: "prose") partieron de dos nociones lingüísticas y las convirtieron en cantidades medibles sobre las subpalabras de BPE. La primera es la productividad, la probabilidad de que un patrón o regla de una lengua se repita en palabras nuevas. Cuanto más productivo es un patrón, con más facilidad lo usan los hablantes para formar palabras. La segunda es la idiosincrasia, que reúne las partes de la lengua que no siguen un patrón fijo. Cuando estas formas irregulares son muy frecuentes, se almacenan como palabras completas en lugar de generarse mediante una regla @Bybee2007. De estas nociones surgen tres medidas. La productividad y la frecuencia acumulada se calculan directamente sobre el corpus, y la idiosincrasia se obtiene a partir de las dos anteriores.
 
-// TODO: Quizá cambiar las fórmulas.
-La primera medida, la *productividad*, está basada en la productividad lingüística: cuán activamente se usa una regla gramatical para crear nuevas palabras o estructuras. Por ejemplo:
-
-- El sufijo "-ble" en español es muy productivo: puede crear palabras como "comible", "bebible", "hackeable", "googleable".
-- El sufijo "-idad" también es productivo: "amabilidad", "nacionalidad".
-
-// TODO: Checar la cita que tienen en el paper, página 18, cita 22.
-Se define entonces la productividad de una subpalabra $s$ como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios en el corpus) que contienen a $s$ en el corpus $W$:
+La *productividad* de una subpalabra $s$ se define como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios) que la contienen en el corpus $W$. Una subpalabra es más productiva cuantas más palabras distintas la contienen. Por ejemplo, en español el sufijo _-ble_ es muy productivo, pues forma palabras como _comible_, _bebible_ o _hackeable_, y lo mismo ocurre con _-idad_ en _amabilidad_ o _nacionalidad_.
 
 $ "productividad"(s) = |W_s| $
 
-La segunda medida, la *frecuencia acumulada*, no parte de una noción lingüística previa sino de una intuición de medición: no todas las palabras pesan lo mismo. Una subpalabra que aparece en pocas palabras pero muy frecuentes contribuye más al uso real de la lengua que una que aparece en muchas palabras raras. Se define la frecuencia acumulada de una subpalabra $s$ como la suma de las frecuencias de las palabras ortográficas que la contienen:
+La *frecuencia acumulada* no proviene de una noción lingüística sino de una intuición de medición. No todas las palabras pesan lo mismo, ya que una subpalabra que aparece en pocas palabras pero muy frecuentes contribuye más al uso real de la lengua que otra repartida en muchas palabras raras. Se define como la suma de las frecuencias de las palabras ortográficas que contienen a $s$:
 
-$ "c.freq(s)" = sum_(w in W_s) "freq"(w) $
+$ "c.freq"(s) = sum_(w in W_s) "freq"(w) $
 
-La tercera medida, la *idiosincrasia*, está basada en la idiosincrasia lingüística: las características particulares, irregulares o impredecibles de una lengua que no siguen patrones sistemáticos y deben aprenderse de manera individual. Por ejemplo:
-
-- Plurales irregulares: "pie" → "pies" (regular), pero "menú" → "menús/menúes".
-- Verbos irregulares: "ir" (voy, fui, iré) no sigue el patrón regular de los verbos.
-
-La medida de idiosincrasia para una subpalabra $s$ se define como un cociente entre las dos medidas anteriores: la frecuencia acumulada dividida entre la productividad.
+La *idiosincrasia* recupera esa noción a partir de las dos medidas anteriores. Capta las formas que no se generan con una regla sino que se aprenden por separado, como el plural _menús_ o _menúes_ de _menú_, o las formas del verbo irregular _ir_ (_voy_, _fui_, _iré_). Se define como el cociente entre la frecuencia acumulada y la productividad de una subpalabra:
 
 $ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
 
-Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes (comportamiento típico de las formas idiosincráticas); un valor bajo indica que se distribuye entre muchas palabras (comportamiento típico de las formas productivas).
+Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, el comportamiento típico de las formas idiosincráticas. Un valor bajo indica que se distribuye entre muchas palabras, propio de las formas productivas.
 
 Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (@og-bpe-space).
 
@@ -59,5 +49,8 @@ Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a
   caption: [Espacio de BPE definido por #cite(<ximena-bpe-2023>, form: "prose").],
 ) <og-bpe-space>
 
-// TODO: revisar este PERO — es el aporte de la tesis y conviene afinar el alcance exacto.
-Que ese espacio agrupe a lenguas tipológicamente afines sugiere que las subpalabras de BPE podrían estar capturando algo más que frecuencia. Pero la metodología de ese experimento original es acotada: la comparación se realizó únicamente contra una base de datos lingüística, WALS, y bajo una sola configuración de agrupamiento. Extender ese contraste a otras bases tipológicas, y a distintas configuraciones de agrupamiento, es precisamente el aporte de esta tesis. Para hacerlo, sin embargo, hacen falta dos piezas que las secciones siguientes introducen: las bases lingüísticas contra las cuales contrastar el espacio de BPE, y el instrumento formal para comparar los agrupamientos que cada espacio induce.
+De estas medidas, #cite(<ximena-bpe-2023>, form: "prose") destacaron la productividad, cuyos valores acompañan al grado de síntesis y de fusión de cada lengua. En su análisis cualitativo, las lenguas con baja productividad resultaron ser analíticas y aislantes, como el inglés y el vietnamita. En el extremo opuesto, lenguas polisintéticas y concatenativas como el quechua mostraron una productividad alta. 
+
+Que el espacio agrupe a lenguas tipológicamente afines sugiere que las subpalabras de BPE capturan algo más que frecuencia. Pero esa conclusión aún descansa en una validación cuantitativa frágil, ya que comparó el espacio de BPE contra una sola base de datos, WALS, y bajo una única configuración de agrupamiento. Con esa única prueba no se puede saber si la coincidencia refleja una señal lingüística real o un accidente de esa configuración. Comprobarlo exige extender el contraste a otras bases tipológicas y a distintas configuraciones de agrupamiento, y ese es precisamente el aporte de esta tesis.
+
+Para lograrlo hacen falta dos piezas que las siguientes secciones desarrollan. La primera son las bases lingüísticas contra las cuales contrastar el espacio de BPE. La segunda es el instrumento formal para comparar los agrupamientos que cada espacio induce.
