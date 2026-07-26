@@ -6,9 +6,7 @@
 
 == Tokenización a nivel subpalabra
 
-Esa segmentación previa al modelo recibe el nombre de tokenización: el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos, como ilustra la @fig-tokenizacion.
-
-Esa segmentación previa recibe el nombre de tokenización, que es el proceso de dividir el texto en unidades discretas llamadas tokens. Estas unidades, que pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos (véase @fig-tokenizacion); son las que finalmente manejan los modelos de lenguaje y otros algoritmos de PLN.
+Esa segmentación previa al modelo recibe el nombre de tokenización, el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos, como ilustra la @fig-tokenizacion.
 
 #figure(
   align(center, block[
@@ -28,15 +26,11 @@ Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un model
 
 Debido a estas ventajas, las subpalabras son las unidades predominantes en los modelos de lenguaje actuales. El algoritmo más extendido para producirlas es la codificación de pares de bytes.
 
-Debido a estas ventajas, las subpalabras son las unidades predominantes en los modelos de lenguaje actuales. El algoritmo más extendido para generarlas es la codificación de pares de bytes.
-
 === Codificación de Pares de Bytes
 
 La codificación de pares de bytes (_Byte Pair Encoding_, BPE) fue propuesta por #cite(<Gage1994ANA>, form: "prose") como un algoritmo de compresión de datos, cuya única operación consiste en sustituir, repetidamente, el par de bytes contiguos más frecuente de un archivo por un nuevo byte que no aparece en él. #cite(<sennrich-etal-2016-neural>, form: "prose") adaptaron esta idea para generar subpalabras, reemplazando la compresión de bytes por la fusión de caracteres dentro de las palabras de un corpus; los símbolos resultantes de esas fusiones forman el vocabulario de subpalabras.
 
 El entrenamiento de un modelo BPE parte de un vocabulario inicial $V$, formado por los caracteres del corpus (su alfabeto $Sigma$), y de las palabras representadas como secuencias de esos caracteres. Sobre esa base se repite el siguiente proceso @jm3:
-
-El entrenamiento de un modelo BPE parte de un vocabulario inicial $V$, formado por los caracteres del corpus (su alfabeto $Sigma$), y de las palabras del corpus representadas como secuencias de esos caracteres. Sobre esa base se repite el siguiente proceso @jm3:
 
 1. Se cuenta la frecuencia $f(a, b)$ de cada par de símbolos contiguos $(a, b)$ que aparece dentro de las palabras del corpus.
 2. Se selecciona el par más frecuente:
