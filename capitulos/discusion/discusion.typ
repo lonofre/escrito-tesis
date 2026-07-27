@@ -4,4 +4,6 @@
 
 // También de la inclusión de menos lenguas (ya se habló en la metodología pero sería bueno agregar también)
 
+== Limitaciones y trabajo futuro
+
 #pagebreak()
