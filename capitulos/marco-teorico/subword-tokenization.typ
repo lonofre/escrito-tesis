@@ -6,7 +6,7 @@
 
 == Tokenización a nivel subpalabra
 
-Esa segmentación previa al modelo recibe el nombre de tokenización, el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos, como ilustra la @fig-tokenizacion.
+Esa segmentación previa al modelo recibe el nombre de tokenización, el proceso de dividir el texto en unidades discretas denominadas tokens. Estos tokens son las unidades manejadas por los modelos de lenguaje y algoritmos de PLN. Estas unidades pueden corresponder a palabras, subpalabras, morfemas u otros tipos de segmentos, como ilustra el @fig-tokenizacion.
 
 #figure(
   align(center, block[
@@ -18,15 +18,25 @@ Esa segmentación previa al modelo recibe el nombre de tokenización, el proceso
   caption: [Algunas formas de tokenización.]
 )<fig-tokenizacion>
 
-La más intuitiva de esas formas es la tokenización por palabras, pero tiene limitaciones importantes @jm3. Por un lado, lenguas como el chino y el japonés no separan las palabras con espacios, lo que complica este tipo de tokenización. Por otro lado, las palabras desconocidas (_Out of Vocabulary_, OOV) no pueden procesarse sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción de palabras raras y OOV @sennrich-etal-2016-neural, donde los mecanismos a nivel de palabra resultan insuficientes en lenguas con procesos productivos de formación de nuevas palabras.
+La más intuitiva de esas formas es la tokenización por palabras, pero tiene limitaciones importantes @jm3. Las lenguas tienden a producir una gran variedad de palabras ortográficas distintas, especialmente aquellas con morfología rica. Muchas de estas palabras tienen una frecuencia de aparición de 1 o muy baja. En general, esto no es favorable para los modelos estadísticos o neuronales, ya que una palabra con baja frecuencia no puede modelarse adecuadamente. Además, esto ocasiona el problema de las Out-of-Vocabulary (OOV), es decir, palabras que no fueron observadas durante el entrenamiento del modelo, pero que pueden aparecer en el momento de la inferencia. Esto es evidente en tareas como la traducción automática y el modelado del lenguaje en general, donde los mecanismos a nivel de palabra resultan insuficientes en lenguas con procesos productivos de formación de nuevas palabras @sennrich-etal-2016-neural.
+
+
+#underline[_ Ximena: Cambié un poco la redacción, asegúrate de que tengas claros los conceptos de tokenización y por qué es importante. Te recomendaría aquí poner un ejemplito sencillo ya sea en una tabla o figura. Por ejemplo fr(created)=10 ; fr(creat)= 40 (aparece en creation, creature, creates, etc)  fr(ed)=100 (aparece al final de un montón de palabras)_]
+
+//Por un lado, lenguas como el chino y el japonés no separan las palabras con espacios, lo que complica este tipo de tokenización. Por otro lado, las palabras desconocidas (_Out of Vocabulary_, OOV) no pueden procesarse sin expandir constantemente el vocabulario. Esto es evidente en tareas como la traducción de palabras raras y OOV @sennrich-etal-2016-neural, donde los mecanismos a nivel de palabra resultan insuficientes en lenguas con procesos productivos de formación de nuevas palabras.
 
 Para abordar estas limitaciones, una alternativa al uso de palabras como tokens es emplear subpalabras: unidades de longitud igual o menor que una palabra, que pueden corresponder a cadenas arbitrarias, morfemas o, en algunos casos, a la palabra completa.
 
 Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece muy pocas veces, el modelo tiene dificultades para aprender su significado, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, ya que estas unidades, al ser más pequeñas, tienden a repetirse con mayor frecuencia que las palabras completas. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
 
+
 Debido a estas ventajas, las subpalabras son las unidades predominantes en los modelos de lenguaje actuales. El algoritmo más extendido para producirlas es la codificación de pares de bytes.
 
 === Codificación de Pares de Bytes
+
+#underline[_Ximena: Aquí recomendaría integrar el algoritmo extendido del libro de Víctor Mijangos y citarlo (complementando el que ya pones aquí), también puedes revisar es elibro o mis notas de clase para comentar en unas líneas breves en qué consiste el  tiempo de entrenamiento, y cuaĺ el de inferencia en BPE. Yo sugeriría que agregues un ejemplo de juguete donde se vean algunos merges, las tablas de frecuencias de símbolos o algo del estilo muy sencillo para que se vea el proceso iterativo _]
+
+_- Una vez más, verificar las citas, quien estableció BPE para NLP fue Sennrich no Jurafsky, puedes citar a sennrich, además de Jurafsky. _
 
 La codificación de pares de bytes (_Byte Pair Encoding_, BPE) fue propuesta por #cite(<Gage1994ANA>, form: "prose") como un algoritmo de compresión de datos, cuya única operación consiste en sustituir, repetidamente, el par de bytes contiguos más frecuente de un archivo por un nuevo byte que no aparece en él. #cite(<sennrich-etal-2016-neural>, form: "prose") adaptaron esta idea para generar subpalabras, reemplazando la compresión de bytes por la fusión de caracteres dentro de las palabras de un corpus; los símbolos resultantes de esas fusiones forman el vocabulario de subpalabras.
 
