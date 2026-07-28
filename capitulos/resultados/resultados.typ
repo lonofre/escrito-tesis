@@ -6,6 +6,12 @@
 
 // TODO: Toda esta sección está en construcción. Esta la estructura pero falta colocar los datos correctamente.
 = Resultados
+*_Ximena: En la parte gráfica para mostrar cómo se ven los clusterings entre espacios recomensaría agregar visualizaciones de espacios como GRAMBANK+BPE (por ejemplo configuración 39,51,57, diferentes clusters mismo espacio BPE), así como el mismo tipo de visualziación pero para un setting aleatorio para que se vea el contraste. 
+Hacer énfasis que aunque los clusterings no son iguales entre Grambank+WALS y BPE, los clusters si muestran mucho más continuidad  en el espacio BPE que el aleatorio_*
+
+
+*_También justificar porqué se elige una configuración alrededor de treinta y tantos: Porque en ese umbral no hay tantos NANS como en el lso 70s, donde tantos valores incompletos quizá empiezan a tener un efecto negativo en el clustering aunque el ARI sea alto_*
+
 
 == BPE vs WALS
 
