@@ -53,9 +53,17 @@ _#underline[Ximena: Trata de verificar que las referencias bibliográficas que y
 
 Para responder a esta pregunta, #cite(<ximena-bpe-2023>, form: "prose") partieron de dos nociones lingüísticas y las convirtieron en cantidades medibles sobre las subpalabras de BPE. La primera es la productividad, la probabilidad de que un patrón o regla de una lengua se repita en palabras nuevas. Cuanto más productivo es un patrón, con más facilidad lo usan los hablantes para formar palabras. Por ejemplo, en inglés los morfemas -ed (marca de pasado) y -ing (marca de aspecto progresivo) son morfemas altamente productivos, ya que se utilizan para formar las flexiones de un gran número de verbos regulares. Es decir, pueden combinarse con una amplia variedad de bases o stems, lo que permite generar nuevas formas verbales de manera sistemática.
 
-La segunda es la idiosincrasia, que reúne las partes de la lengua que no siguen un patrón fijo. Cuando estas formas irregulares son muy frecuentes, se almacenan como palabras completas en lugar de generarse mediante una regla @Bybee2007. De estas nociones surgen tres medidas. La productividad y la frecuencia acumulada se calculan directamente sobre el corpus, y la idiosincrasia se obtiene a partir de las dos anteriores.
+La segunda es el nivel de idiosincrasia, que, a diferencia de los patrones productivos y regulares, se refiere a formas irregulares que no están compuestas por morfemas que puedan combinarse fácilmente con otros o aparecer en otros lexemas. Más bien, estas formas se almacenan como palabras completas, en lugar de generarse mediante una regla morfológica @Bybee2007. Este es el caso, por ejemplo, de formas como _soy_ o _fui_ en español, que constituyen unidades fosilizadas de alta frecuencia. Estas formas se aprenden de memoria y no siguen un patrón morfológico predecible. 
+
+
+De estas nociones surgen tres medidas que se calculan directamente sobre el corpus a partir de las unidades subpalabra (tokens) que va encontrando el algortimo BPE iterativamente. 
+
+//La segunda es la idiosincrasia, que reúne las partes de la lengua que no siguen un patrón fijo. Cuando estas formas irregulares son muy frecuentes, se almacenan como palabras completas en lugar de generarse mediante una regla @Bybee2007. De estas nociones surgen tres medidas. La productividad y la frecuencia acumulada se calculan directamente sobre el corpus, y la idiosincrasia se obtiene a partir de las dos anteriores.
 
 La *productividad* de una subpalabra $s$ se define como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios) que la contienen en el corpus $W$. Una subpalabra es más productiva cuantas más palabras distintas la contienen. Por ejemplo, en español el sufijo _-ble_ es muy productivo, pues forma palabras como _comible_, _bebible_ o _hackeable_, y lo mismo ocurre con _-idad_ en _amabilidad_ o _nacionalidad_.
+
+_#underline[ximena: Sugiero cambiar o agregar ejemplos de otros sufijos que sean flexivos y no solo derivativos, por ejemplo la s del plural]_
+
 
 $ "productividad"(s) = |W_s| $
 
@@ -64,18 +72,33 @@ La *frecuencia acumulada* no proviene de una noción lingüística sino de una i
 $ "c.freq"(s) = sum_(w in W_s) "freq"(w) $
 
 La *idiosincrasia* recupera esa noción a partir de las dos medidas anteriores. Capta las formas que no se generan con una regla sino que se aprenden por separado, como el plural _menús_ o _menúes_ de _menú_, o las formas del verbo irregular _ir_ (_voy_, _fui_, _iré_). Se define como el cociente entre la frecuencia acumulada y la productividad de una subpalabra:
+_#underline[ximena: Afinar la definciión de idiosincracia, reocmiendo recuperar las nociones y definiciones del artículo original y no pedir a la IA que las genere, solo que afine escritura ]_
+
+
 
 $ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
 
 Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, el comportamiento típico de las formas idiosincráticas. Un valor bajo indica que se distribuye entre muchas palabras, propio de las formas productivas.
 
+
 Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (@og-bpe-space).
+
+Ximena: Aquí falta mencionar que se construyeron esas caracterizaciones, promediando los valores obtenidos de las mediciones anteriores por cada subword en cada merge, y haciendo una normalización del espacio (center and scaling). En fin, falta refinar un poco más
+
 
 #figure(
   image("img/bpe-space.png", width: 80%),
   caption: [Espacio de BPE definido por #cite(<ximena-bpe-2023>, form: "prose").],
 ) <og-bpe-space>
 
-De estas medidas, #cite(<ximena-bpe-2023>, form: "prose") destacaron la productividad, cuyos valores acompañan al grado de síntesis y de fusión de cada lengua. En su análisis cualitativo, las lenguas con baja productividad resultaron ser analíticas y aislantes, como el inglés y el vietnamita. En el extremo opuesto, lenguas polisintéticas y concatenativas como el quechua mostraron una productividad alta. 
 
-Que el espacio agrupe a lenguas tipológicamente afines sugiere que las subpalabras de BPE capturan algo más que frecuencia. Pero esa conclusión aún descansa en una validación cuantitativa frágil, ya que comparó el espacio de BPE contra una sola base de datos, WALS, bajo una única configuración de agrupamiento y con una sola semilla aleatoria. Con esa única prueba no se puede saber si la coincidencia refleja una señal lingüística real o un artefacto de esas decisiones. Para comprobarlo, extendemos el contraste a otras bases tipológicas y a distintas configuraciones de agrupamiento, y medimos qué tanto coinciden los agrupamientos que induce cada espacio, cualquiera que sea su fuente.
+
+A partir de estas caracterizaciones de las lenguas, basadas en medidas sobre las subpalabras obtenidas mediante BPE, los autores observaron que existía una correspondencia con las nociones lingüísticas de la tipología morfológica. Por ejemplo, el eje de productividad parece estar relacionado con el grado de síntesis de una lengua. Las lenguas con tendencia analítica o aislante se ubican en la región de baja productividad, como el inglés, el vietnamita o el sango. En el extremo opuesto, las lenguas con tendencia aglutinante o polisintética, como el quechua o el kalaallisut, mostraron una alta productividad en el espacio inducido por BPE. Asimismo, puede observarse que las lenguas con una morfología menos productiva tienden a presentar patrones más idiosincráticos. #cite(<ximena-bpe-2023>).
+_#underline[Ximena: Poner los códigos de las lenguas que se mencionan]_
+
+El hecho de que las lenguas se distribuyan en el espacio inducido por BPE de una manera que también resulta coherente desde una perspectiva tipológica implica que las propiedades de los patrones que captura BPE reflejan, al menos parcialmente, la naturaleza estructural de las lenguas. Los autores concluyen que, para comprimir lenguas altamente aglutinantes o polisintéticas, BPE aprovecha patrones morfológicos altamente productivos en las primeras operaciones de merge. En cambio, para comprimir lenguas menos sintéticas y más aislantes, con una morfología más limitada, BPE realiza sus primeras operaciones de merge utilizando patrones altamente idiosincráticos.
+
+Para complementar estas observaciones, este trabajo previo realiza una comparación entre el espacio inducido por BPE y los vectores obtenidos para cada lengua a partir de características extraídas de una base de datos lingüística (WALS). Si bien no se trata de los mismos espacios ni caracterizan exactamente los mismos aspectos de las lenguas, por lo que no comparten la misma topología, es posible evaluar si las lenguas que tienden a agruparse en un espacio también tienden a agruparse en el otro.
+
+
+Pero esa conclusión aún descansa en una validación cuantitativa frágil, ya que comparó el espacio de BPE contra una sola base de datos, WALS, bajo una única configuración de agrupamiento y con una sola semilla aleatoria. Para fortalecer la comprobación y extender la exploración, en este trabajo incluimos el contraste a otras bases de datos tipológicas y a distintas configuraciones de agrupamiento, y medimos qué tanto coinciden los agrupamientos basados en diferentes caracterizaciones. 
