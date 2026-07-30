@@ -357,21 +357,25 @@
       url={https://arxiv.org/abs/2303.18223}, 
 }
 
-// Bengio
 @article{bengio2003,
-  author = {Bengio, Yoshua and Ducharme, R\'{e}jean and Vincent, Pascal and Janvin, Christian},
-  title = {A neural probabilistic language model},
-  year = {2003},
-  issue_date = {3/1/2003},
-  publisher = {JMLR.org},
-  volume = {3},
-  number = {null},
+  acmid = {944966},
+  added-at = {2016-04-06T14:15:15.000+0200},
+  author = {Bengio, Yoshua and Ducharme, R{\'e}jean and Vincent, Pascal and Janvin, Christian},
+  biburl = {https://www.bibsonomy.org/bibtex/25bc1d3d1be6247dd6365014919a711ef/dallmann},
+  interhash = {99a471df7eb1ed9d39f9e7cb08859ec9},
+  intrahash = {5bc1d3d1be6247dd6365014919a711ef},
   issn = {1532-4435},
-  abstract = {A goal of statistical language modeling is to learn the joint probability function of sequences of words in a language. This is intrinsically difficult because of the curse of dimensionality: a word sequence on which the model will be tested is likely to be different from all the word sequences seen during training. Traditional but very successful approaches based on n-grams obtain generalization by concatenating very short overlapping sequences seen in the training set. We propose to fight the curse of dimensionality by learning a distributed representation for words which allows each training sentence to inform the model about an exponential number of semantically neighboring sentences. The model learns simultaneously (1) a distributed representation for each word along with (2) the probability function for word sequences, expressed in terms of these representations. Generalization is obtained because a sequence of words that has never been seen before gets high probability if it is made of words that are similar (in the sense of having a nearby representation) to words forming an already seen sentence. Training such large models (with millions of parameters) within a reasonable time is itself a significant challenge. We report on experiments using neural networks for the probability function, showing on two text corpora that the proposed approach significantly improves on state-of-the-art n-gram models, and that the proposed approach allows to take advantage of longer contexts.},
+  issue_date = {3/1/2003},
   journal = {J. Mach. Learn. Res.},
+  keywords = {deep_learning language_model thema thema:forward_neural_network},
   month = mar,
-  pages = {1137–1155},
-  numpages = {19}
+  numpages = {19},
+  pages = {1137--1155},
+  publisher = {JMLR.org},
+  title = {A Neural Probabilistic Language Model},
+  url = {http://dl.acm.org/citation.cfm?id=944919.944966},
+  volume = 3,
+  year = 2003
 }
 
 // Word2Vec
@@ -490,29 +494,43 @@
 }
 
 // Lo que complementa a lang2vec
-@InProceedings{malaviya17emnlp,
-    title = {Learning Language Representations for Typology Prediction},
-    author = {Malaviya, Chaitanya and Neubig, Graham and Littell, Patrick},
-    booktitle = {Conference on Empirical Methods in Natural Language Processing (EMNLP)},
-    address = {Copenhagen, Denmark},
-    month = {September},
-    year = {2017}
+@inproceedings{malaviya17emnlp,
+    title = "Learning Language Representations for Typology Prediction",
+    author = "Malaviya, Chaitanya  and
+      Neubig, Graham  and
+      Littell, Patrick",
+    editor = "Palmer, Martha  and
+      Hwa, Rebecca  and
+      Riedel, Sebastian",
+    booktitle = "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing",
+    month = sep,
+    year = "2017",
+    address = "Copenhagen, Denmark",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/D17-1268/",
+    doi = "10.18653/v1/D17-1268",
+    pages = "2529--2535",
+    abstract = "One central mystery of neural NLP is what neural models ``know'' about their subject matter. When a neural machine translation system learns to translate from one language to another, does it learn the syntax or semantics of the languages? Can this knowledge be extracted from the system to fill holes in human scientific knowledge? Existing typological databases contain relatively full feature specifications for only a few hundred languages. Exploiting the existence of parallel texts in more than a thousand languages, we build a massive many-to-one NMT system from 1017 languages into English, and use this to predict information missing from typological databases. Experiments show that the proposed method is able to infer not only syntactic, but also phonological and phonetic inventory features, and improves over a baseline that has access to information about the languages geographic and phylogenetic neighbors."
 }
 
 // Rand-index
 @article{rand,
- ISSN = {01621459, 1537274X},
- URL = {http://www.jstor.org/stable/2284239},
- abstract = {Many intuitively appealing methods have been suggested for clustering data, however, interpretation of their results has been hindered by the lack of objective criteria. This article proposes several criteria which isolate specific aspects of the performance of a method, such as its retrieval of inherent structure, its sensitivity to resampling and the stability of its results in the light of new data. These criteria depend on a measure of similarity between two different clusterings of the same set of data; the measure essentially considers how each pair of data points is assigned in each clustering.},
- author = {William M. Rand},
- journal = {Journal of the American Statistical Association},
- number = {336},
- pages = {846--850},
- publisher = {[American Statistical Association, Taylor & Francis, Ltd.]},
- title = {Objective Criteria for the Evaluation of Clustering Methods},
- urldate = {2026-03-05},
- volume = {66},
- year = {1971}
+  author = {William M. Rand},
+  title = {Objective Criteria for the Evaluation of Clustering Methods},
+  journal = {Journal of the American Statistical Association},
+  volume = {66},
+  number = {336},
+  pages = {846--850},
+  year = {1971},
+  publisher = {Taylor \& Francis},
+  doi = {10.1080/01621459.1971.10482356},
+  URL = { 
+   https://www.tandfonline.com/doi/abs/10.1080/01621459.1971.10482356
+  },
+  eprint = { 
+   https://www.tandfonline.com/doi/pdf/10.1080/01621459.1971.10482356
+  },
+  abstract = { Many intuitively appealing methods have been suggested for clustering data, however, interpretation of their results has been hindered by the lack of objective criteria. This article proposes several criteria which isolate specific aspects of the performance of a method, such as its retrieval of inherent structure, its sensitivity to resampling and the stability of its results in the light of new data. These criteria depend on a measure of similarity between two different clusterings of the same set of data; the measure essentially considers how each pair of data points is assigned in each clustering. }
 }
 
 // Adjusted Rand Index
@@ -661,22 +679,21 @@ series = {SODA '07}
   year      = {2010},
   publisher = {Hodder Education},
   address   = {London},
-  series    = {Understanding Language Series},
+  series    = {Understanding Language},
 }
 
 // Tipología morfológica
 @incollection{Bickel-and-Nichols-2007,
-  address    = {Cambridge},
-  author     = {Bickel, Balthasar and Nichols, Johanna},
-  booktitle  = {Language typology and syntactic description},
-  editor     = {Shopen, Timothy},
-  note       = {2nd edition},
-  publisher  = {Cambridge University Press},
-  title      = {Inflectional morphology},
-  year       = {2007},
-  iso_code   = {byw; nep},
-  olac_field = {syntax; general_linguistics; typology; semantics},
-  wals_code  = {nep; bel}
+  address   = {Cambridge},
+  author    = {Bickel, Balthasar and Nichols, Johanna},
+  booktitle = {Language Typology and Syntactic Description},
+  editor    = {Shopen, Timothy},
+  note      = {2nd edition},
+  publisher = {Cambridge University Press},
+  title     = {Inflectional Morphology},
+  volume    = {3},
+  pages     = {169--240},
+  year      = {2007},
 }
 
 // Tipología
@@ -751,12 +768,15 @@ series = {SODA '07}
 
 // Donde WordPiece fue usado por primera vez
 @inproceedings{schuster2012japanese,
-  title={Japanese and Korean voice search},
   author={Schuster, Mike and Nakajima, Kaisuke},
-  booktitle={2012 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
-  pages={5149--5152},
+  booktitle={2012 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
+  title={Japanese and Korean voice search}, 
   year={2012},
-  organization={IEEE}
+  volume={},
+  number={},
+  pages={5149-5152},
+  keywords={Decision support systems;Helium;Speech recognition;voice search;Japanese;Korean},
+  doi={10.1109/ICASSP.2012.6289079}
 }
 
 // Data Mining: Este libro describe brevemente al clustering
@@ -826,4 +846,24 @@ series = {SODA '07}
     isbn = {9780195301571},
     doi = {10.1093/acprof:oso/9780195301571.001.0001},
     url = {https://doi.org/10.1093/acprof:oso/9780195301571.001.0001},
+}
+
+@article{Mijangos-Ximena-2024, 
+  title={De las ideas verdes incoloras hasta ChatGpt: los grandes modelos del lenguaje}, 
+  url={https://www.ties.unam.mx/ties/article/view/18}, 
+  DOI={10.22201/dgtic.26832968e.2024.10.18}, 
+  abstractNote={&amp;lt;p&amp;gt;Los grandes modelos del lenguaje son tecnologías que han mostrado una capacidad notable para producir texto que simula al lenguaje humano escrito; estos modelos están detrás de agentes conversacionales como chatGPT o Gemini. Si bien el impacto y uso de estos modelos se ha extendido a numerosos sectores de la sociedad, no siempre se discuten los fundamentos técnicos y científicos que subyacen a estos desarrollos de la inteligencia artificial. El presente artículo propone dar una introducción al funcionamiento de los modelos del lenguaje, desde las primeras propuestas hasta los grandes modelos actuales. Lo anterior con el fin de incentivar una comprensión más profunda de estas tecnologías y, por lo tanto, ampliar la discusión en torno al origen de algunas de sus limitaciones y potencialidades en diversos ámbitos, por ejemplo, en un marco educativo.&amp;lt;/p&amp;gt;}, 
+  number={10}, 
+  journal={TIES, Revista de Tecnología e Innovación en Educación Superior}, 
+  author={Mijangos de la Cruz, Víctor Germán and Gutierrez-Vasques, Ximena}, 
+  year={2024}, 
+  month={jun.}, 
+  pages={12–23} 
+}
+
+@unpublished{mijangos2026fundamentos,
+  author = {Mijangos de la Cruz, Víctor Germán},
+  title  = {Fundamentos de Lingüística Computacional},
+  note   = {Manuscrito no publicado. Departamento de Matemáticas, Facultad de Ciencias, Universidad Nacional Autónoma de México},
+  year   = {2026}
 }
