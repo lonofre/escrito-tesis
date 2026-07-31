@@ -80,7 +80,6 @@ Para construir los vectores, procesamos `ValueTable` de la base de datos de WALS
 
 Durante este procesamiento, identificamos que algunas lenguas carecen de valores para ciertas características. Siguiendo el procedimiento del experimento original @ximena-bpe-2023, imputamos dichos valores con $0$ en la matriz.
 
-// TODO: Representar el espacio WALS usando PCA o algo parecido
 Como paso final, aplicamos a $X_W$ la misma estandarización descrita para $X_"BPE"$.
 
 === Grambank

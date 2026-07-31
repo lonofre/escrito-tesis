@@ -5,8 +5,6 @@
 */
 == Corpus y datos
 
-
-
 === Lenguas
 
 #figure(
@@ -129,7 +127,6 @@ Sumado a esto, otra diferencia con WALS es que las lenguas de ambas bases no pre
   caption: [ISO 639-3 como identificador puente entre los \ códigos propios de WALS y Grambank.],
 )<iso-puente>
 
-// TODO: Reevaluar lang2vec para ver si solo reportamos un conjunto de características en el texto principal y mandar otro conjunto al apéndice.
 ==== lang2vec
 
 #let lang2vec_footnote = [El repositorio público se encuentra en #link("https://github.com/antonisa/lang2vec").]
