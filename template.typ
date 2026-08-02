@@ -1,6 +1,10 @@
 // Template para configurar toda la tesis (a excepción de la portada). Aquí se configuran cómo se ven las páginas, el tamaño de texto, etc.
 #let tesis(body) = {
     set page(
+        paper: "us-letter",
+        // Margen interior de 2.5cm + 1cm extra para dejar espacio a la encuadernación
+        margin: (inside: 2.5cm, outside: 2.5cm, y: 2.5cm),
+        binding: left,
         numbering: "1"
     )
 
