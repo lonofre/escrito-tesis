@@ -18,17 +18,28 @@
   )
 }
 
-// Genera un diagrama con dos boxplots comparativos
-#let paired-boxplot(file, label1: [], label2: [], color2: rgb("#284987")) = {
-  let data = json(file)
+// Genera un diagrama con dos boxplots comparativos. Los colores por entidad son los
+// mismos que en las bandas anidadas (naranja = BPE, azul = X_0), para que una entidad
+// conserve su color en todo el capítulo. `stroke` fija el color de la caja.
+#let paired-boxplot(
+  file-a, file-b, label1: [], label2: [],
+  color1: rgb("#c05a17"), color2: rgb("#3a63b3"),
+) = {
+  // Cada archivo trae un único objeto de percentiles (sin barrido). Armamos la caja
+  // en IQR (q1-q3) y los bigotes en P1-P99, igual que la convención de las bandas.
+  let box(f) = {
+    let o = json(f).at(0)
+    (median: o.median, q1: o.q1, q3: o.q3,
+     whisker-low: o.p1, whisker-high: o.p99, outliers: ())
+  }
 
   lq.diagram(
     width: 8cm,
     height: 8cm,
     margin: (x: 50%),
     ylabel: text(size: 11pt)[ARI],
-    lq.boxplot(x:1, label: label1, outliers: "x", data.at(0)),
-    lq.boxplot(x: 2, label: label2, outliers: "x", stroke: color2, data.at(1)),
+    lq.boxplot(x: 1, label: label1, stroke: color1, box(file-a)),
+    lq.boxplot(x: 2, label: label2, stroke: color2, box(file-b)),
     xaxis: (format-ticks: none)
   )
 }
@@ -65,8 +76,8 @@
     ylabel: [ARI],
 
     // Bandas exteriores (mín -> máx): la extensión completa.
-    lq.fill-between(xs, col(a, "max"), y2: col(a, "min"), fill: a-out),
-    lq.fill-between(xs, col(b, "max"), y2: col(b, "min"), fill: b-out),
+    lq.fill-between(xs, col(a, "p99"), y2: col(a, "p1"), fill: a-out),
+    lq.fill-between(xs, col(b, "p99"), y2: col(b, "p1"), fill: b-out),
 
     // Bandas interiores (IQR): dónde vive el grueso de las corridas. Llevan la leyenda.
     lq.fill-between(xs, col(a, "q3"), y2: col(a, "q1"), fill: a-in, label: label-a),
@@ -90,7 +101,7 @@
     xlabel: [$d_G$],
     ylabel: [ARI],
 
-    lq.fill-between(xs, col("max"), y2: col("min"), fill: c-out),
+    lq.fill-between(xs, col("p99"), y2: col("p1"), fill: c-out),
     lq.fill-between(xs, col("q3"),  y2: col("q1"),  fill: c-in, label: label),
   )
 }
