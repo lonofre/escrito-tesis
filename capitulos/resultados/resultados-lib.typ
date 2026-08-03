@@ -27,10 +27,12 @@
 ) = {
   // Cada archivo trae un único objeto de percentiles (sin barrido). Armamos la caja
   // en IQR (q1-q3) y los bigotes en P1-P99, igual que la convención de las bandas.
+  // Mín y máx se marcan como "outliers": círculos tenues, igual que el halo de las
+  // bandas anidadas marca dónde vive el máximo.
   let box(f) = {
     let o = json(f).at(0)
     (median: o.median, q1: o.q1, q3: o.q3,
-     whisker-low: o.p1, whisker-high: o.p99, outliers: ())
+     whisker-low: o.p1, whisker-high: o.p99, outliers: (o.min, o.max))
   }
 
   lq.diagram(
@@ -38,8 +40,14 @@
     height: 8cm,
     margin: (x: 50%),
     ylabel: text(size: 11pt)[ARI],
-    lq.boxplot(x: 1, label: label1, stroke: color1, box(file-a)),
-    lq.boxplot(x: 2, label: label2, stroke: color2, box(file-b)),
+    lq.boxplot(
+      x: 1, label: label1, stroke: color1, box(file-a),
+      outlier-fill: none, outlier-stroke: color1.transparentize(45%), outlier-size: 4pt,
+    ),
+    lq.boxplot(
+      x: 2, label: label2, stroke: color2, box(file-b),
+      outlier-fill: none, outlier-stroke: color2.transparentize(45%), outlier-size: 4pt,
+    ),
     xaxis: (format-ticks: none)
   )
 }
@@ -64,10 +72,12 @@
   let col(rows, key) = rows.map(r => r.at(key))
 
   // Serie A (BPE): naranja. Serie B (X_0): azul. Par validado (ΔE ~23, CVD ok).
-  let a-out  = rgb(192, 90, 23, 50)
-  let a-in   = rgb(192, 90, 23, 110)
-  let b-out  = rgb(58, 99, 179, 50)
-  let b-in   = rgb(58, 99, 179, 110)
+  let a-halo = rgb(192, 90, 23, 18)
+  let a-out  = rgb(192, 90, 23, 85)
+  let a-in   = rgb(192, 90, 23, 170)
+  let b-halo = rgb(58, 99, 179, 18)
+  let b-out  = rgb(58, 99, 179, 85)
+  let b-in   = rgb(58, 99, 179, 170)
 
   lq.diagram(
     width: 14cm,
@@ -75,7 +85,11 @@
     xlabel: [$d_G$],
     ylabel: [ARI],
 
-    // Bandas exteriores (mín -> máx): la extensión completa.
+    // Halo más exterior (mín -> máx): dónde vive el máximo, muy tenue.
+    lq.fill-between(xs, col(a, "max"), y2: col(a, "min"), fill: a-halo),
+    lq.fill-between(xs, col(b, "max"), y2: col(b, "min"), fill: b-halo),
+
+    // Bandas exteriores (P1 -> P99): la extensión completa.
     lq.fill-between(xs, col(a, "p99"), y2: col(a, "p1"), fill: a-out),
     lq.fill-between(xs, col(b, "p99"), y2: col(b, "p1"), fill: b-out),
 
@@ -92,14 +106,18 @@
   let rows = json(file).slice(start, end)
   let col(key) = rows.map(r => r.at(key))
 
-  let c-out = hue.transparentize(80%)
-  let c-in  = hue.transparentize(55%)
+  let c-halo = hue.transparentize(93%)
+  let c-out  = hue.transparentize(67%)
+  let c-in   = hue.transparentize(33%)
 
   lq.diagram(
     width: 14cm,
     height: 6cm,
     xlabel: [$d_G$],
     ylabel: [ARI],
+
+    // Halo más exterior (mín -> máx): dónde vive el máximo, muy tenue.
+    lq.fill-between(xs, col("max"), y2: col("min"), fill: c-halo),
 
     lq.fill-between(xs, col("p99"), y2: col("p1"), fill: c-out),
     lq.fill-between(xs, col("q3"),  y2: col("q1"),  fill: c-in, label: label),
