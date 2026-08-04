@@ -78,7 +78,7 @@ _#underline[ximena: Afinar la definciión de idiosincracia, reocmiendo recuperar
 
 $ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
 
-Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, el comportamiento típico de las formas idiosincráticas. Un valor bajo indica que se distribuye entre muchas palabras, propio de las formas productivas.
+Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, el comportamiento típico de las formas idiosincráticas. Un valor bajo indica que se distribuye entre muchas palabras, propio de los patrones productivos.
 
 
 Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (@og-bpe-space).
