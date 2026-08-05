@@ -87,7 +87,7 @@ _@ Ximena: Aquí falta mencionar que se construyeron esas caracterizaciones, pro
 
 
 #figure(
-  image("img/bpe-space.png", width: 80%),
+  image("img/bpe-space.svg", width: 90%),
   caption: [Espacio de BPE definido por #cite(<ximena-bpe-2023>, form: "prose").],
 ) <og-bpe-space>
 
