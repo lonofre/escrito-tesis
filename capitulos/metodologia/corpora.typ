@@ -8,11 +8,11 @@
 === Lenguas
 
 #figure(
-   image("img/lenguas-mapa.pdf", width: 80%),
+   image("img/lenguas-mapa.pdf", width: 95%),
    caption: [Distribución de las 47 lenguas en el mundo. Cada color representa una familia de lenguas distinta.]
 )<mapa-lenguas>
 
-#underline[_Ximena: Falta agregar en el mapa un cuadro con la leyenda de cada famili lingüística. _]
+#underline[_Ximena: Falta agregar en el mapa un cuadro con la leyenda de cada famili lingüística. _] ✅
 
 Para la experimentación partimos de un conjunto de 47 lenguas (véase @tabla-de-lenguas) que destaca por su diversidad tipológica, genealógica y geográfica @ximena-bpe-2023. Esto permitió que los resultados no estuvieran sesgados por pocas regiones o pocas familias lingüísticas (véase @mapa-lenguas). Para identificar a las lenguas, usamos el conjunto de códigos ISO 639-3 @iso6393.
 

@@ -83,7 +83,7 @@ Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecue
 
 Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (@og-bpe-space).
 
-Ximena: Aquí falta mencionar que se construyeron esas caracterizaciones, promediando los valores obtenidos de las mediciones anteriores por cada subword en cada merge, y haciendo una normalización del espacio (center and scaling). En fin, falta refinar un poco más
+_@ Ximena: Aquí falta mencionar que se construyeron esas caracterizaciones, promediando los valores obtenidos de las mediciones anteriores por cada subword en cada merge, y haciendo una normalización del espacio (center and scaling). En fin, falta refinar un poco más_
 
 
 #figure(
