@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/lilaq:0.6.0" as lq
 
 /*
   En esta sección, vamos a describir los datos que usamos en 
@@ -35,8 +36,6 @@ Para obtener una caracterización de las 47 lenguas mediante PBE, usamos el Corp
 
 El PBC reúne 994 traducciones de la Biblia distribuidas en 837 lenguas distintas según el estándar ISO 639-3, cobertura que incluye las 47 lenguas analizadas. Cada traducción está alineada a nivel de versículo mediante identificadores estandarizados, normalizada en Unicode y tokenizada a nivel de palabra, propiedades que lo hacen adecuado para el procesamiento computacional (véase @ejemplo-PBC). Al tratarse de un corpus paralelo, todas las lenguas comparten esencialmente el mismo contenido textual; esto hace comparables los modelos BPE entre lenguas, pues las diferencias que el algoritmo capture son atribuibles a la estructura de cada lengua y no a diferencias de dominio o tema.
 
-Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el experimento original de #cite(<ximena-bpe-2023>, form: "prose"), lo que hace los resultados directamente comparables con los de aquel estudio.
-
 #figure(
   table(
     columns: (1fr, 1fr),
@@ -53,13 +52,53 @@ Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el expe
   caption: [PBC Inglés-Español],
 ) <ejemplo-PBC>
 
-#underline[_Ximena: Aquí podría convenir que pongas una tabla con alguna distribución que refleje el tamaño del corpus, por ejemplo promedio de tokens por lengua, o algo así. _]
+Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el experimento original de #cite(<ximena-bpe-2023>, form: "prose"), lo que hace los resultados directamente comparables con los de aquel estudio. En promedio, cada traducción tiene alrededor de $30,000$ tokens por lengua (véase @barplot-conteo-pbc).
 
+#underline[_Ximena: Aquí podría convenir que pongas una tabla con alguna distribución que refleje el tamaño del corpus, por ejemplo promedio de tokens por lengua, o algo así. _] ✅
 
+#{
+  let results = csv("datos/pbc_stats.csv")
+  let counts = results.slice(1).map(row => int(row.at(1)))
+  let iso-codes = results.slice(1).map(row => row.at(0))
+
+  show: lq.show_(
+    lq.tick-label.with(kind: "x"),
+    it => box(
+      width: 0pt,
+      // Esto permite personalizar los ticks, que en este caso son los código ISO
+      align(right, rotate(-90deg, reflow: true, text(size: 0.8em)[#it])),
+    )
+  )
+  
+  let bar-plot =lq.diagram(
+    xaxis: (
+      ticks: iso-codes.enumerate(),
+      subticks: none
+    ),
+    yaxis: (
+      exponent: 0
+    ),
+    lq.bar(
+      range(counts.len()),
+      counts,
+    ),
+    width: 80%,
+    height: 180pt,
+    xlabel: [Lenguas del PBC],
+    ylabel: [Número de tokens por lengua]
+  )
+  
+  [#figure(
+    bar-plot,
+    caption: [Conteo de tokens por lengua en el PBC.]
+  )<barplot-conteo-pbc>]
+}
 
 Es importante subrayar que se usó únicamente el PBC porque es el corpus paralelo que abarca la mayor cantidad de lenguas. #cite(<ximena-bpe-2023>, form: "prose") usaron otros corpus de apoyo como _La Declaración Universal de los Derechos Humanos_ (DUDH) y el JW300 @agic-vulic-2019-jw300. Sin embargo, la DUDH cubre sólo 25 lenguas de las 47, mientras que el JW300 cubre 31 usando el umbral que establecieron de 68 artículos paralelos por lengua.
 
-#underline[_ Ximena: Aquí finaliza haciendo énfasis que a partir de estos textos aplicas BPE para cada lengua , un método no supervisado, independiente d ela lengua, que se puede aplciar a cualquier texto (aunque abordes más adelante la vectorizcación_]) 
+#underline[_ Ximena: Aquí finaliza haciendo énfasis que a partir de estos textos aplicas BPE para cada lengua , un método no supervisado, independiente d ela lengua, que se puede aplciar a cualquier texto (aunque abordes más adelante la vectorizcación_]) ✅
+
+Teniendo estas traducciones del PBC, podemos aplicarles BPE, un método no supervisado e independiente de la lengua en que estén escritos los textos, por lo que resulta aplicable a cualquiera de ellos.
 
 === Bases de datos lingüísticas <bases-datos-linguisticas>
 
