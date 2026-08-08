@@ -3,7 +3,7 @@
 */
 == La huella lingüística de la tokenización
 
-Esa pregunta no es nueva. Debido a la simplicidad concptual de los algoritmos, la tokenización comúnmente es concebida como un paso de ingeniería del modelo sin contenido lingüístico explícito, en contraste a lo que podrían ser otros procesos como la segmentación morfológica o el análisis morfológico automático. @mielke2021wordscharactersbriefhistory. #underline[_ximena: Incorpora las citas que yo tengo en este párrafo del artículo:_]
+Esa pregunta no es nueva. Debido a la simplicidad concptual de los algoritmos, la tokenización comúnmente es concebida como un paso de ingeniería del modelo sin contenido lingüístico explícito, en contraste a lo que podrían ser otros procesos como la segmentación morfológica o el análisis morfológico automático. @mielke2021wordscharactersbriefhistory @galle-2019-investigating @bostrom-durrett-2020-byte @clark-et-al-2022 @saleva-lignos-2021-effectiveness @oncevay-etal-2022-quantifying. #underline[_ximena: Incorpora las citas que yo tengo en este párrafo del artículo:_ ✅]
 
 Due to the conceptual simplicity of BPE, the lack of encoding of explicit lin-
 guistic knowledge, as well as the lack of generalized stopping criteria to obtain the
