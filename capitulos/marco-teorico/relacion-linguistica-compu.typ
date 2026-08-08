@@ -85,20 +85,16 @@ Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a
 
 _@ Ximena: Aquí falta mencionar que se construyeron esas caracterizaciones, promediando los valores obtenidos de las mediciones anteriores por cada subword en cada merge, y haciendo una normalización del espacio (center and scaling). En fin, falta refinar un poco más_
 
-
 #figure(
   image("img/bpe-space.svg", width: 90%),
   caption: [Espacio de BPE definido por #cite(<ximena-bpe-2023>, form: "prose").],
 ) <og-bpe-space>
 
-
-
-A partir de estas caracterizaciones de las lenguas, basadas en medidas sobre las subpalabras obtenidas mediante BPE, los autores observaron que existía una correspondencia con las nociones lingüísticas de la tipología morfológica. Por ejemplo, el eje de productividad parece estar relacionado con el grado de síntesis de una lengua. Las lenguas con tendencia analítica o aislante se ubican en la región de baja productividad, como el inglés, el vietnamita o el sango. En el extremo opuesto, las lenguas con tendencia aglutinante o polisintética, como el quechua o el kalaallisut, mostraron una alta productividad en el espacio inducido por BPE. Asimismo, puede observarse que las lenguas con una morfología menos productiva tienden a presentar patrones más idiosincráticos. #cite(<ximena-bpe-2023>).
-_#underline[Ximena: Poner los códigos de las lenguas que se mencionan]_
+A partir de estas caracterizaciones de las lenguas, basadas en medidas sobre las subpalabras obtenidas mediante BPE, los autores observaron que existía una correspondencia con las nociones lingüísticas de la tipología morfológica. Por ejemplo, el eje de productividad parece estar relacionado con el grado de síntesis de una lengua. Las lenguas con tendencia analítica o aislante se ubican en la región de baja productividad, como el inglés (eng), el vietnamita (vie) o el sango (sag). En el extremo opuesto, las lenguas con tendencia aglutinante o polisintética, como el quechua (qvi) o el kalaallisut (kal), mostraron una alta productividad en el espacio inducido por BPE. Asimismo, puede observarse que las lenguas con una morfología menos productiva tienden a presentar patrones más idiosincráticos. #cite(<ximena-bpe-2023>).
+_#underline[Ximena: Poner los códigos de las lenguas que se mencionan ✅]_
 
 El hecho de que las lenguas se distribuyan en el espacio inducido por BPE de una manera que también resulta coherente desde una perspectiva tipológica implica que las propiedades de los patrones que captura BPE reflejan, al menos parcialmente, la naturaleza estructural de las lenguas. Los autores concluyen que, para comprimir lenguas altamente aglutinantes o polisintéticas, BPE aprovecha patrones morfológicos altamente productivos en las primeras operaciones de merge. En cambio, para comprimir lenguas menos sintéticas y más aislantes, con una morfología más limitada, BPE realiza sus primeras operaciones de merge utilizando patrones altamente idiosincráticos.
 
 Para complementar estas observaciones, este trabajo previo realiza una comparación entre el espacio inducido por BPE y los vectores obtenidos para cada lengua a partir de características extraídas de una base de datos lingüística (WALS). Si bien no se trata de los mismos espacios ni caracterizan exactamente los mismos aspectos de las lenguas, por lo que no comparten la misma topología, es posible evaluar si las lenguas que tienden a agruparse en un espacio también tienden a agruparse en el otro.
-
 
 Pero esa conclusión aún descansa en una validación cuantitativa frágil, ya que comparó el espacio de BPE contra una sola base de datos, WALS, bajo una única configuración de agrupamiento y con una sola semilla aleatoria. Para fortalecer la comprobación y extender la exploración, en este trabajo incluimos el contraste a otras bases de datos tipológicas y a distintas configuraciones de agrupamiento, y medimos qué tanto coinciden los agrupamientos basados en diferentes caracterizaciones. 
