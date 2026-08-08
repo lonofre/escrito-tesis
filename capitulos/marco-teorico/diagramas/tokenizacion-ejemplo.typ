@@ -41,7 +41,7 @@
     import cetz.draw: *
 
     // caja superior: texto original
-    rect((-input-w / 2, in-b), (input-w / 2, in-t), stroke: S, radius: 3)
+    rect((-input-w / 2, in-b), (input-w / 2, in-t), stroke: S)
     content((0pt, (in-b + in-t) / 2), text(size: fb, input-text))
 
     // flecha hacia la fila de tokens
@@ -50,7 +50,7 @@
     // fila de cajas de tokens, centrada bajo la flecha
     let cx = -total-w / 2
     for (w, t) in tok-widths.zip(tokens) {
-      rect((cx, row-b), (cx + w, row-t), stroke: S, radius: 3)
+      rect((cx, row-b), (cx + w, row-t), stroke: S)
       content((cx + w / 2, (row-b + row-t) / 2), text(size: ft, t))
       cx += w + gap
     }
