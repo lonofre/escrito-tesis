@@ -14,9 +14,6 @@ as not linguistically informed (Gallé 2019; Bostrom and Durrett 2020; Clark et 
 
 Esa posición tenía fundamentos, pues BPE no recibe información lingüística como gramáticas, lexicón o reglas morfológicas. Su único criterio es la frecuencia con que dos símbolos aparecen en posición adyacente, una propiedad de la forma superficial del texto y no de su estructura subyacente; un procedimiento separado del aprendizaje del modelo cuyo único fin era preparar el texto para que este lo consuma como una simple secuencia de enteros. Por construcción, BPE es ciego a la lengua que procesa. Sin embargo, esa ceguera ha empezado a cuestionarse.
 
-
-
-
 // TODO: La siguiente revisión de literatura es preliminar; conviene ampliarla co más trabajos que muestren la dependencia de BPE (o de la tokenización en general) con la lengua
 Distintos estudios apuntan en la misma dirección. #cite(<domingo2019doestokenizationaffectneural>, form: "prose") mostraron que el tokenizador cambia el rendimiento de la traducción automática, y que ese cambio depende de las lenguas involucradas. #cite(<parra2024morphologicaltypologybpesubword>, form: "prose") encontró que la segmentación que produce BPE varía según la morfología de la lengua. #cite(<bayram2025tokenizationstandardslinguisticintegrity>, form: "prose") observaron que los tokenizadores cuyas subpalabras se parecen a las unidades lingüísticas de una lengua producen mejores modelos. La observación común es que la lengua sí importa para BPE, pues si el algoritmo fuera ciego a su estructura, estos efectos no se repetirían entre lenguas distintas.
 
@@ -28,24 +25,17 @@ La tipología lingüística estudia las semejanzas y diferencias estructurales q
 
 Hay lenguas que suelen tener una gran cantidad de morfemas por palabra, mientras que en otras los procesos morfológicos son más limitados y hay pocos morfemas por palabra o, incluso, las palabras carecen de procesos morfológicos internos. En esta escala de clasificación tipológica podemos encontrar lenguas analíticas, con pocos morfemas formando una palabra; aquí encontraríamos lenguas como el chino o incluso el inglés, con una morfología relativamente reducida. En un punto intermedio se encuentran las lenguas sintéticas, que suelen sintetizar o codificar en una sola palabra gran cantidad de información mediante el uso de diferentes morfemas (como ocurre en el alemán o el turco). Finalmente, encontramos las lenguas polisintéticas, donde el uso extensivo de morfemas dentro de una palabra les permite codificar en una sola palabra lo que en otras lenguas más analíticas requiere varias palabras (aquí estarían lenguas como el kalaallisut, el náhuatl o el quechua, entre otras) @sapir1921language.
 
-
-
-
 //Por ejemplo, en la palabra _trisílaba_, _tri-_ es el morfema que indica que se trata de tres elementos (en este caso, tres sílabas). Este mismo morfema aparece también en palabras como _tridimensional_, _tricolor_ o _triángulo_, donde siempre conserva el significado de "tres".
 
 //Una de las dimensiones de la morfología de interés para la tokenización es el número de morfemas por palabra @jm3. Cuando en promedio cada palabra corresponde a un morfema en una lengua, como el cantonés, se las denomina lenguas _analíticas_. En cambio, cuando en promedio las palabras tienen varios morfemas, como el groenlandés, las lenguas se ubican en una escala que va de _sintéticas_ a _polisintéticas_, según cuántos morfemas acumulen por palabra. A esto se le denomina el grado de síntesis .
 
 Además del grado de _síntesis_, otra dimensión clásica para clasificar la morfología de las lenguas es el grado de fusión de los morfemas. Podemos encontrar lenguas fusionales (como el latín o el español), donde un solo morfema fusiona diferentes funciones gramaticales. Por ejemplo, en español, el morfema -mos en la terminación de un verbo es una flexión que codifica simultáneamente información sobre la persona, el tiempo, el aspecto y el modo. También hay lenguas aglutinantes, que van concatenando morfemas, donde cada uno codifica una función gramatical distinta (como el turco o el náhuatl). Finalmente, encontramos las lenguas aislantes, en las que cada morfema que codifica una función gramatical o información léxica constituye una palabra independiente; es decir, los procesos morfológicos son mínimos, ya que prácticamente no existen flexiones ni derivaciones dentro de las palabras.
 
-
-
-
 //Además de la síntesis, otra dimensión de interés es la segmentabilidad de los morfemas, es decir, qué tan fácil resulta separarlos unos de otros dentro de la palabra @jm3. En un extremo hay lenguas donde los morfemas suelen ser como palabras sueltas e independientes, lo que se conoce como morfemas _aislantes_ (_isolating_), como el chino mandarín. En el otro extremo hay lenguas donde los morfemas no se pueden separar como un segmento de la palabra, sino que modifican directamente la raíz, lo que se conoce como morfemas _no concatenativos_ , como ocurre en árabe. En un punto intermedio hay lenguas como el turco, donde los morfemas van pegados unos a otros pero aun así se distinguen con claridad, lo que se conoce como morfemas _concatenativos_ (del inglés _concatenative_). Mientras más se acerque una lengua a alguno de los extremos, mayor es su grado de fusión @Bickel-and-Nichols-2007.
 
 Otra dimensión de interés es qué tan estable es la forma de un morfema entre distintos grupos de palabras. En algunas lenguas, un mismo morfema no siempre tiene la misma forma, sino que cambia según el grupo al que pertenece la palabra. Las terminaciones verbales del español son un buen ejemplo de esto, ya que sus verbos se reparten en grupos según terminen en -ar, en -er o en -ir, y la terminación que usamos para "nosotros" es distinta en cada uno, pues decimos amamos, pero tememos y vivimos. El inglés, en cambio, funciona al revés, ya que por lo general la forma del verbo para "we" es la misma sin importar de qué verbo se trate (_we love, we fear, we live_). Cuanto más cambia la forma de estos morfemas según el grupo de la palabra, más flexiva es una lengua, lo que #cite(<Bickel-and-Nichols-2007>, form: "prose") denomina el grado de _flexividad_.
 
 Existen muchas otras categorías de análisis dentro de la tipología morfológica que no abordaremos aquí. Lo importante es resaltar que conocer la estructura de las lenguas permite clasificarlas, una tarea que requiere un profundo conocimiento lingüístico y un análisis detallado de los morfemas y otros fenómenos gramaticales, los cuales deben ser identificados e interpretados por un lingüista. BPE no dispone de ese análisis, ya que segmenta las palabras guiándose de un algoritmo de compresión y frecuencias. Aun así, trabaja sobre el mismo material que la morfología, es decir, los fragmentos internos de la palabra. Cabe preguntarse entonces si las propiedades de las subpalabras que produce BPE, sin conocimiento morfológico alguno, reflejan algunas de las distinciones tipológicas que acabamos de describir.
-
 
 _#underline[Ximena: Trata de verificar que las referencias bibliográficas que yo utilicé en mi artículo para estas descripciones tipológicas también estén aquí arriba ]_
 
@@ -55,42 +45,50 @@ Para responder a esta pregunta, #cite(<ximena-bpe-2023>, form: "prose") partiero
 
 La segunda es el nivel de idiosincrasia, que, a diferencia de los patrones productivos y regulares, se refiere a formas irregulares que no están compuestas por morfemas que puedan combinarse fácilmente con otros o aparecer en otros lexemas. Más bien, estas formas se almacenan como palabras completas, en lugar de generarse mediante una regla morfológica @Bybee2007. Este es el caso, por ejemplo, de formas como _soy_ o _fui_ en español, que constituyen unidades fosilizadas de alta frecuencia. Estas formas se aprenden de memoria y no siguen un patrón morfológico predecible. 
 
-
 De estas nociones surgen tres medidas que se calculan directamente sobre el corpus a partir de las unidades subpalabra (tokens) que va encontrando el algortimo BPE iterativamente. 
 
-//La segunda es la idiosincrasia, que reúne las partes de la lengua que no siguen un patrón fijo. Cuando estas formas irregulares son muy frecuentes, se almacenan como palabras completas en lugar de generarse mediante una regla @Bybee2007. De estas nociones surgen tres medidas. La productividad y la frecuencia acumulada se calculan directamente sobre el corpus, y la idiosincrasia se obtiene a partir de las dos anteriores.
+La *productividad* de una subpalabra $s$ se define como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios) que la contienen en el corpus $W$. Una subpalabra es más productiva cuantas más palabras distintas la contienen. Por ejemplo, en español el sufijo de plural _-s_ es muy productivo, pues se añade a casi cualquier palabra nueva para formar su plural, incluso a préstamos recientes como _selfie_ (_selfies_), _reel_ (_reels_) o _meme_ (_memes_).
 
-La *productividad* de una subpalabra $s$ se define como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios) que la contienen en el corpus $W$. Una subpalabra es más productiva cuantas más palabras distintas la contienen. Por ejemplo, en español el sufijo _-ble_ es muy productivo, pues forma palabras como _comible_, _bebible_ o _hackeable_, y lo mismo ocurre con _-idad_ en _amabilidad_ o _nacionalidad_.
-
-_#underline[ximena: Sugiero cambiar o agregar ejemplos de otros sufijos que sean flexivos y no solo derivativos, por ejemplo la s del plural]_
-
+_#underline[ximena: Sugiero cambiar o agregar ejemplos de otros sufijos que sean flexivos y no solo derivativos, por ejemplo la s del plural]_✅
 
 $ "productividad"(s) = |W_s| $
 
-La *frecuencia acumulada* no proviene de una noción lingüística sino de una intuición de medición. No todas las palabras pesan lo mismo, ya que una subpalabra que aparece en pocas palabras pero muy frecuentes contribuye más al uso real de la lengua que otra repartida en muchas palabras raras. Se define como la suma de las frecuencias de las palabras ortográficas que contienen a $s$:
+La *frecuencia acumulada* de una subpalabra $s$ es la frecuencia de $s$ en el corpus $W$. Esta medida es independiente si esta subpalabra aparece contenida en una palabra como si aparece de manera independiente.
 
 $ "c.freq"(s) = sum_(w in W_s) "freq"(w) $
 
-La *idiosincrasia* recupera esa noción a partir de las dos medidas anteriores. Capta las formas que no se generan con una regla sino que se aprenden por separado, como el plural _menús_ o _menúes_ de _menú_, o las formas del verbo irregular _ir_ (_voy_, _fui_, _iré_). Se define como el cociente entre la frecuencia acumulada y la productividad de una subpalabra:
-_#underline[ximena: Afinar la definciión de idiosincracia, reocmiendo recuperar las nociones y definiciones del artículo original y no pedir a la IA que las genere, solo que afine escritura ]_
+La *idiosincrasia* hace referencia a esas subpalabras que son muy frecuentes pero pocas palabras la contienen. Por ello, se calcula dividiendo la frecuencia acumulada de una subpalabra $s$ en un corpus $W$, $"c.freq"(s)$, entre el número de palabras en las que aparece, $"productividad"(s)$:
 
-
+_#underline[ximena: Afinar la definciión de idiosincracia, reocmiendo recuperar las nociones y definiciones del artículo original y no pedir a la IA que las genere, solo que afine escritura ✅]_
 
 $ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
 
-Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, el comportamiento típico de las formas idiosincráticas. Un valor bajo indica que se distribuye entre muchas palabras, propio de los patrones productivos.
-
-
-Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (@og-bpe-space).
-
-_@ Ximena: Aquí falta mencionar que se construyeron esas caracterizaciones, promediando los valores obtenidos de las mediciones anteriores por cada subword en cada merge, y haciendo una normalización del espacio (center and scaling). En fin, falta refinar un poco más_
+Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, el comportamiento típico de las formas idiosincráticas. Un valor bajo indica que se distribuye entre muchas palabras, propio de los patrones productivos (véase @tabla-ejemplo-medidas-bpe).
 
 #figure(
-  image("img/bpe-space.svg", width: 90%),
+  table(
+    columns: 4,
+    align: (left, center, center, center),
+    table.header(
+      [*Subpalabra*], [*productividad*], [*c.freq*], [*idiosincrasia*],
+    ),
+    [#raw("ed</w>")], [271], [917], [3.38],
+    [#raw("had</w>")], [1], [104], [104],
+    [#raw("and</w>")], [11], [2,197], [199.72],
+  ),
+  caption: [Subpalabras en inglés generadas por las fusiones de BPE sobre el corpus PBC, con los valores que toman en productividad, frecuencia acumulada e idiosincrasia, tomado de #cite(<ximena-bpe-2023>, form: "prose").],
+) <tabla-ejemplo-medidas-bpe>
+
+Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (véase @og-bpe-space). Para construirla, calcularon las tres medidas sobre cada subpalabra que surge a lo largo de las sucesivas fusiones de BPE, promediaron esos valores por lengua para obtener un solo vector, y normalizaron el espacio resultante centrando y escalando cada dimensión para que las tres medidas quedaran en una escala comparable.
+
+_@ Ximena: Aquí falta mencionar que se construyeron esas caracterizaciones, promediando los valores obtenidos de las mediciones anteriores por cada subword en cada merge, y haciendo una normalización del espacio (center and scaling). En fin, falta refinar un poco más_✅
+
+#figure(
+  image("img/bpe-space.svg", width: 100%),
   caption: [Espacio de BPE definido por #cite(<ximena-bpe-2023>, form: "prose").],
 ) <og-bpe-space>
 
-A partir de estas caracterizaciones de las lenguas, basadas en medidas sobre las subpalabras obtenidas mediante BPE, los autores observaron que existía una correspondencia con las nociones lingüísticas de la tipología morfológica. Por ejemplo, el eje de productividad parece estar relacionado con el grado de síntesis de una lengua. Las lenguas con tendencia analítica o aislante se ubican en la región de baja productividad, como el inglés (eng), el vietnamita (vie) o el sango (sag). En el extremo opuesto, las lenguas con tendencia aglutinante o polisintética, como el quechua (qvi) o el kalaallisut (kal), mostraron una alta productividad en el espacio inducido por BPE. Asimismo, puede observarse que las lenguas con una morfología menos productiva tienden a presentar patrones más idiosincráticos. #cite(<ximena-bpe-2023>).
+A partir de estas caracterizaciones de las lenguas mediante BPE, los autores observaron que existía una correspondencia con las nociones lingüísticas de la tipología morfológica. Por ejemplo, el eje de productividad parece estar relacionado con el grado de síntesis de una lengua. Las lenguas con tendencia analítica o aislante se ubican en la región de baja productividad, como el inglés (eng), el vietnamita (vie) o el sango (sag). En el extremo opuesto, las lenguas con tendencia aglutinante o polisintética, como el quechua (qvi) o el kalaallisut (kal), mostraron una alta productividad en el espacio inducido por BPE. Asimismo, puede observarse que las lenguas con una morfología menos productiva tienden a presentar patrones más idiosincráticos. #cite(<ximena-bpe-2023>).
 _#underline[Ximena: Poner los códigos de las lenguas que se mencionan ✅]_
 
 El hecho de que las lenguas se distribuyan en el espacio inducido por BPE de una manera que también resulta coherente desde una perspectiva tipológica implica que las propiedades de los patrones que captura BPE reflejan, al menos parcialmente, la naturaleza estructural de las lenguas. Los autores concluyen que, para comprimir lenguas altamente aglutinantes o polisintéticas, BPE aprovecha patrones morfológicos altamente productivos en las primeras operaciones de merge. En cambio, para comprimir lenguas menos sintéticas y más aislantes, con una morfología más limitada, BPE realiza sus primeras operaciones de merge utilizando patrones altamente idiosincráticos.
