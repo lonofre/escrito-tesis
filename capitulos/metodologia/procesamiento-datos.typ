@@ -56,7 +56,13 @@ Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de o
 #let footnote_subwordnmt = [`subword-nmt` es un #link("https://github.com/rsennrich/subword-nmt")[programa] para tokenizar texto, basado en BPE.]
 
 // TODO: Quizá explicar un poco mejor sobre los merges
-A continuación, procedimos a la _generación del modelo BPE_ a partir del texto preprocesado con el fin de obtener las subpalabras. Para esto, usamos el programa de `subword-nmt`#footnote(footnote_subwordnmt), configurado a detenerse a las 200 fusiones (_merges_). Este número es sugerido como un punto de inflexión donde la entropía de las lenguas es menos dispersa @ximena-bpe-2021.
+A continuación, procedimos a la _generación del modelo BPE_ a partir del texto preprocesado con el fin de obtener las subpalabras. Para esto, usamos el programa de `subword-nmt`#footnote(footnote_subwordnmt), configurado a detenerse a las 200 fusiones (_merges_). Este número es sugerido por trabajos previos, pues es una especie de punto de inflexión donde suceden varias cosas: las subpalabras capturadas en estas primeras fusiones o merges son las que logran el mayor nivel de compresión del texto. Esto se puede medir en términos de entropía y redundancia de las distribuciones de frecuencia del texto en cada segmentación. Es decir, son estas primeras subpalabras las que nos dan características más distintivas para caracterizar a las lenguas: algunas lenguas son comprimidas capturando patrones productivos, mientras que en otras se capturan patrones más idiosincráticos en los primeros merges @ximena-bpe-2021@ximena-bpe-2023.
+
+
+
+//Este número es sugerido como un punto de inflexión donde la entropía de las lenguas es menos dispersa @ximena-bpe-2021.
+
+
 
 La cuarta etapa correspondió a la _obtención de las métricas por subpalabra_ basado en el modelo BPE que se generó en el paso anterior. Para ello, aplicamos el modelo al archivo del corpus preprocesado utilizando `subword-nmt`, tras lo cual calculamos las medidas de productividad, frecuencia acumulada e idiosincrasia de cada subpalabra.
 
@@ -127,6 +133,8 @@ No obstante, ante la falta de un conjunto definido de características, tuvimos 
 
 Como se observa en @grambank-valores-vacios, la cantidad de valores vacíos varía notablemente según el número de características consideradas, por lo que, en lugar de fijar un único número, generamos un espacio de Grambank por cada $d_G$ en el rango de 30 a 85. Este rango se definió a partir de dos observaciones: alrededor de las 30 características se tiene una cobertura considerable, con pocos valores vacíos; mientras que a partir de las 80 la tendencia comienza a incrementar notablemente, en parte debido a que algunas lenguas, como el barasano y el oromo, presentan una gran cantidad de valores vacíos en Grambank. En total, esto produjo 56 espacios de Grambank. No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptable de valores vacíos, no descartamos ninguna, con el fin de abarcar la mayor cantidad posible.
 
+#underline[_Ximena: En la imagen, el rango con líneas punteadas parecería ir de 30 a 80, no 85_]
+
 Una vez definidas las lenguas y las características, construimos cada matriz $X_G in RR^(|L_G| times d_G)$ con el mismo método empleado para obtener $X_W$ de WALS, leyendo los datos a través de CLDF.
 
 No obstante, estos valores vacíos tuvimos que imputarlos, al igual que en WALS, ya que los algoritmos requieren que la matriz no contenga valores nulos. Para ello, consideramos cuatro estrategias de imputación: reemplazar los valores nulos con $0$, asumiendo su ausencia; reemplazarlos con $-1$, modelando la ausencia como un valor desconocido; imputar la media del conjunto, basándose en los valores de las demás lenguas de la matriz; o imputar valores de lenguas cercanas, lo que proporcionaría una aproximación más informada, aunque descartamos esta opción por requerir conocimiento lingüístico especializado para justificar que esos valores calculados son correctos.
@@ -137,17 +145,22 @@ Nuestra decisión fue imputar con 0 los valores vacíos en $X_G$, para interpret
 
 Como paso final, aplicamos a $X_G$ la misma estandarización descrita para $X_"BPE"$.
 
+
+
 === lang2vec
 
 Para construir $X_"l2v" in RR^(|L| times d_"l2v")$, obtuvimos de la biblioteca lang2vec las características del conjunto `syntax_knn` correspondientes a cada una de las 47 lenguas. Como `syntax_knn` no tiene valores vacíos, $X_"l2v"$ no requirió imputación, a diferencia de WALS y Grambank. Como paso final, aplicamos la misma estandarización descrita para $X_"BPE"$.
 
-=== Base de referencia
+=== Base de referencia (espacio aleatorio)
 
 Para establecer un punto de referencia de similitud debida al azar, creamos $X_0$, un espacio aleatorio que sustituye a $X_"BPE"$ conservando su forma y sus rangos. Esto es necesario porque, como BPE es la representación que queremos poner a prueba, buscamos evidencia de que los vectores que induce codifican información lingüística, y para sostener que la similitud entre $X_"BPE"$ y una base tipológica es real (y no un efecto del azar), necesitamos ese punto de referencia con el cual contrastarla.
 
 Para construirlo, obtuvimos los rangos en los que varían las características de $X_"BPE"$ y, sobre cada rango, generamos una distribución uniforme, que reparte los valores sin ninguna estructura interna. Con ella asignamos un vector a cada lengua en este nuevo espacio.
 
 Como paso final, aplicamos a $X_0$ la misma estandarización descrita para $X_"BPE"$.
+
+La idea de crear este espacio de referencia es contar con un punto de comparación que nos permita evaluar si la similitud entre espacios, medida a través del clustering, realmente refleja una relación entre la información codificada en las bases de datos tipológicas y la segmentación BPE. Si esta similitud responde a una relación real, debería ser mayor al comparar el espacio construido a partir de una base de datos lingüística con el espacio BPE que al compararlo con un espacio de referencia donde la distribución de los puntos sea aleatoria y, por tanto, no contenga la información inducida por BPE.
+
 
 === Resumen de notación
 
