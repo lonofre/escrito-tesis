@@ -1,23 +1,5 @@
 #import "@preview/lilaq:0.6.0" as lq
 
-// Este método genera un plot con múltiples box plots.
-#let boxplot-from-csv(file, start: 30, end: 86) = {
-  let rows = json(file).slice(start, end + 1)
-
-  lq.diagram(
-    width: 14cm,
-    height: 6cm,
-    xlabel: [$d_G$],
-    ylabel: [ARI],
-    lq.boxplot(
-      outliers: "x",
-      x: range(start, end + 1),
-      outlier-size: 3pt,
-      ..rows
-    )
-  )
-}
-
 // Genera un diagrama con dos boxplots comparativos. Los colores por entidad son los
 // mismos que en las bandas anidadas (naranja = BPE, azul = X_0), para que una entidad
 // conserve su color en todo el capítulo. `stroke` fija el color de la caja.
@@ -59,11 +41,11 @@
 //
 // Entrada: dos JSON, cada uno un arreglo de objetos {max, min, q1, q3, ...}, uno por
 // d_G, donde el índice del arreglo ES d_G (índice 30 -> d_G = 30). `start`/`end` recortan
-// con slice semiabierto [start, end); por defecto cubren d_G in [30, 80] (51 puntos).
+// con slice semiabierto [start, end); por defecto cubren d_G in [30, 85] (56 puntos).
 #let nested-overlay(
   file-a, file-b,
   label-a: [BPE], label-b: [$X_0$],
-  start: 30, end: 81,
+  start: 30, end: 85 + 1,
 ) = {
   let xs = range(start, end)
   let load(f) = json(f).slice(start, end)
@@ -101,7 +83,7 @@
 
 // Bandas anidadas de UNA sola serie (experimentos auxiliares sin referencia X_0):
 // banda exterior mín->máx y banda interior IQR de un mismo experimento.
-#let nested-band(file, label: [], hue: rgb("#2f7d78"), start: 30, end: 81) = {
+#let nested-band(file, label: [], hue: rgb("#2f7d78"), start: 30, end: 85 + 1) = {
   let xs = range(start, end)
   let rows = json(file).slice(start, end)
   let col(key) = rows.map(r => r.at(key))

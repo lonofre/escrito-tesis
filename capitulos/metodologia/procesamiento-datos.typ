@@ -123,7 +123,7 @@ No obstante, ante la falta de un conjunto definido de características, tuvimos 
       ),
       lq.line(
         stroke: (paint: blue, dash: "dashed"),
-        (80, 100%), (80, 0pt)
+        (85, 100%), (85, 0pt)
       ),
       width: 90%,
     )
