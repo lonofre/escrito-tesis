@@ -40,15 +40,18 @@
 // Todo son rellenos: el color codifica la serie y la leyenda cuelga de la banda IQR.
 //
 // Entrada: dos JSON, cada uno un arreglo de objetos {max, min, q1, q3, ...}, uno por
-// d_G, donde el índice del arreglo ES d_G (índice 30 -> d_G = 30). `start`/`end` recortan
-// con slice semiabierto [start, end); por defecto cubren d_G in [30, 85] (56 puntos).
+// d_G. El barrido que generó estos JSON arrancó en d_G = 5, así que el índice 0 del
+// arreglo es d_G = 5 (índice i -> d_G = i + 5). `start`/`end` expresan d_G directamente
+// y se corrigen con ese desfase antes de recortar; por defecto cubren d_G in [30, 85]
+// (56 puntos).
+#let n-offset = 5
 #let nested-overlay(
   file-a, file-b,
   label-a: [BPE], label-b: [$X_0$],
   start: 30, end: 85 + 1,
 ) = {
   let xs = range(start, end)
-  let load(f) = json(f).slice(start, end)
+  let load(f) = json(f).slice(start - n-offset, end - n-offset)
   let a = load(file-a)
   let b = load(file-b)
   let col(rows, key) = rows.map(r => r.at(key))
@@ -85,7 +88,7 @@
 // banda exterior mín->máx y banda interior IQR de un mismo experimento.
 #let nested-band(file, label: [], hue: rgb("#2f7d78"), start: 30, end: 85 + 1) = {
   let xs = range(start, end)
-  let rows = json(file).slice(start, end)
+  let rows = json(file).slice(start - n-offset, end - n-offset)
   let col(key) = rows.map(r => r.at(key))
 
   let c-halo = hue.transparentize(93%)
