@@ -17,14 +17,6 @@ Para la experimentación partimos de un conjunto de 47 lenguas (véase @tabla-de
 
 Sin embargo, a pesar de que las 47 lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), no necesariamente están presentes en todas las bases de datos que planeamos explorar en esta tesis. Por ejemplo, en la base de datos tipológica Grambank sólo están disponibles 40 de estas lenguas. Debido a esto y a otras decisiones metodológicas que se explicarán más adelante, trabajamos con un subconjunto de estas lenguas, procurando conservar la diversidad lingüística de la muestra.
 
-//Estas lenguas faltantes se encuentran en diferentes regiones, lo cual no representa un sesgo sobre las 40 lenguas que quedaron. 
-
-//Las 47 lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), y en las bases de datos WALS y lang2vec; mientras que en Grambank sólo están disponibles 40 de estas lenguas. Estas lenguas faltantes se encuentran en diferentes regiones, lo cual no representa un sesgo sobre las 40 lenguas que quedaron. 
-
-// TODO: Mejorar redacción y mejorar la justificación de esto
-//No obstante, cuando trabajamos con Grambank sólo usamos 38 lenguas. Quisimos también experimentar qué pasaría si quitamos las lenguas de coreano y birmano. Por tal motivo, los experimentos que llevaron Grambank se usaron un total de 38 lenguas (40 menos el coreano y birmano).
-
-
 === Corpus
 
 Para obtener una caracterización de las 47 lenguas mediante PBE, usamos el Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC) @mayer-cysouw-2014-creating. Este corpus sirvió como entrada a BPE y así generar los modelos que permiten caracterizar a las lenguas.

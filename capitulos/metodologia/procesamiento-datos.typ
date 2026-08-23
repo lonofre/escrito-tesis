@@ -55,7 +55,6 @@ Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de o
 
 #let footnote_subwordnmt = [`subword-nmt` es un #link("https://github.com/rsennrich/subword-nmt")[programa] para tokenizar texto, basado en BPE.]
 
-// TODO: Quizá explicar un poco mejor sobre los merges
 A continuación, procedimos a la _generación del modelo BPE_ a partir del texto preprocesado con el fin de obtener las subpalabras. Para esto, usamos el programa de `subword-nmt`#footnote(footnote_subwordnmt), configurado a detenerse a las 200 fusiones (_merges_). Este número es sugerido por trabajos previos, pues es una especie de punto de inflexión donde suceden varias cosas: las subpalabras capturadas en estas primeras fusiones o merges son las que logran el mayor nivel de compresión del texto. Esto se puede medir en términos de entropía y redundancia de las distribuciones de frecuencia del texto en cada segmentación. Es decir, son estas primeras subpalabras las que nos dan características más distintivas para caracterizar a las lenguas: algunas lenguas son comprimidas capturando patrones productivos, mientras que en otras se capturan patrones más idiosincráticos en los primeros merges @ximena-bpe-2021@ximena-bpe-2023.
 
 
