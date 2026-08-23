@@ -110,19 +110,24 @@ No obstante, ante la falta de un conjunto definido de características, tuvimos 
           density: 116%,
         ),
       ),
+      xaxis: (
+        tick-distance: 10,
+        subticks: 1,
+        ticks: range(0, 200, step: 10)
+      ),
       lq.plot(
         range(195),
         x => accumlative_missing_values.at(x),
         mark: none,
         stroke: 1pt
       ),
-      lq.line(
-        stroke: (paint: blue, dash: "dashed"),
-        (30, 100%), (30, 0pt)
-      ),
-      lq.line(
-        stroke: (paint: blue, dash: "dashed"),
-        (85, 100%), (85, 0pt)
+      lq.rect(
+        30, 
+        0, 
+        width: 55, 
+        height: -100%, 
+        fill: rgb("#b4d5fb7b"),
+        label: [Rango de operación de $d_G$]
       ),
       width: 90%,
     )
@@ -131,8 +136,6 @@ No obstante, ante la falta de un conjunto definido de características, tuvimos 
 )<grambank-valores-vacios>
 
 Como se observa en @grambank-valores-vacios, la cantidad de valores vacíos varía notablemente según el número de características consideradas, por lo que, en lugar de fijar un único número, generamos un espacio de Grambank por cada $d_G$ en el rango de 30 a 85. Este rango se definió a partir de dos observaciones: alrededor de las 30 características se tiene una cobertura considerable, con pocos valores vacíos; mientras que a partir de las 80 la tendencia comienza a incrementar notablemente, en parte debido a que algunas lenguas, como el barasano y el oromo, presentan una gran cantidad de valores vacíos en Grambank. En total, esto produjo 56 espacios de Grambank. No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptable de valores vacíos, no descartamos ninguna, con el fin de abarcar la mayor cantidad posible.
-
-#underline[_Ximena: En la imagen, el rango con líneas punteadas parecería ir de 30 a 80, no 85_]
 
 Una vez definidas las lenguas y las características, construimos cada matriz $X_G in RR^(|L_G| times d_G)$ con el mismo método empleado para obtener $X_W$ de WALS, leyendo los datos a través de CLDF.
 

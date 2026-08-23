@@ -2,12 +2,8 @@
 #import "resultados-lib.typ" : paired-boxplot, nested-overlay, nested-band
 
 = Resultados
-*_Ximena: En la parte gráfica para mostrar cómo se ven los clusterings entre espacios recomensaría agregar visualizaciones de espacios como GRAMBANK+BPE (por ejemplo configuración 39,51,57, diferentes clusters mismo espacio BPE), así como el mismo tipo de visualziación pero para un setting aleatorio para que se vea el contraste. 
-Hacer énfasis que aunque los clusterings no son iguales entre Grambank+WALS y BPE, los clusters si muestran mucho más continuidad  en el espacio BPE que el aleatorio_*
 
-
-*_También justificar porqué se elige una configuración alrededor de treinta y tantos: Porque en ese umbral no hay tantos NANS como en el lso 70s, donde tantos valores incompletos quizá empiezan a tener un efecto negativo en el clustering aunque el ARI sea alto_*
-
+*_Ximena: También justificar porqué se elige una configuración alrededor de treinta y tantos: Porque en ese umbral no hay tantos NANS como en el lso 70s, donde tantos valores incompletos quizá empiezan a tener un efecto negativo en el clustering aunque el ARI sea alto_*
 
 Reportamos los cinco experimentos descritos en la metodología, cada uno como la distribución de los valores de ARI que produce. Los organizamos en dos bloques, primero las tres comparaciones de $X_"BPE"$ frente a las bases lingüísticas, después las dos comparaciones entre las propias bases. 
 
