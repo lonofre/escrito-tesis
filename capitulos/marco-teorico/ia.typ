@@ -1,5 +1,4 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
-#import "diagramas/transformer.typ": transformer-diagrama2
 
 == La inteligencia artificial y el procesamiento de lenguaje natural
 
@@ -27,13 +26,13 @@ Los modelos de lenguaje basados en redes neuronales (Neural Network Language Mod
 Estas representaciones vectoriales son la base de la mayoría de los modelos de lenguaje actuales, como BERT @bert y GPT @gpt2. Estos modelos se basan en una arquitectura de red neuronal particular, llamada _Transformer_ @attention-is-all. La @diagrama-transformers muestra cómo está conformado un Transformer.
 
 #figure(
-  transformer-diagrama2,
-  caption: [Modelo de la arquitectura de Transformers, tomado de #cite(<attention-is-all>, form: "prose").]  
+  image("img/transformer-con-tokenizacion.svg", width: 70%),
+  caption: [Modelo simplificado de la arquitectura de Transformers, adaptado de #cite(<attention-is-all>, form: "prose") para incluir el rol del tokenizador en la entrada del modelo.]
 )<diagrama-transformers>
 
 La tokenización puede verse como el proceso de segmentar las cadenas de texto en unidades más fundamentales, estas unidades son convertidas después a representaciones numéricas (vectores/embeddings) que sirven para entrenar una red neuronal artificial. Un modelo del lenguaje no aprende cuáles son las unidades más apropiadas en qué se debe segmentar una cadena en lenguaje natural, más bien, la tokenización es un proceso a parte que tiene mucho impacto en el desempeño del sistema final.
 
-Como se observa en @diagrama-transformers, un Transformer recibe como entrada una secuencia de tokens (unidades en la que se divide el texto) _#underline[(ximena: Esto no se observa en el diagrama, el diagraa solo dice "entradas" considera modificar el diagrama o explicar donde se podría ver la secuencia de tokens o módulo de tokenización)]_, sigue una serie de operaciones matriciales dentro de los bloques, y da como salida una distribución de probabilidad sobre el siguiente token. La estructura de estas operaciones está definida por el diseño de la arquitectura, mientras que sus parámetros, es decir, los valores concretos que usan, se aprenden a partir de los tokens observados durante el entrenamiento.
+Como se observa en @diagrama-transformers, un Transformer recibe como entrada una secuencia de tokens (unidades en la que se divide el texto), sigue una serie de operaciones matriciales dentro de los bloques, y da como salida una distribución de probabilidad sobre el siguiente token. La estructura de estas operaciones está definida por el diseño de la arquitectura, mientras que sus parámetros, es decir, los valores concretos que usan, se aprenden a partir de los tokens observados durante el entrenamiento.
 
 Por ende, cabe preguntarse qué influencia tienen los tokens sobre estos modelos. Sin embargo, recordemos que los tokens no son algo que el modelo descubre por sí mismo, sino el producto de un proceso previo de segmentación de textos. De cómo se realice esa segmentación, y en particular de qué unidades produzca, depende la representación inicial que el modelo recibe como entrada, y con ella, el punto de partida sobre el que se construye todo lo demás.
 
