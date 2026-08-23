@@ -66,6 +66,7 @@ Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el expe
     lq.bar(
       range(counts.len()),
       counts,
+      fill: rgb("#79c994")
     ),
     width: 80%,
     height: 180pt,
