@@ -13,14 +13,9 @@
    caption: [Distribución de las 47 lenguas en el mundo. Cada color representa una familia de lenguas distinta.]
 )<mapa-lenguas>
 
-#underline[_Ximena: Falta agregar en el mapa un cuadro con la leyenda de cada famili lingüística. _] ✅
-
 Para la experimentación partimos de un conjunto de 47 lenguas (véase @tabla-de-lenguas) que destaca por su diversidad tipológica, genealógica y geográfica @ximena-bpe-2023. Esto permitió que los resultados no estuvieran sesgados por pocas regiones o pocas familias lingüísticas (véase @mapa-lenguas). Para identificar a las lenguas, usamos el conjunto de códigos ISO 639-3 @iso6393.
 
-
 Sin embargo, a pesar de que las 47 lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), no necesariamente están presentes en todas las bases de datos que planeamos explorar en esta tesis. Por ejemplo, en la base de datos tipológica Grambank sólo están disponibles 40 de estas lenguas. Debido a esto y a otras decisiones metodológicas que se explicarán más adelante, trabajamos con un subconjunto de estas lenguas, procurando conservar la diversidad lingüística de la muestra.
-
-
 
 //Estas lenguas faltantes se encuentran en diferentes regiones, lo cual no representa un sesgo sobre las 40 lenguas que quedaron. 
 
@@ -53,8 +48,6 @@ El PBC reúne 994 traducciones de la Biblia distribuidas en 837 lenguas distinta
 ) <ejemplo-PBC>
 
 Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el experimento original de #cite(<ximena-bpe-2023>, form: "prose"), lo que hace los resultados directamente comparables con los de aquel estudio. En promedio, cada traducción tiene alrededor de $30,000$ tokens por lengua (véase @barplot-conteo-pbc).
-
-#underline[_Ximena: Aquí podría convenir que pongas una tabla con alguna distribución que refleje el tamaño del corpus, por ejemplo promedio de tokens por lengua, o algo así. _] ✅
 
 #{
   let results = csv("datos/pbc_stats.csv")
@@ -96,8 +89,6 @@ Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el expe
 
 Es importante subrayar que se usó únicamente el PBC porque es el corpus paralelo que abarca la mayor cantidad de lenguas. #cite(<ximena-bpe-2023>, form: "prose") usaron otros corpus de apoyo como _La Declaración Universal de los Derechos Humanos_ (DUDH) y el JW300 @agic-vulic-2019-jw300. Sin embargo, la DUDH cubre sólo 25 lenguas de las 47, mientras que el JW300 cubre 31 usando el umbral que establecieron de 68 artículos paralelos por lengua.
 
-#underline[_ Ximena: Aquí finaliza haciendo énfasis que a partir de estos textos aplicas BPE para cada lengua , un método no supervisado, independiente d ela lengua, que se puede aplciar a cualquier texto (aunque abordes más adelante la vectorizcación_]) ✅
-
 Teniendo estas traducciones del PBC, podemos aplicarles BPE, un método no supervisado e independiente de la lengua en que estén escritos los textos, por lo que resulta aplicable a cualquiera de ellos.
 
 === Bases de datos lingüísticas <bases-datos-linguisticas>
@@ -111,7 +102,6 @@ Además del PBC para aplicar BPE, empleamos bases de datos lingüísticas que co
 Utilizamos WALS #footnote(database_footnote) para tener una base con el experimento de #cite(<ximena-bpe-2023>, form: "prose"), lo cual permitió tener una comparación con los experimentos que involucraron WALS (con características de tipología morfológica) con los de otras bases que contienen otros tipos de características.
 
 WALS @wals es una base de datos que contiene información sobre las propiedades fonológicas, gramaticales y léxicas de hasta 2,662 lenguas y variantes dialectales. WALS está organizado en 144 capítulos donde cada uno representa una característica lingüística. No obstante, de WALS solo utilizamos un subconjunto de 15 características porque codifican información principalmente relacionadas con la morfología @ximena-bpe-2023. WALS clasifica cada característica dentro de un área lingüística (fonología, morfología, sintaxis nominal, entre otras), lo que ofrece un punto de referencia para agrupar y seleccionar características. A su vez, este subconjunto presenta una cantidad reducida de valores vacíos para las lenguas analizadas. Estas características se listan por completo en @wals-features. Esta selección está basada en el trabajo previo. En esta tesis nos apegamos a esa decisión metodológica con el fin de mantener, en la medida de lo posible, la comparabilidad de los hallazgos.
-
 
 Las características de WALS toman un valor entero positivo y no tienen la misma distribución, o sea el mismo rango de valores, entre todas estas características. Esto implica que cada valor contiene un significado diferente que varía de acuerdo a cada característica. Por ejemplo, la característica 20A puede tomar 7 valores (véase @ejemplo-feature-wals), 28A puede tomar hasta 4 y 49A hasta 9 valores diferentes.
 
