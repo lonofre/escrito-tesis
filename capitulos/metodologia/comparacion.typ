@@ -35,7 +35,7 @@ Realizamos cinco experimentos. El primero retoma la comparación entre $X_"BPE"$
 
 En los tres experimentos que involucran a $X_"BPE"$, calculamos en paralelo el ARI reemplazando $X_"BPE"$ por el espacio de referencia $X_0$ y manteniendo el resto de la configuración. Esto genera una distribución de referencia que permite distinguir si la similitud observada con $X_"BPE"$ está por encima de lo esperable por azar.
 
-*BPE vs WALS.* Retoma la pregunta original sobre si $X_"BPE"$ codifica información de morfología tipológica. Seguimos la configuración de #cite(<ximena-bpe-2023>, form: "prose"), que usa las 47 lenguas completas y las 15 características morfológicas de @wals-features. Mantuvimos las 47 lenguas aunque los experimentos con Grambank se limitaron a #lenguas_grambank. En @experimentos-complementarios repetimos esta comparación sobre ese subconjunto para verificar que la diferencia de cobertura no explique el contraste entre ambos grupos de experimentos.
+*BPE vs WALS.* Retoma la pregunta original sobre si $X_"BPE"$ codifica información de morfología tipológica. Seguimos la configuración de #cite(<ximena-bpe-2023>, form: "prose"), que usa las 47 lenguas completas y las 15 características morfológicas de @wals-features. Mantuvimos las 47 lenguas aunque los experimentos con Grambank se limitaron a #lenguas_grambank. En @experimentos-complementarios, repetimos esta comparación sobre ese subconjunto para verificar que la diferencia de cobertura no explique el contraste entre ambos grupos de experimentos.
 
 *BPE vs Grambank.* Plantea la misma pregunta, ahora con Grambank como base alternativa a WALS. Comparamos $X_"BPE"$ con $X_G$ y, como Grambank define un espacio distinto por cada $d_G$, repetimos la comparación en todo el barrido.
 

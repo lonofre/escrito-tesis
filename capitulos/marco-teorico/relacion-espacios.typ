@@ -3,7 +3,7 @@
 
 == Similitud entre espacios
 
-Para extender ese contraste conviene entender cómo #cite(<ximena-bpe-2023>, form: "prose") relacionaron dos espacios que contienen las mismas lenguas pero las organizan con criterios distintos. Su estrategia fue agrupar las lenguas y comprobar qué tanto se conserva esa estructura al pasar de un espacio al otro, ya que dos espacios que capturan información similar deberían agruparlas de forma parecida. Para esto se necesitan dos elementos, un algoritmo de agrupamiento y una medida para comparar sus resultados. Analizar cada uno de ellos permite identificar qué aspectos se pueden mejorar.
+Para extender ese contraste conviene entender cómo #cite(<ximena-bpe-2023>, form: "prose") relacionaron dos espacios que contienen las mismas lenguas pero las organizan con criterios distintos. Su estrategia fue agrupar las lenguas y comprobar qué tanto se conserva esa estructura al pasar de un espacio al otro, ya que dos espacios que capturan información similar deberían agruparlas de forma parecida. Para esto se necesitan dos elementos: un algoritmo de agrupamiento y una medida para comparar sus resultados. Analizar cada uno de ellos permite identificar qué aspectos se pueden mejorar.
 
 === Agrupamiento
 
@@ -36,11 +36,11 @@ $
 s(i) = frac(b(i) - a(i), max(a(i), b(i)))
 $
 
-El coeficiente toma valores entre $-1$ y $1$. Un valor cercano a $1$ indica que el elemento está bien agrupado (mucho más cerca de su propio grupo que del vecino), un valor cercano a $0$ indica que se encuentra en la frontera entre dos grupos, y un valor negativo sugiere que estaría mejor asignado al grupo vecino. El Silhouette global se obtiene promediando $s(i)$ sobre todos los elementos, y suele emplearse para evaluar la calidad de un agrupamientos.
+El coeficiente toma valores entre $-1$ y $1$. Un valor cercano a $1$ indica que el elemento está bien agrupado (mucho más cerca de su propio grupo que del vecino), un valor cercano a $0$ indica que se encuentra en la frontera entre dos grupos, y un valor negativo sugiere que estaría mejor asignado al grupo vecino. El Silhouette global se obtiene promediando $s(i)$ sobre todos los elementos, y suele emplearse para evaluar la calidad de un agrupamiento.
 
 A pesar de que el coeficiente de Silhouette presenta buenos resultados en la tarea de validación de grupos @ARBELAITZ2013243, este coeficiente también tiene limitaciones @Rautenstrauch2026. Una de ellas es que posee un sesgo relacionado con la estructura geométrica de los grupos, ya que favorece a los grupos con forma convexa o esférica. Esto contrasta con la forma que pueden presentar los clusters/grupos de diferentes tipos de fenómenos, por ejemplo, los grupos de lenguas caracterizados mediante BPE (véase @og-bpe-space) que tienden a tener una estructura más irregular. 
 
-Debido a estas limitaciones, existen otras medidas de validación que no dependen del cálculo de distancias ni de la forma geométrica de los grupos. Una de ellas es el índice Rand.
+Debido a estas limitaciones, existen otras medidas de validación que no dependen del cálculo de distancias ni de la forma geométrica de los grupos. Una de ellas es el Índice Rand.
 
 === Índice Rand
 
@@ -81,5 +81,5 @@ Adicionalmente, el ARI es una medida simétrica, lo que elimina la necesidad de 
 ) <fig-ari-orden>
 
 
-A pesar de que existen otras técnicas para comparar agrupamientos (clusterings), en este trabajo de tesis proponemos incorporar este índice ajustado para comparar el grado de concordancia entre  los agrupamientos obtenidos a partir de distintas caracterizaciones de las lenguas, ya que corrige el acuerdo esperado por azar y permite robustecer las conclusiones de los trabajos previos.
+A pesar de que existen otras técnicas para comparar agrupamientos (clusterings), en este trabajo de tesis proponemos incorporar este índice ajustado para comparar el grado de concordancia entre los agrupamientos obtenidos a partir de distintas caracterizaciones de las lenguas, ya que corrige el acuerdo esperado por azar y permite robustecer las conclusiones de los trabajos previos.
 

@@ -3,7 +3,7 @@
 
 == Procesamiento computacional de las bases de datos lingüísticas
 
-Con el objetivo de identificar similitudes entre la caracterización de las lenguas por BPE y las bases de datos lingüísticas, procesamos los datos del corpus y de las bases de datos para generar representaciones vectoriales que facilitaran la comparación. Para la caracterización mediante BPE, tuvimos que realizar el procesamiento del PBC; mientras que para las bases de datos de Grambank, WALS y lang2vec realizamos la extracción de sus datos y usamos sólo las características que nos fueron útiles. De este procesamiento resultó un espacio por cada fuente (BPE, WALS, Grambank y lang2vec), además de una base de referencia aleatoria.
+Con el objetivo de identificar similitudes entre la caracterización de las lenguas por BPE y las bases de datos lingüísticas, procesamos los datos del corpus y de las bases de datos para generar representaciones vectoriales que facilitaran la comparación. Para la caracterización mediante BPE, tuvimos que realizar el procesamiento del PBC; mientras que para las bases de datos de Grambank, WALS y lang2vec realizamos la extracción de sus datos y usamos solo las características que nos fueron útiles. De este procesamiento resultó un espacio por cada fuente (BPE, WALS, Grambank y lang2vec), además de una base de referencia aleatoria.
 
 Todos los espacios comparten la misma estructura, donde las filas corresponden a lenguas y las columnas a características. En adelante, $L$ denota el conjunto de las 47 lenguas del estudio, $L_G subset L$ el subconjunto de las 38 cubiertas por Grambank, y $d_e$ la dimensión (número de características) del espacio $e$. Así, por ejemplo, el espacio de WALS es $X_W in RR^(|L| times d_W)$ y el de Grambank es $X_G in RR^(|L_G| times d_G)$. La @notacion-espacios, al final de esta sección, resume todos los símbolos.
 
@@ -47,9 +47,9 @@ Para el procesamiento, utilizamos la implementación del proceso que estuvo disp
   caption: [Etapas del procesamiento para obtener el espacio BPE.],
 ) <fig-etapas>
 
-La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual dividimos el corpus en palabras separadas por espacios. Esta separación crea limites entre palabras y por lo tanto ayuda a BPE en la tokenización. Aunque no es de mucha utilidad en lenguas donde las palabras siempre están separadas por espacios, si es útil en lenguas como el birmano donde no existe esta separación. 
+La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual dividimos el corpus en palabras separadas por espacios. Esta separación crea límites entre palabras y por lo tanto ayuda a BPE en la tokenización. Aunque no es de mucha utilidad en lenguas donde las palabras siempre están separadas por espacios, sí es útil en lenguas como el birmano donde no existe esta separación. 
 
-Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de obtener un mejor modelo de BPE. Este preprocesamiento implicó dos operaciones sobre el texto. En primer lugar, transformamos todos los caracteres a minúsculas para no depender de las varaciones de minúsculas y mayúsculas en el texto (como _Esto_ y _esto_). En segundo lugar, eliminamos del texto los signos de puntuación `_.,"()?¿?¡!»«"،/\]_` para quitarlos de la tokenización. Un ejemplo del preprocesamiento es el siguiente:
+Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de obtener un mejor modelo de BPE. Este preprocesamiento implicó dos operaciones sobre el texto. En primer lugar, transformamos todos los caracteres a minúsculas para no depender de las variaciones de minúsculas y mayúsculas en el texto (como _Esto_ y _esto_). En segundo lugar, eliminamos del texto los signos de puntuación `_.,"()?¿?¡!»«"،/\]_` para quitarlos de la tokenización. Un ejemplo del preprocesamiento es el siguiente:
 
 #align(center)[_Hola, ¿cómo estás?_ $->$ _hola como estás_]
 
@@ -81,7 +81,7 @@ Tanto WALS como Grambank están estructurados según los formatos de datos trans
 
 #let processing_footnote = [A partir del repositorio de WALS, construimos una base de datos relacional mediante `pycldf` @cldf. El uso de bases de datos relacionales, frente a otras modalidades disponibles como archivos `.csv` o llamadas a bibliotecas, proporcionó la flexibilidad necesaria para realizar consultas mediante SQL.]
 
-Para construir los vectores, procesamos `ValueTable` de la base de datos de WALS#footnote(processing_footnote), la tabla que contiene los valores de las características para cada lengua, y convertimos cada lengua en un vector a partir de dichos valores. Por ejemplo, el inglés produce el vector $(1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$. Finalmente, grupamos los vectores resultantes en la matriz $X_W in RR^(|L| times d_W)$, con $d_W = 15$.
+Para construir los vectores, procesamos `ValueTable` de la base de datos de WALS#footnote(processing_footnote), la tabla que contiene los valores de las características para cada lengua, y convertimos cada lengua en un vector a partir de dichos valores. Por ejemplo, el inglés produce el vector $(1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 5, 1, 2, 2)$. Finalmente, agrupamos los vectores resultantes en la matriz $X_W in RR^(|L| times d_W)$, con $d_W = 15$.
 
 Durante este procesamiento, identificamos que algunas lenguas carecen de valores para ciertas características. Siguiendo el procedimiento del experimento original @ximena-bpe-2023, imputamos dichos valores con $0$ en la matriz.
 

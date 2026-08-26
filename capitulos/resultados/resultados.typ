@@ -3,13 +3,13 @@
 
 = Resultados
 
-*_Ximena: También justificar porqué se elige una configuración alrededor de treinta y tantos: Porque en ese umbral no hay tantos NANS como en el lso 70s, donde tantos valores incompletos quizá empiezan a tener un efecto negativo en el clustering aunque el ARI sea alto_*
+*_Ximena: También justificar por qué se elige una configuración alrededor de treinta y tantos: Porque en ese umbral no hay tantos NANS como en los 70s, donde tantos valores incompletos quizá empiezan a tener un efecto negativo en el clustering aunque el ARI sea alto_*
 
 Reportamos los cinco experimentos descritos en la metodología, cada uno como la distribución de los valores de ARI que produce. Los organizamos en dos bloques, primero las tres comparaciones de $X_"BPE"$ frente a las bases lingüísticas, después las dos comparaciones entre las propias bases. 
 
 == BPE frente a las bases lingüísticas
 
-*BPE vs WALS.* El agrupamiento que induce $X_"BPE"$ coincide con el de $X_W$ por encima del azar (@wals-bpe-plot). De esta manera, replicamos el resultado resultado de #cite(<ximena-bpe-2023>, form: "prose") bajo a una diferente metodología.
+*BPE vs WALS.* El agrupamiento que induce $X_"BPE"$ coincide con el de $X_W$ por encima del azar (@wals-bpe-plot). De esta manera, replicamos el resultado de #cite(<ximena-bpe-2023>, form: "prose") bajo una diferente metodología.
 
 #figure(
   paired-boxplot(
