@@ -54,7 +54,7 @@ Combinar $X_W$ con $X_G$ no sube el techo respecto a lo que ya daba Grambank sol
 )<ejemplo-espacios-clusters-grambankANDwals-bpe>
 
 
-Para juzgar lo que alcanza BPE, hay que notar que $X_G$ y $X_W$ tampoco coinciden tanto entre sí. El tercer cuartil de $X_G$ vs $X_W$ está por encima del de cualquier comparación con $X_"BPE"$ en todo el barrido, o sea que WALS y Grambank se parecen de manera más constante. En el extremo alto, en cambio, se emparejan, porque las comparaciones con BPE llegan a ese techo alrededor de las 75 características. BPE coincide menos seguido, pero cuando coincide llega igual de alto.
+Para juzgar lo que alcanza BPE, hay que notar que $X_G$ y $X_W$ tampoco coinciden tanto entre sí. El tercer cuartil de $X_G$ vs $X_W$ está por encima del de cualquier comparación con $X_"BPE"$ en casi todo el barrido, salvo en los primeros cuatro puntos frente a $X_"BPE"$ vs $X_W$, o sea que WALS y Grambank se parecen de manera más constante. En el extremo alto, en cambio, se emparejan, porque las comparaciones con BPE llegan a ese techo alrededor de las 75 características. BPE coincide menos seguido, pero cuando coincide llega igual de alto.
 
 Los grupos de $X_G$ se distinguen claramente al visualizarlos sobre $X_W$, aunque persisten grupos de tres lenguas y se obtiene un ARI de $0.4692$ en este ejemplo (@ejemplo-espacios-clusters-grambank-wals). Para lograr esta visualización, dado que $X_W$ no es tridimensional de origen, usamos el análisis de componentes principales (_Principal Component Analysis_, PCA) para obtener una representación en tres dimensiones. Sin embargo, esta reducción pierde información tanto de los agrupamientos como de los puntos.
 

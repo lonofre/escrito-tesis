@@ -51,12 +51,16 @@ Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecue
   table(
     columns: 4,
     align: (left, center, center, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
     table.header(
       [*Subpalabra*], [*productividad*], [*c.freq*], [*idiosincrasia*],
     ),
+    table.hline(stroke: 0.5pt),
     [#raw("ed</w>")], [271], [917], [3.38],
     [#raw("had</w>")], [1], [104], [104],
     [#raw("and</w>")], [11], [2,197], [199.72],
+    table.hline(stroke: 0.5pt),
   ),
   caption: [Subpalabras en inglés generadas por las fusiones de BPE sobre el corpus PBC, con los valores que toman en productividad, frecuencia acumulada e idiosincrasia, tomado de #cite(<ximena-bpe-2023>, form: "prose").],
 ) <tabla-ejemplo-medidas-bpe>

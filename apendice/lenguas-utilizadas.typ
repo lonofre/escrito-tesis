@@ -15,8 +15,7 @@
       align: (left, center, center, center),
       stroke: none,
       inset: (x: 7pt, y: 5pt),
-      fill: (x, y) => if y == 0 { none } else if calc.odd(y) { luma(245) } else { white },
-      table.hline(stroke: 1pt),
+      table.hline(stroke: 0.5pt),
       table.header(
         [*Lengua*], [*ISO 639-3*], [*Grambank ID*], [*WALS ID*],
       ),
@@ -27,7 +26,7 @@
         or_dash(lang.grambank_id),
         or_dash(lang.wals_id),
       )).flatten(),
-      table.hline(stroke: 1pt),
+      table.hline(stroke: 0.5pt),
     ),
     caption: [Lenguas usadas en los experimentos.],
     )<tabla-de-lenguas>

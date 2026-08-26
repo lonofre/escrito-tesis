@@ -30,14 +30,13 @@
         align: (center, left),
         stroke: none,
         inset: (x: 7pt, y: 5pt),
-        fill: (x, y) => if y == 0 { none } else if calc.odd(y) { luma(245) } else { white },
-        table.hline(stroke: 1pt),
+        table.hline(stroke: 0.5pt),
         table.header(
           [*Característica*], [*Nombre*],
         ),
         table.hline(stroke: 0.5pt),
         ..features.map(((code, name)) => (code, name)).flatten(),
-        table.hline(stroke: 1pt),
+        table.hline(stroke: 0.5pt),
       ),
       caption: [Características de WALS usadas para describir tipología morfológica. Tomado de @ximena-bpe-2023.],
     )<wals-features>

@@ -102,9 +102,12 @@ Las características de WALS toman un valor entero positivo y no tienen la misma
   table(
     columns: 2,
     align: (left, center),
+    stroke: none,
+    table.hline(stroke: 0.5pt),
     table.header(
       [*Nombre*], [*Valor*],
     ),
+    table.hline(stroke: 0.5pt),
     [Exclusivamente concatenativo], [1],
     [Exclusivamente aislante], [2],
     [Exclusivamente tonal], [3],
@@ -112,6 +115,7 @@ Las características de WALS toman un valor entero positivo y no tienen la misma
     [Tonal/concatenativo], [5],
     [Ablaut/concatenativo], [6],
     [Aislante/concatenativo], [7],
+    table.hline(stroke: 0.5pt),
   ),
   caption: [Valores de la característica 20A en WALS.],
 )<ejemplo-feature-wals>
