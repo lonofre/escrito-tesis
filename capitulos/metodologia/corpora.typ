@@ -19,7 +19,7 @@ Sin embargo, a pesar de que las 47 lenguas están disponibles en el Corpus Paral
 
 === Corpus
 
-Para obtener una caracterización de las 47 lenguas mediante PBE, usamos el Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC) @mayer-cysouw-2014-creating. Este corpus sirvió como entrada a BPE y así generar los modelos que permiten caracterizar a las lenguas.
+Para obtener una caracterización de las 47 lenguas mediante BPE, usamos el Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC) @mayer-cysouw-2014-creating. Este corpus sirvió como entrada a BPE y así generar los modelos que permiten caracterizar a las lenguas.
 
 El PBC reúne 994 traducciones de la Biblia distribuidas en 837 lenguas distintas según el estándar ISO 639-3, cobertura que incluye las 47 lenguas analizadas. Cada traducción está alineada a nivel de versículo mediante identificadores estandarizados, normalizada en Unicode y tokenizada a nivel de palabra, propiedades que lo hacen adecuado para el procesamiento computacional (véase @ejemplo-PBC). Al tratarse de un corpus paralelo, todas las lenguas comparten esencialmente el mismo contenido textual; esto hace comparables los modelos BPE entre lenguas, pues las diferencias que el algoritmo capture son atribuibles a la estructura de cada lengua y no a diferencias de dominio o tema.
 
@@ -86,7 +86,7 @@ Teniendo estas traducciones del PBC, podemos aplicarles BPE, un método no super
 
 === Bases de datos lingüísticas <bases-datos-linguisticas>
 
-Además del PBC para aplicar BPE, empleamos bases de datos lingüísticas que contienen información lingüística explícita anotada por expertos, es decir, características tipológicas (morfológicas, sintácticas y fonológicas) de las lenguas analizadas. Estas características permiten corroborar posibles similitudes con la información morfológica presente en el espacio de BPE. Para ello, utilizamos el _World Atlas of Language Structures_ (WALS) y Grambank como las bases de datos principales; y lang2vec como soporte o experimento adicional.
+Además del PBC para aplicar BPE, empleamos bases de datos lingüísticas que contienen información lingüística explícita anotada por expertos, es decir, características tipológicas (morfológicas, sintácticas y fonológicas) de las lenguas analizadas. Estas características permiten corroborar posibles similitudes con la información morfológica presente en el espacio de BPE. Para ello, utilizamos WALS y Grambank como las bases de datos principales; y lang2vec como soporte o experimento adicional.
 
 ==== WALS
 

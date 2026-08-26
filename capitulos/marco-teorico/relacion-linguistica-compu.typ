@@ -5,13 +5,6 @@
 
 Esa pregunta no es nueva. Debido a la simplicidad concptual de los algoritmos, la tokenización comúnmente es concebida como un paso de ingeniería del modelo sin contenido lingüístico explícito, en contraste a lo que podrían ser otros procesos como la segmentación morfológica o el análisis morfológico automático. @mielke2021wordscharactersbriefhistory @galle-2019-investigating @bostrom-durrett-2020-byte @clark-et-al-2022 @saleva-lignos-2021-effectiveness @oncevay-etal-2022-quantifying.
 
-Due to the conceptual simplicity of BPE, the lack of encoding of explicit lin-
-guistic knowledge, as well as the lack of generalized stopping criteria to obtain the
-most appropriate subword tokenization, the NLP literature usually regard this method
-as not linguistically informed (Gallé 2019; Bostrom and Durrett 2020; Clark et al.
-2022; Saleva and Lignos 2021; Mielke et al. 2021; Oncevay et al. 2022; Mager et al.
-2022
-
 Esa posición tenía fundamentos, pues BPE no recibe información lingüística como gramáticas, lexicón o reglas morfológicas. Su único criterio es la frecuencia con que dos símbolos aparecen en posición adyacente, una propiedad de la forma superficial del texto y no de su estructura subyacente; un procedimiento separado del aprendizaje del modelo cuyo único fin era preparar el texto para que este lo consuma como una simple secuencia de enteros. Por construcción, BPE es ciego a la lengua que procesa. Sin embargo, esa ceguera ha empezado a cuestionarse.
 
 Distintos estudios apuntan en la misma dirección. #cite(<domingo2019doestokenizationaffectneural>, form: "prose") mostraron que el tokenizador cambia el rendimiento de la traducción automática, y que ese cambio depende de las lenguas involucradas. #cite(<parra2024morphologicaltypologybpesubword>, form: "prose") encontró que la segmentación que produce BPE varía según la morfología de la lengua. #cite(<bayram2025tokenizationstandardslinguisticintegrity>, form: "prose") observaron que los tokenizadores cuyas subpalabras se parecen a las unidades lingüísticas de una lengua producen mejores modelos. La observación común es que la lengua sí importa para BPE, pues si el algoritmo fuera ciego a su estructura, estos efectos no se repetirían entre lenguas distintas.

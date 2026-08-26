@@ -20,9 +20,9 @@ No obstante, usar vocabularios grandes o capturar contextos largos con n-gramas 
 
 === Grandes Modelos de Lenguaje
 
-Los modelos de lenguaje basados en redes neuronales (Neural Network Language Models, NNLM) sustituyeron el conteo de n-gramas por una función continua sobre representaciones vectoriales de las palabras @bengio2003, conocidos como incrustaciones (_embeddings_). En este espacio vectorial, palabras que aparecen en contextos similares quedan representadas por vectores cercanos, y como la función que predice la siguiente palabra es continua, el modelo puede generalizar entre esos vectores vecinos. Así, es posible asignar una probabilidad razonable a una combinación de palabras que nunca se vio en el corpus de entrenamiento, si es similar a otras que sí fueron observadas, lo cual mitiga la maldición de la dimensionalidad.
+Los modelos de lenguaje basados en redes neuronales (_Neural Network Language Models_, NNLM) sustituyeron el conteo de n-gramas por una función continua sobre representaciones vectoriales de las palabras @bengio2003, conocidos como incrustaciones (_embeddings_). En este espacio vectorial, palabras que aparecen en contextos similares quedan representadas por vectores cercanos, y como la función que predice la siguiente palabra es continua, el modelo puede generalizar entre esos vectores vecinos. Así, es posible asignar una probabilidad razonable a una combinación de palabras que nunca se vio en el corpus de entrenamiento, si es similar a otras que sí fueron observadas, lo cual mitiga la maldición de la dimensionalidad.
 
-Estas representaciones vectoriales son la base de la mayoría de los modelos de lenguaje actuales, como BERT @bert y GPT @gpt2. Estos modelos se basan en una arquitectura de red neuronal particular, llamada _Transformer_ @attention-is-all. La @diagrama-transformers muestra cómo está conformado un Transformer.
+Estas representaciones vectoriales son la base de la mayoría de los modelos de lenguaje actuales, conocidos como los grandes modelos de lenguaje (_Large Language Models_, LLMs), que incluyen a BERT @bert y GPT @gpt2. Estos modelos se basan en una arquitectura de red neuronal particular, llamada _Transformer_ @attention-is-all. La @diagrama-transformers muestra cómo está conformado un Transformer.
 
 #figure(
   image("img/transformer-con-tokenizacion.svg", width: 70%),
