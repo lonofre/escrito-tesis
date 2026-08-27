@@ -1,4 +1,7 @@
 #import "@preview/cetz:0.4.2"
+#import "template.typ": pagina-config
+
+#set page(..pagina-config)
 
 #let cover_content = block(
     width: 11cm

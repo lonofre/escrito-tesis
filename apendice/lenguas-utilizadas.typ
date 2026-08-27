@@ -1,7 +1,7 @@
 = Conjunto de lenguas utilizadas
 
 #{
-  set text(size: 10pt)
+  set text(size: 11pt)
 
   let data = yaml("datos/languages-complete.yaml")
   let or_dash(v) = if v == "" { "—" } else { v }

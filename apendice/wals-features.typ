@@ -1,7 +1,7 @@
 = Conjunto de características utilizadas en WALS
 
 #{
-  set text(size: 10pt)
+  set text(size: 11pt)
 
   show figure: set block(breakable: true)
 
