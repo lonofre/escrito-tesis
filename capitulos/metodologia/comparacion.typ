@@ -31,7 +31,7 @@ En los experimentos que involucran a Grambank, el barrido generó un espacio dis
 
 #let lenguas_grambank = 38
 
-Realizamos cinco experimentos. El primero retoma la comparación entre $X_"BPE"$ y $X_W$ planteada por #cite(<ximena-bpe-2023>, form: "prose"), quienes evalúan si $X_"BPE"$ codifica información de morfología tipológica, pero la aborda con la metodología descrita en este capítulo, estableciendo así la línea base del trabajo. Los dos siguientes ampliaron el análisis incorporando Grambank, primero como base alternativa ($X_"BPE"$ vs $X_G$) y luego como complemento de WALS ($X_"BPE"$ vs $X_(W+G)$). Los dos últimos fueron experimentos auxiliares que compararon Grambank con WALS y con lang2vec, para verificar qué tanto se parecen las bases lingüísticas entre sí y así dar contexto a las comparaciones con BPE.
+Realizamos seis experimentos. El primero retoma la comparación entre $X_"BPE"$ y $X_W$ planteada por #cite(<ximena-bpe-2023>, form: "prose"), quienes evalúan si $X_"BPE"$ codifica información de morfología tipológica, pero la aborda con la metodología descrita en este capítulo, estableciendo así la línea base del trabajo. Los tres siguientes ampliaron el análisis incorporando Grambank: primero como base alternativa ($X_"BPE"$ vs $X_G$), luego como complemento de WALS ($X_"BPE"$ vs $X_(W+G)$), y finalmente desglosando la comparación característica por característica para identificar cuáles pesan más en la similitud con $X_"BPE"$. Los dos últimos fueron experimentos auxiliares que compararon Grambank con WALS y con lang2vec, para verificar qué tanto se parecen las bases lingüísticas entre sí y así dar contexto a las comparaciones con BPE.
 
 En los tres experimentos que involucran a $X_"BPE"$, calculamos en paralelo el ARI reemplazando $X_"BPE"$ por el espacio de referencia $X_0$ y manteniendo el resto de la configuración. Esto genera una distribución de referencia que permite distinguir si la similitud observada con $X_"BPE"$ está por encima de lo esperable por azar.
 
@@ -41,11 +41,11 @@ En los tres experimentos que involucran a $X_"BPE"$, calculamos en paralelo el A
 
 *BPE vs WALS+Grambank.* Pregunta si combinar WALS y Grambank mejora la relación con $X_"BPE"$ frente a usarlas por separado. Construimos el espacio combinado $X_(W+G) = [X_W | X_G]$ concatenando sus características sobre las #lenguas_grambank lenguas cubiertas por Grambank. Como $X_(W+G)$ hereda la dimensión variable de Grambank, repetimos la comparación en cada punto del barrido.
 
+*BPE vs características individuales de Grambank.* Desglosa la comparación anterior para identificar qué características de Grambank contribuyen más a la coincidencia con $X_"BPE"$. Trabajamos sobre un subconjunto reducido de características, seleccionado a partir de los resultados de los experimentos anteriores, y comparamos $X_"BPE"$ con un espacio $X_G$ de una sola dimensión por cada característica. Al final obtenemos un promedio del ARI que nos permitió quitar el ruido por agrupar con una sola característica y así ordenar las características por su contribución.
+
 *Grambank vs WALS.* Verifica qué tan parecidas son las dos bases entre sí, para situar los resultados de los tres experimentos anteriores. Comparamos $X_G$ y $X_W$ sobre el subconjunto $L_G$ de lenguas de Grambank, repitiendo la comparación a lo largo del barrido.
 
 *Grambank vs lang2vec.* Extiende la comparación a otro recurso tipológico, cuyas características son sintácticas. Comparamos $X_G$ con $X_"l2v"$ sobre el subconjunto $L_G$, para cada valor del barrido.
-
-// Finalmente, de la gran cantidad de características que tiene Grambank, nos interesó saber cuáles tienen un gran peso en el cálculo del ARI con $X_"BPE"$. Para saber esto, por cada característica de Grambank, obtuvimos un espacio $X_G$ de una sola característica (esa). Después, realizamos el mismo procedimiento que en los experimentos anteriores: agrupar a Grambank con esa sola característica, agrupar a $X_"BPE"$ y obtener el ARI. Al final, promediamos el valor del ARI y ese valor nos va a permitir clasificar a las lenguas de acuerdo a este valor. Estuvimos concientes que debido a solo estamos agrupando con una característica, los valores de ARI pudieron ser bajos, aunque como estamos tomando el promedio, esperamos ver alguna diferencia entre cada una de las características.
 
 // TODO: Agregar cierre de la sección (fin de la metodología), ver si es bueno poner esto o no.
 
