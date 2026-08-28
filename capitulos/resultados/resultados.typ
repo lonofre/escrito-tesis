@@ -1,5 +1,5 @@
 #import "@preview/lilaq:0.6.0" as lq
-#import "resultados-lib.typ" : paired-boxplot, nested-overlay, nested-band
+#import "resultados-lib.typ" : paired-boxplot, nested-overlay, nested-band, bar-ari-grambank
 
 = Resultados
 
@@ -121,5 +121,10 @@ Las tres comparaciones con $X_"BPE"$ superan su línea de referencia, pero las c
     techo de coincidencia alcanzado. Máximo es el mayor ARI real observado en el
     barrido, más alto pero también más sensible a una sola pareja de semillas.],
 )<resumen-experimentos>
+
+#figure(
+  bar-ari-grambank(),
+  caption: [Clasificación de las características de Grambank al usar cada una para agrupar las lenguas. El asterisco (\*) marca las características con patrón morfológico productivo.],
+)<ranking-ari-grambank-bar>
 
 #pagebreak()

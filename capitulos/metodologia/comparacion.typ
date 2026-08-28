@@ -45,5 +45,7 @@ En los tres experimentos que involucran a $X_"BPE"$, calculamos en paralelo el A
 
 *Grambank vs lang2vec.* Extiende la comparación a otro recurso tipológico, cuyas características son sintácticas. Comparamos $X_G$ con $X_"l2v"$ sobre el subconjunto $L_G$, para cada valor del barrido.
 
+// Finalmente, de la gran cantidad de características que tiene Grambank, nos interesó saber cuáles tienen un gran peso en el cálculo del ARI con $X_"BPE"$. Para saber esto, por cada característica de Grambank, obtuvimos un espacio $X_G$ de una sola característica (esa). Después, realizamos el mismo procedimiento que en los experimentos anteriores: agrupar a Grambank con esa sola característica, agrupar a $X_"BPE"$ y obtener el ARI. Al final, promediamos el valor del ARI y ese valor nos va a permitir clasificar a las lenguas de acuerdo a este valor. Estuvimos concientes que debido a solo estamos agrupando con una característica, los valores de ARI pudieron ser bajos, aunque como estamos tomando el promedio, esperamos ver alguna diferencia entre cada una de las características.
+
 // TODO: Agregar cierre de la sección (fin de la metodología), ver si es bueno poner esto o no.
 

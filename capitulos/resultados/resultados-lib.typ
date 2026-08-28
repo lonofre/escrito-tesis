@@ -109,6 +109,68 @@
   )
 }
 
+// Gráfica de barras del ranking de características de Grambank por ARI promedio
+// (BPE vs X_0), una barra por característica coloreada según su categoría.
+// `posiciones`: lista opcional de posiciones a incluir (p. ej. range(1, 11) para el
+// top 10).
+#let categorias-grambank = (
+  ("morfología", rgb("#2a78d6"), [Morfología]),
+  ("sintaxis", rgb("#e34948"), [Sintaxis]),
+  ("morfosintaxis", rgb("#4a3aa7"), [Morfosintaxis]),
+)
+
+#let bar-ari-grambank(
+  path: "datos/analisis/avg_ari_grambank-bpe_39_100_traducido.csv",
+  posiciones: none,
+) = {
+  let filas = csv(path, row-type: dictionary).filter(fila =>
+    posiciones == none or int(fila.position) in posiciones
+  )
+  let etiquetas = filas.map(fila => fila.feature)
+
+  [
+    #show: lq.show_(
+      lq.tick-label.with(kind: "x"),
+      it => box(width: 0pt, align(center, rotate(-90deg, reflow: true, text(size: 9pt)[#it]))),
+    )
+    #lq.diagram(
+      width: 16cm,
+      height: 8cm,
+      ylabel: [ARI promedio],
+      xaxis: (ticks: etiquetas.enumerate(), subticks: none),
+      legend: lq.legend(
+        [], text(weight: "bold")[Categoría],
+        ..categorias-grambank.map(((cat, color, label)) => (
+          box(width: 8pt, height: 8pt, fill: color, stroke: 0.4pt + color.darken(30%)),
+          label,
+        )).flatten(),
+      ),
+      ..categorias-grambank.map(((cat, color, label)) => {
+        let idx = range(filas.len()).filter(i => filas.at(i).category == cat)
+        lq.bar(
+          idx,
+          idx.map(i => float(filas.at(i).avg_ari)),
+          fill: color,
+          stroke: 0.4pt + color.darken(30%),
+          label: label,
+        )
+      }),
+      // Asterisco sobre las barras con patrón morfológico productivo (comment
+      // == "productividad"), como marca ortogonal a la categoría.
+      {
+        let idx = range(filas.len()).filter(i => filas.at(i).comment == "productividad")
+        lq.scatter(
+          idx,
+          idx.map(i => calc.max(float(filas.at(i).avg_ari), 0) + 0.006),
+          mark: "a6",
+          color: black,
+          size: 8pt,
+        )
+      },
+    )
+  ]
+}
+
 // Este método crea un band plot dado el directorio.
 // Esta es la opción A para representar los datos.
 #let bands-diagram(dir, start: 30, end: 86) = {

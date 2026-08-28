@@ -1,0 +1,40 @@
+position,feature,avg_ari,name,category,comment
+1,GB047,0.09976575225475244,¿Existe un patrón morfológico productivo para derivar un sustantivo de acción/estado a partir de un verbo?,morfología,productividad
+2,GB049,0.08428551276103749,¿Existe un patrón morfológico productivo para derivar un sustantivo objeto a partir de un verbo?,morfología,productividad
+3,GB130,0.083804111066081,¿Cuál es el orden pragmáticamente no marcado de S y V en cláusulas intransitivas?,sintaxis,
+4,GB031,0.07986370943914224,¿Existe una forma dual o de aumentativo unitario (además del plural o aumentativo) para todas las categorías de persona en el sistema pronominal?,morfología,
+5,GB024,0.06417062668524637,¿Cuál es el orden del numeral y el sustantivo en el sintagma nominal?,sintaxis,
+6,GB044,0.06407040041548956,¿Existe marcación morfológica plural productiva en los sustantivos?,morfología,productividad
+7,GB131,0.06040433547528416,¿El orden de constituyentes pragmáticamente no marcado es de verbo inicial para cláusulas transitivas?,sintaxis,
+8,GB028,0.06039124969993029,¿Existe una distinción entre inclusivo y exclusivo?,morfosintaxis,
+9,GB048,0.05293760507520319,¿Existe un patrón morfológico productivo para derivar un sustantivo agente a partir de un verbo?,morfología,productividad
+10,GB117,0.04774779330976278,¿Existe una cópula para los predicados nominales?,morfosintaxis,
+11,GB074,0.04476719742381149,¿Existen preposiciones?,sintaxis,
+12,GB155,0.03736792482499252,¿Los causativos se forman mediante afijos o clíticos en los verbos?,morfología,
+13,GB147,0.03274976013430119,¿Existe una pasiva morfológica marcada en el verbo léxico?,morfología,
+14,GB043,0.027764052858870382,¿Existe marcación morfológica dual productiva en los sustantivos?,morfología,productividad
+15,GB158,0.023875754950366486,¿Se reduplican los verbos?,morfología,
+16,GB093,0.023531724062986294,¿Puede el argumento P ser indexado por un sufijo/enclítico en el verbo en la cláusula principal simple?,morfosintaxis,
+17,GB036,0.02068610184715393,¿Los demostrativos muestran una distinción de elevación?,morfosintaxis,
+18,GB132,0.020255156423512357,¿El orden de constituyentes pragmáticamente no marcado es de verbo medial para cláusulas transitivas?,sintaxis,
+19,GB057,0.01888670408285951,¿Existen clasificadores numerales?,morfosintaxis,
+20,GB075,0.018580951319969636,Are there postpositions?,sintaxis,
+21,GB038,0.016461478931046953,¿Existen clasificadores demostrativos?,morfosintaxis,
+22,GB065,0.015769039713596028,¿Cuál es el orden pragmáticamente no marcado del sustantivo poseedor adnominal y el sustantivo poseído?,sintaxis,
+23,GB037,0.006182389823990436,¿Los demostrativos muestran una distinción visible/no visible?,morfosintaxis,
+24,GB107,0.00575544342322481,"¿Puede la negación estándar marcarse mediante un afijo, clítico o modificación del verbo?",morfosintaxis,
+25,GB083,0.0036658011200070596,¿Existe marcación morfológica explícita en el verbo dedicada al tiempo pasado?,morfología,
+26,GB025,0.0019546569640432757,¿Cuál es el orden del demostrativo adnominal y el sustantivo?,sintaxis,
+27,GB139,-0.0021623623498645403,¿Existe una diferencia entre las construcciones de negación imperativa (prohibitiva) y declarativa?,morfosintaxis,
+28,GB020,-0.002165397111989351,¿Existen artículos definidos o específicos?,morfosintaxis,
+29,GB086,-0.005989714889645649,¿Está disponible en los verbos una distinción morfológica entre aspecto perfectivo e imperfectivo?,morfología,
+30,GB092,-0.006977565485713518,¿Puede el argumento A ser indexado por un prefijo/proclítico en el verbo en la cláusula principal simple?,morfosintaxis,
+31,GB137,-0.007975739201170352,¿Puede la negación estándar marcarse al final de la cláusula?,sintaxis,
+32,GB023,-0.008707422166550759,¿Existen artículos posnominales?,sintaxis,
+33,GB035,-0.0100369623615694,¿Existen tres o más contrastes de distancia en los demostrativos?,morfosintaxis,
+34,GB084,-0.012075070010193013,¿Existe marcación morfológica explícita en el verbo dedicada al tiempo futuro?,morfología,
+35,GB042,-0.019040876925879302,¿Existe marcación morfológica singular productiva y explícita en los sustantivos?,morfología,productividad
+36,GB133,-0.019692612173304275,¿El orden de constituyentes pragmáticamente no marcado es de verbo final para cláusulas transitivas?,sintaxis,
+37,GB030,-0.02091803709491148,¿Existe una distinción de género en los pronombres independientes de 3.ª persona?,morfosintaxis,
+38,GB094,-0.022281430183388403,¿Puede el argumento P ser indexado por un prefijo/proclítico en el verbo en la cláusula principal simple?,morfosintaxis,
+39,GB021,-0.024572674144699262,¿Los sintagmas nominales indefinidos suelen tener artículos indefinidos?,sintaxis,
