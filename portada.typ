@@ -46,7 +46,7 @@
     María Ximena Gutiérrez Vasques
 
     #v(1.5cm)
-    2025
+    2026
 ]
 
 #let cover = cetz.canvas({

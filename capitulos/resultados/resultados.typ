@@ -65,14 +65,14 @@ La diferencia se concentra en el techo, donde el percentil 99 sube de $0.17$ en 
 
 *BPE vs características individuales de Grambank.* Entre las 15 características con mayor ARI promedio predominan las morfológicas, con 9 en esa categoría, frente a 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
 
+Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido concentra los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante.
+
 #figure(
   bar-ari-grambank(),
   caption: [Clasificación de las 39 características de Grambank ($d_G = 39$) según el ARI promedio al agrupar las lenguas por cada una de forma individual. El color indica la categoría gramatical (anotación cualitativa) y el asterisco (\*) marca las preguntas cuya formulación en Grambank refiere explícitamente a un patrón morfológico productivo. Descripciones completas en @grambank-features.],
 )<ranking-ari-grambank-bar>
 
 De las 9 morfológicas del top 15, 5 corresponden a preguntas cuya formulación en Grambank menciona explícitamente productividad morfológica.
-
-Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido concentra los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante.
 
 == Concordancia entre las bases lingüísticas
 
@@ -90,7 +90,7 @@ Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese p
 
 El tercer cuartil de $X_G$ vs $X_W$ se sitúa por encima del de las comparaciones de $X_"BPE"$ contra $X_G$ y contra $X_(W+G)$ en todo el barrido, y por encima del de $X_"BPE"$ vs $X_W$ salvo en los primeros cuatro puntos. Su rango intercuartil se mantiene en valores positivos, salvo dos puntos del barrido en que el primer cuartil roza el cero por debajo. Ese cuartil no pasa de $0.020$ y el tercero va entre $0.059$ y $0.124$. Su mediana va de $0.025$ a $0.066$, un rango que se solapa con el valor único de $X_"BPE"$ vs $X_W$ ($0.048$). El techo, medido por el percentil 99, va de $0.18$ a $0.29$, sin que el percentil 1 baje de $-0.075$, y el máximo real sube todavía más, entre $0.32$ y $0.53$, con su pico en $d_G = 35$. Ese techo, a diferencia del resto, no se despega del de las comparaciones con $X_"BPE"$, que lo alcanzan alrededor de $d_G = 75$.
 
-*Grambank vs lang2vec.* Las medianas de ARI más altas de los cinco experimentos aparecen al comparar $X_G$ con $X_"l2v"$ (@grambank-lang2vec-ari-plot). Este experimento auxiliar amplía la calibración anterior.
+*Grambank vs lang2vec.* Las medianas de ARI más altas del estudio aparecen al comparar $X_G$ con $X_"l2v"$ (@grambank-lang2vec-ari-plot). Este experimento auxiliar amplía la calibración anterior.
 
 // Bandas anidadas: experimento auxiliar de una sola serie (sin referencia).
 #figure(
@@ -103,7 +103,7 @@ El tercer cuartil de $X_G$ vs $X_W$ se sitúa por encima del de las comparacione
     intercuartil.]
 )<grambank-lang2vec-ari-plot>
 
-$X_G$ vs $X_"l2v"$ alcanza las medianas más altas de los cinco experimentos. Su mediana va de $0.13$ a $0.19$, con el máximo alrededor de $d_G = 38$. Su rango intercuartil, entre $0.08$ y $0.25$, queda muy por encima de cero. El techo es también el más alto, con el percentil 99 en $0.45$ cerca de $d_G = 39$ y el máximo real todavía mayor, hasta $0.75$ cerca de $d_G = 42$, el más alto de los cinco experimentos. A diferencia de los demás experimentos, su percentil 1 apenas roza valores negativos, entre $-0.03$ y $0.01$.
+$X_G$ vs $X_"l2v"$ alcanza las medianas más altas de las cinco comparaciones entre espacios. Su mediana va de $0.13$ a $0.19$, con el máximo alrededor de $d_G = 38$. Su rango intercuartil, entre $0.08$ y $0.25$, queda muy por encima de cero. El techo es también el más alto, con el percentil 99 en $0.45$ cerca de $d_G = 39$ y el máximo real todavía mayor, hasta $0.75$ cerca de $d_G = 42$, el más alto de esas cinco comparaciones. A diferencia de los demás experimentos, su percentil 1 apenas roza valores negativos, entre $-0.03$ y $0.01$.
 
 //== Resumen
 
@@ -126,11 +126,13 @@ Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, p
     [Grambank vs lang2vec], [$0.13$–$0.19$],   [$0.45$], [$0.56$–$0.75$],
     table.hline(stroke: 0.5pt),
   ),
-  caption: [Resumen de los cinco experimentos. La mediana se reporta como el rango que
-    recorre a lo largo del barrido de $d_G$; para BPE vs WALS, que no barre ($d_W = 15$
-    fijo), es un valor único. P99 es el máximo del percentil 99 sobre el barrido, el
-    techo de coincidencia alcanzado. Máximo es el mayor ARI real observado en el
-    barrido, más alto pero también más sensible a una sola pareja de semillas.],
+  caption: [Resumen de las cinco comparaciones entre espacios. La mediana se reporta como
+    el rango que recorre a lo largo del barrido de $d_G$; para BPE vs WALS, que no barre
+    ($d_W = 15$ fijo), es un valor único. P99 es el máximo del percentil 99 sobre el
+    barrido, el techo de coincidencia alcanzado. Máximo es el mayor ARI real observado en
+    el barrido, más alto pero también más sensible a una sola pareja de semillas. El
+    experimento por característica individual no aparece porque no produce una
+    distribución comparable (@ranking-ari-grambank-bar).],
 )<resumen-experimentos>
 
 #pagebreak()

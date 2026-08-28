@@ -91,7 +91,7 @@ Como paso final, aplicamos a $X_W$ la misma estandarización descrita para $X_"B
 
 Del procesamiento de Grambank buscamos obtener una representación de las lenguas según sus características, donde cada lengua se representa como un vector cuyas entradas son los valores de dichas características. A diferencia de WALS, Grambank no cubre todas las lenguas del estudio ni contamos con un conjunto fijo de características, por lo que el procesamiento requirió obtener las lenguas cubiertas por Grambank y seleccionar sus características.
 
-A partir de la conexión entre Glottocodes e ISO 639-3 descrita en la @iso-puente, obtuvimos las lenguas correspondientes en Grambank. En dos casos, la entrada obtenida contaba con muy pocas características disponibles, por lo que la reemplazamos manualmente por una variedad cercana con mejor cobertura: _kewa occidental_ por _kewa oriental_, y _guaraní paraguayo_ por _guaraní mbya_. Así, 38 de las 47 lenguas del estudio quedaron cubiertas por Grambank, conjunto que denominamos $L_G$.
+A partir de la conexión entre Glottocodes e ISO 639-3 descrita en la @iso-puente, obtuvimos las lenguas correspondientes en Grambank, que resultaron ser 40 de las 47 del estudio. En dos casos, la entrada obtenida contaba con muy pocas características disponibles, por lo que la reemplazamos manualmente por una variedad cercana con mejor cobertura: _kewa occidental_ por _kewa oriental_, y _guaraní paraguayo_ por _guaraní mbya_. De esas 40 excluimos el coreano (`kor`) y el birmano (`mya`), cuya escritura agrupa varias letras en un solo bloque silábico que se codifica como un único carácter, de modo que BPE opera sobre unidades más grandes y variadas y produce subpalabras menos productivas @ximena-bpe-2023. El conjunto de trabajo quedó entonces en 38 lenguas, que denominamos $L_G$.
 
 No obstante, ante la falta de un conjunto definido de características, tuvimos que seleccionarlas (identificadas con códigos del tipo `GB` seguido de tres dígitos, como `GB107` o `GB401`) según su cobertura, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, `GB107` cubre todas las lenguas, por lo que ocupa uno de los primeros lugares; `GB401`, en cambio, cubre pocas y queda en los últimos. Esta manera de ordenar las características nos permitió la exploración de los valores faltantes y decidir cuántas usamos para el estudio.
 
@@ -184,6 +184,7 @@ La @notacion-espacios consolida los espacios construidos en este capítulo.
     [$X_0$], [Base de referencia aleatoria, generada a partir de los rangos de $X_"BPE"$.], [$|L| times 3$],
     [$X_W$], [Características morfológicas de WALS (@wals-features).], [$|L| times 15$],
     [$X_G$], [Características seleccionadas de Grambank ($d_G$ variable).], [$|L_G| times d_G$],
+    [$X_(W+G)$], [Concatenación de las características de WALS y Grambank sobre $L_G$.], [$|L_G| times (15 + d_G)$],
     [$X_"l2v"$], [Características sintácticas de lang2vec (`syntax_knn`).], [$|L| times 103$],
     table.hline(stroke: 0.5pt),
   ),
