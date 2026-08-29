@@ -27,6 +27,8 @@ Para medir qué tan parecidos son los agrupamientos entre espacios, utilizamos A
 
 En los experimentos que involucran a Grambank, el barrido generó un espacio distinto por cada valor de $d_G$, así que repetimos todo el procedimiento, los 100 agrupamientos y los 10,000 valores de ARI, para cada uno de esos espacios.
 
+Finalmente, para resumir esos $10,000$ valores, reportamos la mediana, el rango intercuartil, el percentil 99 y el máximo, tanto de la comparación como de su referencia con $X_0$. De esa distribución nos interesó sobre todo la parte alta, porque lo que preguntamos es si existe alguna forma de agrupar a las lenguas en la que ambos espacios coincidan, no si coinciden bajo cualquier inicialización.
+
 === Experimentos
 
 #let lenguas_grambank = 38
