@@ -24,12 +24,6 @@ Ese hallazgo se sostiene además en la forma de los grupos, porque los valores a
 
 En esas pocas configuraciones, los grupos de $X_G$ ocupan regiones reconocibles del espacio de BPE. La @ejemplo-espacios-clusters-grambank-bpe toma en cada panel una de ellas, con $d_G = 36$ y un ARI de $0.3800$ en $X_"BPE"$, y $d_G = 84$ con $0.2433$ en $X_0$, siguiendo el mismo criterio de la figura anterior. Los grupos quedan mejor distribuidos sobre $X_"BPE"$ que sobre la referencia, donde otra vez aparecen mezclados. La excepción está en el kalaallisut (kal), el sanumá (xsu) y el alamblak (amp), que caen en un mismo grupo aunque en el espacio de BPE quedan muy lejos entre sí.
 
-// TODO: Probablamente podríamos agregarlo después, pero con un ejemplo y un puente sobre el efecto de los máximos valores
-// TODO: Agregar esto también al párrafo anterior o siguiente, pero con el mismo contexto de grambank:
-//  Obtenemos valores altos con Grambank al final, pero posiblemente es por el peso que tienen los valores vacíos debido a la imputación
-//El punto del barrido donde cae ese ejemplo también importa. Las características que Grambank va agregando hacia el final del barrido traen cada vez más valores imputados, de modo que un ARI alto en esa zona puede estar describiendo el patrón de datos faltantes en lugar de la gramática de las lenguas. Con treinta y tantas características el techo ya es alto y los espacios todavía descansan sobre información observada, así que es ahí donde la coincidencia resulta más creíble.
-
-
 // cluster 1 de Grambank (n36 y s44): ari de 0.3800 en seed2 77
 // cluster 2 de Grambank (n84 y s88):, ari de 0.2433 en seed2 34
 #figure(
@@ -39,7 +33,6 @@ En esas pocas configuraciones, los grupos de $X_G$ ocupan regiones reconocibles 
     El color de cada lengua es su grupo en Grambank, no el del espacio donde está
     dibujada.]
 )<ejemplo-espacios-clusters-grambank-bpe>
-// TODO: Agregar el experimento bien en el caption
 
 *BPE vs WALS+Grambank.* Combinar $X_W$ con $X_G$ no sube el techo respecto a lo que ya daba Grambank sola. El percentil 99 arranca en el mismo $0.17$ y llega a un valor equivalente al final del barrido, y lo único que sube es el máximo real, hasta $0.545$ en $d_G = 75$ frente a $0.493$ de Grambank sola. Así que lo que vale la pena mirar en este experimento son los picos, en especial los picos locales de la primera mitad del barrido. Antes de $d_G=45$ aparecen estos valores que no llegan a $0.5$, que son más bajos que el techo del barrido, pero se obtienen con la mitad de las características y con muchos menos valores imputados. La @ejemplo-espacios-clusters-grambankANDwals-bpe muestra uno de esos picos, con 38 características y un ARI de $0.4743$ en $X_"BPE"$. Aunque aquí reaparece el problema del ejemplo anterior (un grupo pequeño formado por el yaqui (yaq), el vietnamita (vie) y el sanumá (xsu)), los grupos se ven más definidos.
 
@@ -67,7 +60,6 @@ Los grupos de $X_G$ se distinguen claramente al visualizarlos sobre $X_W$, aunqu
     donde está dibujada.]
 )<ejemplo-espacios-clusters-grambank-wals>
 
-// TODO: Buscar si hay un paper que soporte que características one hot encoding hace que se parezcan
 *Grambank vs lang2vec.* La otra comparación entre bases de datos lingüísticas, $X_G$ y $X_"l2v"$, sube todavía más ese punto de referencia, pues resultaron el par de espacios más parecidos de todo el estudio, con un tercer cuartil por encima del de cualquier otro experimento y un techo que pasa de $0.7$. Ninguna comparación con $X_"BPE"$ se acerca a esa distribución, ni en el centro ni en el techo.
 
 Ese gran parecido no se queda en los valores de ARI, porque algunos grupos que lo producen se sostienen a la vista. La @ejemplo-espacios-clusters-grambank-lang2vec muestra el espacio de lang2vec, reducido a tres dimensiones mediante PCA, con los grupos que forma Grambank en la configuración de 39 características que alcanzó un ARI de $0.7148$. Los grupos aparecen unidos y ocupando una región propia en su mayoría. En contraste con otros experimentos, el grupo más chico es de 6 lenguas, así que el valor alto no sale de una partición desbalanceada. A diferencia de este caso, lo que vemos en los ejemplos en $X_"BPE"$ es más tenue, con grupos contiguos pero sin regiones tan definidas.
@@ -87,12 +79,6 @@ Ese gran parecido no se queda en los valores de ARI, porque algunos grupos que l
 // como calibración junto con Grambank vs WALS. Falta el análisis por característica que
 // la pregunta 3 pide (qué características contribuyen más y qué tipo de información
 // lingüística capturan las representaciones de subpalabras).
-
-// TODO: Agregar ejemplo de Grambank con lang2vec
-
-
-// TODO: Al final, decir por qué es relevante esto
-
 
 == Limitaciones y trabajo futuro
 

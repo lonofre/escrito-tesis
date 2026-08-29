@@ -48,6 +48,3 @@ En tres de los cuatro experimentos que involucran a $X_"BPE"$, calculamos en par
 *Grambank vs WALS.* Verifica qué tan parecidas son las dos bases entre sí, para situar los resultados de los tres experimentos anteriores. Comparamos $X_G$ y $X_W$ sobre el subconjunto $L_G$ de lenguas de Grambank, repitiendo la comparación a lo largo del barrido.
 
 *Grambank vs lang2vec.* Extiende la comparación a otro recurso tipológico, cuyas características son sintácticas. Comparamos $X_G$ con $X_"l2v"$ sobre el subconjunto $L_G$, para cada valor del barrido.
-
-// TODO: Agregar cierre de la sección (fin de la metodología), ver si es bueno poner esto o no.
-
