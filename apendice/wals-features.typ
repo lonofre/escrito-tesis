@@ -1,4 +1,4 @@
-= Conjunto de características utilizadas en WALS
+= Conjunto de características utilizadas en WALS<wals-features>
 
 #{
   set text(size: 11pt)
@@ -39,6 +39,6 @@
         table.hline(stroke: 0.5pt),
       ),
       caption: [Características de WALS usadas para describir tipología morfológica. Tomado de @ximena-bpe-2023.],
-    )<wals-features>
+    )
   ]
 }

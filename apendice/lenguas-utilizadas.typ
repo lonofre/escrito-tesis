@@ -1,4 +1,4 @@
-= Conjunto de lenguas utilizadas
+= Conjunto de lenguas utilizadas<tabla-de-lenguas>
 
 #{
   set text(size: 11pt)
@@ -29,7 +29,7 @@
       table.hline(stroke: 0.5pt),
     ),
     caption: [Lenguas usadas en los experimentos.],
-    )<tabla-de-lenguas>
+    )
   ]
 }
 

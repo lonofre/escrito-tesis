@@ -1,7 +1,7 @@
 #pagebreak(weak: true)
 
 #counter(heading).update(0)
-#set heading(numbering: "A.1")
+#set heading(numbering: "A.1", supplement: "Apéndice")
 
 #show heading.where(level: 1): it => block[
   #if it.numbering != none [
