@@ -4,6 +4,7 @@
 */
 #import "diagramas/tokenizacion-ejemplo.typ": ejemplo-tokenizacion
 #import "diagramas/bpe-ejemplo.typ": bpe-ejemplo-diagrama
+#import "diagramas/subpalabras-oov.typ": subpalabras-oov-diagrama
 
 == Tokenización a nivel subpalabra
 
@@ -19,14 +20,16 @@ Esa segmentación previa al modelo recibe el nombre de tokenización, el proceso
   caption: [Algunas formas de tokenización.]
 )<fig-tokenizacion>
 
-La más intuitiva de esas formas es la tokenización por palabras, pero tiene limitaciones importantes @jm3. Las lenguas tienden a producir una gran variedad de palabras ortográficas distintas, especialmente aquellas con morfología rica. Muchas de estas palabras tienen una frecuencia de aparición de 1 o muy baja. En general, esto no es favorable para los modelos estadísticos o neuronales, ya que una palabra con baja frecuencia no puede modelarse adecuadamente. Además, esto ocasiona el problema de las palabras fuera del vocabulario (_Out-of-Vocabulary_, OOV), es decir, palabras que no fueron observadas durante el entrenamiento del modelo, pero que pueden aparecer en el momento de la inferencia. Esto es evidente en tareas como la traducción automática y el modelado del lenguaje en general, donde los mecanismos a nivel de palabra resultan insuficientes en lenguas con procesos productivos de formación de nuevas palabras @sennrich-etal-2016-neural.
-
-#underline[_ Ximena: Cambié un poco la redacción, asegúrate de que tengas claros los conceptos de tokenización y por qué es importante. Te recomendaría aquí poner un ejemplito sencillo ya sea en una tabla o figura. Por ejemplo fr(created)=10 ; fr(creat)= 40 (aparece en creation, creature, creates, etc)  fr(ed)=100 (aparece al final de un montón de palabras)_]
+La más intuitiva de esas formas es la tokenización por palabras, pero tiene limitaciones importantes @jm3. Las lenguas tienden a producir una gran variedad de palabras ortográficas distintas, especialmente aquellas con morfología rica. Muchas de estas palabras tienen una frecuencia de aparición de 1 o muy baja. En general, esto no es favorable para los modelos estadísticos o neuronales, ya que una palabra con baja frecuencia no puede modelarse adecuadamente. Además, esto ocasiona el problema de las palabras fuera del vocabulario (_Out-of-Vocabulary_, OOV), es decir, palabras que no fueron observadas durante el entrenamiento del modelo, pero que pueden aparecer en el momento de la inferencia (véase @fig-subpalabras-oov). Esto es evidente en tareas como la traducción automática y el modelado del lenguaje en general, donde los mecanismos a nivel de palabra resultan insuficientes en lenguas con procesos productivos de formación de nuevas palabras @sennrich-etal-2016-neural.
 
 Para abordar estas limitaciones, una alternativa al uso de palabras como tokens es emplear subpalabras, que son unidades de longitud igual o menor que una palabra, que pueden corresponder a cadenas arbitrarias, morfemas o, en algunos casos, a la palabra completa.
 
 Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece muy pocas veces, el modelo tiene dificultades para aprender su significado, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, ya que estas unidades, al ser más pequeñas, tienden a repetirse con mayor frecuencia que las palabras completas. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
 
+#figure(
+  subpalabras-oov-diagrama,
+  caption: [Ejemplo de la ventaja de segmentar en subpalabras. Las frecuencias (fr) son ilustrativas y muestran que las piezas de una palabra aparecen en más contextos que la palabra completa, de modo que una palabra nunca observada puede representarse con piezas que sí lo fueron.]
+)<fig-subpalabras-oov>
 
 Debido a estas ventajas, las subpalabras son las unidades predominantes en los modelos de lenguaje actuales. El algoritmo más extendido para producirlas es la codificación de pares de bytes.
 
