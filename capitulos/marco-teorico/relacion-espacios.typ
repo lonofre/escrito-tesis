@@ -46,9 +46,9 @@ Debido a estas limitaciones, existen otras medidas de validación que no depende
 
 El Índice Rand (_Rand Index_, RI) @rand mide la similitud entre dos particiones/agrupamientos distintos sobre un mismo conjunto de instancias. Para esto, revisa cada par de instancias y determina si ambas particiones los colocan de forma consistente, es decir, si los ubican en el mismo grupo en las dos particiones o en grupos distintos en las dos particiones. La proporción de pares en los que existe esta coincidencia define el valor del índice, que toma valores entre 0 (ningún acuerdo) y 1 (acuerdo completo).
 
-Sin embargo, el Índice Rand presenta una limitación importante: no corrige el grado de acuerdo esperado por azar. Como consecuencia, dos particiones generadas aleatoriamente pueden obtener valores relativamente altos, lo que dificulta la interpretación de valores intermedios y motivó la formulación de una versión corregida, conocida como el Índice Rand Ajustado (ARI) @Hubert1985.
+Sin embargo, el RI presenta una limitación importante: no corrige el grado de acuerdo esperado por azar. Como consecuencia, dos particiones generadas aleatoriamente pueden obtener valores relativamente altos, lo que dificulta la interpretación de valores intermedios y motivó la formulación de una versión corregida, conocida como el Índice Rand Ajustado (_Adjusted Rand Index_, ARI) @Hubert1985.
 
-El Índice Rand Ajustado (_Adjusted Rand Index_, ARI) @Hubert1985 corrige esta limitación al descontar la coincidencia esperada por azar entre dos particiones. De esta forma, mide qué tan parecidos son los grupos generados en un espacio frente a los generados en otro, controlando por el componente aleatorio.
+El ARI corrige esta limitación al descontar la coincidencia esperada por azar entre dos particiones. De esta forma, mide qué tan parecidos son los grupos generados en un espacio frente a los generados en otro, controlando por el componente aleatorio.
 
 Por ejemplo, si un espacio $A$ agrupa cuatro lenguas como $[0, 0, 3, 5]$ y un espacio $B$ las agrupa como $[0, 0, 3, 3]$, el ARI captura ese parecido parcial (@fig-ejemplo-ari). Esto ocurre porque ambos espacios coinciden en las dos primeras lenguas, pero mientras $A$ separa la tercera y la cuarta lengua en grupos distintos, $B$ las mantiene juntas en el mismo grupo.
 
