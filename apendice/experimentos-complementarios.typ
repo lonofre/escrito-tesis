@@ -64,3 +64,40 @@ Cada referencia $X_0$ se generó sobre las lenguas de su propio experimento, as�
     intercuartil, es decir el primer cuartil más bajo y el tercero más alto del barrido.
     P99 y Máximo son el techo alcanzado.],
 )<grambank-bpe-40-tabla>
+
+
+== La referencia aleatoria bajo distintos sorteos <referencia-semillas>
+
+La referencia $X_0$ reparte puntos al azar dentro de los rangos de $X_"BPE"$, así que cada semilla da una configuración distinta del espacio. Los experimentos del capítulo de resultados usan una sola, la 42. Para ver cuánto se mueve la referencia al cambiar ese sorteo, repetimos la comparación de $X_"BPE"$ vs $X_G$ con cuatro semillas más.
+
+La referencia se mueve, pero ningún sorteo alcanza a $X_"BPE"$ (@referencia-semillas-tabla). Su percentil 99 va de $0.110$ a $0.223$ y su máximo de $0.185$ a $0.337$, siempre por debajo del $0.281$ y el $0.493$ de $X_"BPE"$. La semilla 42, la de los experimentos reportados, cae entre las más bajas de las cinco.
+
+El sorteo más favorable, el de la semilla 1234, también se acerca en el centro de la distribución, con un tercer cuartil de $0.066$ frente al $0.068$ de $X_"BPE"$, aunque un reparto desigual de grupos puede elevar el ARI sin que los grupos coincidan (@ejemplo-espacios-clusters-grambank-bpe). Cinco sorteos muestran la dirección, no la frecuencia con que ocurriría, y solo repetimos el experimento de Grambank con 38 lenguas.
+
+#figure(
+  table(
+    columns: (auto, auto, auto, auto, auto, auto),
+    align: (left, center, center, center, center, center),
+    stroke: none,
+    inset: (x: 7pt, y: 5pt),
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [*Serie*], [*Semilla de $X_0$*], [*Mediana*], [*Q1--Q3*], [*P99*], [*Máximo*],
+    ),
+    table.hline(stroke: 0.3pt),
+    [$X_"BPE"$ vs $X_G$], [---],  [$-0.002$--$0.026$],  [$-0.027$--$0.068$], [$0.281$], [$0.493$],
+    table.hline(stroke: 0.3pt),
+    [$X_0$ vs $X_G$], [123],  [$-0.019$--$0.000$],  [$-0.036$--$0.027$], [$0.110$], [$0.185$],
+    [$X_0$ vs $X_G$], [42],   [$-0.014$--$-0.001$], [$-0.033$--$0.023$], [$0.112$], [$0.243$],
+    [$X_0$ vs $X_G$], [0],    [$-0.022$--$-0.006$], [$-0.040$--$0.019$], [$0.114$], [$0.220$],
+    [$X_0$ vs $X_G$], [1],    [$-0.002$--$0.013$],  [$-0.024$--$0.045$], [$0.184$], [$0.337$],
+    [$X_0$ vs $X_G$], [1234], [$-0.007$--$0.023$],  [$-0.028$--$0.066$], [$0.223$], [$0.320$],
+    table.hline(stroke: 0.5pt),
+  ),
+  caption: [Distribución de ARI entre $X_0$ y $X_G$ con las 38 lenguas de Grambank bajo
+    cinco sorteos de $X_0$, ordenados por techo, junto con $X_"BPE"$ vs $X_G$ del
+    capítulo de resultados. La semilla 42 es la de los experimentos reportados. Como
+    estos experimentos barren $d_G$, la mediana y el rango intercuartil se reportan como
+    rangos sobre el barrido, en el mismo sentido que en @grambank-bpe-40-tabla. P99 y
+    Máximo son el techo alcanzado.],
+)<referencia-semillas-tabla>
