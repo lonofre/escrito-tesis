@@ -76,7 +76,7 @@ De las 9 morfológicas del top 15, 5 corresponden a preguntas cuya formulación 
 
 == Concordancia entre las bases lingüísticas
 
-*Grambank vs WALS.* La mayor parte de las corridas de $X_G$ vs $X_W$ da valores más altos que cualquier comparación con $X_"BPE"$, aunque su techo no (@grambank-wals-ari-plot). Este experimento auxiliar sitúa la magnitud de los tres resultados anteriores en una escala interpretable.
+*Grambank vs WALS.* La mayor parte de las corridas de $X_G$ vs $X_W$ da valores más altos que cualquier comparación con $X_"BPE"$, aunque su máximo real no (@grambank-wals-ari-plot). Este experimento auxiliar sitúa la magnitud de los tres resultados anteriores en una escala interpretable.
 
 // Bandas anidadas: experimento auxiliar de una sola serie (sin referencia).
 #figure(

@@ -57,12 +57,6 @@ Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de o
 
 A continuación, procedimos a la _generación del modelo BPE_ a partir del texto preprocesado con el fin de obtener las subpalabras. Para esto, usamos el programa de `subword-nmt`#footnote(footnote_subwordnmt), configurado a detenerse a las 200 fusiones (_merges_). Este número es sugerido por trabajos previos, pues es una especie de punto de inflexión donde suceden varias cosas: las subpalabras capturadas en estas primeras fusiones o merges son las que logran el mayor nivel de compresión del texto. Esto se puede medir en términos de entropía y redundancia de las distribuciones de frecuencia del texto en cada segmentación. Es decir, son estas primeras subpalabras las que nos dan características más distintivas para caracterizar a las lenguas: algunas lenguas son comprimidas capturando patrones productivos, mientras que en otras se capturan patrones más idiosincráticos en los primeros merges @ximena-bpe-2021@ximena-bpe-2023.
 
-
-
-//Este número es sugerido como un punto de inflexión donde la entropía de las lenguas es menos dispersa @ximena-bpe-2021.
-
-
-
 La cuarta etapa correspondió a la _obtención de las métricas por subpalabra_ basado en el modelo BPE que se generó en el paso anterior. Para ello, aplicamos el modelo al archivo del corpus preprocesado utilizando `subword-nmt`, tras lo cual calculamos las medidas de productividad, frecuencia acumulada e idiosincrasia de cada subpalabra.
 
 Finalmente, realizamos la _obtención de las métricas por lengua_, promediando las métricas obtenidas de cada subpalabra para obtener la representación vectorial de cada lengua.
@@ -91,7 +85,7 @@ Como paso final, aplicamos a $X_W$ la misma estandarización descrita para $X_"B
 
 Del procesamiento de Grambank buscamos obtener una representación de las lenguas según sus características, donde cada lengua se representa como un vector cuyas entradas son los valores de dichas características. A diferencia de WALS, Grambank no cubre todas las lenguas del estudio ni contamos con un conjunto fijo de características, por lo que el procesamiento requirió obtener las lenguas cubiertas por Grambank y seleccionar sus características.
 
-A partir de la conexión entre Glottocodes e ISO 639-3 descrita en la @iso-puente, obtuvimos las lenguas correspondientes en Grambank, que resultaron ser 40 de las 47 del estudio. En dos casos, la entrada obtenida contaba con muy pocas características disponibles, por lo que la reemplazamos manualmente por una variedad cercana con mejor cobertura: _kewa occidental_ por _kewa oriental_, y _guaraní paraguayo_ por _guaraní mbya_. De esas 40 excluimos el coreano (`kor`) y el birmano (`mya`), cuya escritura agrupa varias letras en un solo bloque silábico que se codifica como un único carácter, de modo que BPE opera sobre unidades más grandes y variadas y produce subpalabras menos productivas @ximena-bpe-2023. El conjunto de trabajo quedó entonces en 38 lenguas, que denominamos $L_G$.
+A partir de la conexión entre Glottocodes e ISO 639-3 descrita en la @iso-puente, obtuvimos las lenguas correspondientes en Grambank, que resultaron ser 40 de las 47 del estudio. En dos casos, la entrada obtenida contaba con muy pocas características disponibles, por lo que la reemplazamos manualmente por una variedad cercana con mejor cobertura: _kewa occidental_ por _kewa oriental_, y _guaraní paraguayo_ por _guaraní mbya_. De esas 40 excluimos el coreano (`kor`) y el birmano (`mya`), cuya escritura agrupa varias letras en un solo bloque silábico que se codifica como un único carácter Unicode, de modo que BPE opera sobre unidades más grandes y variadas y produce subpalabras menos productivas @ximena-bpe-2023. El conjunto de trabajo quedó entonces en 38 lenguas, que denominamos $L_G$.
 
 No obstante, ante la falta de un conjunto definido de características, tuvimos que seleccionarlas (identificadas con códigos del tipo `GB` seguido de tres dígitos, como `GB107` o `GB401`) según su cobertura, ordenándolas de mayor a menor según el número de lenguas que cubrían. Por ejemplo, `GB107` cubre todas las lenguas, por lo que ocupa uno de los primeros lugares; `GB401`, en cambio, cubre pocas y queda en los últimos. Esta manera de ordenar las características nos permitió la exploración de los valores faltantes y decidir cuántas usamos para el estudio.
 
@@ -157,9 +151,7 @@ Para construir $X_"l2v" in RR^(|L| times d_"l2v")$, obtuvimos de la biblioteca l
 
 Para establecer un punto de referencia de similitud debida al azar, creamos $X_0$, un espacio aleatorio que sustituye a $X_"BPE"$ conservando su forma y sus rangos. Esto es necesario porque, como BPE es la representación que queremos poner a prueba, buscamos evidencia de que los vectores que induce codifican información lingüística, y para sostener que la similitud entre $X_"BPE"$ y una base tipológica es real (y no un efecto del azar), necesitamos ese punto de referencia con el cual contrastarla.
 
-Para construirlo, obtuvimos los rangos en los que varían las características de $X_"BPE"$ y, sobre cada rango, generamos una distribución uniforme, que reparte los valores sin ninguna estructura interna. Con ella asignamos un vector a cada lengua en este nuevo espacio.
-
-Como paso final, aplicamos a $X_0$ la misma estandarización descrita para $X_"BPE"$.
+Para construirlo, obtuvimos los rangos en los que varían las características de $X_"BPE"$ y, sobre cada rango, generamos una distribución uniforme, que reparte los valores sin ninguna estructura interna. Con ella asignamos un vector a cada lengua en este nuevo espacio. Y como paso final, aplicamos a $X_0$ la misma estandarización descrita para $X_"BPE"$.
 
 La idea de crear este espacio de referencia es contar con un punto de comparación que nos permita evaluar si la similitud entre espacios, medida a través del clustering, realmente refleja una relación entre la información codificada en las bases de datos tipológicas y la segmentación BPE. Si esta similitud responde a una relación real, debería ser mayor al comparar el espacio construido a partir de una base de datos lingüística con el espacio BPE que al compararlo con un espacio de referencia donde la distribución de los puntos sea aleatoria y, por tanto, no contenga la información inducida por BPE.
 
