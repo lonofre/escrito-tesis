@@ -5,7 +5,7 @@
 
 El espacio que induce BPE ($X_"BPE"$) conserva algo de la organización tipológica de las lenguas, pero lo hace de manera intermitente. En los tres experimentos que comparan a $X_"BPE"$ con bases de datos lingüísticas, la coincidencia supera a la de la referencia aleatoria. No obstante, la mayoría de toda esa brecha vive en el extremo alto de la distribución, pues, salvo con $X_W$, la mediana apenas se despega de cero y son las mejores corridas las que separan a $X_"BPE"$ del azar. Notemos que estos valores altos de ARI no son un accidente, pues los grupos que los producen ocupan regiones reconocibles en $X_"BPE"$ y no aparecen tan dispersos como aparecen en la referencia. Aun así, $X_G$ y $X_W$ coinciden más seguido entre sí que $X_"BPE"$ con cualquiera de las dos, por lo que la huella lingüística de BPE existe y es medible, pero es más delgada que la que comparten dos bases de datos construidas por lingüistas.
 
-== La coincidencia sobrevive al cambio de base de datos
+== La coincidencia con BPE
 
 La coincidencia entre $X_"BPE"$ y $X_W$ que reportaron #cite(<ximena-bpe-2023>, form: "prose") se mantuvo cuando dejamos de depender de una sola configuración de agrupamiento y cuando medimos con otra métrica, el ARI, que toma en consideración cómo están organizados los grupos. Notemos que los grupos en $X_0$ no mostraron un indicio a reproducir la organización de $X_W$, mientras que los grupos generados en $X_"BPE"$ obtuvieron resultados hasta el tripe respecto a esos valores de referencia. Esto es importante, porque nos da un indicio de una relación en como el espacio inducido por BPE organiza las lenguas respecto a un espacio definido por características morfológicas.
 
@@ -43,7 +43,7 @@ En los tres pares ocurre lo mismo: sobre $X_0$ los grupos de la base lingüísti
     $0.2049$).]
 )<ejemplo-espacios-clusters-grambankANDwals-bpe>
 
-== Mayor coincidencia entre bases lingüísticas que con BPE
+== El parecido entre las bases lingüísticas
 
 Para juzgar el alcance que tiene BPE hay que notar que $X_G$ y $X_W$ tampoco coinciden tanto entre sí. El tercer cuartil de $X_G$ vs $X_W$ está por encima del de cualquier comparación con $X_"BPE"$ en casi todo el barrido, salvo en los primeros cuatro puntos frente a $X_"BPE"$ vs $X_W$, o sea que WALS y Grambank se parecen de manera más constante. En el extremo alto, en cambio, se emparejan, porque las comparaciones con BPE llegan a ese techo alrededor de las 75 características, aunque recordemos que en este punto la imputación de valores ya es más fuerte que dentro de las primeras configuraciones del barrido. Esta coincidencia no tan alta puede sugerir al tipo de características que obtenemos de WALS con las de Grambank, que tiene características morfológicas, sintácticas y morfosintácticas; a la vez de la diferencia de cómo codifican las características Grambank y WALS.
 
@@ -51,6 +51,10 @@ Para contrastar estos resultados, $X_G$ y $X_"l2v"$ resultaron el par de espacio
 
 Sin embargo, esa cercanía puede leerse de otra manera, al igual que con WALS. Grambank y lang2vec representan sus características en forma binaria, y parte del parecido podría venir de esa codificación compartida. Por otra parte, esta binariedad hace más expresivas a estas dos bases de datos (pues como vimos, WALS deja de lado algunos ragos por codificar la más predominante).
 
+== La influencia de las características
+
+
+/*
 == Nuestra hipótesis se cumple en dos de sus tres condiciones
 
 Planteamos la hipótesis pidiendo tres cosas: que la coincidencia estuviera por encima del azar, que se mantuviera al cambiar de base de datos y que se mantuviera al cambiar la inicialización del agrupamiento. Las dos primeras se cumplen. La coincidencia supera a la referencia aleatoria en los tres experimentos y en todos los puntos del barrido, y sobrevive al pasar de WALS a Grambank y al espacio combinado.
@@ -58,7 +62,7 @@ Planteamos la hipótesis pidiendo tres cosas: que la coincidencia estuviera por 
 La tercera no se cumple como la escribimos. Usamos cien semillas por espacio precisamente para no depender de una, y lo que encontramos es que la coincidencia sí depende de ella, pues aparece en una minoría de las corridas y se mantiene débil en el resto. En este caso, la hipótesis no se sostiene. No obstante, la forma en que el espacio inducido por BPE organiza las lenguas parece sugiere que favorece la formación de esos grupos donde hay coincidencia.
 
 Por ende, los resultados muestran evidencia que el espacio inducido por BPE codifica información que coincide parcialmente con las descripciones tipológicas. Lo que no podemos afirmar es que exista una correspondencia fuerte entre ambas descripciones.
-
+*/
 == Limitaciones y trabajo futuro
 
 La primera limitación viene del número de lenguas. De las 47 lenguas del estudio, Grambank solo cubre 40, y de esas descartamos el coreano y el birmano, así que los experimentos con Grambank se hicieron con 38. Trabajar con menos lenguas puede que afecte la interpretación de los resultados de dos maneras. Los agrupamientos se forman con menos puntos, así que pequeños cambios en ellos pueden mover los valores de ARI. Además, esos resultados ya no se pueden comparar directamente con los de $X_"BPE"$ vs $X_W$, que sí usa las 47 lenguas para retomar la configuración de #cite(<ximena-bpe-2023>, form: "prose"). En @grambank-40-lenguas repetimos la comparación con las 40 lenguas para acotar el primer punto, y la separación respecto a la referencia se mantiene. Sugerimos poder realizar esa comparación con aproximaciones de las características de las lenguas faltantes en Grambank, o en su dado caso, esperar a que Grambank vaya dando soporte a estas lenguas en otras versiones.
