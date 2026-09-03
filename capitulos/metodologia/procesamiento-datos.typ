@@ -149,6 +149,9 @@ Para construir $X_"l2v" in RR^(|L| times d_"l2v")$, obtuvimos de la biblioteca l
 
 === Base de referencia (espacio aleatorio)
 
+Aunque la medida elegida para comparación de agrupamientos entre espacios (índice Rand) ya considera un ajuste por la similitud entre agrupamientos que podría darse por mero azar, establecemos además otra prueba para asegurarnos de que la similitud observada va más allá de lo esperable por azar.
+
+
 Para establecer un punto de referencia de similitud debida al azar, creamos $X_0$, un espacio aleatorio que sustituye a $X_"BPE"$ conservando su forma y sus rangos. Esto es necesario porque, como BPE es la representación que queremos poner a prueba, buscamos evidencia de que los vectores que induce codifican información lingüística, y para sostener que la similitud entre $X_"BPE"$ y una base tipológica es real (y no un efecto del azar), necesitamos ese punto de referencia con el cual contrastarla.
 
 Para construirlo, obtuvimos los rangos en los que varían las características de $X_"BPE"$ y, sobre cada rango, generamos una distribución uniforme, que reparte los valores sin ninguna estructura interna. Con ella asignamos un vector a cada lengua en este nuevo espacio. Y como paso final, aplicamos a $X_0$ la misma estandarización descrita para $X_"BPE"$.

@@ -19,7 +19,7 @@ Ahora, respecto al número de semillas:
 El código de esto es: seed1, seed2 in product(range(0, 100), repeat=2).
 Esta función pertenece a itertools
 */
-Para crear los agrupamientos en cada espacio, usamos el algoritmo de k-medias, que nos permitió controlar directamente el número de grupos, a diferencia de otros algoritmos de agrupamiento. En particular, empleamos la variante k-medias++#kmeans_footnote, que ofrece una mejor inicialización de los centroides. En cuanto al número de grupos, elegimos $k = 4$, que es un valor lo suficientemente grande para distinguir bien los grupos (a diferencia de 2 o 3), pero no tan grande como para dificultar la interpretación de las relaciones entre ellos. Además, para no depender de una sola semilla en la inicialización de los centroides, utilizamos las semillas del conjunto ${0, 1, 2, dots, 99}$ en cada experimento, lo cual nos dio 100 agrupamientos distintos por espacio.
+Para crear los agrupamientos en cada espacio, usamos el algoritmo de k-medias, que nos permitió controlar directamente el número de grupos, a diferencia de otros algoritmos de agrupamiento. En particular, empleamos la variante k-medias++#kmeans_footnote, que ofrece una mejor inicialización de los centroides. En cuanto al número de grupos, elegimos $k = 4$,_#underline[ ximena: siguiendo la metodología de (Ref) donde eligen este número de clusters pues...]_ que es un valor lo suficientemente grande para distinguir bien los grupos (a diferencia de 2 o 3),_#underline[También coincide con posibles clases de lenguas identificables de acuerdo con sus características morfológicas; por ejemplo, un grupo con mayor tendencia analítica, otro con tendencia funcional, sintética, polisintética, etc.]_ pero no tan grande como para dificultar la interpretación de las relaciones entre ellos. Además, para no depender de una sola semilla en la inicialización de los centroides, utilizamos las semillas del conjunto ${0, 1, 2, dots, 99}$ en cada experimento, lo cual nos dio 100 agrupamientos distintos por espacio.
 
 #let ari_footnote = footnote[Usamos `adjusted_rand_score` de #link("https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html")[scikit-learn].]
 
@@ -43,8 +43,16 @@ En tres de los cuatro experimentos que involucran a $X_"BPE"$, calculamos en par
 
 *BPE vs WALS+Grambank.* Pregunta si combinar WALS y Grambank mejora la relación con $X_"BPE"$ frente a usarlas por separado. Construimos el espacio combinado $X_(W+G) = [X_W | X_G]$ concatenando sus características sobre las #lenguas_grambank lenguas cubiertas por Grambank. Como $X_(W+G)$ hereda la dimensión variable de Grambank, repetimos la comparación en cada punto del barrido.
 
-*BPE vs características individuales de Grambank.* Desglosa la comparación anterior para identificar qué características de Grambank contribuyen más a la coincidencia con $X_"BPE"$. Para quedarnos en la zona donde el ARI ya alcanza valores altos sin arrastrar las características peor documentadas, trabajamos sobre las características de un solo punto del barrido, que fijamos a partir de lo observado en los experimentos anteriores. Sobre ese subconjunto comparamos $X_"BPE"$ con un espacio $X_G$ de una sola dimensión por cada característica. Al final obtenemos un promedio del ARI que nos permitió quitar el ruido por agrupar con una sola característica y así ordenar las características por su contribución.
+#underline[_Ximena: Siento que esto no va acá_] *BPE vs características individuales de Grambank.* Desglosa la comparación anterior para identificar qué características de Grambank contribuyen más a la coincidencia con $X_"BPE"$. Para quedarnos en la zona donde el ARI ya alcanza valores altos sin arrastrar las características peor documentadas, trabajamos sobre las características de un solo punto del barrido, que fijamos a partir de lo observado en los experimentos anteriores. Sobre ese subconjunto comparamos $X_"BPE"$ con un espacio $X_G$ de una sola dimensión por cada característica. Al final obtenemos un promedio del ARI que nos permitió quitar el ruido por agrupar con una sola característica y así ordenar las características por su contribución.
 
 *Grambank vs WALS.* Verifica qué tan parecidas son las dos bases entre sí, para situar los resultados de los tres experimentos anteriores. Comparamos $X_G$ y $X_W$ sobre el subconjunto $L_G$ de lenguas de Grambank, repitiendo la comparación a lo largo del barrido.
 
 *Grambank vs lang2vec.* Extiende la comparación a otro recurso tipológico, cuyas características son sintácticas. Comparamos $X_G$ con $X_"l2v"$ sobre el subconjunto $L_G$, para cada valor del barrido.
+
+== Análisis cualitativo
+
+Más allá de las medidas de similitud entre los agrupamientos de espacios, realizamos un análisis más detallado, sobre todo para entender qué características específicas de las bases de datos lingüísticas parecen  jugar un papel importante o tienen mayor influencia en la similitud con BPE. Para esto, ....
+
+_#underline[(Ximena: integrar aquí lo que tienes arriba)]_
+
+Analizamos desde un ojo lingüístico qué características de las bases de datos parecen contribuir a la similitud con el espacio inducido con BPE y si esto revela algo sobre la morfología de las lenguas; es decir, buscamos identificar la huella lingüística oculta en estos modelos. 

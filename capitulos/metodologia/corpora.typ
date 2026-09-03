@@ -80,6 +80,9 @@ Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el expe
   )<barplot-conteo-pbc>]
 }
 
+
+Aunque es un corpus paralelo, la diferencia en el número de tokens tiene que ver, entre otras cosas, con los sistemas de escritura de cada lengua y sus características morfológicas. Por ejemplo, el birmano (mya) puede presentar una gran cantidad de tokens debido a que su sistema ortográfico no utiliza espacios de la misma manera que las lenguas indoeuropeas y los tokenizadores pueden segmentarlo de manera distinta. El coreano, por otro lado, puede presentar menos tokens debido a que el hangul agrupa sus letras en bloques silábicos. Asimismo, una lengua como el kalaallisut (kal) puede presentar menos tokens debido a su morfología altamente sintética (polisintética), que permite codificar mucha información en una sola palabra. #underline[_Ximena: Verificar que en alguna parte se mencione que lenguas se excluyeron, haciendo referencia a estas razones _]
+
 Es importante subrayar que se usó únicamente el PBC porque es el corpus paralelo que abarca la mayor cantidad de lenguas. #cite(<ximena-bpe-2023>, form: "prose") usaron otros corpus de apoyo como _La Declaración Universal de los Derechos Humanos_ (DUDH) y el JW300 @agic-vulic-2019-jw300. Sin embargo, la DUDH cubre solo 25 lenguas de las 47, mientras que el JW300 cubre 31 usando el umbral que establecieron de 68 artículos paralelos por lengua.
 
 Teniendo estas traducciones del PBC, podemos aplicarles BPE, un método no supervisado e independiente de la lengua en que estén escritos los textos, por lo que resulta aplicable a cualquiera de ellos.
