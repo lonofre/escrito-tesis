@@ -51,8 +51,8 @@ En tres de los cuatro experimentos que involucran a $X_"BPE"$, calculamos en par
 
 == Análisis cualitativo
 
-Más allá de las medidas de similitud entre los agrupamientos de espacios, realizamos un análisis más detallado, sobre todo para entender qué características específicas de las bases de datos lingüísticas parecen  jugar un papel importante o tienen mayor influencia en la similitud con BPE. Para esto, ....
+Finalmente, más allá de las medidas de similitud entre los agrupamientos de espacios, realizamos un análisis más detallado, sobre todo para entender qué características específicas de las bases de datos lingüísticas parecen  jugar un papel importante o tienen mayor influencia en la similitud con BPE. Para esto, ....
 
 _#underline[(Ximena: integrar aquí lo que tienes arriba)]_
 
-Analizamos desde un ojo lingüístico qué características de las bases de datos parecen contribuir a la similitud con el espacio inducido con BPE y si esto revela algo sobre la morfología de las lenguas; es decir, buscamos identificar la huella lingüística oculta en estos modelos. 
+A partir de estos ARI, interpretamos desde un ojo lingüístico qué características de las bases de datos parecen contribuir a la similitud con el espacio inducido con BPE y si esto revela algo sobre la morfología de las lenguas; es decir, buscamos identificar la huella lingüística oculta en estos modelos. 
