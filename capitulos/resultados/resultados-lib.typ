@@ -122,6 +122,42 @@
   ("morfosintaxis", rgb(204, 121, 167, 115), [Morfosintaxis]),
 )
 
+// Tabla con el ranking completo de características de Grambank por ARI promedio.
+// `avg_ari` se redondea a `digitos` decimales (4 o 5). Las filas cuya pregunta
+// refiere a un patrón morfológico productivo (comment == "productividad") van
+// sombreadas, así que esa anotación no necesita columna propia.
+#let tabla-ari-grambank(
+  path: "datos/analisis/avg_ari_grambank-bpe_39_100_traducido.csv",
+  digitos: 5,
+) = {
+  let filas = csv(path, row-type: dictionary)
+  let productiva = filas.map(fila => fila.comment == "productividad")
+  let capitalizar(s) = if s.len() == 0 { s } else { upper(s.first()) + s.slice(1) }
+  // Cuerpo un punto por debajo del tamaño base del documento; los encabezados
+  // se quedan en el tamaño por defecto.
+  let sm(body) = text(size: 1em - 1pt, body)
+
+  table(
+    columns: (auto, auto, auto, 1fr, auto),
+    align: left,
+    stroke: none,
+    fill: (_, y) => if y > 0 and productiva.at(y - 1) { rgb(255, 244, 224) },
+    table.hline(stroke: 0.5pt),
+    table.header(
+      [*Pos.*], [*Característica*], [*ARI* \ *promedio*], [*Descripción*], [*Categoría*],
+    ),
+    table.hline(stroke: 0.3pt),
+    ..filas.map(fila => (
+      sm[#fila.position],
+      sm[#fila.feature],
+      sm[#calc.round(float(fila.avg_ari), digits: digitos)],
+      sm[#fila.name],
+      sm[#capitalizar(fila.category)],
+    )).flatten(),
+    table.hline(stroke: 0.5pt),
+  )
+}
+
 #let bar-ari-grambank(
   path: "datos/analisis/avg_ari_grambank-bpe_39_100_traducido.csv",
   posiciones: none,

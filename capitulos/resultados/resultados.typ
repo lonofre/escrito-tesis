@@ -1,5 +1,5 @@
 #import "@preview/lilaq:0.6.0" as lq
-#import "resultados-lib.typ" : paired-boxplot, nested-overlay, nested-band, bar-ari-grambank
+#import "resultados-lib.typ" : paired-boxplot, nested-overlay, nested-band, bar-ari-grambank, tabla-ari-grambank
 
 = Resultados
 
@@ -66,6 +66,17 @@ La diferencia se concentra en el techo, donde el percentil 99 sube de $0.17$ en 
 *BPE vs características individuales de Grambank.* Entre las 15 características con mayor ARI promedio predominan las morfológicas, con 9 en esa categoría, frente a 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
 
 Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido concentra los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante.
+
+#[
+  #show figure: set block(breakable: true)
+  #figure(
+    tabla-ari-grambank(),
+    caption: [ARI promedio de las 39 características de Grambank ($d_G = 39$) al agrupar
+      las lenguas por cada una de forma individual, en orden descendente. Las filas
+      sombreadas corresponden a preguntas cuya formulación en Grambank refiere
+      explícitamente a un patrón morfológico productivo.],
+  )<tabla-ari-grambank>
+]
 
 #figure(
   bar-ari-grambank(),
