@@ -114,9 +114,12 @@
 // `posiciones`: lista opcional de posiciones a incluir (p. ej. range(1, 11) para el
 // top 10).
 #let categorias-grambank = (
-  ("morfología", rgb("#2a78d6"), [Morfología]),
-  ("sintaxis", rgb("#e34948"), [Sintaxis]),
-  ("morfosintaxis", rgb("#4a3aa7"), [Morfosintaxis]),
+  // Morfología: azul pleno y saturado, la única serie fría y a opacidad total, para
+  // que se identifique de un vistazo. Sintaxis y morfosintaxis: dos tonos cálidos
+  // bien separados en matiz (naranja vs. púrpura rojizo) y atenuados con alfa.
+  ("morfología", rgb(0, 92, 197), [Morfología]),
+  ("sintaxis", rgb(230, 159, 0, 115), [Sintaxis]),
+  ("morfosintaxis", rgb(204, 121, 167, 115), [Morfosintaxis]),
 )
 
 #let bar-ari-grambank(
