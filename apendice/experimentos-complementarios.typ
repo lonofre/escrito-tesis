@@ -2,9 +2,9 @@
 
 == BPE frente a WALS sobre las lenguas de Grambank
 
-El experimento de $X_"BPE"$ vs $X_W$ del capítulo de resultados usa las 47 lenguas del estudio, mientras que los experimentos con Grambank se limitaron a 38. Para descartar que esa diferencia explique el contraste entre unos y otros, repetimos la comparación restringida a esas 38 lenguas, sin cambiar nada más.
+El experimento de $X_"BPE"$ vs $X_W$ del capítulo de resultados usa las 47 lenguas del estudio, mientras que los experimentos con Grambank se limitaron a 38. Para ver si esa diferencia explica el contraste entre unos y otros, repetimos la comparación con esas mismas 38 lenguas, sin cambiar nada más.
 
-Con 38 lenguas, $X_"BPE"$ vs $X_W$ sigue por encima de su referencia, pero por un margen más estrecho (@wals-bpe-38-tabla). Baja tanto la mediana como el techo, y los rangos intercuartiles, que con 47 lenguas no se solapan, aquí sí lo hacen. La coincidencia se reduce, pero no desaparece, así que la conclusión del capítulo no depende de haber usado las 47 lenguas.
+Con 38 lenguas, $X_"BPE"$ vs $X_W$ sigue por encima de su referencia, pero por un margen más estrecho (@wals-bpe-38-tabla). Bajan la mediana y el techo, y los rangos intercuartiles se solapan, cosa que no pasaba con 47 lenguas. La coincidencia se reduce, pero no desaparece, así que la conclusión del capítulo no depende de haber usado las 47 lenguas.
 
 #figure(
   table(
@@ -32,11 +32,9 @@ Con 38 lenguas, $X_"BPE"$ vs $X_W$ sigue por encima de su referencia, pero por u
 
 == BPE frente a Grambank con las 40 lenguas de la base <grambank-40-lenguas>
 
-El experimento de $X_"BPE"$ vs $X_G$ del capítulo de resultados usa 38 lenguas, pues descartamos el coreano y el birmano por la forma en que su escritura agrupa letras en bloques silábicos. Para descartar que la coincidencia con $X_G$ dependa de esa exclusión, repetimos la comparación volviendo a incluir esas dos lenguas, con las 40 que Grambank cubre y sin cambiar nada más.
+El experimento de $X_"BPE"$ vs $X_G$ del capítulo de resultados usa 38 lenguas, pues descartamos el coreano y el birmano por la forma en que su escritura agrupa letras en bloques silábicos. Para ver si la coincidencia con $X_G$ depende de esa exclusión, repetimos la comparación con las 40 lenguas que Grambank cubre, sin cambiar nada más. Generamos cada referencia $X_0$ sobre las lenguas de su propio experimento, así que las dos corridas están juntas en la tabla solo para compararlas.
 
-Con 40 lenguas, $X_"BPE"$ vs $X_G$ sigue por encima de su referencia (@grambank-bpe-40-tabla). Los valores bajan en ambas series, con el percentil 99 de $X_"BPE"$ pasando de $0.281$ a $0.232$ y el de la referencia de $0.112$ a $0.092$, así que la distancia entre las dos se mantiene. Agregar el coreano y el birmano reduce la magnitud, pero no la separación respecto a la referencia.
-
-Cada referencia $X_0$ se generó sobre las lenguas de su propio experimento, así que las dos corridas aparecen juntas solo para leerlas en la misma escala.
+Con 40 lenguas, $X_"BPE"$ vs $X_G$ sigue por encima de su referencia (@grambank-bpe-40-tabla). Los valores bajan en ambas series: el percentil 99 de $X_"BPE"$ pasa de $0.281$ a $0.232$ y el de la referencia, de $0.112$ a $0.092$. Agregar el coreano y el birmano baja el techo, pero no la separación respecto a la referencia.
 
 #figure(
   table(
@@ -66,13 +64,13 @@ Cada referencia $X_0$ se generó sobre las lenguas de su propio experimento, as�
 )<grambank-bpe-40-tabla>
 
 
-== La referencia aleatoria bajo distintos sorteos <referencia-semillas>
+== La referencia aleatoria bajo distintas semillas <referencia-semillas>
 
-La referencia $X_0$ reparte puntos al azar dentro de los rangos de $X_"BPE"$, así que cada semilla da una configuración distinta del espacio. Los experimentos del capítulo de resultados usan una sola, la 42. Para ver cuánto se mueve la referencia al cambiar ese sorteo, repetimos la comparación de $X_"BPE"$ vs $X_G$ con cuatro semillas más.
+La referencia $X_0$ reparte puntos al azar dentro de los rangos de $X_"BPE"$, así que cada semilla da una configuración distinta del espacio. Los experimentos del capítulo de resultados usan una sola, la 42. Para ver cuánto se mueve la referencia al cambiar esa semilla, repetimos la comparación de $X_"BPE"$ vs $X_G$ con cuatro semillas más.
 
-La referencia se mueve, pero ningún sorteo alcanza a $X_"BPE"$ (@referencia-semillas-tabla). Su percentil 99 va de $0.110$ a $0.223$ y su máximo de $0.185$ a $0.337$, siempre por debajo del $0.281$ y el $0.493$ de $X_"BPE"$. La semilla 42, la de los experimentos reportados, cae entre las más bajas de las cinco.
+La referencia se mueve, pero ninguna de las cinco alcanza a $X_"BPE"$ (@referencia-semillas-tabla). Su máximo va de $0.185$ a $0.337$, siempre por debajo del $0.493$ de $X_"BPE"$. La semilla 42, la de los experimentos reportados, cae entre las más bajas de las cinco.
 
-El sorteo más favorable, el de la semilla 1234, también se acerca en el centro de la distribución, con un tercer cuartil de $0.066$ frente al $0.068$ de $X_"BPE"$, aunque un reparto desigual de grupos puede elevar el ARI sin que los grupos coincidan (@ejemplo-espacios-clusters-grambank-bpe). Cinco sorteos muestran la dirección, no la frecuencia con que ocurriría, y solo repetimos el experimento de Grambank con 38 lenguas.
+La referencia más favorable, la de la semilla 1234, también se acerca en el centro de la distribución: su tercer cuartil llega a $0.066$ frente al $0.068$ de $X_"BPE"$. Aun así, un reparto desigual de grupos puede elevar el ARI sin que los grupos coincidan (@ejemplo-espacios-clusters-grambank-bpe). Cinco semillas alcanzan para ver la dirección, no para medir cada cuánto pasa.
 
 #figure(
   table(
@@ -95,7 +93,7 @@ El sorteo más favorable, el de la semilla 1234, también se acerca en el centro
     table.hline(stroke: 0.5pt),
   ),
   caption: [Distribución de ARI entre $X_0$ y $X_G$ con las 38 lenguas de Grambank bajo
-    cinco sorteos de $X_0$, ordenados por techo, junto con $X_"BPE"$ vs $X_G$ del
+    cinco semillas de $X_0$, ordenados por techo, junto con $X_"BPE"$ vs $X_G$ del
     capítulo de resultados. La semilla 42 es la de los experimentos reportados. Como
     estos experimentos barren $d_G$, la mediana y el rango intercuartil se reportan como
     rangos sobre el barrido, en el mismo sentido que en @grambank-bpe-40-tabla. P99 y

@@ -128,7 +128,7 @@ Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, p
 
 De las 15 características con mayor ARI promedio, 9 son morfológicas, 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
 
-Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido reúne los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante. En la gráfica, el color indica la categoría gramatical, una anotación cualitativa nuestra.
+Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido reúne los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante (como visto en @grambank-valores-vacios) y son suficientes características. En la gráfica, el color indica la categoría gramatical, una anotación cualitativa nuestra.
 
 #figure(
   bar-ari-grambank(),
