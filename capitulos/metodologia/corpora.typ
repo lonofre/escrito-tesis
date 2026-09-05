@@ -17,7 +17,7 @@ Para la experimentación partimos de un conjunto de 47 lenguas (véase @tabla-de
 
 Sin embargo, a pesar de que las 47 lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), no necesariamente están presentes en todas las bases de datos que planeamos explorar en esta investigación. Por ejemplo, en la base de datos tipológica Grambank solo están disponibles 40 de estas lenguas. Debido a esto y a otras decisiones metodológicas que se explicarán más adelante, trabajamos con un subconjunto de estas lenguas, procurando conservar la diversidad lingüística de la muestra.
 
-=== Corpus
+=== Corpus <seccion-pbc>
 
 Para obtener una caracterización de las 47 lenguas mediante BPE, usamos el Corpus Paralelo de la Biblia (_Parallel Bible Corpus_, PBC) @mayer-cysouw-2014-creating. Este corpus sirvió como entrada a BPE para así generar los modelos que permiten caracterizar a las lenguas.
 
@@ -81,7 +81,8 @@ Del PBC utilizamos las mismas traducciones, una por lengua, empleadas en el expe
 }
 
 
-Aunque es un corpus paralelo, la diferencia en el número de tokens tiene que ver, entre otras cosas, con los sistemas de escritura de cada lengua y sus características morfológicas. Por ejemplo, el birmano (mya) puede presentar una gran cantidad de tokens debido a que su sistema ortográfico no utiliza espacios de la misma manera que las lenguas indoeuropeas y los tokenizadores pueden segmentarlo de manera distinta. El coreano, por otro lado, puede presentar menos tokens debido a que el hangul agrupa sus letras en bloques silábicos. Asimismo, una lengua como el kalaallisut (kal) puede presentar menos tokens debido a su morfología altamente sintética (polisintética), que permite codificar mucha información en una sola palabra. #underline[_Ximena: Verificar que en alguna parte se mencione que lenguas se excluyeron, haciendo referencia a estas razones _]
+Aunque es un corpus paralelo, la diferencia en el número de tokens tiene que ver, entre otras cosas, con los sistemas de escritura de cada lengua y sus características morfológicas. Por ejemplo, el birmano (mya) puede presentar una gran cantidad de tokens debido a que su sistema ortográfico no utiliza espacios de la misma manera que las lenguas indoeuropeas y los tokenizadores pueden segmentarlo de manera distinta. El coreano, por otro lado, puede presentar menos tokens debido a que el hangul agrupa sus letras en bloques silábicos. Asimismo, una lengua como el kalaallisut (kal) puede presentar menos tokens debido a su morfología altamente sintética (polisintética), que permite codificar mucha información en una sola palabra. 
+//#underline[_Ximena: Verificar que en alguna parte se mencione que lenguas se excluyeron, haciendo referencia a estas razones _]
 
 Es importante subrayar que se usó únicamente el PBC porque es el corpus paralelo que abarca la mayor cantidad de lenguas. #cite(<ximena-bpe-2023>, form: "prose") usaron otros corpus de apoyo como _La Declaración Universal de los Derechos Humanos_ (DUDH) y el JW300 @agic-vulic-2019-jw300. Sin embargo, la DUDH cubre solo 25 lenguas de las 47, mientras que el JW300 cubre 31 usando el umbral que establecieron de 68 artículos paralelos por lengua.
 
