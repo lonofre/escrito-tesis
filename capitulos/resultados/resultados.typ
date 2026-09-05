@@ -124,28 +124,27 @@ Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, p
     distribución comparable (@ranking-ari-grambank-bar).],
 )<resumen-experimentos>
 
-== Análisis cualitativo
+== ARI por característica de Grambank
 
-Entre las 15 características con mayor ARI promedio predominan las morfológicas, con 9 en esa categoría, frente a 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
+De las 15 características con mayor ARI promedio, 9 son morfológicas, 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
 
-Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido concentra los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante.
+Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido reúne los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante. En la gráfica, el color indica la categoría gramatical, una anotación cualitativa nuestra.
+
+#figure(
+  bar-ari-grambank(),
+  caption: [ARI promedio al agrupar las lenguas con cada característica de Grambank por separado ($d_G = 39$), en orden descendente. El asterisco (\*) marca las preguntas que hablan de un patrón morfológico productivo. Los nombres están en @tabla-ari-grambank.],
+)<ranking-ari-grambank-bar>
+
+Las 39 características se reparten casi por igual entre las tres categorías: 13 morfológicas, 14 morfosintácticas y 12 sintácticas. Con ese reparto, la morfología aporta 9 de las 15 primeras, muchas más de las que le tocarían por su tamaño. Abajo pasa lo contrario, pues de las 14 morfosintácticas solo 2 llegan a las 15 primeras.
+
+Entre esas primeras posiciones pesa la productividad morfológica. De las 39 características, 6 preguntan por un patrón morfológico productivo, y 5 de ellas están entre las 14 primeras; la sexta cae en la posición 35. Las cinco son morfológicas, así que más de la mitad de las 9 morfológicas del top 15 preguntan por productividad. @tabla-ari-grambank da el ARI promedio de las 39 características con su nombre, su descripción y su categoría, y sombrea las seis filas de productividad.
 
 #[
   #show figure: set block(breakable: true)
   #figure(
     tabla-ari-grambank(),
-    caption: [ARI promedio de las 39 características de Grambank ($d_G = 39$) al agrupar
-      las lenguas por cada una de forma individual, en orden descendente. Las filas
-      sombreadas corresponden a preguntas cuya formulación en Grambank refiere
-      explícitamente a un patrón morfológico productivo.],
+    caption: [ARI promedio de las 39 características de Grambank ($d_G = 39$), en orden descendente.],
   )<tabla-ari-grambank>
 ]
-
-#figure(
-  bar-ari-grambank(),
-  caption: [Clasificación de las 39 características de Grambank ($d_G = 39$) según el ARI promedio al agrupar las lenguas por cada una de forma individual. El color indica la categoría gramatical (anotación cualitativa) y el asterisco (\*) marca las preguntas cuya formulación en Grambank refiere explícitamente a un patrón morfológico productivo. Descripciones completas en @grambank-features.],
-)<ranking-ari-grambank-bar>
-
-De las 9 morfológicas del top 15, 5 corresponden a preguntas cuya formulación en Grambank menciona explícitamente productividad morfológica.
 
 #pagebreak()
