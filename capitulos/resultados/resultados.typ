@@ -5,7 +5,7 @@
 
 *_Ximena: También justificar por qué se elige una configuración alrededor de treinta y tantos: Porque en ese umbral no hay tantos NANS como en los 70s, donde tantos valores incompletos quizá empiezan a tener un efecto negativo en el clustering aunque el ARI sea alto_*
 
-Reportamos los seis experimentos descritos en la metodología, cada uno como la distribución de los valores de ARI que produce. Los organizamos en dos bloques, primero las cuatro comparaciones de $X_"BPE"$ frente a las bases lingüísticas, después las dos comparaciones entre las propias bases.
+Reportamos los cinco experimentos descritos en la metodología, cada uno como la distribución de los valores de ARI que produce. Los organizamos en dos bloques, primero las tres comparaciones de $X_"BPE"$ frente a las bases lingüísticas, después las dos comparaciones entre las propias bases. Al final presentamos el análisis cualitativo por característica.
 
 == BPE frente a las bases lingüísticas
 
@@ -63,28 +63,6 @@ Como con Grambank sola, la banda intercuartil de $X_"BPE"$ vs $X_(W+G)$ se manti
 
 La diferencia se concentra en el techo, donde el percentil 99 sube de $0.17$ en $d_G = 30$ hasta $0.28$ cerca de $d_G = 74$, mientras el de la referencia no pasa de $0.12$. Combinar WALS con Grambank no eleva este techo respecto a Grambank sola, ya que el percentil 99 arranca en el mismo valor, $0.17$, y llega a uno equivalente. El máximo real, en cambio, sí es más alto, $0.545$ en $d_G = 75$ frente a $0.493$ de Grambank sola y $0.12$–$0.20$ de la referencia. En el extremo inferior ambas series son comparables, sin bajar de $-0.080$.
 
-*BPE vs características individuales de Grambank.* Entre las 15 características con mayor ARI promedio predominan las morfológicas, con 9 en esa categoría, frente a 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
-
-Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido concentra los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante.
-
-#[
-  #show figure: set block(breakable: true)
-  #figure(
-    tabla-ari-grambank(),
-    caption: [ARI promedio de las 39 características de Grambank ($d_G = 39$) al agrupar
-      las lenguas por cada una de forma individual, en orden descendente. Las filas
-      sombreadas corresponden a preguntas cuya formulación en Grambank refiere
-      explícitamente a un patrón morfológico productivo.],
-  )<tabla-ari-grambank>
-]
-
-#figure(
-  bar-ari-grambank(),
-  caption: [Clasificación de las 39 características de Grambank ($d_G = 39$) según el ARI promedio al agrupar las lenguas por cada una de forma individual. El color indica la categoría gramatical (anotación cualitativa) y el asterisco (\*) marca las preguntas cuya formulación en Grambank refiere explícitamente a un patrón morfológico productivo. Descripciones completas en @grambank-features.],
-)<ranking-ari-grambank-bar>
-
-De las 9 morfológicas del top 15, 5 corresponden a preguntas cuya formulación en Grambank menciona explícitamente productividad morfológica.
-
 == Concordancia entre las bases lingüísticas
 
 *Grambank vs WALS.* La mayor parte de las corridas de $X_G$ vs $X_W$ da valores más altos que cualquier comparación con $X_"BPE"$, aunque su máximo real no (@grambank-wals-ari-plot). Este experimento auxiliar sitúa la magnitud de los tres resultados anteriores en una escala interpretable.
@@ -116,7 +94,7 @@ El tercer cuartil de $X_G$ vs $X_W$ se sitúa por encima del de las comparacione
 
 $X_G$ vs $X_"l2v"$ alcanza las medianas más altas de las cinco comparaciones entre espacios. Su mediana va de $0.13$ a $0.19$, con el máximo alrededor de $d_G = 38$. Su rango intercuartil, entre $0.08$ y $0.25$, queda muy por encima de cero. El techo es también el más alto, con el percentil 99 en $0.45$ cerca de $d_G = 39$ y el máximo real todavía mayor, hasta $0.75$ cerca de $d_G = 42$, el más alto de esas cinco comparaciones. A diferencia de los demás experimentos, su percentil 1 apenas roza valores negativos, entre $-0.03$ y $0.01$.
 
-//== Resumen
+== Resumen de los experimentos
 
 Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, pero las comparaciones entre bases lingüísticas concentran más corridas en valores altos, con un tercer cuartil que supera al de las comparaciones con $X_"BPE"$ en casi todo el barrido y, contra lang2vec, medianas varias veces mayores (@resumen-experimentos).
 
@@ -145,5 +123,29 @@ Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, p
     experimento por característica individual no aparece porque no produce una
     distribución comparable (@ranking-ari-grambank-bar).],
 )<resumen-experimentos>
+
+== Análisis cualitativo
+
+Entre las 15 características con mayor ARI promedio predominan las morfológicas, con 9 en esa categoría, frente a 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
+
+Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido concentra los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante.
+
+#[
+  #show figure: set block(breakable: true)
+  #figure(
+    tabla-ari-grambank(),
+    caption: [ARI promedio de las 39 características de Grambank ($d_G = 39$) al agrupar
+      las lenguas por cada una de forma individual, en orden descendente. Las filas
+      sombreadas corresponden a preguntas cuya formulación en Grambank refiere
+      explícitamente a un patrón morfológico productivo.],
+  )<tabla-ari-grambank>
+]
+
+#figure(
+  bar-ari-grambank(),
+  caption: [Clasificación de las 39 características de Grambank ($d_G = 39$) según el ARI promedio al agrupar las lenguas por cada una de forma individual. El color indica la categoría gramatical (anotación cualitativa) y el asterisco (\*) marca las preguntas cuya formulación en Grambank refiere explícitamente a un patrón morfológico productivo. Descripciones completas en @grambank-features.],
+)<ranking-ari-grambank-bar>
+
+De las 9 morfológicas del top 15, 5 corresponden a preguntas cuya formulación en Grambank menciona explícitamente productividad morfológica.
 
 #pagebreak()

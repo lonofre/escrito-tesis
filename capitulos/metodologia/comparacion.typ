@@ -33,9 +33,9 @@ Finalmente, para resumir esos $10,000$ valores, reportamos la mediana, el rango 
 
 #let lenguas_grambank = 38
 
-Realizamos seis experimentos. El primero retoma la comparación entre $X_"BPE"$ y $X_W$ planteada por #cite(<ximena-bpe-2023>, form: "prose"), quienes evalúan si $X_"BPE"$ codifica información de morfología tipológica, pero la aborda con la metodología descrita en este capítulo, estableciendo así la línea base del trabajo. Los tres siguientes ampliaron el análisis incorporando Grambank: primero como base alternativa ($X_"BPE"$ vs $X_G$), luego como complemento de WALS ($X_"BPE"$ vs $X_(W+G)$), y finalmente desglosando la comparación característica por característica para identificar cuáles pesan más en la similitud con $X_"BPE"$. Los dos últimos fueron experimentos auxiliares que compararon Grambank con WALS y con lang2vec, para verificar qué tanto se parecen las bases lingüísticas entre sí y así dar contexto a las comparaciones con BPE.
+Realizamos cinco experimentos. El primero retoma la comparación entre $X_"BPE"$ y $X_W$ planteada por #cite(<ximena-bpe-2023>, form: "prose"), quienes evalúan si $X_"BPE"$ codifica información de morfología tipológica, pero la aborda con la metodología descrita en este capítulo, estableciendo así la línea base del trabajo. Los dos siguientes ampliaron el análisis incorporando Grambank: primero como base alternativa ($X_"BPE"$ vs $X_G$) y luego como complemento de WALS ($X_"BPE"$ vs $X_(W+G)$). Los dos últimos fueron experimentos auxiliares que compararon Grambank con WALS y con lang2vec, para verificar qué tanto se parecen las bases lingüísticas entre sí y así dar contexto a las comparaciones con BPE.
 
-En tres de los cuatro experimentos que involucran a $X_"BPE"$, calculamos en paralelo el ARI reemplazando $X_"BPE"$ por el espacio de referencia $X_0$ y manteniendo el resto de la configuración. Esto genera una distribución de referencia que permite distinguir si la similitud observada con $X_"BPE"$ está por encima de lo esperable por azar.
+En los tres experimentos que involucran a $X_"BPE"$, calculamos en paralelo el ARI reemplazando $X_"BPE"$ por el espacio de referencia $X_0$ y manteniendo el resto de la configuración. Esto genera una distribución de referencia que permite distinguir si la similitud observada con $X_"BPE"$ está por encima de lo esperable por azar.
 
 *BPE vs WALS.* Retoma la pregunta original sobre si $X_"BPE"$ codifica información de morfología tipológica. Seguimos la configuración de #cite(<ximena-bpe-2023>, form: "prose"), que usa las 47 lenguas completas y las 15 características morfológicas de @wals-features. Mantuvimos las 47 lenguas aunque los experimentos con Grambank se limitaron a #lenguas_grambank. En @experimentos-complementarios, repetimos esta comparación sobre ese subconjunto para verificar que la diferencia de cobertura no explique el contraste entre ambos grupos de experimentos.
 
@@ -43,16 +43,14 @@ En tres de los cuatro experimentos que involucran a $X_"BPE"$, calculamos en par
 
 *BPE vs WALS+Grambank.* Pregunta si combinar WALS y Grambank mejora la relación con $X_"BPE"$ frente a usarlas por separado. Construimos el espacio combinado $X_(W+G) = [X_W | X_G]$ concatenando sus características sobre las #lenguas_grambank lenguas cubiertas por Grambank. Como $X_(W+G)$ hereda la dimensión variable de Grambank, repetimos la comparación en cada punto del barrido.
 
-#underline[_Ximena: Siento que esto no va acá_] *BPE vs características individuales de Grambank.* Desglosa la comparación anterior para identificar qué características de Grambank contribuyen más a la coincidencia con $X_"BPE"$. Para quedarnos en la zona donde el ARI ya alcanza valores altos sin arrastrar las características peor documentadas, trabajamos sobre las características de un solo punto del barrido, que fijamos a partir de lo observado en los experimentos anteriores. Sobre ese subconjunto comparamos $X_"BPE"$ con un espacio $X_G$ de una sola dimensión por cada característica. Al final obtenemos un promedio del ARI que nos permitió quitar el ruido por agrupar con una sola característica y así ordenar las características por su contribución.
-
 *Grambank vs WALS.* Verifica qué tan parecidas son las dos bases entre sí, para situar los resultados de los tres experimentos anteriores. Comparamos $X_G$ y $X_W$ sobre el subconjunto $L_G$ de lenguas de Grambank, repitiendo la comparación a lo largo del barrido.
 
 *Grambank vs lang2vec.* Extiende la comparación a otro recurso tipológico, cuyas características son sintácticas. Comparamos $X_G$ con $X_"l2v"$ sobre el subconjunto $L_G$, para cada valor del barrido.
 
-== Análisis cualitativo
+=== Análisis cualitativo
 
-Finalmente, más allá de las medidas de similitud entre los agrupamientos de espacios, realizamos un análisis más detallado, sobre todo para entender qué características específicas de las bases de datos lingüísticas parecen  jugar un papel importante o tienen mayor influencia en la similitud con BPE. Para esto, ....
+Finalmente, más allá de las medidas de similitud entre los agrupamientos de espacios, realizamos un análisis más detallado, sobre todo para entender qué características específicas de las bases de datos lingüísticas parecen  jugar un papel importante o tienen mayor influencia en la similitud con BPE.
 
-_#underline[(Ximena: integrar aquí lo que tienes arriba)]_
+Para ello, desglosamos la comparación entre $X_"BPE"$ y $X_G$ característica por característica. Para quedarnos en la zona donde el ARI ya alcanza valores altos sin arrastrar las características peor documentadas, trabajamos sobre las características de un solo punto del barrido, que fijamos a partir de lo observado en los experimentos de la sección anterior. Sobre ese subconjunto comparamos $X_"BPE"$ con un espacio $X_G$ de una sola dimensión por cada característica. Al final obtuvimos un promedio del ARI que nos permitió quitar el ruido por agrupar con una sola característica y así ordenar las características por su contribución.
 
 A partir de estos ARI, interpretamos desde un ojo lingüístico qué características de las bases de datos parecen contribuir a la similitud con el espacio inducido con BPE y si esto revela algo sobre la morfología de las lenguas; es decir, buscamos identificar la huella lingüística oculta en estos modelos. 
