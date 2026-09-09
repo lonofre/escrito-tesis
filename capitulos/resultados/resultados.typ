@@ -9,6 +9,8 @@ Reportamos los cinco experimentos descritos en la metodología, cada uno como la
 
 == BPE frente a las bases lingüísticas
 
+#underline[_Ximena: Antes de dar una interpretación de los resultados, guía al lector en la descripción de la figura (qué estamos viendo ahí, qué tipo de diagrama es, etc)  antes de concluir sí coincide o no _]
+
 *BPE vs WALS.* El agrupamiento que induce $X_"BPE"$ coincide con el de $X_W$ por encima del azar (@wals-bpe-plot). De esta manera, replicamos el resultado de #cite(<ximena-bpe-2023>, form: "prose") bajo una diferente metodología.
 
 #figure(
@@ -24,6 +26,9 @@ Reportamos los cinco experimentos descritos en la metodología, cada uno como la
 El ARI de $X_"BPE"$ vs $X_W$ se mantiene por encima del de la referencia $X_0$. Su mediana es $0.048$, frente a una referencia prácticamente nula. Aquí los rangos intercuartiles ni siquiera se solapan. El de $X_"BPE"$, entre $0.018$ y $0.084$, queda por completo por encima del de la referencia, que va de $-0.014$ a $0.016$.
 
 El techo repite la separación de la mediana, con el percentil 99 de $X_"BPE"$ vs $X_W$ en $0.20$ frente a $0.065$ de la referencia, una brecha que el máximo real todavía amplía más, hasta $0.294$ contra $0.104$. En el extremo inferior ambos son comparables, con percentil 1 de $-0.032$ y $-0.043$.
+
+
+#underline[_Ximena: En las gráficas con barrido de Grambank, especificar muy bien que estamos viendo en el eje de las Xs. y de alguna manera recordarle al lector porqué este tipo de visualziacioens se ven diferentes a la anterior de BPE vs WALS_]
 
 *BPE vs Grambank.* El agrupamiento de $X_"BPE"$ también coincide con el de $X_G$ por encima del azar (@bpe-grambank-ari-plot), aunque por un margen más estrecho que con WALS.
 
@@ -58,14 +63,22 @@ La diferencia se concentra en el techo, donde el percentil 99 de $X_"BPE"$ vs $X
     referencia $X_0$, por número de características de Grambank. Halo exterior:
     mín--máx; banda media: P1--P99; banda interior: rango intercuartil.]
 )<bpe-grambankwals-ari-plot>
+#underline[_
+ximena: La leyenda de los gráficos parece estar tapando parte de la distribución_]
 
 Como con Grambank sola, la banda intercuartil de $X_"BPE"$ vs $X_(W+G)$ se mantiene por encima de la referencia en todo el barrido, con una mediana casi plana, entre $0.003$ y $0.026$. Su tercer cuartil ronda $0.04$–$0.08$ y supera a toda la banda de la referencia, que no pasa de $0.022$. Los primeros cuartiles, en cambio, son ligeramente negativos y corren muy cerca uno del otro, con el de $X_"BPE"$ apenas por encima en todo el barrido.
 
 La diferencia se concentra en el techo, donde el percentil 99 sube de $0.17$ en $d_G = 30$ hasta $0.28$ cerca de $d_G = 74$, mientras el de la referencia no pasa de $0.12$. Combinar WALS con Grambank no eleva este techo respecto a Grambank sola, ya que el percentil 99 arranca en el mismo valor, $0.17$, y llega a uno equivalente. El máximo real, en cambio, sí es más alto, $0.545$ en $d_G = 75$ frente a $0.493$ de Grambank sola y $0.12$–$0.20$ de la referencia. En el extremo inferior ambas series son comparables, sin bajar de $-0.080$.
 
+#underline[_Ximena: Las descripciones estadísticas que haces de las gráficas parecen estar bien; sin embargo, yo agregaría un poco más de hilo narrativo, resaltando los puntos que, a tu criterio, son importantes. Por ejemplo, se puede señalar que hay configuraciones de clustering que alcanzan ARI de más de 0.5, lo cual nos habla de cierta coincidencia. Desde luego, no estamos hablando de espacios iguales: cada uno aparentemente está codificando información diferente, pero aun así hay cierto grado de coincidencia entre ellos.
+_]
+
+
 == Concordancia entre las bases lingüísticas
 
 *Grambank vs WALS.* La mayor parte de las corridas de $X_G$ vs $X_W$ da valores más altos que cualquier comparación con $X_"BPE"$, aunque su máximo real no (@grambank-wals-ari-plot). Este experimento auxiliar sitúa la magnitud de los tres resultados anteriores en una escala interpretable.
+
+#underline[_Ximena: ¿A qué te refieres con "sitúa la magnitud de los tres resultados anteriores en una escala interpretable"_]
 
 // Bandas anidadas: experimento auxiliar de una sola serie (sin referencia).
 #figure(
@@ -94,7 +107,12 @@ El tercer cuartil de $X_G$ vs $X_W$ se sitúa por encima del de las comparacione
 
 $X_G$ vs $X_"l2v"$ alcanza las medianas más altas de las cinco comparaciones entre espacios. Su mediana va de $0.13$ a $0.19$, con el máximo alrededor de $d_G = 38$. Su rango intercuartil, entre $0.08$ y $0.25$, queda muy por encima de cero. El techo es también el más alto, con el percentil 99 en $0.45$ cerca de $d_G = 39$ y el máximo real todavía mayor, hasta $0.75$ cerca de $d_G = 42$, el más alto de esas cinco comparaciones. A diferencia de los demás experimentos, su percentil 1 apenas roza valores negativos, entre $-0.03$ y $0.01$.
 
+_#underline[Ximena: Aquí, una vez más, parece el resultado de un prompt que describe las gráficas y falta un poco de hilo narrativo. Conviene recordar al lector por qué nos interesaba comparar las bases de datos, pues es fácil perderse entre tantas configuraciones y, al final, estas son importantes, pero no son el punto central. Por ejemplo, podrías recordar que, aunque Lan2Vec no es de relevancia directa para nuestro estudio, al enfocarse exclusivamente en características sintácticas, queríamos compararla con Grambank para explorar si esta base tiende a codificar características que se acercan más a la sintaxis.]_
+
 == Resumen de los experimentos
+
+_#underline[Ximena: Es bueno tener una subsección de resumen.Sin embargo,nuestro objetivo no era comparar la similitud entre bases de datos, sino evaluar qué tanto se acerca la conceptualización de BPE a las bases de datos lingüísticas. Por ello, el resumen debería partir de ese foco: en todos los casos, la similitud de BPE con las bases supera lo esperado por azar; las combinaciones WALS+Grambank alcanzan máximos de 0.55, lo que sugiere una coincidencia entre la información lingüística codificada y los agrupamientos inducidos por BPE. Así, se confirman las observaciones de Gutiérrez y se extienden a otras bases lingüísticas y configuraciones.
+Comentar sobre la comparación entre las bases de datos es algo secundario, pero puedes mencionar que pareciera haber cierto sesgo de Grambank hacia lo sintáctico. También señalar que, aunque hay coincidencia en todos los casos, pareciera que cada conceptualización está codificando información tanto similar como distinta.]_
 
 Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, pero las comparaciones entre bases lingüísticas concentran más corridas en valores altos, con un tercer cuartil que supera al de las comparaciones con $X_"BPE"$ en casi todo el barrido y, contra lang2vec, medianas varias veces mayores (@resumen-experimentos).
 
@@ -126,13 +144,15 @@ Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, p
 
 == ARI por característica de Grambank
 
+#underline[_Ximena: Aquí otra vez inicias directamente describiendo los resultados, sin explicarle antes al lector qué está viendo en la tabla ni recordar brevemente en qué consiste este método. Aunque ya se haya explicado en la metodología, es un buen recurso divulgativo recordar qué estamos haciendo en este experimento, que además constituye una valoración cualitativa para interpretar los resultados, pues alguien tuvo que etiquetar, con base en su criterio, si cada característica corresponde a morfología, sintaxis, etc. Esto de cualitativo quizá se puede enfatizar en el título o en el texto. También habría que justificar por qué nos centramos en la configuración Grambank vs. BPE. Quizá se puede argumentar que es la nueva base de datos que incorporamos al estudio y, por ello, nos interesa saber qué características de esta base juegan un papel determinante en su similitud con BPE._]
+
 De las 15 características con mayor ARI promedio, 9 son morfológicas, 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
 
 Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido reúne los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante (como visto en @grambank-valores-vacios) y son suficientes características. En la gráfica, el color indica la categoría gramatical, una anotación cualitativa nuestra.
 
 #figure(
   bar-ari-grambank(),
-  caption: [ARI promedio al agrupar las lenguas con cada característica de Grambank por separado ($d_G = 39$), en orden descendente. El asterisco (\*) marca las preguntas que hablan de un patrón morfológico productivo. Los nombres están en @tabla-ari-grambank.],
+  caption: [ARI promedio al agrupar las lenguas con cada característica de Grambank por separado ($d_G = 39$), en orden descendente. El asterisco (\*) marca las preguntas(características) que hablan de un patrón morfológico productivo. Los nombres están en @tabla-ari-grambank.],
 )<ranking-ari-grambank-bar>
 
 Las 39 características se reparten casi por igual entre las tres categorías: 13 morfológicas, 14 morfosintácticas y 12 sintácticas. Con ese reparto, la morfología aporta 9 de las 15 primeras, muchas más de las que le tocarían por su tamaño. Abajo pasa lo contrario, pues de las 14 morfosintácticas solo 2 llegan a las 15 primeras.
