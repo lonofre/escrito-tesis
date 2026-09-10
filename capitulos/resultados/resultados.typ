@@ -63,8 +63,6 @@ La diferencia se concentra en el techo, donde el percentil 99 de $X_"BPE"$ vs $X
     referencia $X_0$, por número de características de Grambank. Halo exterior:
     mín--máx; banda media: P1--P99; banda interior: rango intercuartil.]
 )<bpe-grambankwals-ari-plot>
-#underline[_
-ximena: La leyenda de los gráficos parece estar tapando parte de la distribución_]
 
 Como con Grambank sola, la banda intercuartil de $X_"BPE"$ vs $X_(W+G)$ se mantiene por encima de la referencia en todo el barrido, con una mediana casi plana, entre $0.003$ y $0.026$. Su tercer cuartil ronda $0.04$–$0.08$ y supera a toda la banda de la referencia, que no pasa de $0.022$. Los primeros cuartiles, en cambio, son ligeramente negativos y corren muy cerca uno del otro, con el de $X_"BPE"$ apenas por encima en todo el barrido.
 

@@ -69,6 +69,7 @@
     height: 6cm,
     xlabel: [$d_G$],
     ylabel: [ARI],
+    legend: (position: right + top, dy: -24%),
 
     // Halo más exterior (mín -> máx): dónde vive el máximo, muy tenue.
     lq.fill-between(xs, col(a, "max"), y2: col(a, "min"), fill: a-halo),
@@ -100,6 +101,7 @@
     height: 6cm,
     xlabel: [$d_G$],
     ylabel: [ARI],
+    legend: (position: right + top, dy: -17%),
 
     // Halo más exterior (mín -> máx): dónde vive el máximo, muy tenue.
     lq.fill-between(xs, col("max"), y2: col("min"), fill: c-halo),
