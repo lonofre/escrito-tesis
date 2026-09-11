@@ -65,23 +65,4 @@ Sin embargo, esa cercanía puede leerse de otra manera, al igual que con WALS. G
 
 == La influencia de las características
 
-
-/*
-== Nuestra hipótesis se cumple en dos de sus tres condiciones
-
-Planteamos la hipótesis pidiendo tres cosas: que la coincidencia estuviera por encima del azar, que se mantuviera al cambiar de base de datos y que se mantuviera al cambiar la inicialización del agrupamiento. Las dos primeras se cumplen. La coincidencia supera a la referencia aleatoria en los tres experimentos y en todos los puntos del barrido, y sobrevive al pasar de WALS a Grambank y al espacio combinado.
-
-La tercera no se cumple como la escribimos. Usamos cien semillas por espacio precisamente para no depender de una, y lo que encontramos es que la coincidencia sí depende de ella, pues aparece en una minoría de las corridas y se mantiene débil en el resto. En este caso, la hipótesis no se sostiene. No obstante, la forma en que el espacio inducido por BPE organiza las lenguas parece sugiere que favorece la formación de esos grupos donde hay coincidencia.
-
-Por ende, los resultados muestran evidencia que el espacio inducido por BPE codifica información que coincide parcialmente con las descripciones tipológicas. Lo que no podemos afirmar es que exista una correspondencia fuerte entre ambas descripciones.
-*/
-== Limitaciones y trabajo futuro
-
-La primera limitación viene del número de lenguas. De las 47 lenguas del estudio, Grambank solo cubre 40, y de esas descartamos el coreano y el birmano, así que los experimentos con Grambank se hicieron con 38. Trabajar con menos lenguas puede que afecte la interpretación de los resultados de dos maneras. Los agrupamientos se forman con menos puntos, así que pequeños cambios en ellos pueden mover los valores de ARI. Además, esos resultados ya no se pueden comparar directamente con los de $X_"BPE"$ vs $X_W$, que sí usa las 47 lenguas para retomar la configuración de #cite(<ximena-bpe-2023>, form: "prose"). En @grambank-40-lenguas repetimos la comparación con las 40 lenguas para acotar el primer punto, y la separación respecto a la referencia se mantiene. Sugerimos poder realizar esa comparación con aproximaciones de las características de las lenguas faltantes en Grambank, o en su dado caso, esperar a que Grambank vaya dando soporte a estas lenguas en otras versiones.
-
-Asimismo, la misma diferencia de lenguas entre bases de datos también afecta a la base de referencia. Generamos $X_0$ con los rangos de $X_"BPE"$ sobre las lenguas de cada experimento, y no una sola vez para después quitarle los puntos que sobran. Por eso, aunque usemos la misma semilla, la referencia de 38 lenguas no es un recorte de la de 47, porque los rangos pueden cambiar y los valores se reparten en otro orden. Comparar $X_"BPE"$ contra $X_0$ dentro de un mismo experimento sigue siendo válido, pero no lo es comparar la referencia de un experimento con la de otro cuando parten de conjuntos de lenguas distintos.
-
-La segunda limitación es que generamos la base de referencia con una sola semilla aleatoria. Los agrupamientos recorren 100 semillas y dan $10,000$ valores de ARI por configuración, pero el espacio $X_0$ contra el que los comparamos salió de un solo sorteo. Esto fue en medida por el costo de cómputo: un experimento con WALS da $10,000$ valores de ARI, y uno con Grambank da 56 veces esa cantidad, uno por cada punto del barrido. Aunque bajamos el cálculo de unos 30 minutos a cerca de 2 por experimento, repetirlo con varias semillas y volverlo a repetir cada vez que cambiábamos algo de la metodología, no fue viable en los recursos donde corrimos los experimentos. En @referencia-semillas repetimos la comparación con Grambank bajo cuatro sorteos más para acotar este punto. 
-
-
 #pagebreak()
