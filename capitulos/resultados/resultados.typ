@@ -77,7 +77,7 @@ _]
 
 == Concordancia entre las bases lingüísticas
 
-Los dos experimentos que siguen son auxiliares: no evalúan a $X_"BPE"$, sino cuánto se parecen entre sí las propias bases lingüísticas, para tener una escala con la cual juzgar las magnitudes de ARI anteriores.
+Los dos experimentos que siguen son auxiliares y no tiene relevancia directa con nuestra pregunta de investigación, porque no evalúan a $X_"BPE"$, sino que nos ofrecen una referencia sobre la tendencia de lo que codifica Grambank respecto al conjunto de características que usamos.
 
 *Grambank vs WALS.* Este experimento auxiliar compara entre sí las dos bases que ya usamos, para tener una referencia de la coincidencia de las características de Grambank con características morfológicas. A diferencia de las figuras anteriores, la @grambank-wals-ari-plot lleva una sola familia de bandas, porque este experimento auxiliar no se contrasta contra la referencia aleatoria.
 
@@ -114,39 +114,41 @@ Las medianas de ARI más altas del estudio aparecen al comparar $X_G$ con $X_"l2
 
 $X_G$ vs $X_"l2v"$ alcanza las medianas más altas de las cinco comparaciones entre espacios. Su mediana va de $0.13$ a $0.19$, con el máximo alrededor de $d_G = 38$. Su rango intercuartil, entre $0.08$ y $0.25$, queda muy por encima de cero. El techo es también el más alto, con el percentil 99 en $0.45$ cerca de $d_G = 39$ y el máximo real todavía mayor, hasta $0.75$ cerca de $d_G = 42$, el más alto de esas cinco comparaciones. A diferencia de los demás experimentos, su percentil 1 apenas roza valores negativos, entre $-0.03$ y $0.01$.
 
-_#underline[Ximena: Aquí, una vez más, parece el resultado de un prompt que describe las gráficas y falta un poco de hilo narrativo. Conviene recordar al lector por qué nos interesaba comparar las bases de datos, pues es fácil perderse entre tantas configuraciones y, al final, estas son importantes, pero no son el punto central. Por ejemplo, podrías recordar que, aunque Lan2Vec no es de relevancia directa para nuestro estudio, al enfocarse exclusivamente en características sintácticas, queríamos compararla con Grambank para explorar si esta base tiende a codificar características que se acercan más a la sintaxis.]_
-
 == Resumen de los experimentos
 
-_#underline[Ximena: Es bueno tener una subsección de resumen.Sin embargo,nuestro objetivo no era comparar la similitud entre bases de datos, sino evaluar qué tanto se acerca la conceptualización de BPE a las bases de datos lingüísticas. Por ello, el resumen debería partir de ese foco: en todos los casos, la similitud de BPE con las bases supera lo esperado por azar; las combinaciones WALS+Grambank alcanzan máximos de 0.55, lo que sugiere una coincidencia entre la información lingüística codificada y los agrupamientos inducidos por BPE. Así, se confirman las observaciones de Gutiérrez y se extienden a otras bases lingüísticas y configuraciones.
-Comentar sobre la comparación entre las bases de datos es algo secundario, pero puedes mencionar que pareciera haber cierto sesgo de Grambank hacia lo sintáctico. También señalar que, aunque hay coincidencia en todos los casos, pareciera que cada conceptualización está codificando información tanto similar como distinta.]_
+En las tres comparaciones, el agrupamiento que induce $X_"BPE"$ coincide con el de las bases lingüísticas por encima de la referencia aleatoria. La separación es más clara con WALS, donde los rangos intercuartiles de $X_"BPE"$ y de $X_0$ ni siquiera se solapan, y más estrecha con Grambank y con el espacio combinado, donde se sostiene en todo el barrido pero por un margen menor. El techo de esa coincidencia llega hasta $0.545$ con WALS+Grambank, más del doble del máximo que alcanza la referencia en ese mismo experimento (@resumen-experimentos).
 
-Las tres primeras comparaciones con $X_"BPE"$ superan su línea de referencia, pero las comparaciones entre bases lingüísticas concentran más corridas en valores altos, con un tercer cuartil que supera al de las comparaciones con $X_"BPE"$ en casi todo el barrido y, contra lang2vec, medianas varias veces mayores (@resumen-experimentos).
+Esa coincidencia aparece en el techo de las distribuciones y no en su centro. Las medianas de los barridos se quedan cerca de cero, entre $-0.002$ y $0.026$ contra Grambank y entre $0.003$ y $0.026$ contra el espacio combinado, y solo contra WALS llegan a $0.048$. El primer cuartil es ligeramente negativo en los tres casos. Hay entonces configuraciones de agrupamiento en las que los dos espacios coinciden con claridad, y muchas otras en las que no.
+
+Con esto replicamos la observación de #cite(<ximena-bpe-2023>, form: "prose") bajo otra métrica y sobre miles de pares de semillas, y la extendemos a otra base lingüística que es Grambank. La coincidencia no desaparece ni con la base de datos ni con la inicialización del agrupamiento..
+
+Por último, las dos comparaciones entre bases lingüísticas nos dan una referencia sobre qué codifica Grambank, aunque estas comparaciones son solo secundarias. $X_G$ vs $X_W$ se queda en el mismo orden de magnitud que las comparaciones con $X_"BPE"$ y su techo no se despega del de ellas, mientras que $X_G$ vs $X_"l2v"$ alcanza las medianas más altas del estudio, lo que apunta a que las características de Grambank recogen más sintaxis que morfología.
 
 #figure(
   table(
-    columns: (auto, auto, auto, auto),
-    align: (left, center, center, center),
+    columns: (auto, auto, auto, auto, auto),
+    align: (left, center, center, center, center),
     stroke: none,
     table.hline(stroke: 0.5pt),
     table.header(
-      [*Experimento*], [*Mediana*], [*P99*], [*Máximo*],
+      [*Experimento*], [*Mediana*], [*P99*], [*Máximo*], [*P99 de $X_0$*],
     ),
     table.hline(stroke: 0.3pt),
-    [BPE vs WALS],          [$0.048$],         [$0.20$], [$0.29$],
-    [BPE vs Grambank],      [$-0.002$–$0.026$], [$0.28$], [$0.24$–$0.49$],
-    [BPE vs WALS+Grambank], [$0.003$–$0.026$], [$0.28$], [$0.24$–$0.55$],
-    [Grambank vs WALS],     [$0.025$–$0.066$], [$0.29$], [$0.32$–$0.53$],
-    [Grambank vs lang2vec], [$0.13$–$0.19$],   [$0.45$], [$0.56$–$0.75$],
+    [BPE vs WALS],          [$0.048$],          [$0.20$],        [$0.29$],        [$0.065$],
+    [BPE vs Grambank],      [$-0.002$–$0.026$], [$0.14$–$0.28$], [$0.24$–$0.49$], [$0.06$–$0.11$],
+    [BPE vs WALS+Grambank], [$0.003$–$0.026$],  [$0.14$–$0.28$], [$0.24$–$0.55$], [$0.07$–$0.12$],
+    table.hline(stroke: 0.3pt),
+    [Grambank vs WALS],     [$0.025$–$0.066$],  [$0.18$–$0.29$], [$0.32$–$0.53$], [---],
+    [Grambank vs lang2vec], [$0.13$–$0.19$],    [$0.35$–$0.45$], [$0.56$–$0.75$], [---],
     table.hline(stroke: 0.5pt),
   ),
-  caption: [Resumen de las cinco comparaciones entre espacios. La mediana se reporta como
-    el rango que recorre a lo largo del barrido de $d_G$; para BPE vs WALS, que no barre
-    ($d_W = 15$ fijo), es un valor único. P99 es el máximo del percentil 99 sobre el
-    barrido, el techo de coincidencia alcanzado. Máximo es el mayor ARI real observado en
-    el barrido, más alto pero también más sensible a una sola pareja de semillas. El
-    experimento por característica individual no aparece porque no produce una
-    distribución comparable (@ranking-ari-grambank-bar).],
+  caption: [Resumen de las cinco comparaciones entre espacios. Cada celda es el rango que
+    recorre el estadístico a lo largo del barrido de $d_G$; para BPE vs WALS, que no barre
+    ($d_W = 15$ fijo), es un valor único. La última columna da el percentil 99 de la
+    referencia aleatoria, la altura que alcanza el azar en ese mismo experimento, y está
+    vacía en los dos experimentos auxiliares, que no se contrastan contra ella. El máximo
+    es el mayor ARI real observado, más alto que el percentil 99 pero también más sensible
+    a una sola pareja de semillas.],
 )<resumen-experimentos>
 
 == ARI por característica de Grambank
