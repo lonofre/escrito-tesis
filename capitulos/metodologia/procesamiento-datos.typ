@@ -81,7 +81,7 @@ Durante este procesamiento, identificamos que algunas lenguas carecen de valores
 
 Como paso final, aplicamos a $X_W$ la misma estandarización descrita para $X_"BPE"$.
 
-=== Grambank
+=== Grambank <grambank-procesamiento>
 
 Del procesamiento de Grambank buscamos obtener una representación de las lenguas según sus características, donde cada lengua se representa como un vector cuyas entradas son los valores de dichas características. A diferencia de WALS, Grambank no cubre todas las lenguas del estudio ni contamos con un conjunto fijo de características, por lo que el procesamiento requirió obtener las lenguas cubiertas por Grambank y seleccionar sus características.
 
