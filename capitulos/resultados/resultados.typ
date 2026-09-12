@@ -9,7 +9,7 @@ Reportamos los cinco experimentos descritos en la metodología, cada uno como la
 
 == BPE frente a las bases lingüísticas
 
-*BPE vs WALS.* La @wals-bpe-plot es un diagrama de cajas que compara las dos distribuciones de este experimento: a la izquierda, el ARI entre $X_"BPE"$ y $X_W$; a la derecha, el de la referencia aleatoria $X_0$ contra $X_W$. En cada caja, la línea interior es la mediana y el cuerpo cubre el rango intercuartil (el 50% central de los datos); los bigotes llegan a los percentiles 1 y 99, y los dos círculos tenues marcan el mínimo y el máximo.
+*BPE vs WALS.* Este primer experimento retoma la pregunta de #cite(<ximena-bpe-2023>, form: "prose"), si $X_"BPE"$ codifica información de morfología tipológica, con las 15 características morfológicas de WALS. La @wals-bpe-plot es un diagrama de cajas que compara las dos distribuciones de este experimento: a la izquierda, el ARI entre $X_"BPE"$ y $X_W$; a la derecha, el de la referencia aleatoria $X_0$ contra $X_W$. En cada caja, la línea interior es la mediana y el cuerpo cubre el rango intercuartil (el 50% central de los datos); los bigotes llegan a los percentiles 1 y 99, y los dos círculos tenues marcan el mínimo y el máximo.
 
 #figure(
   paired-boxplot(
@@ -27,7 +27,7 @@ El ARI de $X_"BPE"$ vs $X_W$ se mantiene por encima del de la referencia $X_0$. 
 
 El techo repite la separación de la mediana, con el percentil 99 de $X_"BPE"$ vs $X_W$ en $0.20$ frente a $0.065$ de la referencia, una brecha que el máximo real todavía amplía más, hasta $0.294$ contra $0.104$. En el extremo inferior ambos son comparables, con percentil 1 de $-0.032$ y $-0.043$.
 
-*BPE vs Grambank.* Como los experimentos con Grambank no son solo en un espacio, sino en uno distinto por cada número de características $d_G$ que tomemos, este experimento no produce una distribución de ARI sino 56, una por cada punto del barrido. Por eso la @bpe-grambank-ari-plot no se ve como la anterior. Su eje horizontal es $d_G$, el número de características de Grambank que forman el espacio, tomadas de mayor a menor cobertura (véase  @grambank-valores-vacios de @grambank-procesamiento), y el vertical sigue siendo el ARI.
+*BPE vs Grambank.* Este experimento hace la misma pregunta cambiando WALS por Grambank, una base de cobertura más amplia y uniforme, pero que no define un solo espacio sino uno por cada número de características $d_G$ que tomemos. Así, no produce una distribución de ARI sino 56, una por cada punto del barrido, y por eso la @bpe-grambank-ari-plot no se ve como la anterior. Su eje horizontal es $d_G$, el número de características de Grambank que forman el espacio, tomadas de mayor a menor cobertura (véase  @grambank-valores-vacios de @grambank-procesamiento), y el vertical sigue siendo el ARI.
 
 Cada corte vertical de la figura equivale a un diagrama de caja como los de @wals-bpe-plot, y las bandas son el trazo que dejan esas cajas a lo largo del barrido. La banda interior, la más oscura, es el rango intercuartil; la intermedia va del percentil 1 al 99, y el halo exterior, casi transparente, llega del mínimo al máximo. El color naranja corresponde a $X_"BPE"$ vs $X_G$ y el azul a la referencia $X_0$.
 
@@ -50,7 +50,7 @@ La banda intercuartil de $X_"BPE"$ vs $X_G$ se mantiene por encima de la de la r
 
 La diferencia se concentra en el techo, donde el percentil 99 de $X_"BPE"$ vs $X_G$ sube de $0.17$ en $d_G = 30$ hasta su máximo de $0.28$ en $d_G = 75$, más del doble que el de la referencia, que permanece plano cerca de $0.09$. El máximo real recorre un rango más amplio, de $0.24$ a $0.49$ con su pico en $d_G = 68$, frente a $0.12$–$0.24$ de la referencia, y en el extremo inferior ambas series vuelven a ser comparables, sin que el percentil 1 baje de $-0.075$.
 
-*BPE vs WALS+Grambank.* La @bpe-grambankwals-ari-plot se lee igual que la anterior, ahora con el espacio combinado en lugar de Grambank sola.
+*BPE vs WALS+Grambank.* Este experimento pregunta si juntar ambas bases en un solo espacio acerca más el agrupamiento de $X_"BPE"$ al de la información lingüística que usarlas por separado. La @bpe-grambankwals-ari-plot se lee igual que la anterior, ahora con el espacio combinado en lugar de Grambank sola.
 
 // Bandas anidadas: BPE vs referencia X_0 (espacio combinado).
 #figure(
@@ -77,7 +77,9 @@ _]
 
 == Concordancia entre las bases lingüísticas
 
-*Grambank vs WALS.*  A diferencia de las figuras anteriores, la @grambank-wals-ari-plot lleva una sola familia de bandas, porque este experimento auxiliar no se contrasta contra la referencia aleatoria.
+Los dos experimentos que siguen son auxiliares: no evalúan a $X_"BPE"$, sino cuánto se parecen entre sí las propias bases lingüísticas, para tener una escala con la cual juzgar las magnitudes de ARI anteriores.
+
+*Grambank vs WALS.* Este experimento auxiliar compara entre sí las dos bases que ya usamos, para tener una referencia de la coincidencia de las características de Grambank con características morfológicas. A diferencia de las figuras anteriores, la @grambank-wals-ari-plot lleva una sola familia de bandas, porque este experimento auxiliar no se contrasta contra la referencia aleatoria.
 
 // Bandas anidadas: experimento auxiliar de una sola serie (sin referencia).
 #figure(
@@ -95,7 +97,7 @@ La mayor parte de las corridas de $X_G$ vs $X_W$ da valores más altos que cualq
 
 El tercer cuartil de $X_G$ vs $X_W$ se sitúa por encima del de las comparaciones de $X_"BPE"$ contra $X_G$ y contra $X_(W+G)$ en todo el barrido, y por encima del de $X_"BPE"$ vs $X_W$ salvo en los primeros cuatro puntos. Su rango intercuartil se mantiene en valores positivos, salvo dos puntos del barrido en que el primer cuartil roza el cero por debajo. Ese cuartil no pasa de $0.020$ y el tercero va entre $0.059$ y $0.124$. Su mediana va de $0.025$ a $0.066$, un rango que se solapa con el valor único de $X_"BPE"$ vs $X_W$ ($0.048$). El techo, medido por el percentil 99, va de $0.18$ a $0.29$, sin que el percentil 1 baje de $-0.075$, y el máximo real sube todavía más, entre $0.32$ y $0.53$, con su pico en $d_G = 35$. Ese techo, a diferencia del resto, no se despega del de las comparaciones con $X_"BPE"$, que lo alcanzan alrededor de $d_G = 75$.
 
-*Grambank vs lang2vec.* De igual manera, la @grambank-lang2vec-ari-plot lleva una sola familia de bandas, porque este experimento auxiliar no se contrasta contra la referencia aleatoria.
+*Grambank vs lang2vec.* Este segundo experimento auxiliar compara Grambank con lang2vec, cuyas características son exclusivamente sintácticas, para explorar si Grambank tiende a codificar información más cercana a la sintaxis que a la morfología. De igual manera, la @grambank-lang2vec-ari-plot lleva una sola familia de bandas, porque este experimento auxiliar no se contrasta contra la referencia aleatoria.
 
 // Bandas anidadas: experimento auxiliar de una sola serie (sin referencia).
 #figure(
