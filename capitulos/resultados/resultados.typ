@@ -151,11 +151,9 @@ Por último, las dos comparaciones entre bases lingüísticas nos dan una refere
     a una sola pareja de semillas.],
 )<resumen-experimentos>
 
-== ARI por característica de Grambank
+== Análisis cualitativo de las características
 
-#underline[_Ximena: Aquí otra vez inicias directamente describiendo los resultados, sin explicarle antes al lector qué está viendo en la tabla ni recordar brevemente en qué consiste este método. Aunque ya se haya explicado en la metodología, es un buen recurso divulgativo recordar qué estamos haciendo en este experimento, que además constituye una valoración cualitativa para interpretar los resultados, pues alguien tuvo que etiquetar, con base en su criterio, si cada característica corresponde a morfología, sintaxis, etc. Esto de cualitativo quizá se puede enfatizar en el título o en el texto. También habría que justificar por qué nos centramos en la configuración Grambank vs. BPE. Quizá se puede argumentar que es la nueva base de datos que incorporamos al estudio y, por ello, nos interesa saber qué características de esta base juegan un papel determinante en su similitud con BPE._]
-
-Este último análisis es cualitativo y desglosa característica por característica una de las comparaciones anteriores. Nos centramos en $X_"BPE"$ vs $X_G$ porque Grambank es la base que incorporamos en este trabajo, y nos interesaba saber qué características suyas juegan un papel importante en la similitud con BPE. Para ello agrupamos las lenguas con cada característica de Grambank por separado, es decir, con un espacio de una sola dimensión, y promediamos el ARI que obtiene contra $X_"BPE"$ para quitar el ruido de agrupar con tan poca información. Esta lectura es cualitativa porque la categoría gramatical de cada característica, si es morfológica, sintáctica o morfosintáctica, es una anotación que realizamos con criterio lingüístico a partir de la pregunta que formula cada característica.
+Este análisis es cualitativo y desglosa las características de Grambank en base a una de las comparaciones anteriores. Nos centramos en $X_"BPE"$ vs $X_G$ porque Grambank es la base que incorporamos en este trabajo, y nos interesó saber qué características suyas juegan un papel importante en la similitud con BPE. Para ello agrupamos las lenguas con cada característica de Grambank por separado, es decir, con un espacio de una sola dimensión, y promediamos el ARI que obtiene contra $X_"BPE"$ para quitar el ruido de agrupar con tan poca información. Esta lectura es cualitativa porque la categoría gramatical de cada característica, si es morfológica, sintáctica o morfosintáctica (combinación de las dos anteriores), es una anotación que realizamos con criterio lingüístico a partir de la pregunta que formula cada característica.
 
 Para realizar este análisis, fijamos el análisis en $d_G = 39$. Como visto en los experimentos anteriores, ese punto del barrido ya reúne valores altos de ARI y todavía no arrastra las características con valores incompletos que aparecen más adelante (@grambank-valores-vacios en @grambank-procesamiento), y a la vez deja suficientes características para comparar entre categorías.
 
@@ -166,11 +164,9 @@ La @ranking-ari-grambank-bar es un diagrama de barras con el ARI promedio de cad
   caption: [ARI promedio al agrupar las lenguas con cada característica de Grambank por separado ($d_G = 39$), en orden descendente. El asterisco (\*) marca las preguntas (características) que hablan de un patrón morfológico productivo. Los nombres están en @tabla-ari-grambank.],
 )<ranking-ari-grambank-bar>
 
-De las 15 características con mayor ARI promedio, 9 son morfológicas, 4 sintácticas y 2 morfosintácticas.
+Las 39 características se reparten casi por igual entre las tres categorías: 13 morfológicas, 14 morfosintácticas y 12 sintácticas. Notemos que la morfología aporta 9 de las 15 primeras.
 
-Las 39 características se reparten casi por igual entre las tres categorías: 13 morfológicas, 14 morfosintácticas y 12 sintácticas. Con ese reparto, la morfología aporta 9 de las 15 primeras, muchas más de las que le tocarían por su tamaño. Abajo pasa lo contrario, pues de las 14 morfosintácticas solo 2 llegan a las 15 primeras.
-
-Entre esas primeras posiciones pesa la productividad morfológica. De las 39 características, 6 preguntan por un patrón morfológico productivo, y 5 de ellas están entre las 14 primeras; la sexta cae en la posición 35. Las cinco son morfológicas, así que más de la mitad de las 9 morfológicas del top 15 preguntan por productividad. @tabla-ari-grambank da el ARI promedio de las 39 características con su nombre, su descripción y su categoría, y sombrea las seis filas de productividad.
+Entre esas primeras posiciones pesa la productividad morfológica, que es donde se espera que BPE opere. De las 39 características, 6 preguntan por un patrón morfológico productivo, y 5 de ellas están entre las 14 primeras; la sexta cae en la posición 35. Las cinco son morfológicas, así que más de la mitad de las 9 morfológicas del top 15 preguntan por productividad. @tabla-ari-grambank da el ARI promedio de las 39 características con su nombre, su descripción y su categoría, y sombrea las seis filas de productividad.
 
 #[
   #show figure: set block(breakable: true)
