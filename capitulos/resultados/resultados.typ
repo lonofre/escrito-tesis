@@ -120,7 +120,7 @@ En las tres comparaciones, el agrupamiento que induce $X_"BPE"$ coincide con el 
 
 Esa coincidencia aparece en el techo de las distribuciones y no en su centro. Las medianas de los barridos se quedan cerca de cero, entre $-0.002$ y $0.026$ contra Grambank y entre $0.003$ y $0.026$ contra el espacio combinado, y solo contra WALS llegan a $0.048$. El primer cuartil es ligeramente negativo en los tres casos. Hay entonces configuraciones de agrupamiento en las que los dos espacios coinciden con claridad, y muchas otras en las que no.
 
-Con esto replicamos la observación de #cite(<ximena-bpe-2023>, form: "prose") bajo otra métrica y sobre miles de pares de semillas, y la extendemos a otra base lingüística que es Grambank. La coincidencia no desaparece ni con la base de datos ni con la inicialización del agrupamiento..
+Con esto replicamos la observación de #cite(<ximena-bpe-2023>, form: "prose") bajo otra métrica y sobre miles de pares de semillas, y la extendemos a otra base lingüística que es Grambank. La coincidencia no desaparece ni con la base de datos ni con la inicialización del agrupamiento.
 
 Por último, las dos comparaciones entre bases lingüísticas nos dan una referencia sobre qué codifica Grambank, aunque estas comparaciones son solo secundarias. $X_G$ vs $X_W$ se queda en el mismo orden de magnitud que las comparaciones con $X_"BPE"$ y su techo no se despega del de ellas, mientras que $X_G$ vs $X_"l2v"$ alcanza las medianas más altas del estudio, lo que apunta a que las características de Grambank recogen más sintaxis que morfología.
 
@@ -155,14 +155,18 @@ Por último, las dos comparaciones entre bases lingüísticas nos dan una refere
 
 #underline[_Ximena: Aquí otra vez inicias directamente describiendo los resultados, sin explicarle antes al lector qué está viendo en la tabla ni recordar brevemente en qué consiste este método. Aunque ya se haya explicado en la metodología, es un buen recurso divulgativo recordar qué estamos haciendo en este experimento, que además constituye una valoración cualitativa para interpretar los resultados, pues alguien tuvo que etiquetar, con base en su criterio, si cada característica corresponde a morfología, sintaxis, etc. Esto de cualitativo quizá se puede enfatizar en el título o en el texto. También habría que justificar por qué nos centramos en la configuración Grambank vs. BPE. Quizá se puede argumentar que es la nueva base de datos que incorporamos al estudio y, por ello, nos interesa saber qué características de esta base juegan un papel determinante en su similitud con BPE._]
 
-De las 15 características con mayor ARI promedio, 9 son morfológicas, 4 sintácticas y 2 morfosintácticas (@ranking-ari-grambank-bar).
+Este último análisis es cualitativo y desglosa característica por característica una de las comparaciones anteriores. Nos centramos en $X_"BPE"$ vs $X_G$ porque Grambank es la base que incorporamos en este trabajo, y nos interesaba saber qué características suyas juegan un papel importante en la similitud con BPE. Para ello agrupamos las lenguas con cada característica de Grambank por separado, es decir, con un espacio de una sola dimensión, y promediamos el ARI que obtiene contra $X_"BPE"$ para quitar el ruido de agrupar con tan poca información. Esta lectura es cualitativa porque la categoría gramatical de cada característica, si es morfológica, sintáctica o morfosintáctica, es una anotación que realizamos con criterio lingüístico a partir de la pregunta que formula cada característica.
 
-Fijamos este análisis en $d_G = 39$ porque en los experimentos anteriores ese punto del barrido reúne los valores altos de ARI sin arrastrar las características con valores incompletos que aparecen más adelante (como visto en @grambank-valores-vacios en @grambank-procesamiento) y son suficientes características. En la gráfica, el color indica la categoría gramatical, una anotación cualitativa nuestra.
+Para realizar este análisis, fijamos el análisis en $d_G = 39$. Como visto en los experimentos anteriores, ese punto del barrido ya reúne valores altos de ARI y todavía no arrastra las características con valores incompletos que aparecen más adelante (@grambank-valores-vacios en @grambank-procesamiento), y a la vez deja suficientes características para comparar entre categorías.
+
+La @ranking-ari-grambank-bar es un diagrama de barras con el ARI promedio de cada una de esas 39 características, ordenadas de mayor a menor. Cada barra es una característica, el eje vertical es su ARI promedio y el color indica la categoría gramatical que le asignamos.
 
 #figure(
   bar-ari-grambank(),
-  caption: [ARI promedio al agrupar las lenguas con cada característica de Grambank por separado ($d_G = 39$), en orden descendente. El asterisco (\*) marca las preguntas(características) que hablan de un patrón morfológico productivo. Los nombres están en @tabla-ari-grambank.],
+  caption: [ARI promedio al agrupar las lenguas con cada característica de Grambank por separado ($d_G = 39$), en orden descendente. El asterisco (\*) marca las preguntas (características) que hablan de un patrón morfológico productivo. Los nombres están en @tabla-ari-grambank.],
 )<ranking-ari-grambank-bar>
+
+De las 15 características con mayor ARI promedio, 9 son morfológicas, 4 sintácticas y 2 morfosintácticas.
 
 Las 39 características se reparten casi por igual entre las tres categorías: 13 morfológicas, 14 morfosintácticas y 12 sintácticas. Con ese reparto, la morfología aporta 9 de las 15 primeras, muchas más de las que le tocarían por su tamaño. Abajo pasa lo contrario, pues de las 14 morfosintácticas solo 2 llegan a las 15 primeras.
 
