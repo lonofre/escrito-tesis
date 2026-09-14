@@ -3,8 +3,6 @@
 // Referencias para escribir la discusión:
 //  - https://pmc.ncbi.nlm.nih.gov/articles/PMC10676253/
 
-El espacio que induce BPE ($X_"BPE"$) conserva algo de la organización tipológica de las lenguas, pero lo hace de manera intermitente. En los tres experimentos que comparan a $X_"BPE"$ con bases de datos lingüísticas, la coincidencia supera a la de la referencia aleatoria. No obstante, la mayor parte de esa brecha vive en el extremo alto de la distribución, pues, salvo con $X_W$, la mediana apenas se despega de cero y son las mejores corridas las que separan a $X_"BPE"$ del azar. Cabe señalar que estos valores altos de ARI no son un accidente, pues los grupos que los producen ocupan regiones reconocibles en $X_"BPE"$ y no aparecen tan dispersos como en la referencia. Aun así, $X_G$ y $X_W$ coinciden más seguido entre sí que $X_"BPE"$ con cualquiera de las dos, por lo que la huella lingüística de BPE existe y es medible, pero es más delgada que la que comparten dos bases de datos construidas por lingüistas.
-
 #underline[_Ximena: Sugiero iniciar directamente con esta subsección, y el párrafo que está arriba retomar una parte pero al final, cuando ya analizaste las distintas coincidencias_]
 
 == La coincidencia con BPE
@@ -45,7 +43,9 @@ En los tres pares ocurre lo mismo: sobre $X_0$ los grupos de la base lingüísti
     $0.2049$).]
 )<ejemplo-espacios-clusters-grambankANDwals-bpe>
 
-En resumen, podemos observar que las lenguas que tienden a agruparse en las bases de datos lingüísticas también tienden a formar regiones cercanas en el espacio de BPE. Por ejemplo, el finlandés (fin) y el turco (tur) tienden a agruparse cuando usamos las representaciones obtenidas de las diferentes bases de datos, pero también aparecen en el mismo grupo cuando utilizamos los vectores de BPE. Si esto no fuera así, observaríamos puntos del mismo color en regiones no contiguas y dispersas por todo el espacio, como ocurre en las visualizaciones del espacio aleatorio (línea base $X_0$). Esto no implica, sin embargo, una coincidencia total entre los grupos, y el grado de coincidencia varía dependiendo de la caracterización que estemos observando ($X_W$, $X_G$, $X_(W+G)$).
+En las tres figuras podemos observar que las lenguas que tienden a agruparse en las bases de datos lingüísticas también tienden a formar regiones cercanas en el espacio de BPE. Por ejemplo, el finlandés (fin) y el turco (tur) tienden a agruparse cuando usamos las representaciones obtenidas de las diferentes bases de datos, pero también aparecen en el mismo grupo cuando utilizamos los vectores de BPE. Si esto no fuera así, observaríamos puntos del mismo color en regiones no contiguas y dispersas por todo el espacio, como ocurre en las visualizaciones del espacio aleatorio (línea base $X_0$).
+
+En síntesis, la mayor parte de la brecha frente a la referencia vive en el extremo alto de la distribución, pues, salvo con $X_W$, la mediana apenas se despega de cero y son las mejores corridas las que separan a $X_"BPE"$ del azar.
 
 == El parecido entre las bases lingüísticas
 
