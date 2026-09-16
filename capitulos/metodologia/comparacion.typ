@@ -49,8 +49,22 @@ En los tres experimentos que involucran a $X_"BPE"$, calculamos en paralelo el A
 
 === Análisis cualitativo
 
-Finalmente, más allá de las medidas de similitud entre los agrupamientos de espacios, realizamos un análisis más detallado, sobre todo para entender qué características específicas de las bases de datos lingüísticas parecen  jugar un papel importante o tienen mayor influencia en la similitud con BPE.
+Finalmente, más allá de las medidas de similitud entre los agrupamientos de espacios, realizamos un análisis más detallado, sobre todo para entender qué características específicas de las bases de datos lingüísticas parecen  jugar un papel importante o tienen mayor influencia en la similitud con BPE (particularmente nos centramos en Grambank pues es la base de datos nueva que agregamos en este estudio)
 
-Para ello, desglosamos la comparación entre $X_"BPE"$ y $X_G$ característica por característica. Para quedarnos en la zona donde el ARI ya alcanza valores altos sin arrastrar las características peor documentadas, trabajamos sobre las características de un solo punto del barrido, que fijamos a partir de lo observado en los experimentos de la sección anterior. Sobre ese subconjunto comparamos $X_"BPE"$ con un espacio $X_G$ de una sola dimensión por cada característica. Al final obtuvimos un promedio del ARI que nos permitió quitar el ruido por agrupar con una sola característica y así ordenar las características por su contribución.
+
+Para ello, desglosamos la comparación entre $X_"BPE"$ y $X_G$ característica por característica. Es decir, iteramos sobre cada característica de Grambank y, para cada una, realizamos un clustering de las lenguas utilizando únicamente los valores de dicha característica. Posteriormente, comparamos este agrupamiento con el obtenido a partir de las representaciones BPE. Para cada característica, repetimos el procedimiento utilizando diferentes semillas aleatorias y calculamos el ARI en cada iteración. Finalmente, reportamos el ARI promedio de cada característica de Grambank, con el objetivo de identificar aquellas características que muestran una mayor similitud entre sus agrupamientos y los obtenidos en el espacio BPE. Cabe destacar que no analizamos  todas las características de Grambank, sino un subconjunto del barrido de características, que fijamos a partir de lo observado en los experimentos de la sección anterior.
+
+#underline[_
+Ximena: Cambié la explicación un poco, porque me causaba un poco de confusión la anterior (la dejo comentada abajo). ¿Podrías conformar que es correcto el procedimiento que creo que s ehizo?"_]
+
+
+/*Para quedarnos en la zona donde el ARI ya alcanza valores altos sin arrastrar las características peor documentadas, trabajamos sobre las características de un solo punto del barrido, que fijamos a partir de lo observado en los experimentos de la sección anterior. Sobre ese subconjunto comparamos $X_"BPE"$ con un espacio $X_G$ de una sola dimensión por cada característica. Al final obtuvimos un promedio del ARI que nos permitió quitar el ruido por agrupar con una sola característica y así ordenar las características por su contribución.*/
 
 A partir de estos ARI, interpretamos desde un ojo lingüístico qué características de las bases de datos parecen contribuir a la similitud con el espacio inducido con BPE y si esto revela algo sobre la morfología de las lenguas; es decir, buscamos identificar la huella lingüística oculta en estos modelos. 
+
+A pesar de que la metodología para calcular los promedios de ARI por característica es cuantitativa, hacemos énfasis en la naturaleza cualitativa de este experimento, pues fue necesaria una valoración lingüística para determinar si las características que resultaron mejor rankeadas corresponden efectivamente a la morfología de las lenguas o, más bien, a otro tipo de fenómenos, como los sintácticos.
+
+
+
+
+#underline[_Ximena: Verificar que se menciona que se probaron configuraciones a través de distintas semillas en este último experiemnto también, ya sea aquí o en los resultados. _]
