@@ -145,7 +145,7 @@ Por último, las dos comparaciones entre bases lingüísticas nos dan una refere
     a una sola pareja de semillas.],
 )<resumen-experimentos>
 
-== Análisis cualitativo de características
+== Análisis cualitativo de características <seccion-resultados-analisis-caracteristicas>
 
 Este análisis incluye lo cualitativo y desglosa las características de Grambank a partir de una de las comparaciones anteriores. Nos centramos en $X_"BPE"$ vs $X_G$ porque Grambank es la base que incorporamos en este trabajo, y nos interesó saber qué características suyas juegan un papel importante en la similitud con BPE. Para ello agrupamos las lenguas con cada característica de Grambank por separado, es decir, con un espacio de una sola dimensión, y promediamos el ARI que obtiene contra $X_"BPE"$ para quitar el ruido de agrupar con tan poca información. Esta lectura es cualitativa porque la categoría gramatical de cada característica, si es morfológica, sintáctica o morfosintáctica (combinación de las dos anteriores), es una anotación que realizamos con criterio lingüístico a partir de la pregunta que formula cada característica.
 
