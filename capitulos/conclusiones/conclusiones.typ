@@ -44,5 +44,6 @@ Posibilidades a futuro a desarrollar:
 - Si hay evidencia de que métodos no supervisados son capaces de inducir conocimiento morfológico a través de la estructura del texto, puede ser una forma para enriquecer las bases de datos lingüísticas, sin necesidad de anotación y conocimiento de experto para muchas lenguas, solo se necesita corpus y un algoritmo de compresión.
 
 - Nuestro trabajo construye en la evidencia de que aunque hoy en día los modelos de nlp, LLs, etc. no necesitan de algún conocimiento lingüístico explícito, eso no quiere decir que no descansen sobre propiedades estructurales de la lengua y que induzcan representaciones que no son tan lejanas a las características tipológicas que los lingüistas han caracterizado.
+- Probar con otros métodos de tokenizaicón populares usados en los LLMs hoy en día, etc. 
 
 #pagebreak()
