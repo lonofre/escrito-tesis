@@ -43,7 +43,7 @@
 
     #v(0.5cm)
 
-    María Ximena Gutiérrez Vasques
+    Dra. María Ximena Gutiérrez Vasques
 
     #v(1.5cm)
     2026
