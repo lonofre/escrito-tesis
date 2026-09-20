@@ -1,6 +1,10 @@
 #import "template.typ": tesis
 
 #set text(lang: "es")
+#set document(
+  title: [Explorando la huella lingüística oculta en los modelos de procesamiento del lenguaje natural],
+  author: "José Luis Onofre Franco"
+)
 
 #include "portada.typ"
 
