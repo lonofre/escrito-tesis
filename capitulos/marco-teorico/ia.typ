@@ -10,9 +10,10 @@ El primer cambio respecto a las reglas gramaticales llegó con los modelos de le
 
 En lugar de partir de reglas predefinidas, los SLM infieren los patrones más probables del lenguaje mediante conteos sobre grandes corpus. Para ello, un modelo de lenguaje necesita dos elementos: un vocabulario $V$, el conjunto de unidades con las que se forman las cadenas, y una función que asigne una probabilidad a cada combinación posible de esas unidades @Mijangos-Ximena-2024. La dificultad está en cómo estimar esa función.
 
-Una de las primeras soluciones la dio Claude Shannon @shannon1948, quien planteó lo que llamó una aproximación de orden n: en lugar de calcular la probabilidad de toda la cadena de una vez, la divide en probabilidades condicionales, es decir, la probabilidad de que aparezca una palabra dado que ya vimos las $t-1$ palabras anteriores @Mijangos-Ximena-2024. Así, para una secuencia de palabras $w_(1:T) = (w_1, w_2, dots, w_T)$, con cada $w_i in V$, la probabilidad de la cadena completa se estima como:
+Una de las primeras soluciones la dio Claude Shannon @shannon1948, quien planteó lo que llamó una aproximación de orden $n$: en lugar de calcular la probabilidad de toda la cadena de una vez, la divide en probabilidades condicionales (la probabilidad de cada palabra dadas las anteriores) y supone que cada palabra depende solo de las $n-1$ palabras previas, lo que se  conoce como historial @Mijangos-Ximena-2024. Así, para una secuencia de palabras $w_(1:T) = (w_1, w_2, dots, w_T)$, con cada $w_i in V$, la probabilidad de la cadena completa se aproxima como:
 
-$ P(w_(1:T)) = product_(t=1)^(T) P(w_t | w_(1:t-1)) $
+$ P(w_(1:T)) &approx P(w_1) P(w_2 | w_1) dots.c P(w_T | w_(T-n+1:T-1)) \
+&= product_(t=1)^(T) P(w_t | w_(t-n+1:t-1)) $
 
 Sin embargo, estimar estas probabilidades condicionales se vuelve inviable conforme crece la secuencia, por lo que los SLM recurrieron a los n-gramas. Siguiendo la suposición de Markov @markov1913, los n-gramas asumen que cada palabra depende solo de las $N$ anteriores y no de la secuencia entera. Para lograr esta suposición, es necesario un conteo de los n-gramas que aparecen en un corpus.
 
