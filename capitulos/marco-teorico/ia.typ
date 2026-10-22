@@ -2,7 +2,7 @@
 
 == La inteligencia artificial y el procesamiento de lenguaje natural
 
-Uno de los principales puntos de encuentro entre la inteligencia artificial (IA) y el procesamiento del lenguaje natural (PLN), la disciplina que busca que las computadoras entiendan y generen lenguaje humano, son los modelos de lenguaje. La historia de estos modelos puede leerse como un abandono progresivo de sus orígenes, en la que cada generación de modelos usó menos reglas escritas por lingüistas y más estadística, hasta que el conocimiento lingüístico explícito desapareció del diseño.
+Los modelos de lenguaje son hoy uno de los desarrollos más influyentes del procesamiento del lenguaje natural (PLN), la rama de la inteligencia artificial (IA) que busca que las computadoras entiendan y generen lenguaje humano. La historia de estos modelos puede leerse como un abandono progresivo de sus orígenes, en el que cada generación usó menos reglas escritas por lingüistas y más estadística, hasta que el conocimiento lingüístico explícito desapareció del diseño.
 
 Pero no siempre fue así. Los primeros sistemas de PLN modelaron la lengua mediante reglas gramaticales explícitas, escritas por lingüistas. Entre estos sistemas están el experimento Georgetown-IBM de 1954, una de las primeras demostraciones de traducción automática, que empleó apenas 6 reglas @hutchins-2004-georgetown, y sistemas de conversación como ELIZA @eliza1966. En ambos casos, construir un modelo funcional exigía un intenso trabajo lingüístico, que a la larga fue la razón de su abandono.
 

@@ -26,6 +26,8 @@ Para abordar estas limitaciones, una alternativa al uso de palabras como tokens 
 
 Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece muy pocas veces, el modelo tiene dificultades para aprender su significado, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, ya que estas unidades, al ser más pequeñas, tienden a repetirse con mayor frecuencia que las palabras completas. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
 
+Una tokenización ideal en subpalabras generaría morfemas, aunque estos conceptos no son iguales en su naturaleza (uno estadístico y otro lingüístico). En la @fig-subpalabras-oov, _-ed_ sería un ejemplo de esto, ya que es un morfema que en inglés se usa comúnmente para indicar el pasado en los verbos regulares. Si bien esto ocurre porque _-ed_ es muy frecuente, no necesariamente sucede con todos los morfemas del inglés o de otras lenguas.
+
 #figure(
   subpalabras-oov-diagrama,
   caption: [Ejemplo de la ventaja de segmentar en subpalabras. Las frecuencias (fr) son ilustrativas y muestran que las piezas de una palabra aparecen en más contextos que la palabra completa, de modo que una palabra nunca observada puede representarse con piezas que sí lo fueron.]
