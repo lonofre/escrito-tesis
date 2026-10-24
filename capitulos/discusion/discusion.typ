@@ -18,7 +18,7 @@ En los tres pares ocurre lo mismo: sobre $X_0$ los grupos de la base lingüísti
   image("img/wals-bpe-comparison-s50-&-s5.svg", width: 105%),
   caption: [Los grupos de $X_W$ vistos sobre $X_"BPE"$ (izquierda, ARI de $0.2717$)
     y sobre la referencia $X_0$ (derecha, ARI de $0.1043$). El color de cada lengua
-    es su grupo en la base de datos, no el del espacio donde está dibujada.]
+    es su grupo en $X_W$, no el del espacio donde está dibujada.]
 )<ejemplo-espacios-clusters-wals-bpe>
 
 // cluster 1 de Grambank (n36 y s44): ari de 0.3800 en seed2 77

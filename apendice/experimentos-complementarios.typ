@@ -4,7 +4,7 @@
 
 El experimento de $X_"BPE"$ vs $X_W$ del capítulo de resultados usa las 47 lenguas del estudio, mientras que los experimentos con Grambank se limitaron a 38. Para ver si esa diferencia explica el contraste entre unos y otros, repetimos la comparación con esas mismas 38 lenguas, sin cambiar nada más.
 
-Con 38 lenguas, $X_"BPE"$ vs $X_W$ sigue por encima de su referencia, pero por un margen más estrecho (@wals-bpe-38-tabla). Bajan la mediana y el techo, y los rangos intercuartiles se solapan, cosa que no pasaba con 47 lenguas. La coincidencia se reduce, pero no desaparece, así que la conclusión del capítulo no depende de haber usado las 47 lenguas.
+Con 38 lenguas, $X_"BPE"$ vs $X_W$ sigue por encima de su referencia, pero por un margen más estrecho (@wals-bpe-38-tabla). Bajan la mediana y el techo, y los rangos intercuartiles se traslapan, cosa que no pasaba con 47 lenguas. La coincidencia se reduce, pero no desaparece, así que la conclusión del capítulo no depende de haber usado las 47 lenguas.
 
 #figure(
   table(
