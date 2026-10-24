@@ -42,31 +42,31 @@
 
   // --- Palabra que sí está en el vocabulario ---
   node((1, 0), titulo[Palabra dentro del vocabulario]),
-  node((1, 1), caja("created", detalle: [fr = 10]), width: ancho-palabra, ..gris),
+  node((1, 1), caja("creado", detalle: [fr = 10]), width: ancho-palabra, ..gris),
 
-  node((0.5, 3), caja("creat", detalle: [fr = 40]), width: ancho-pieza, ..verde),
-  node((1.5, 3), caja("ed", detalle: [fr = 100]), width: ancho-pieza, ..morado),
+  node((0.5, 3), caja("cre", detalle: [fr = 40]), width: ancho-pieza, ..verde),
+  node((1.5, 3), caja("ado", detalle: [fr = 100]), width: ancho-pieza, ..morado),
 
   edge((1, 1), (1, 2), (0.5, 2), (0.5, 3), "->"),
   edge((1, 1), (1, 2), (1.5, 2), (1.5, 3), "->"),
 
-  node((0.5, 4), nota[también en _creation_, _creature_, _create_...]),
-  node((1.5, 4), nota[también en _walked_, _played_, _jumped_...]),
+  node((0.5, 4), nota[también en _crear_, _creación_, _creador_...]),
+  node((1.5, 4), nota[también en _caminando_, _jugado_, _saltado_...]),
 
   // --- Separador entre los dos casos ---
   edge((-0.2, 5), (2.2, 5), stroke: 0.5pt + rgb("#bbbbbb"), dash: "dashed", snap-to: (none, none)),
 
   // --- Palabra fuera del vocabulario ---
   node((1, 6), titulo[Palabra fuera del vocabulario (OOV)]),
-  node((1, 7), caja("recreated", detalle: [nunca observada completa]), width: ancho-palabra, ..gris),
+  node((1, 7), caja("recreado", detalle: [nunca observada completa]), width: ancho-palabra, ..gris),
 
   node((0, 9), caja("re"), width: 1.8cm, ..naranja),
-  node((1, 9), caja("creat"), width: ancho-pieza, ..verde),
-  node((2, 9), caja("ed"), width: 1.8cm, ..morado),
+  node((1, 9), caja("cre"), width: ancho-pieza, ..verde),
+  node((2, 9), caja("ado"), width: 1.8cm, ..morado),
 
   edge((1, 7), (1, 8), (0, 8), (0, 9), "->"),
   edge((1, 7), (1, 8), (1, 9), "->"),
   edge((1, 7), (1, 8), (2, 8), (2, 9), "->"),
 
-  node((1, 10), nota(ancho: 7.5cm)[el modelo nunca vio _recreated_, pero sí sus piezas, así que puede representarla sin salirse del vocabulario]),
+  node((1, 10), nota(ancho: 7.5cm)[el modelo nunca vio _recreado_, pero sí sus piezas, así que puede representarla sin salirse del vocabulario.]),
 )

@@ -38,7 +38,7 @@ $
 
 El coeficiente toma valores entre $-1$ y $1$. Un valor cercano a $1$ indica que el elemento está bien agrupado (mucho más cerca de su propio grupo que del vecino), un valor cercano a $0$ indica que se encuentra en la frontera entre dos grupos, y un valor negativo sugiere que estaría mejor asignado al grupo vecino. El Silhouette global se obtiene promediando $s(i)$ sobre todos los elementos, y suele emplearse para evaluar la calidad de un agrupamiento.
 
-A pesar de que el coeficiente de Silhouette presenta buenos resultados en la tarea de validación de grupos @ARBELAITZ2013243, este coeficiente también tiene limitaciones @Rautenstrauch2026. Una de ellas es que posee un sesgo relacionado con la estructura geométrica de los grupos, ya que favorece a los grupos con forma convexa o esférica. Esto contrasta con la forma que pueden presentar los clusters/grupos de diferentes tipos de fenómenos, por ejemplo, los grupos de lenguas caracterizados mediante BPE (véase @og-bpe-space) que tienden a tener una estructura más irregular. 
+A pesar de que el coeficiente de Silhouette presenta buenos resultados en la tarea de validación de grupos @ARBELAITZ2013243, este coeficiente también tiene limitaciones @Rautenstrauch2026. Una de ellas es que posee un sesgo relacionado con la estructura geométrica de los grupos, ya que favorece a los grupos con forma convexa o esférica. Esto contrasta con la forma que pueden presentar los grupos de diferentes tipos de fenómenos, por ejemplo, los grupos de lenguas caracterizados mediante BPE que tienden a tener una estructura más irregular. 
 
 Debido a estas limitaciones, existen otras medidas de validación que no dependen del cálculo de distancias ni de la forma geométrica de los grupos. Una de ellas es el Índice Rand.
 
@@ -52,10 +52,7 @@ El ARI corrige esta limitación al descontar la coincidencia esperada por azar e
 
 Por ejemplo, si un espacio $A$ agrupa cuatro lenguas como $[0, 0, 3, 5]$ y un espacio $B$ las agrupa como $[0, 0, 3, 3]$, el ARI captura ese parecido parcial (@fig-ejemplo-ari). Esto ocurre porque ambos espacios coinciden en las dos primeras lenguas, pero mientras $A$ separa la tercera y la cuarta lengua en grupos distintos, $B$ las mantiene juntas en el mismo grupo.
 
-#figure(
-  $ "ARI"(A, B) = "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = 0.57 $,
-  caption: [Ejemplo del cálculo de ARI entre dos particiones parcialmente coincidentes.]
-) <fig-ejemplo-ari>
+$ "ARI"(A, B) = "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = 0.57 $<fig-ejemplo-ari>
 
 Un valor de ARI igual a 1 indica agrupamientos idénticos, un valor cercano a 0 indica un agrupamiento aleatorio, y un valor negativo indica una concordancia menor a la esperada por azar. El ARI @Hubert1985 se define mediante la siguiente fórmula:
 
@@ -75,11 +72,7 @@ donde:
 
 Adicionalmente, el ARI es una medida simétrica, lo que elimina la necesidad de considerar el orden de los agrupamientos al calcular el índice. Tampoco depende del orden en que se enumeren las lenguas, ya que lo único que cuenta es cómo se reparten en grupos: si reordenamos los elementos dentro de cada partición, el valor se mantiene igual (@fig-ari-orden).
 
-#figure(
-  $ "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = "ARI"([3, 5, 0, 0], [3, 3, 0, 0]) = 0.57 $,
-  caption: [El ARI no cambia al reordenar las lenguas dentro de cada partición: solo depende de cómo se reparten en grupos.]
-) <fig-ari-orden>
-
+$ "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = "ARI"([3, 5, 0, 0], [3, 3, 0, 0]) = 0.57 $<fig-ari-orden>
 
 A pesar de que existen otras técnicas para comparar agrupamientos (clusterings), en este trabajo de tesis proponemos incorporar este índice ajustado para comparar el grado de concordancia entre los agrupamientos obtenidos a partir de distintas caracterizaciones de las lenguas, ya que corrige el acuerdo esperado por azar y permite robustecer las conclusiones de los trabajos previos.
 

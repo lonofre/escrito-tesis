@@ -26,7 +26,7 @@ Para abordar estas limitaciones, una alternativa al uso de palabras como tokens 
 
 Esta propiedad del tamaño de una subpalabra resulta fundamental cuando un modelo se enfrenta a palabras desconocidas. Si una palabra aparece muy pocas veces, el modelo tiene dificultades para aprender su significado, lo que limita su capacidad de generalización. En cambio, cuando el modelo utiliza subpalabras, dispone de más evidencia distribuida a lo largo del corpus, ya que estas unidades, al ser más pequeñas, tienden a repetirse con mayor frecuencia que las palabras completas. Como resultado, los modelos basados en subpalabras logran un mejor manejo de palabras OOV @sennrich-etal-2016-neural @jm3.
 
-Una tokenización ideal en subpalabras generaría morfemas, aunque estos conceptos no son iguales en su naturaleza (uno estadístico y otro lingüístico). En la @fig-subpalabras-oov, _-ed_ sería un ejemplo de esto, ya que es un morfema que en inglés se usa comúnmente para indicar el pasado en los verbos regulares. Si bien esto ocurre porque _-ed_ es muy frecuente, no necesariamente sucede con todos los morfemas del inglés o de otras lenguas.
+Una tokenización ideal en subpalabras generaría morfemas, aunque estos conceptos no son iguales en su naturaleza (uno estadístico y otro lingüístico). En la @fig-subpalabras-oov, _-ado_ sería un ejemplo de esto, ya que es un morfema usando en el español para formar principalmente participios de verbos. Si bien esto ocurre porque _-ado_ es muy frecuente, no necesariamente sucede con todos los morfemas del español o de otras lenguas.
 
 #figure(
   subpalabras-oov-diagrama,
@@ -39,7 +39,7 @@ Debido a estas ventajas, las subpalabras son las unidades predominantes en los m
 
 El algoritmo de BPE fue propuesto por #cite(<Gage1994ANA>, form: "prose") como un algoritmo de compresión de datos, cuya única operación consiste en sustituir, repetidamente, el par de bytes contiguos más frecuente de un archivo por un nuevo byte que no aparece en él. #cite(<sennrich-etal-2016-neural>, form: "prose") adaptaron esta idea para generar subpalabras, reemplazando la compresión de bytes por la fusión de caracteres dentro de las palabras de un corpus; los símbolos resultantes de esas fusiones forman el vocabulario de subpalabras.
 
-El entrenamiento de un modelo BPE parte de un corpus $cal(C)$, con las palabras representadas como secuencias de caracteres separadas por espacios, y de un vocabulario inicial equivalente al alfabeto $Sigma$ de esos caracteres. Sobre esa base, el algoritmo construye un diccionario de reglas $R$, inicialmente vacío, repitiendo el siguiente proceso hasta alcanzar un número máximo $T$ de reglas @sennrich-etal-2016-neural @mijangos2026fundamentos:
+El entrenamiento de un modelo BPE parte de un corpus $cal(C)$, con las palabras representadas como secuencias de caracteres separadas por espacios, y de un vocabulario inicial equivalente al alfabeto $Sigma$ de los caracteres que aparecen en $cal(C)$. Sobre esa base, el algoritmo construye un diccionario de reglas $R$, inicialmente vacío, repitiendo el siguiente proceso hasta alcanzar un número máximo $T$ de reglas @sennrich-etal-2016-neural @mijangos2026fundamentos:
 
 1. Se cuenta la frecuencia $f(a_i, b_j)$ de cada par de símbolos contiguos $(a_i, b_j)$, con $a_i, b_j in Sigma$, que aparece dentro de $cal(C)$.
 2. Se selecciona el par más frecuente:

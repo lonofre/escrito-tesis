@@ -60,7 +60,7 @@ Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecue
     [#raw("and</w>")], [11], [2,197], [199.72],
     table.hline(stroke: 0.5pt),
   ),
-  caption: [Subpalabras en inglés generadas por las fusiones de BPE sobre el corpus PBC, con los valores que toman en productividad, frecuencia acumulada e idiosincrasia, tomado de #cite(<ximena-bpe-2023>, form: "prose").],
+  caption: [Subpalabras en inglés generadas por las fusiones de BPE sobre el Corpus Paralelo de la Biblia, con los valores que toman en productividad, frecuencia acumulada e idiosincrasia, tomado de #cite(<ximena-bpe-2023>, form: "prose"). El símbolo </w> marca el final de una palabra.],
 ) <tabla-ejemplo-medidas-bpe>
 
 Con estas tres medidas, #cite(<ximena-bpe-2023>, form: "prose") caracterizaron a 47 lenguas y construyeron una representación vectorial para cada una (véase @og-bpe-space). Para construirla, calcularon las tres medidas sobre cada subpalabra que surge a lo largo de las sucesivas fusiones de BPE, promediaron esos valores por lengua para obtener un solo vector, y normalizaron el espacio resultante centrando y escalando cada dimensión para que las tres medidas quedaran en una escala comparable.
