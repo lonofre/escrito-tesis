@@ -53,7 +53,7 @@ Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de o
 
 #align(center)[_Hola, ¿cómo estás?_ $->$ _hola como estás_]
 
-#let footnote_subwordnmt = [`subword-nmt` es un #link("https://github.com/rsennrich/subword-nmt")[programa] para tokenizar texto, basado en BPE.]
+#let footnote_subwordnmt = [`subword-nmt` es un programa para tokenizar texto, basado en BPE. Disponible en: #link("https://github.com/rsennrich/subword-nmt")[https://github.com/rsennrich/subword-nmt]]
 
 A continuación, procedimos a la _generación del modelo BPE_ a partir del texto preprocesado con el fin de obtener las subpalabras. Para esto, usamos el programa de `subword-nmt`#footnote(footnote_subwordnmt), configurado a detenerse a las 200 fusiones (_merges_). Este número es sugerido por trabajos previos, pues es una especie de punto de inflexión donde suceden varias cosas: las subpalabras capturadas en estas primeras fusiones o merges son las que logran el mayor nivel de compresión del texto. Esto se puede medir en términos de entropía y redundancia de las distribuciones de frecuencia del texto en cada segmentación. Es decir, son estas primeras subpalabras las que nos dan características más distintivas para caracterizar a las lenguas: algunas lenguas son comprimidas capturando patrones productivos, mientras que en otras se capturan patrones más idiosincráticos en los primeros merges @ximena-bpe-2021@ximena-bpe-2023.
 
@@ -96,7 +96,7 @@ No obstante, ante la falta de un conjunto definido de características, tuvimos 
     let accumlative_missing_values = csv("datos/cumulative_missing_values.csv").map(x => x.at(0)).map(x => int(x))
     
     lq.diagram(
-      ylabel: [Valores faltantes],
+      ylabel: [Mínimo de \ valores faltantes],
       xlabel: [Número de características],
       yaxis: (
         exponent: 0,
@@ -126,7 +126,7 @@ No obstante, ante la falta de un conjunto definido de características, tuvimos 
       width: 90%,
     )
   },
-  caption: [Número de valores faltantes al ir agregando más características.]
+  caption: [Mínimo número de valores faltantes en Grambank para las 38 lenguas consideradas, al ir agregando características en orden descendente de cobertura. El valor se calculó para cada número de características.]
 )<grambank-valores-vacios>
 
 Como se observa en @grambank-valores-vacios, la cantidad de valores vacíos varía notablemente según el número de características consideradas, por lo que, en lugar de fijar un único número, generamos un espacio de Grambank por cada $d_G$ en el rango de 30 a 85. Este rango se definió a partir de dos observaciones: alrededor de las 30 características se tiene una cobertura considerable, con pocos valores vacíos; mientras que a partir de las 80 la tendencia comienza a incrementar notablemente, en parte debido a que algunas lenguas, como el barasano y el oromo, presentan una gran cantidad de valores vacíos en Grambank. En total, esto produjo 56 espacios de Grambank. No obstante, dado que la mayoría de las lenguas cuentan con un promedio aceptable de valores vacíos, no descartamos ninguna, con el fin de abarcar la mayor cantidad posible. El @grambank-features enumera esas características con su código y descripción.
@@ -179,7 +179,6 @@ La @notacion-espacios consolida los espacios construidos en este capítulo.
     [$X_0$], [Base de referencia aleatoria, generada a partir de los rangos de $X_"BPE"$.], [$|L| times 3$],
     [$X_W$], [Características morfológicas de WALS (@wals-features).], [$|L| times 15$],
     [$X_G$], [Características seleccionadas de Grambank ($d_G$ variable).], [$|L_G| times d_G$],
-    [$X_(W+G)$], [Concatenación de las características de WALS y Grambank sobre $L_G$.], [$|L_G| times (15 + d_G)$],
     [$X_"l2v"$], [Características sintácticas de lang2vec (`syntax_knn`).], [$|L| times 103$],
     table.hline(stroke: 0.5pt),
   ),
