@@ -46,15 +46,24 @@ Debido a estas limitaciones, existen otras medidas de validación que no depende
 
 El Índice Rand (_Rand Index_, RI) @rand mide la similitud entre dos particiones/agrupamientos distintos sobre un mismo conjunto de instancias. Para esto, revisa cada par de instancias y determina si ambas particiones los colocan de forma consistente, es decir, si los ubican en el mismo grupo en las dos particiones o en grupos distintos en las dos particiones. La proporción de pares en los que existe esta coincidencia define el valor del índice, que toma valores entre 0 (ningún acuerdo) y 1 (acuerdo completo).
 
+De manera más formal, dado un conjunto de $N$ puntos $x_1, x_2, dots, x_N$ y dos agrupamientos de estos, $A = {A_1, dots, A_(K_1)}$ y $B = {B_1, dots, B_(K_2)}$, el índice se define como la fracción de pares de puntos en los que ambos agrupamientos coinciden @rand:
+
+
+$ "RI"(A, B) = (sum_(i<j)^N gamma_(i j)) / binom(N, 2), $ <eq:rand>
+
+donde $gamma_(i j)$ es un indicador que vale 1 cuando los dos agrupamientos tratan de forma consistente al par $(x_i, x_j)$, y 0 en caso contrario:
+
+$ gamma_(i j) = cases(
+  1 & "si" x_i in A_k inter B_(k') "y" x_j in A_k inter B_(k') "para algunos" k "y" k',
+  1 & "si" x_i in A_k inter B_(k') "y" x_j in.not A_k union B_(k') "para algunos" k "y" k',
+  0 & "en otro caso."
+) $
+
+Es decir, un par suma 1 si ambos agrupamientos lo mantienen juntos o si ambos lo mantienen separados. El denominador $binom(N, 2)$ corresponde al número total de pares posibles, por lo que $"RI"(A, B)$ queda normalizado entre 0 y 1.
+
 Sin embargo, el RI presenta una limitación importante: no corrige el grado de acuerdo esperado por azar. Como consecuencia, dos particiones generadas aleatoriamente pueden obtener valores relativamente altos, lo que dificulta la interpretación de valores intermedios y motivó la formulación de una versión corregida, conocida como el Índice Rand Ajustado (_Adjusted Rand Index_, ARI) @Hubert1985.
 
-El ARI corrige esta limitación al descontar la coincidencia esperada por azar entre dos particiones. De esta forma, mide qué tan parecidos son los grupos generados en un espacio frente a los generados en otro, controlando por el componente aleatorio.
-
-Por ejemplo, si un espacio $A$ agrupa cuatro lenguas como $[0, 0, 3, 5]$ y un espacio $B$ las agrupa como $[0, 0, 3, 3]$, el ARI captura ese parecido parcial (@fig-ejemplo-ari). Esto ocurre porque ambos espacios coinciden en las dos primeras lenguas, pero mientras $A$ separa la tercera y la cuarta lengua en grupos distintos, $B$ las mantiene juntas en el mismo grupo.
-
-$ "ARI"(A, B) = "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = 0.57 $<fig-ejemplo-ari>
-
-Un valor de ARI igual a 1 indica agrupamientos idénticos, un valor cercano a 0 indica un agrupamiento aleatorio, y un valor negativo indica una concordancia menor a la esperada por azar. El ARI @Hubert1985 se define mediante la siguiente fórmula:
+El ARI corrige esta limitación al descontar la coincidencia esperada por azar entre dos particiones. De esta forma, mide qué tan parecidos son los grupos generados en un espacio frente a los generados en otro, controlando por el componente aleatorio. Un valor de ARI igual a 1 indica agrupamientos idénticos, un valor cercano a 0 indica un agrupamiento aleatorio, y un valor negativo indica una concordancia menor a la esperada por azar. El ARI @Hubert1985 se define mediante la siguiente fórmula:
 
 $
 "ARI" =
@@ -69,6 +78,12 @@ donde:
 - $a_i = sum_j n_(i j)$: tamaño del grupo $i$ en la partición $A$.
 - $b_j = sum_i n_(i j)$: tamaño del grupo $j$ en la partición $B$.
 - $n$: número total de elementos.
+
+Por ejemplo, si un espacio $A$ agrupa cuatro lenguas como $[0, 0, 3, 5]$ y un espacio $B$ las agrupa como $[0, 0, 3, 3]$, el ARI captura ese parecido parcial (@fig-ejemplo-ari). Esto ocurre porque ambos espacios coinciden en las dos primeras lenguas, pero mientras $A$ separa la tercera y la cuarta lengua en grupos distintos, $B$ las mantiene juntas en el mismo grupo.
+
+$ "ARI"(A, B) = "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = 0.57 $<fig-ejemplo-ari>
+
+
 
 Adicionalmente, el ARI es una medida simétrica, lo que elimina la necesidad de considerar el orden de los agrupamientos al calcular el índice. Tampoco depende del orden en que se enumeren las lenguas, ya que lo único que cuenta es cómo se reparten en grupos: si reordenamos los elementos dentro de cada partición, el valor se mantiene igual (@fig-ari-orden).
 
