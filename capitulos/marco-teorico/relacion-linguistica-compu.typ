@@ -31,19 +31,19 @@ La segunda la _idiosincrasia_, que, a diferencia de los patrones productivos y r
 
 De estas nociones surgen tres medidas que se calculan directamente sobre el corpus a partir de las unidades subpalabra (tokens) que va encontrando el algoritmo BPE iterativamente @ximena-bpe-2023. 
 
-La *productividad* de una subpalabra $s$ se define como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios) que la contienen en el corpus $W$. Una subpalabra es más productiva cuantas más palabras distintas la contienen. Por ejemplo, en español el sufijo de plural _-s_ es muy productivo, pues se añade a casi cualquier sustantivo o adjetivo nuevo para formar su plural, incluso a préstamos recientes como _selfie_ (_selfies_), _reel_ (_reels_) o _meme_ (_memes_).
+La *productividad* de una subpalabra $s$ se define como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios) que la contienen en el vocabulario $V$ del corpus $W$, es decir, el conjunto de sus palabras distintas. Una subpalabra es más productiva cuantas más palabras distintas la contienen. Por ejemplo, en español el sufijo de plural _-s_ es muy productivo, pues se añade a casi cualquier sustantivo o adjetivo nuevo para formar su plural, incluso a préstamos recientes como _selfie_ (_selfies_), _reel_ (_reels_) o _meme_ (_memes_).
 
-$ "productividad"(s) = |W_s| = |{w in W | s "es subpalabra de" w}| $
+$ "productividad"(s) = |V_s| = |{w in V | s "es subpalabra de" w}| $
 
-La *frecuencia acumulada* de una subpalabra $s$ es la frecuencia de $s$ en el corpus $W$. Esta medida es independiente de si esta subpalabra aparece contenida en una palabra como si aparece de manera independiente.
+La *frecuencia acumulada* de una subpalabra $s$ es el número total de veces que aparecen en el corpus $W$ las palabras que contienen a $s$. Para calcularla, se suma para cada palabra $w in V_s$, el número de veces que $w$ aparece en $W$, al que denotamos $"freq"(w)$. Esta medida es independiente de si la subpalabra aparece contenida en una palabra o de manera independiente.
 
-$ "c.freq"(s) = sum_(w in W_s) "freq"(w) $
+$ "c.freq"(s) = sum_(w in V_s) "freq"(w) $
 
 La *idiosincrasia* hace referencia a esas subpalabras que son muy frecuentes pero pocas palabras las contienen. Por ello, se calcula dividiendo la frecuencia acumulada de una subpalabra $s$ en un corpus $W$, $"c.freq"(s)$, entre el número de palabras en las que aparece, $"productividad"(s)$:
 
 $ "idiosincrasia"(s) = "c.freq"(s)/"productividad"(s) $
 
-Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, el comportamiento típico de las formas idiosincráticas. Un valor bajo indica que se distribuye entre muchas palabras, propio de los patrones productivos (véase @tabla-ejemplo-medidas-bpe).
+Un valor alto indica que la subpalabra se concentra en pocas palabras muy frecuentes, comportamiento típico de las formas idiosincráticas. Por ejemplo, la subpalabra del inglés `had</w>` es muy frecuente porque es el pasado del verbo auxiliar _have_, pero casi ninguna otra palabra la contiene, por lo que prácticamente siempre aparece como palabra completa. En cambio, un valor bajo indica que la subpalabra se distribuye entre muchas palabras distintas, como ocurre en los patrones productivos. Un ejemplo es `ed</w>`, que se añade a muchos verbos en inglés para formar el pasado (véase @tabla-ejemplo-medidas-bpe).
 
 #figure(
   table(
