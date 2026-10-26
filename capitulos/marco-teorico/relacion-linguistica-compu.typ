@@ -29,7 +29,7 @@ Para responder a esta pregunta, #cite(<ximena-bpe-2023>, form: "prose") partiero
 
 La segunda la _idiosincrasia_, que, a diferencia de los patrones productivos y regulares, se refiere a formas irregulares que no están compuestas por morfemas que puedan combinarse fácilmente con otros o aparecer en otros lexemas. Más bien, estas formas se almacenan como palabras completas, en lugar de generarse mediante una regla morfológica @Bybee2007. Este es el caso, por ejemplo, de formas como _soy_ o _fui_ en español, que son formas supletivas de alta frecuencia. Estas formas se aprenden de memoria y no siguen un patrón morfológico predecible. 
 
-De estas nociones surgen tres medidas que se calculan directamente sobre el corpus a partir de las unidades subpalabra (tokens) que va encontrando el algoritmo BPE iterativamente @ximena-bpe-2023. 
+De estas nociones surgen tres medidas que se calculan directamente sobre un corpus representativo de la lengua objetivo, es decir, uno que capture bien sus subpalabras, a partir de las unidades subpalabra (tokens) que el algoritmo BPE va encontrando iterativamente @ximena-bpe-2023. 
 
 La *productividad* de una subpalabra $s$ se define como el número de palabras ortográficas (las palabras tal como aparecen separadas por espacios) que la contienen en el vocabulario $V$ del corpus $W$, es decir, el conjunto de sus palabras distintas. Una subpalabra es más productiva cuantas más palabras distintas la contienen. Por ejemplo, en español el sufijo de plural _-s_ es muy productivo, pues se añade a casi cualquier sustantivo o adjetivo nuevo para formar su plural, incluso a préstamos recientes como _selfie_ (_selfies_), _reel_ (_reels_) o _meme_ (_memes_).
 
