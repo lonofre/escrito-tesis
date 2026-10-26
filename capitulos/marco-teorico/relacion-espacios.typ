@@ -65,6 +65,8 @@ Sin embargo, el RI presenta una limitación importante: no corrige el grado de a
 
 El ARI corrige esta limitación al descontar la coincidencia esperada por azar entre dos particiones. De esta forma, mide qué tan parecidos son los grupos generados en un espacio frente a los generados en otro, controlando por el componente aleatorio. Un valor de ARI igual a 1 indica agrupamientos idénticos, un valor cercano a 0 indica un agrupamiento aleatorio, y un valor negativo indica una concordancia menor a la esperada por azar. El ARI @Hubert1985 se define mediante la siguiente fórmula:
 
+$ "ARI" = frac("Índice" - "Índice esperado", "Índice máximo" - "Índice esperado") $<ari-ecuacion-simple>
+
 $
 "ARI" =
 frac(
@@ -79,11 +81,11 @@ donde:
 - $b_j = sum_i n_(i j)$: tamaño del grupo $j$ en la partición $B$.
 - $n$: número total de elementos.
 
-Por ejemplo, si un espacio $A$ agrupa cuatro lenguas como $[0, 0, 3, 5]$ y un espacio $B$ las agrupa como $[0, 0, 3, 3]$, el ARI captura ese parecido parcial (@fig-ejemplo-ari). Esto ocurre porque ambos espacios coinciden en las dos primeras lenguas, pero mientras $A$ separa la tercera y la cuarta lengua en grupos distintos, $B$ las mantiene juntas en el mismo grupo.
+El descuento del azar se da por una resta de línea base (véase @ari-ecuacion-simple). El índice esperado estima cuántos pares quedarían agrupados juntos en ambas particiones si estas fueran independientes, manteniendo fijos los tamaños de sus grupos. Al restarlo del índice observado, el numerador conserva solo el acuerdo que excede lo esperable por casualidad, y el denominador lo reescala por la distancia entre el azar y el acuerdo máximo de referencia. Así, bajo este modelo nulo, el valor esperado del ARI para un agrupamiento aleatorio es 0 (con posibles valores  negativos), en lugar del puntaje alto que el RI puede dar por azar, sin importar el número o el tamaño de los grupos.
 
-$ "ARI"(A, B) = "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = 0.57 $<fig-ejemplo-ari>
+Para ilustrar el ARI, consideremos dos agrupamientos de cuatro elementos, $A = [0, 0, 3, 5]$ y $B = [0, 0, 3, 3]$, donde cada posición indica el grupo asignado a un elemento. Ambos coinciden en agrupar juntos los dos primeros elementos, pero difieren en los otros dos: $A$ coloca el tercero y el cuarto en grupos distintos, mientras que $B$ los mantiene en el mismo grupo. El ARI refleja este acuerdo parcial con un valor intermedio (@eq-ejemplo-ari).
 
-
+$ "ARI"(A, B) = "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = 0.57 $ <eq-ejemplo-ari>
 
 Adicionalmente, el ARI es una medida simétrica, lo que elimina la necesidad de considerar el orden de los agrupamientos al calcular el índice. Tampoco depende del orden en que se enumeren las lenguas, ya que lo único que cuenta es cómo se reparten en grupos: si reordenamos los elementos dentro de cada partición, el valor se mantiene igual (@fig-ari-orden).
 
