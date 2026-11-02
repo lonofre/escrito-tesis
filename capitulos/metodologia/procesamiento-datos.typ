@@ -47,7 +47,9 @@ Para el procesamiento, utilizamos la implementación del proceso que estuvo disp
   caption: [Etapas del procesamiento para obtener el espacio BPE.],
 ) <fig-etapas>
 
-La primera etapa consistió en la _tokenización a nivel de palabra_, en la cual dividimos el corpus en palabras separadas por espacios. Esta separación crea límites entre palabras y por lo tanto ayuda a BPE en la tokenización. Aunque no es de mucha utilidad en lenguas donde las palabras siempre están separadas por espacios, sí es útil en lenguas como el birmano donde no existe esta separación. 
+#let footnote_polyglot = [Para esta etapa nos apoyamos en `polyglot`, disponible en #link("https://github.com/aboSamoor/polyglot")[https://github.com/aboSamoor/polyglot].]
+
+La primera etapa consistió en la _tokenización a nivel de palabra_#footnote(footnote_polyglot), en la cual dividimos el corpus en palabras separadas por espacios. Esta separación crea límites entre palabras y por lo tanto ayuda a BPE en la tokenización. Aunque no es de mucha utilidad en lenguas donde las palabras siempre están separadas por espacios, sí es útil en lenguas como el birmano donde no existe esta separación. 
 
 Posteriormente, realizamos el _preprocesamiento del corpus_ con el objetivo de obtener un mejor modelo de BPE. Este preprocesamiento implicó dos operaciones sobre el texto. En primer lugar, transformamos todos los caracteres a minúsculas para no depender de las variaciones de minúsculas y mayúsculas en el texto (como _Esto_ y _esto_). En segundo lugar, eliminamos del texto los signos de puntuación `_.,"()?¿?¡!»«"،/\]_` para quitarlos de la tokenización. Un ejemplo del preprocesamiento es el siguiente:
 
@@ -65,7 +67,9 @@ El resultado final fue el espacio BPE $X_"BPE" in RR^(|L| times d_"BPE")$, con $
 
 $ Z_(i j) = (X_(i j) - mu_j) / sigma_j $
 
-donde $mu_j$ y $sigma_j$ son la media y la desviación estándar de la columna $j$. Esta estandarización resulta indispensable porque las tres características de BPE viven en magnitudes distintas y los métodos posteriores son sensibles a la escala.
+donde $mu_j$ y $sigma_j$ son la media y la desviación estándar de la columna $j$. 
+
+Con esta normalización, cada valor nos indica a cuántas desviaciones estándar está una lengua del promedio de todas las lenguas en esa característica. El orden de las lenguas en cada columna se mantiene, pero las distancias entre ellas cambian, pues cada columna se reescala por un factor distinto. Este reescalamiento es importante porque más adelante comparamos a las lenguas según la distancia entre sus vectores, en la cual una característica con un rango de variación amplio dominaría sobre las demás. Al dividir cada columna entre $sigma_j$, todas quedan con la misma dispersión (varianza unitaria), y cada característica tiene un peso comparable al decidir qué lenguas se parecen.
 
 === WALS
 
