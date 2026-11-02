@@ -3,9 +3,9 @@
 */
 == Comparación entre los espacios
 
-Una vez construidos los espacios, el siguiente paso consistió en medir qué tan relacionados están entre sí. Nos interesaba saber si las lenguas se organizan de manera similar en el espacio BPE y en los espacios de características lingüísticas, es decir, si las lenguas vecinas a una lengua determinada en un espacio coinciden con sus vecinas en el otro. Esta coincidencia sería evidencia de que los vectores inducidos por BPE codifican información lingüística.
+Una vez construidos los espacios, el siguiente paso consistió en medir qué tan relacionados están entre sí. Nos interesaba saber si las lenguas se organizan de manera similar en el espacio BPE y en los espacios de características lingüísticas, es decir, si las lenguas que un algoritmo de agrupamiento reúne en un grupo de un espacio también quedan reunidas en un mismo grupo del otro. Esta coincidencia sería evidencia de que los vectores inducidos por BPE codifican información lingüística.
 
-Para ello, creamos agrupamientos de las lenguas en cada espacio y medimos qué tan similares son esos agrupamientos entre sí. Esta similitud nos da un indicio de que las lenguas que se encuentran cercanas en un espacio también se encuentran cercanas en el otro. Además, trabajar con agrupamientos tiene la ventaja de que no es necesario preocuparnos por la dimensionalidad de cada espacio, la cual puede variar drásticamente entre BPE y las bases lingüísticas como WALS y Grambank, cuya dimensión es mayor.
+Para ello, creamos agrupamientos de las lenguas en cada espacio y medimos qué tan similares son esos agrupamientos entre sí. Además, trabajar con agrupamientos tiene la ventaja de que no es necesario preocuparnos por la dimensionalidad de cada espacio, la cual puede variar drásticamente entre BPE y las bases lingüísticas como WALS y Grambank, cuya dimensión es mayor.
 
 #let kmeans_footnote = footnote[Usamos `KMeans` de #link("https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html")[scikit-learn].]
 /*
