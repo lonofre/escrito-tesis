@@ -1,25 +1,19 @@
 // Diagrama de ejemplo de entrenamiento de BPE: muestra, paso a paso, cómo
 // se van fusionando los caracteres de un corpus de juguete.
-// Los merges los saqué al poner la frase aquí: https://bpe-playground.vercel.app/
+// Los merges se obtienen contando pares de símbolos contiguos dentro de cada
+// palabra; en cada paso se fusiona el par más frecuente.
 
-#let space = "␣" // símbolo que representa un espacio dentro del corpus
-
-// Corpus de juguete: cada palabra se separa en caracteres; a todas menos la
-// primera se les antepone el símbolo de espacio, como token propio.
+// Corpus de juguete: cada palabra se separa en caracteres.
 #let word-list = ("tres", "tristes", "tigres", "trituraban", "trigo", "en", "un", "trigal")
 
-#let pretokens-iniciales = word-list.enumerate().map(((i, w)) => {
-  let chars = w.clusters()
-  if i == 0 { chars } else { (space,) + chars }
-})
+#let pretokens-iniciales = word-list.map(w => w.clusters())
 
 // Reglas de fusión aprendidas, en orden.
 #let merges = (
   ("t", "r"),
-  (space, "tr"),
-  (space + "tr", "i"),
+  ("tr", "i"),
   ("e", "s"),
-  (space + "tr" + "i", "g"),
+  ("tri", "g"),
 )
 
 // Aplica una regla de fusión (a, b) -> ab sobre una palabra, de izquierda a
@@ -60,7 +54,6 @@
   rgb("#a4c2e8"), // fusión 2
   rgb("#9fd8a8"), // fusión 3
   rgb("#f4a3b0"), // fusión 4
-  rgb("#c8b6e6"), // fusión 5
 )
 
 #let gris-claro = rgb("#f7f7f7") // relleno de las cajas que no son la fusión actual

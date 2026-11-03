@@ -51,11 +51,11 @@ $ (a^*, b^*) = op("argmáx", limits: #true)_((a_i, b_j)) f(a_i, b_j) $
 
 Cada repetición de estos pasos se denomina fusión (_merge_). El proceso termina al alcanzar las $T$ reglas, lo que da como resultado un diccionario $R$, que es la secuencia ordenada de las reglas de fusión aprendidas. El vocabulario final del modelo está formado por los caracteres de $Sigma$ más los símbolos creados por cada regla de $R$.
 
-Para ilustrar este proceso, tomamos la oración "tres tristes tigres trituraban trigo en un trigal", y le aplicamos las primeras cinco fusiones del algoritmo. El @fig-bpe-ejemplo muestra cómo queda la oración después de cada una: en la primera, todas las _t_ y _r_ se combinan en _tr_; en la segunda, ese símbolo se junta con el espacio que lo precede; y así sucesivamente. En _tigres_, en cambio, la _t_ y la _r_ nunca quedan juntas, así que esa palabra se queda fuera de las fusiones que sí transforman a sus vecinas.
+Para ilustrar este proceso, tomamos la oración "tres tristes tigres trituraban trigo en un trigal", y le aplicamos las primeras cuatro fusiones del algoritmo. El @fig-bpe-ejemplo muestra cómo queda la oración después de cada una: en la primera, todas las _t_ y _r_ se combinan en _tr_; en la segunda, ese símbolo se junta con la _i_ que le sigue; y así sucesivamente. En _tigres_, en cambio, la _t_ y la _r_ nunca quedan juntas, así que esa palabra se queda fuera de las fusiones que involucran a _tr_, aunque sí cambia con la de _e_ y _s_.
 
 #figure(
   bpe-ejemplo-diagrama(width: 85%),
-  caption: [Primeras cinco fusiones de BPE sobre un ejemplo breve.]
+  caption: [Primeras cuatro fusiones de BPE sobre un ejemplo breve.]
 ) <fig-bpe-ejemplo>
 
 Con el diccionario $R$ ya construido, tokenizar una palabra nueva $w$ mediante el algoritmo de inferencia de BPE consiste en reproducir lo aprendido durante el entrenamiento @mijangos2026fundamentos. Partiendo de $w$ ya segmentada a nivel de caracteres, se repiten los siguientes pasos:
