@@ -7,7 +7,7 @@ Para extender ese contraste conviene entender cómo #cite(<ximena-bpe-2023>, for
 
 === Agrupamiento
 
-El agrupamiento (_clustering_) es una técnica de aprendizaje de máquina no supervisado. Consiste en dividir un conjunto de instancias en grupos (clusters), de modo que las instancias dentro de cada grupo sean más parecidas entre sí que con los de otros grupos. Para determinar esta similitud se toman en cuenta los atributos de los datos, comúnmente a través de medidas de distancia @han2012data.
+El agrupamiento (_clustering_) es una técnica de aprendizaje de máquina no supervisado. Consiste en dividir un conjunto de instancias en grupos (_clusters_), de modo que las instancias dentro de cada grupo sean más parecidas entre sí que con los de otros grupos. Para determinar esta similitud se toman en cuenta los atributos de los datos, comúnmente a través de medidas de distancia @han2012data.
 
 Los algoritmos de agrupamiento pueden clasificarse en distintos enfoques @han2012data. Los métodos jerárquicos construyen una descomposición en varios niveles, fusionando o dividiendo grupos sucesivamente, sin poder corregir después las decisiones tomadas. Los métodos basados en densidad definen los grupos como regiones densas separadas por zonas de baja densidad, lo que permite detectar formas arbitrarias y filtrar valores atípicos (_outliers_). Por último, los métodos de particionamiento dividen los datos en $k$ grupos excluyentes según la distancia, siendo eficaces en conjuntos pequeños o medianos y tendiendo a formar grupos esféricos. Uno de sus algoritmos más representativos, y el que utilizamos en este trabajo, es k-medias.
 
@@ -15,14 +15,14 @@ K-medias (_K-means_) @k-means-lloyd agrupa los datos en $k$ grupos asignando cad
 
 #cite(<ximena-bpe-2023>, form: "prose") usaron k-medias para generar agrupamientos en los experimentos que hicieron con la caracterización de BPE y la base de datos lingüística WALS. Primero agruparon las lenguas en el espacio de WALS, construido a partir de las características de tipología morfológica que seleccionaron, bajo la premisa de que lenguas tipológicamente similares deberían quedar cerca unas de otras en ese espacio.
 
-Después, agruparon las lenguas en el espacio inducido por BPE utilizando la asignación de grupos obtenida en el espacio WALS, y calcularon el coeficiente de Silhouette, una medida intrínseca que evalúa la calidad del clustering al medir qué tan separados están los grupos entre sí y qué tan compactos son internamente. La lógica era que, si las lenguas que forman un mismo grupo en el espacio WALS no aparecieran también cercanas en el espacio inducido por BPE, entonces el coeficiente de Silhouette sería bajo, ya que los grupos no corresponderían a clusters bien definidos, sino a conjuntos de puntos dispersos en el espacio y sin una estructura coherente.
+Después, agruparon las lenguas en el espacio inducido por BPE utilizando la asignación de grupos obtenida en el espacio WALS, y calcularon el coeficiente de silhouette, una medida intrínseca que evalúa la calidad del agrupamiento al medir qué tan separados están los grupos entre sí y qué tan compactos son internamente. La lógica era que, si las lenguas que forman un mismo grupo en el espacio WALS no aparecieran también cercanas en el espacio inducido por BPE, entonces el coeficiente de silhouette sería bajo, ya que los grupos no corresponderían a regiones bien definidas, sino a conjuntos de puntos dispersos en el espacio y sin una estructura coherente.
 
 
 //Después, compararon esos agrupamientos pero usando los vectores de las lenguas de BPE, para ver qué tanto coincidían esos agrupamientos en ese espacio. La forma de encontrar esta coincidencia fue usar el Silhouette, un método de validación para el análisis de grupos.
 
-=== Coeficiente de Silhouette
+=== Coeficiente de silhouette
 
-El coeficiente de Silhouette @ROUSSEEUW198753 mide qué tan bien queda asignado cada elemento a su grupo, comparando su cercanía con los elementos de su propio grupo frente a su cercanía con los del grupo vecino más próximo. Para un elemento $i$, sea $a(i)$ la distancia promedio entre $i$ y los demás elementos de su mismo grupo, y sea $b(i)$ la menor distancia promedio entre $i$ y los elementos de cualquier otro grupo:
+El coeficiente de silhouette @ROUSSEEUW198753 mide qué tan bien queda asignado cada elemento a su grupo, comparando su cercanía con los elementos de su propio grupo frente a su cercanía con los del grupo vecino más próximo. Para un elemento $i$, sea $a(i)$ la distancia promedio entre $i$ y los demás elementos de su mismo grupo, y sea $b(i)$ la menor distancia promedio entre $i$ y los elementos de cualquier otro grupo:
 
 $
 a(i) = frac(1, abs(C_i) - 1) sum_(j in C_i, j eq.not i) d(i, j)
@@ -36,9 +36,9 @@ $
 s(i) = frac(b(i) - a(i), max(a(i), b(i)))
 $
 
-El coeficiente toma valores entre $-1$ y $1$. Un valor cercano a $1$ indica que el elemento está bien agrupado (mucho más cerca de su propio grupo que del vecino), un valor cercano a $0$ indica que se encuentra en la frontera entre dos grupos, y un valor negativo sugiere que estaría mejor asignado al grupo vecino. El Silhouette global se obtiene promediando $s(i)$ sobre todos los elementos, y suele emplearse para evaluar la calidad de un agrupamiento.
+El coeficiente toma valores entre $-1$ y $1$. Un valor cercano a $1$ indica que el elemento está bien agrupado (mucho más cerca de su propio grupo que del vecino), un valor cercano a $0$ indica que se encuentra en la frontera entre dos grupos, y un valor negativo sugiere que estaría mejor asignado al grupo vecino. El silhouette global se obtiene promediando $s(i)$ sobre todos los elementos, y suele emplearse para evaluar la calidad de un agrupamiento.
 
-A pesar de que el coeficiente de Silhouette presenta buenos resultados en la tarea de validación de grupos @ARBELAITZ2013243, este coeficiente también tiene limitaciones @Rautenstrauch2026. Una de ellas es que posee un sesgo relacionado con la estructura geométrica de los grupos, ya que favorece a los grupos con forma convexa o esférica. Esto contrasta con la forma que pueden presentar los grupos de diferentes tipos de fenómenos, por ejemplo, los grupos de lenguas caracterizados mediante BPE que tienden a tener una estructura más irregular. 
+A pesar de que el coeficiente de silhouette presenta buenos resultados en la tarea de validación de grupos @ARBELAITZ2013243, este coeficiente también tiene limitaciones @Rautenstrauch2026. Una de ellas es que posee un sesgo relacionado con la estructura geométrica de los grupos, ya que favorece a los grupos con forma convexa o esférica. Esto contrasta con la forma que pueden presentar los grupos de diferentes tipos de fenómenos, por ejemplo, los grupos de lenguas caracterizados mediante BPE que tienden a tener una estructura más irregular. 
 
 Debido a estas limitaciones, existen otras medidas de validación que no dependen del cálculo de distancias ni de la forma geométrica de los grupos. Una de ellas es el Índice Rand.
 
@@ -91,5 +91,5 @@ Adicionalmente, el ARI es una medida simétrica, lo que elimina la necesidad de 
 
 $ "ARI"([0, 0, 3, 5], [0, 0, 3, 3]) = "ARI"([3, 5, 0, 0], [3, 3, 0, 0]) = 0.57 $<fig-ari-orden>
 
-A pesar de que existen otras técnicas para comparar agrupamientos (clusterings), en este trabajo de tesis proponemos incorporar este índice ajustado para comparar el grado de concordancia entre los agrupamientos obtenidos a partir de distintas caracterizaciones de las lenguas, ya que corrige el acuerdo esperado por azar y permite robustecer las conclusiones de los trabajos previos.
+A pesar de que existen otras técnicas para comparar agrupamientos, en este trabajo de tesis proponemos incorporar este índice ajustado para comparar el grado de concordancia entre los agrupamientos obtenidos a partir de distintas caracterizaciones de las lenguas, ya que corrige el acuerdo esperado por azar y permite robustecer las conclusiones de los trabajos previos.
 

@@ -40,7 +40,7 @@ Para responder estas preguntas, se extiende el experimento de #cite(<ximena-bpe-
 
 Posteriormente, con el fin de distinguir si la coincidencia depende específicamente de WALS o se fortalece frente a otra base tipológica, se incorpora Grambank, con una cobertura de características gramaticales distinta;  para situar esa coincidencia se barre sobre el número de características disponibles en Grambank y sobre miles de pares de semillas aleatorias. En todos los casos, para distinguir la señal de BPE del ruido, se construye una línea base de referencia mediante agrupamientos aleatorios y se contrasta contra ella.
 
-Asimismo, todo esta metodología se ve complementada con una mirada cualitativa que evalúa qué tipo de características lingüísticas parecen estar jugando un rol en la similitud/disimilitud entre la información que codifica BPE y la codificada por las bases de datos hechas por especialistas.
+Asimismo, toda esta metodología se ve complementada con una mirada cualitativa que evalúa qué tipo de características lingüísticas parecen estar jugando un rol en la similitud/disimilitud entre la información que codifica BPE y la codificada por las bases de datos hechas por especialistas.
 
 Nuestra *hipótesis* es que, si el agrupamiento inducido por el espacio de BPE coincide con el inducido por cada base de datos lingüística por encima de lo que cabría esperar por azar, y dicha coincidencia se mantiene al variar tanto la base de datos como la inicialización del agrupamiento, entonces existe evidencia de que la información codificada por un algoritmo de tokenización como BPE captura patrones que coinciden, al menos parcialmente, con las estructuras morfológicas descritas por los lingüistas.
 
