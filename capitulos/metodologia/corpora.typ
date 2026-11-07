@@ -13,7 +13,7 @@
    caption: [Distribución en el mundo de las 47 lenguas usadas en los experimentos. Cada color representa una familia de lenguas distinta.]
 )<mapa-lenguas>
 
-Para la experimentación partimos de un conjunto de 47 lenguas (véase @tabla-de-lenguas) que destaca por su diversidad tipológica, genealógica y geográfica @ximena-bpe-2023. Esto permitió que los resultados no estuvieran sesgados por pocas regiones o pocas familias lingüísticas (véase @mapa-lenguas). Para identificar a las lenguas, usamos el conjunto de códigos ISO 639-3 @iso6393.
+Para la experimentación partimos de un conjunto de 47 lenguas (véase @tabla-de-lenguas) que destaca por su diversidad tipológica, genealógica y geográfica @ximena-bpe-2023. Con ello buscamos que los resultados no dependieran de pocas regiones o pocas familias lingüísticas (véase @mapa-lenguas). Para identificar a las lenguas, usamos el conjunto de códigos ISO 639-3 @iso6393.
 
 Sin embargo, a pesar de que las 47 lenguas están disponibles en el Corpus Paralelo de la Biblia (PBC), no necesariamente están presentes en todas las bases de datos que planeamos explorar en esta investigación. Por ejemplo, en la base de datos tipológica Grambank solo están disponibles 40 de estas lenguas. Debido a esto y a otras decisiones metodológicas que se explicarán más adelante, trabajamos con un subconjunto de estas lenguas, procurando conservar la diversidad lingüística de la muestra.
 
