@@ -18,7 +18,7 @@ Esta tesis parte precisamente de estas interrogantes: ¿qué ocurre cuando la co
 
 General:
 
-- Investigar hasta qué punto los modelos actuales de procesamiento del lenguaje natural codifican conocimiento lingüístico, aunque sus procesos basados en redes neuronales no lo representen de forma explícita. Particularmente, este trabajo se centrará en la segmentación de cadenas de texto a nivel subpalabra (_subword tokenization_), un componente de preprocesamiento esencial para cualquier modelo de inteligencia artificial actual.
+- Evaluar si las subpalabras que producen los tokenizadores reflejan conocimiento lingüístico, tomando como caso de estudio a BPE, uno de los algoritmos de tokenización más usados en los modelos de lenguaje actuales. Para ello, comparamos la caracterización de las lenguas obtenida de las subpalabras de BPE con la que construimos a partir de bases de datos tipológicas.
 
 Específicos:
 
@@ -26,7 +26,7 @@ Específicos:
 
 - Ampliar la metodología de estudios previos, incorporando una comparación más exhaustiva que utilice bases de datos de tipología lingüística recientes, por ejemplo, Grambank.
 
-- Mejorar las técnicas de análisis de datos, particularmente en los procesos de vectorización y agrupamiento (_clustering_), con el fin de optimizar la comparación entre el conocimiento inducido por los métodos de segmentación a nivel de subpalabra y las descripciones de la lingüística tradicional.
+- Evaluar la robustez de la comparación entre los agrupamientos de lenguas inducidos por BPE y los inducidos por bases de datos tipológicas, empleando una medida de similitud que descuente las coincidencias por azar, múltiples inicializaciones del agrupamiento y una línea base aleatoria con la cual contrastar los resultados.
 
 == Preguntas de investigación
 
