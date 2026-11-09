@@ -46,7 +46,7 @@
     Dra. María Ximena Gutiérrez Vasques
 
     #v(1.5cm)
-    #text(size: 0.8em)[Ciudad Universitaria, Ciudad de México, 2026]
+    #text(size: 0.8em)[Ciudad Universitaria, CD. MX., 2026]
 ]
 
 #let cover = cetz.canvas({
