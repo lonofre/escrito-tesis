@@ -64,4 +64,12 @@ Si bien existen fenómenos morfológicos de diversa naturaleza, los resultados s
 
 A medida que avanzamos en la clasificación, las características se desplazan progresivamente de los procesos productivos de formación de palabras hacia los procesos morfosintácticos y de organización sintáctica, que parecen ser distantes de lo que codifica BPE.
 
+== La relevancia para los modelos de lenguaje
+
+Muchos de los modelos de lenguaje actuales usan BPE para dividir cada oración en tokens, como los modelos GPT @gpt2, y ese número de tokens tiene un costo, ya que en un transformer el cálculo de la atención crece con el cuadrado del número de tokens @attention-is-all.
+
+Ese costo no es igual para todas las lenguas, pues una misma oración puede requerir muchos más tokens en unas que en otras, lo que encarece su procesamiento y reduce cuánto texto cabe en la ventana de contexto del modelo @petrov2023 @ahia2023. Nuestros resultados sugieren que las subpalabras de BPE recogen sobre todo patrones morfológicos productivos, y una subpalabra productiva aparece en muchas palabras distintas. En las lenguas de morfología rica, como el náhuatl o el quechua, un vocabulario formado por estas subpalabras podría cubrir más texto con menos tokens. Saber dónde cae cada lengua en nuestro espacio es entonces un primer paso para diseñar tokenizadores que no las penalicen y que gasten menos cómputo por oración.
+
+Además del costo, nuestros resultados también tocan el alcance de los modelos. La información tipológica ya se usa en el PLN multilingüe. Por ejemplo, lang2vec @littell2017uriel ofrece a los sistemas una representación vectorial de cada lengua. Pero esa información depende del trabajo de expertos y no existe para todas las lenguas. La caracterización por BPE, en cambio, solo necesita texto. Si coincide en parte con la tipológica, como sugieren nuestros resultados, podría aproximar esa información en las lenguas donde falta, que suelen ser también las que tienen menos recursos y quedan fuera de las aplicaciones de PLN.
+
 #pagebreak()
