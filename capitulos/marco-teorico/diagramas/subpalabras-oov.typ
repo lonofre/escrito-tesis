@@ -51,7 +51,7 @@
   edge((1, 1), (1, 2), (1.5, 2), (1.5, 3), "->"),
 
   node((0.5, 4), nota[también en _crear_, _creación_, _creador_...]),
-  node((1.5, 4), nota[también en _caminando_, _jugado_, _saltado_...]),
+  node((1.5, 4), nota[también en _caminado_, _jugado_, _saltado_...]),
 
   // --- Separador entre los dos casos ---
   edge((-0.2, 5), (2.2, 5), stroke: 0.5pt + rgb("#bbbbbb"), dash: "dashed", snap-to: (none, none)),
