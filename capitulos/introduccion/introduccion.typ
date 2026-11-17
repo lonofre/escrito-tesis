@@ -24,7 +24,7 @@ Específicos:
 
 - Analizar en profundidad los algoritmos de segmentación a nivel de subpalabra, basados en métodos no supervisados, para evaluar si los patrones que estos explotan son relevantes desde un punto de vista lingüístico. La tesis hará énfasis en el estudio del algoritmo de segmentación Codificación de Pares de Bytes (Byte Pair Encoding, BPE).
 
-- Ampliar la metodología de estudios previos, incorporando una comparación más exhaustiva que utilice bases de datos de tipología lingüística recientes, por ejemplo, Grambank.
+- Ampliar la metodología de estudios previos, incorporando una comparación más exhaustiva que utilice bases de datos de tipología lingüística recientes, por ejemplo, Grambank. Para ello, construimos a partir de estas bases una representación vectorial de las mismas lenguas que caracterizamos con BPE.
 
 - Evaluar la robustez de la comparación entre los agrupamientos de lenguas inducidos por BPE y los inducidos por bases de datos tipológicas, empleando una medida de similitud que descuente las coincidencias por azar, múltiples inicializaciones del agrupamiento y una línea base aleatoria con la cual contrastar los resultados.
 
