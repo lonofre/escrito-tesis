@@ -30,8 +30,6 @@ No obstante, las subpalabras no son la única forma de resolver este problema. L
 
 Las subpalabras ofrecen así un equilibrio entre ambos extremos, ya que manejan las palabras raras y OOV sin elevar demasiado el costo computacional. Frente a las palabras, requieren un vocabulario menor, pues no necesitan una entrada para cada forma ortográfica, y reducen el problema de las palabras raras y OOV. Frente a los caracteres, agrupan en una sola unidad las secuencias que aparecen con frecuencia, de modo que el texto se representa con muchos menos tokens y el costo computacional se mantiene moderado @sennrich-etal-2016-neural.
 
-Una tokenización ideal en subpalabras generaría morfemas, aunque estos conceptos no son iguales en su naturaleza (uno estadístico y otro lingüístico). En la @fig-subpalabras-oov, _-ado_ sería un ejemplo de esto, ya que es un morfema usado en el español para formar principalmente participios de verbos. Si bien esto ocurre porque _-ado_ es muy frecuente, no necesariamente sucede con todos los morfemas del español o de otras lenguas.
-
 #figure(
   subpalabras-oov-diagrama,
   caption: [Ejemplo de la ventaja de segmentar en subpalabras. Las frecuencias (fr) son ilustrativas y muestran que las piezas de una palabra aparecen en más contextos que la palabra completa, de modo que una palabra nunca observada puede representarse con piezas que sí lo fueron.]
